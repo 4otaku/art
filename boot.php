@@ -5,6 +5,11 @@ include_once 'framework/init.php';
 Autoload::init(array(LIBS, FRAMEWORK), CACHE);
 mb_internal_encoding('UTF-8');
 
+Config::parse(CONFIG . SL . 'define.ini', true);
+Config::parse(CONFIG . SL . 'settings.ini');
+
+var_dump(Config::get()); die;
+
 if(def::site('domain') != $_SERVER['SERVER_NAME'] && !empty($_SERVER['REMOTE_ADDR'])) {
 	engine::redirect('http://'.$def['site']['domain'].$_SERVER['REQUEST_URI'], true);
 }
