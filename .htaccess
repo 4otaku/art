@@ -3,11 +3,18 @@ AddDefaultCharset UTF-8
 	RewriteEngine On
 	RewriteBase /
 
+	RewriteRule .*\.ini$ /boot.php [NE,L]
+
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteRule .* /boot.php [NE,L]
 </IfModule>
 
 # Nginx config version
+#
+#	location ~ \.ini$ {
+#		rewrite ^.*$ /boot.php last;
+#	}
+#
 #	location / {
 #		if (!-f $request_filename) {
 #			rewrite ^.*$ /boot.php last;
