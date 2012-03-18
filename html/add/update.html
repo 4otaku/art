@@ -1,0 +1,75 @@
+<script type="text/javascript" src="/jss/m/?b=jss&f=add/common.js,add/text.js,add/post.js"></script>
+
+<form id="addform" method="post" enctype="multipart/form-data">
+	<table width="100%">
+		<tbody class="link_main">
+			<tr>
+				<td class="input field_name">
+					Ваше имя
+				</td>
+				<td class="inputdata">
+					<input size="65%" name="author" value="" type="text">
+				</td>
+			</tr>
+			<tr>
+				<td class="input field_name">
+					Текст
+				</td>
+				<td class="inputdata">
+					{% include "/common/text_input.html" %}
+				</td>
+			</tr>
+			{% for key, link in data %}
+					<tr class="link" rel="{{key}}">
+						<td class="input field_name">
+							Ссылка
+						</td>
+						<td class="inputdata">
+							<input size="12%" type="text"
+								name="link[{{key}}][name]"
+								value="{{link.name}}" />:
+							<input size="36%" type="text"
+								name="link[{{key}}][link]"
+								value="<{{link.url[0].alias}}>{{link.url[0].url}}" />
+							~(<input size="2%" type="text"
+								name="link[{{key}}][size]"
+								value="{{link.display_size}}" />
+							<select name="link[{{key}}][sizetype]">
+								<option value="0"
+									{% if link.display_sizetype == 'кб' %} selected="selected"{% endif %}
+								>кб</option>
+								<option value="1"
+									{% if link.display_sizetype == 'мб' %} selected="selected"{% endif %}
+								>мб</option>
+								<option value="2"
+									{% if link.display_sizetype == 'гб' %} selected="selected"{% endif %}
+								>гб</option>
+							</select>
+							)
+							<input type="checkbox" name="link[{{key}}][use]" />
+						</td>
+					</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td class="input field_name">
+					Добавить еще ссылку
+				</td>
+				<td class="inputdata">
+					<input type="submit" class="disabled add_link" rel="main" value="+" />
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<table width="100%">
+		<tr>
+			<td class="input field_name" colspan="2">
+				<input class="submit left" value="Обновить" type="submit">
+				<input type="hidden" name="action" value="Create" />
+				<input type="hidden" name="function" value="update" />
+				<input type="hidden" name="id" value="{{_get.id}}" />
+			</td>
+		</tr>
+    </table>
+</form>

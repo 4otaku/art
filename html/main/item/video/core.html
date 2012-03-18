@@ -1,0 +1,60 @@
+<div class="innerwrap">
+	<table width="100%">
+		<tr>
+			<td align="left">
+				<h2>
+					<a href="/video/{{id}}" title="{{video.title}}">
+						{{video.title}}
+					</a>
+				</h2>
+			</td>
+			<td align="right" valign="top">
+				{% if video.in_batch %}
+					<a href="/video/{{id}}">
+						Комментировать
+					</a>
+					{% if video.comment_count %}
+						 ({{video.comment_count}})
+					{% endif %}
+				{% endif %}
+			</td>
+		</tr>
+	</table>
+	<div class="center clear">
+		<center>
+			{% if not video.display_error %}
+				{{video.display_object}}
+			{% else %}
+				Извините, произошла ошибка при обработке видео.
+			{% endif %}
+		</center>
+		{% if video.text %}
+			<span class="right">
+				<a href="#" class="show-description disabled" rel="{{video.id}}">
+					Показать описание
+				</a>
+				 <span class="arrow arrow-{{video.id}}" rel="off">↓</span>
+			</span>
+		{% endif %}
+	</div>
+	{% if video.text %}
+		<div class="shell post description description-{{video.id}} hidden">
+			<h2>
+				<span class="postlink">
+					<a href="#" class="disabled">
+						Описание
+					</a>
+				</span>
+			</h2>
+			<br />
+			<div class="posttext">
+				{{video.text}}
+			</div>
+		</div>
+	{% endif %}
+	<div class="wrapper">
+		<p class="meta">
+			{% include 'common/meta.html' with {'item': video, 'base': data.base} %}
+		</p>
+	</div>
+</div>

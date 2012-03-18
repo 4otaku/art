@@ -1,0 +1,78 @@
+{% if _url.1 != 'search' or _url.2 == 'a' %}
+
+	{% macro search_checked(symbol, key, checked) %}
+		{% if key in checked %}
+			<input type="checkbox" checked="checked" value="{{symbol}}" class="searcharea checked">
+		{% else %}
+			<input type="checkbox" value="{{symbol}}" class="searcharea not_checked">
+		{% endif %}
+	{% endmacro %}
+
+	<table width="100%">
+		<tr>
+			<td>
+				<input value="" class="search" type="text" rel="{{checked}}">
+			</td>
+			<td>
+				<input value="Поиск" class="searchb" type="button">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<a href="#" class="disabled search-options">
+					Показать опции поиска.
+				</a>
+				<div class="hidden">
+					<ul>
+						<li>
+							{{ _self.search_checked('p', 'post', sub.sidebar.search.checked) }}
+							 В записях
+						</li>
+						<li>
+							{{ _self.search_checked('v', 'video', sub.sidebar.search.checked) }}
+							 В видео
+						</li>
+						<li>
+							{{ _self.search_checked('a', 'art', sub.sidebar.search.checked) }}
+							 В артах
+						</li>
+						<li>
+							{{ _self.search_checked('n', 'news', sub.sidebar.search.checked) }}
+							 В новостях
+						</li>
+						<li>
+							{{ _self.search_checked('o', 'order', sub.sidebar.search.checked) }}
+							 В столе заказов
+						</li>
+						<li>
+							{{ _self.search_checked('c', 'comments', sub.sidebar.search.checked) }}
+							 В комментариях
+						</li>
+					</ul>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="search-tip" rel="0"></div>
+			</td>
+		</tr>
+	</table>
+{% endif %}
+
+{% if _url.1 == 'search' and _url.2 == 'a' %}
+	{% set side_url = 'art' %}
+{% else %}
+	{% set side_url = _url.1 %}
+{% endif %}
+
+{% include "side/navi/"~side_url~".html" ignore missing %}
+{% include "side/settings/"~side_url~".html" ignore missing %}
+
+{% for key, part in sub.sidebar %}
+	{% include "side/parts/"~key~".html" ignore missing %}
+{% endfor %}
+
+<div class="cats">
+	&nbsp;
+</div>
