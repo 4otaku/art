@@ -6,7 +6,7 @@ class Session
 	protected $domain = '';
 
 	// Имя куки
-	protected $name = '';
+	protected $name = 'settings';
 
 	// Хеш куки пользователя
 	protected $hash = '';
@@ -16,9 +16,9 @@ class Session
 
 	protected $changed = false;
 
-	public function __construct($cookie_name) {
-		$this->name = $cookie_name;
+	protected static $instance;
 
+	private function __construct() {
 		// Удалим все левые куки, нечего захламлять пространство
 		foreach ($_COOKIE as $key => $cook) {
 			if ($key != $this->name) {
@@ -56,6 +56,14 @@ class Session
 		register_shutdown_function(array($this, 'write_changes'));
 	}
 
+	public static function get_instance() {
+		if (empty(self::$instance)) {
+			self::$instance = new Session();
+		}
+
+		return self::$instance;
+	}
+
 	protected function update_lifetime() {
 		setcookie($this->name, $this->hash, time()+3600*24*60, '/', $this->domain);
 		// Фиксируем факт обновления в БД
@@ -85,8 +93,6 @@ class Session
 		if (!empty($user)) {
 			$data['user'] = array_replace($data['user'], $user);
 		}
-
-		Config::add($data);
 	}
 
 	protected function create_session() {
@@ -113,5 +119,9 @@ class Session
 
 	public function get_hash() {
 		return $this->hash;
+	}
+
+	public function get_data() {
+		return $this->data;
 	}
 }

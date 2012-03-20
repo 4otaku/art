@@ -9,12 +9,14 @@ Config::parse(CONFIG . SL . 'define.ini', true);
 Config::parse(CONFIG . SL . 'settings.ini');
 
 $domain = Config::get('site', 'domain');
-if($domain != $_SERVER['SERVER_NAME']) {
-	$url = 'http://'$domain.$_SERVER['REQUEST_URI'];
+if ($domain && $domain != $_SERVER['SERVER_NAME']) {
+	$url = 'http://'.$domain.$_SERVER['REQUEST_URI'];
 	Http::redirect($url, true);
 }
 
-$session = new Session('settings');
+$session = Session::get_instance();
+Config::add($session->get_data());
+
 
 $request = preg_replace('/^'.preg_quote(SITE_DIR,'/').'/', '', $_SERVER["REQUEST_URI"]);
 $request = urldecode($request);
