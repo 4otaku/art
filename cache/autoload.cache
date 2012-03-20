@@ -1,4 +1,5 @@
 def=/var/www/frontend/libs/def.php
 sets=/var/www/frontend/libs/sets.php
-config=/var/www/frontend/framework/config.php
 error=/var/www/frontend/framework/error/wrapper.php
+config=/var/www/frontend/framework/libs/config.php
+http=/var/www/frontend/framework/libs/http.php

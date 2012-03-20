@@ -2,92 +2,19 @@
 
 include_once 'framework/init.php';
 
-Autoload::init(array(LIBS, FRAMEWORK), CACHE);
+Autoload::init(array(LIBS, FRAMEWORK_LIBS, FRAMEWORK_EXTERNAL), CACHE);
 mb_internal_encoding('UTF-8');
 
 Config::parse(CONFIG . SL . 'define.ini', true);
 Config::parse(CONFIG . SL . 'settings.ini');
 
-var_dump(Config::get()); die;
-
-if(def::site('domain') != $_SERVER['SERVER_NAME'] && !empty($_SERVER['REMOTE_ADDR'])) {
-	engine::redirect('http://'.$def['site']['domain'].$_SERVER['REQUEST_URI'], true);
+$domain = Config::get('site', 'domain');
+if($domain != $_SERVER['SERVER_NAME']) {
+	$url = 'http://'$domain.$_SERVER['REQUEST_URI'];
+	Http::redirect($url, true);
 }
 
-if (_TYPE_ != 'cron' && _TYPE_ != 'api') {
-	$check = new check_values();
-	include_once ROOT_DIR.SL.'engine'.SL.'twig_init.php';
-}
-if (_TYPE_ != 'cron') {
-	list($get, $post) = query::get_globals($_GET, $_POST);
-}
-include_once ROOT_DIR.SL.'engine'.SL.'metafunctions.php';
-
-// Тут мы работаем с сессиями
-if (_TYPE_ != 'cron' && _TYPE_ != 'api') {
-	// Логично, что у крона или апи сессии нет.
-
-	// Удалим все левые куки, нечего захламлять пространство
-	foreach ($_COOKIE as $key => $cook) if ($key != 'settings') setcookie ($key, "", time() - 3600);
-
-	$cookie_domain = (def::site('domain') != 'localhost' ? def::site('domain') : '').SITE_DIR;
-
-	// Хэш. Берем либо из cookie, если валиден, либо генерим новый
-	query::$cookie = (!empty($_COOKIE['settings']) && $check->hash($_COOKIE['settings'])) ? $_COOKIE['settings'] : md5(microtime(true));
-
-	// Пробуем прочитать настройки для хэша
-	$sess = Database::get_row('settings',
-		array('data', 'lastchange'),
-		'cookie = ?',
-		query::$cookie);
-
-        // Проверяем полученные настройки
-	if (isset($sess['data']) && isset($sess['lastchange'])) {
-		// Настройки есть
-
-		// Обновляем cookie еще на 2 мес у клиента, если она поставлена больше месяца назад
-		if(intval($sess['lastchange']) < (time()-3600*24*30)) {
-			setcookie('settings', query::$cookie, time()+3600*24*60, '/', $cookie_domain);
-			// Фиксируем факт обновления в БД
-			Database::update('settings',
-				array('lastchange' => time()),
-				'cookie = ?',
-				query::$cookie);
-		}
-
-		// Проверяем валидность настроек и исправляем, если что-то не так
-		if ((base64_decode($sess['data']) !== false) && is_array(unserialize(base64_decode($sess['data'])))) {
-			// Все ок, применяем сохраненные настройки
-			$sets = array_replace_recursive($sets,
-				unserialize(base64_decode($sess['data'])));
-
-			$user = Database::get_row('user', 'login, email, rights',
-				'cookie = ?', query::$cookie);
-
-			if (!empty($user)) {
-				$sets['user'] = array_replace($sets['user'], $user);
-			}
-
-			sets::import($sets);
-		} else {
-			// Заполняем поле настройками 'по-умолчанию' (YTowOnt9 разворачивается в пустой массив)
-			Database::update('settings',
-				array('data' => 'YTowOnt9'),
-				'cookie = ?',
-				query::$cookie);
-		}
-	} else {
-		// Настроек нет, создаем их
-
-		setcookie('settings', query::$cookie, time()+3600*24*60, '/' , $cookie_domain);
-		// Вносим в БД сессию с дефолтными настройками
-		Database::insert('settings', array(
-			'cookie' => query::$cookie,
-			'data' => 'YTowOnt9',
-			'lastchange' => time()
-		));
-	}
-}
+$session = new Session('settings');
 
 $request = preg_replace('/^'.preg_quote(SITE_DIR,'/').'/', '', $_SERVER["REQUEST_URI"]);
 $request = urldecode($request);
