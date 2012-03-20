@@ -7,5 +7,5 @@ session=/var/www/frontend/libs/session.php
 database=/var/www/frontend/framework/libs/database/wrapper.php
 database_instance=/var/www/frontend/framework/libs/database/instance.php
 database_abstract=/var/www/frontend/framework/libs/database/abstract.php
-query=/var/www/frontend/libs/query/wrapper.php
 output__index=/var/www/frontend/libs/output/index.php
+query=/var/www/frontend/libs/query.php
