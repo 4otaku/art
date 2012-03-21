@@ -13,3 +13,4 @@ module_main=/var/www/frontend/libs/module/main.php
 module_abstract=/var/www/frontend/libs/module/abstract.php
 raintpl=/var/www/frontend/external/raintpl.php
 request=/var/www/frontend/libs/request.php
+module_html=/var/www/frontend/libs/module/html/wrapper.php

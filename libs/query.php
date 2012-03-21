@@ -44,4 +44,30 @@ class Query
 
 		return $input;
 	}
+
+	public function url($index = false)
+	{
+		if ($index === false) {
+			return $this->url;
+		}
+
+		if (!isset($this->url[$index])) {
+			return null;
+		}
+
+		return $this->url[$index];
+	}
+
+	public function get($index = false)
+	{
+		if ($index === false) {
+			return $this->get;
+		}
+
+		if (!isset($this->get[$index])) {
+			return null;
+		}
+
+		return $this->get[$index];
+	}
 }
