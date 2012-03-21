@@ -9,9 +9,14 @@ abstract class Module_Abstract extends RainTPL
 	{
 		RainTPL::configure('tpl_dir', HTML . SL);
 		RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
+		RainTPL::configure('path_replace', false);
 
 		$this->get_params($query);
-		$this->modules = $this->get_modules($query);
+		$modules = $this->get_modules($query);
+		if (!is_array($modules)) {
+			$modules = array($modules);
+		}
+		$this->modules = $modules;
 	}
 
 	protected function get_params(Query $query)
