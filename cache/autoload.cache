@@ -9,3 +9,6 @@ database_instance=/var/www/frontend/framework/libs/database/instance.php
 database_abstract=/var/www/frontend/framework/libs/database/abstract.php
 output__index=/var/www/frontend/libs/output/index.php
 query=/var/www/frontend/libs/query.php
+module_main=/var/www/frontend/libs/module/main.php
+module_abstract=/var/www/frontend/libs/module/abstract.php
+raintpl=/var/www/frontend/external/raintpl.php
