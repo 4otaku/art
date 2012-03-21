@@ -22,3 +22,7 @@ unset ($_GET, $_POST);
 
 $module = new Module_Main($query);
 $request = $module->gather_request();
+
+$request->perform();
+
+$module->dispatch();

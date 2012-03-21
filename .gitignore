@@ -1,7 +1,9 @@
 config/*
 !config/*sample*
 
-files/autoload.cache
+cache/*
+!files/index.php
+
 files/board_cache/*
 !files/board_cache/index.php
 files/pack_cache/*
