@@ -15,3 +15,6 @@ raintpl=/var/www/frontend/external/raintpl.php
 request=/var/www/frontend/libs/request.php
 module_html=/var/www/frontend/libs/module/html/wrapper.php
 module_html_abstract=/var/www/frontend/libs/module/html/abstract.php
+module_html_header=/var/www/frontend/libs/module/html/header.php
+module_html_body=/var/www/frontend/libs/module/html/body.php
+module_html_slideshow=/var/www/frontend/libs/module/html/slideshow.php

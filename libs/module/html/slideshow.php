@@ -1,7 +1,8 @@
 <?php
 
-class Module_Html extends Module_Html_Abstract
+class Module_Html_Slideshow extends Module_Html_Abstract
 {
+	/*
 	protected $css = array('reset');
 	protected $js = array('jquery.min');
 
@@ -9,8 +10,8 @@ class Module_Html extends Module_Html_Abstract
 	{
 		if ($query->url(0) == 'slideshow') {
 			return array(
-				'body' => new Module_Html_Slideshow($query)
-			);
+				'body' => new Module_Html_Slideshow($query);
+			}
 		}
 
 		return array(
@@ -18,4 +19,5 @@ class Module_Html extends Module_Html_Abstract
 			'body' => new Module_Html_Body($query)
 		);
 	}
+	*/
 }
