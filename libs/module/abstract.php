@@ -5,8 +5,7 @@ abstract class Module_Abstract extends RainTPL
 	protected $modules = array();
 	protected $params = array();
 
-	public function __construct(Query $query)
-	{
+	public function __construct(Query $query) {
 		RainTPL::configure('tpl_dir', HTML . SL);
 		RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
 		RainTPL::configure('path_replace', false);
@@ -22,18 +21,15 @@ abstract class Module_Abstract extends RainTPL
 	protected function get_params(Query $query)
 	{}
 
-	protected function set_param($key, $value)
-	{
+	protected function set_param($key, $value) {
 		$this->assign($key, $value);
 	}
 
-	protected function get_modules(Query $query)
-	{
+	protected function get_modules(Query $query) {
 		return array();
 	}
 
-	public function gather_request()
-	{
+	public function gather_request() {
 		$request = new Request();
 
 		foreach ($this->modules as $module) {
@@ -45,20 +41,17 @@ abstract class Module_Abstract extends RainTPL
 		return $request;
 	}
 
-	protected function make_request()
-	{
+	protected function make_request() {
 		return false;
 	}
 
-	public function dispatch()
-	{
+	public function dispatch() {
 		$html = $this->get_html();
 
 		echo $html;
 	}
 
-	public function get_html()
-	{
+	public function get_html() {
 		foreach ($this->modules as $key => $module) {
 			$var_name = 'module_' . $key;
 			$var_value = $module->get_html();

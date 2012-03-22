@@ -20,4 +20,11 @@ class Module_Html_Header extends Module_Html_Abstract
 		);
 	}
 	*/
+
+
+	protected function make_request() {
+		return new Request('head_menu', $this, array(
+			'user' => Config::get('cookie', 'hash')
+		));
+	}
 }

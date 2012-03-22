@@ -5,8 +5,7 @@ class Module_Html extends Module_Html_Abstract
 	protected $css = array('reset');
 	protected $js = array('jquery.min');
 
-	protected function get_modules(Query $query)
-	{
+	protected function get_modules(Query $query) {
 		if ($query->url(0) == 'slideshow') {
 			return array(
 				'body' => new Module_Html_Slideshow($query)

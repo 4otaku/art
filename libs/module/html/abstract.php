@@ -5,8 +5,7 @@ abstract class Module_Html_Abstract extends Module_Abstract
 	protected $css = array();
 	protected $js = array();
 
-	public function get_html()
-	{
+	public function get_html() {
 		$css = $this->get_css();
 		$js = $this->get_js();
 
@@ -16,8 +15,7 @@ abstract class Module_Html_Abstract extends Module_Abstract
 		return parent::get_html();
 	}
 
-	public function get_css()
-	{
+	public function get_css() {
 		$css = (array) $this->css;
 
 		foreach ($this->modules as $module) {
@@ -27,8 +25,7 @@ abstract class Module_Html_Abstract extends Module_Abstract
 		return array_unique($css);
 	}
 
-	public function get_js()
-	{
+	public function get_js() {
 		$js = (array) $this->js;
 
 		foreach ($this->modules as $module) {
@@ -38,8 +35,7 @@ abstract class Module_Html_Abstract extends Module_Abstract
 		return array_unique($js);
 	}
 
-	protected function get_meta_address($type, $array)
-	{
+	protected function get_meta_address($type, $array) {
 		$time = 0;
 		$base = $type == 'js' ? JS . SL : CSS . SL;
 		foreach ($array as &$file) {

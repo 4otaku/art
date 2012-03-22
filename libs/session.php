@@ -122,6 +122,9 @@ class Session
 	}
 
 	public function get_data() {
-		return $this->data;
+		$data = $this->data;
+		$data['cookie']['hash'] = $this->hash;
+
+		return $data;
 	}
 }
