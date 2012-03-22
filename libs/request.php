@@ -11,7 +11,7 @@ class Request
 	protected $requests = array();
 
 	public function __construct($api = false, $object = false, $data = array()) {
-		if ($api && $object) {
+		if ($api && $object && $object instanceOf Module_Abstract) {
 			$this->api = (string) $api;
 			$this->data = (array) $data;
 			$this->hash = md5($this->api . serialize($this->data));
@@ -53,7 +53,7 @@ class Request
 
 	}
 
-	public function bind($object) {
+	public function bind(Module_Abstract $object) {
 		foreach ($this->binded as $binded) {
 			if ($binded === $object) {
 				return;
