@@ -22,3 +22,8 @@
 	padding: 5px 10px;
 	border: 1px solid #3B5998;
 }
+
+.overlay_loading {
+	display: none;
+	text-align: center;
+}

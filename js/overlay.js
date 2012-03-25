@@ -17,7 +17,7 @@ Overlay = {
 		div.overlay({
 			top: 260,
 			mask: {
-				color: '#fff',
+				color: '#000',
 				loadSpeed: 200,
 				opacity: 0.5
 			},
@@ -27,7 +27,7 @@ Overlay = {
 	},
 
 	templates: {
-		loading: 'Hello world',
+		loading: '<img src="/images/loading_overlay.gif" />',
 		test: 'Hello world'
 	}
 }
