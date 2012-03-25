@@ -1,4 +1,4 @@
-.overlay {
+.overlay_box {
 	display: none;
 	width: 400px;
 	border: 10px solid #666;
@@ -8,13 +8,13 @@
 	border-radius: 8px;
 }
 
-.overlay div {
+.overlay_box > div {
 	padding: 10px;
 	border: 1px solid #3B5998;
 	background-color: #fff;
 }
 
-.overlay h2 {
+.overlay_box >  h2 {
 	margin: -11px;
 	margin-bottom: 0px;
 	color: #fff;
