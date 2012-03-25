@@ -60,9 +60,11 @@ class Request
 		if (function_exists('igbinary_serialize')) {
 			$data['format'] = 'igbinary';
 			$data = igbinary_serialize($data);
+			$url .= '?f=igbinary';
 		} else {
 			$data['format'] = 'json';
 			$data = json_encode($data);
+			$url .= '?f=json';
 		}
 
 		$response = Http::post($url, $data);
@@ -81,9 +83,11 @@ class Request
 			throw new Error('Request failed: ' . $data);
 		}
 
-		foreach ($response['data'] as $hash => $data) {
-			$this->requests[$hash]->pass_data($data);
-			unset($this->requests[$hash]);
+		foreach ($response as $hash => $data) {
+			if (isset($this->requests[$hash])) {
+				$this->requests[$hash]->pass_data($data);
+				unset($this->requests[$hash]);
+			}
 		}
 	}
 
