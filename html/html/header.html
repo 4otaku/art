@@ -1,9 +1,7 @@
 <div class="header_menu">
 	<ul class="right_menu">
 		<li class="box header_menu_item">
-			<a title="Ваши личные настройки"
-				 class="thickbox"
-				 href="/ajax.php?m=box&f=settings&width=500&height=650">
+			<a id="clickable_settings">
 				Настройки
 			</a>
 			<ul>
@@ -114,3 +112,8 @@
 		</li>
 	</ul>
 </div>
+<script type="text/javascript">
+	add('clickable', 'settings', function() {
+		overlay('test');
+	});
+</script>

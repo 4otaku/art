@@ -1,4 +1,21 @@
-function object_base(id, events, values) {
+function init_objects(data) {
+	$.each(data, function(type, objects) {
+		$.each(objects, function(dev_null, object) {
+			if (OBJECT[type]) {
+				var id = object[0];
+				var events = object[1] || {};
+				var values = object[2] || {};
+				new OBJECT[type](id, events, values);
+			}
+		});
+	});
+}
+
+// Base object
+
+var OBJECT = {}
+
+OBJECT.base = function (id, events, values) {
 	events = events || {};
 	values = values || {};
 
@@ -48,7 +65,9 @@ function object_base(id, events, values) {
 	}, this));
 }
 
-function clickable(id, values) {
+// Common objects
+
+OBJECT.clickable = function(id, values) {
 
 	this.class_name = 'clickable';
 
@@ -60,13 +79,9 @@ function clickable(id, values) {
 		}, this)
 	};
 
-	object_base.call(this, id, events, values);
-}
+	if (typeof values == 'function') {
+		values = {func: values};
+	}
 
-new clickable(32, {func: function(){alert('nya');}});
-/*
-//
-$.proxy(function () {
-     //use original 'this'
- },this)
-*/
+	OBJECT.base.call(this, id, events, values);
+}
