@@ -3,8 +3,8 @@
 class Module_Html_Body extends Module_Html_Abstract
 {
 	protected $css = array('base');
-	/*	protected $js = array('jquery.min');
-
+	protected $js = array('base');
+/*
 	protected function get_modules(Query $query)
 	{
 		if ($query->url(0) == 'slideshow') {

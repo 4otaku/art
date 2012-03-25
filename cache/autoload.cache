@@ -23,3 +23,4 @@ multirequest_defaults=/var/www/frontend/framework/external/multirequest/defaults
 multirequest_callbacks=/var/www/frontend/framework/external/multirequest/callbacks.php
 multirequest_request=/var/www/frontend/framework/external/multirequest/request.php
 error=/var/www/frontend/framework/libs/error/wrapper.php
+module_html_footer=/var/www/frontend/libs/module/html/footer.php

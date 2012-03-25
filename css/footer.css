@@ -1,0 +1,13 @@
+.footer {
+	height: 60px;
+	padding-left: 30px;
+	padding-top: 10px;
+	margin-top: 20px;
+	border-top: 1px solid #E7E7E7;
+	background: url(/images/hline.gif) repeat-x;
+}
+
+.footer .right div {
+	text-align: center;
+	width: 240px;
+}

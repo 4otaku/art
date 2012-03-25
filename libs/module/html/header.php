@@ -3,7 +3,7 @@
 class Module_Html_Header extends Module_Html_Abstract
 {
 
-	protected $css = array('header');
+	protected $css = array('base', 'header');
 	/*	protected $js = array('jquery.min');
 
 	protected function get_modules(Query $query)

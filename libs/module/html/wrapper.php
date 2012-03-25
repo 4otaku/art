@@ -14,7 +14,8 @@ class Module_Html extends Module_Html_Abstract
 
 		return array(
 			'header' => new Module_Html_Header($query),
-			'body' => new Module_Html_Body($query)
+			'body' => new Module_Html_Body($query),
+			'footer' => new Module_Html_Footer($query)
 		);
 	}
 }
