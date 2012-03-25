@@ -83,6 +83,10 @@ class Request
 			throw new Error('Request failed: ' . $data);
 		}
 
+		$request->process_response($response);
+	}
+
+	public function process_response($response) {
 		foreach ($response as $hash => $data) {
 			if (isset($this->requests[$hash])) {
 				$this->requests[$hash]->pass_data($data);
