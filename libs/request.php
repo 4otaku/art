@@ -50,7 +50,52 @@ class Request
 	}
 
 	public function perform() {
+		$request = new Request();
+		$request->add($this);
 
+		$data = $request->prepare();
+
+		$url = Config::get('api', 'url');
+
+		if (function_exists('igbinary_serialize')) {
+			$data['format'] = 'igbinary';
+			$data = igbinary_serialize($data);
+		} else {
+			$data['format'] = 'json';
+			$data = json_encode($data);
+		}
+
+		$response = Http::post($url, $data);
+
+		if (empty($response)) {
+			throw new Error('No response: ' . $url);
+		}
+
+		if (function_exists('igbinary_unserialize')) {
+			$response = igbinary_unserialize($response);
+		} else {
+			$response = json_decode($response, true);
+		}
+
+		if (!$response['success']) {
+			throw new Error('Request failed: ' . $data);
+		}
+
+		foreach ($response['data'] as $hash => $data) {
+			$this->requests[$hash]->pass_data($data);
+			unset($this->requests[$hash]);
+		}
+	}
+
+	public function prepare() {
+		$return = array();
+		foreach ($this->requests as $request) {
+			$data = $request->get_data();
+			$data['api'] = $request->get_api();
+			$return[$request->get_hash()] = $data;
+		}
+
+		return $return;
 	}
 
 	public function bind(Module_Abstract $object) {
@@ -67,6 +112,14 @@ class Request
 		return $this->hash;
 	}
 
+	public function get_api() {
+		return $this->api;
+	}
+
+	public function get_data() {
+		return $this->data;
+	}
+
 	public function get_binded() {
 		return $this->binded;
 	}
@@ -75,5 +128,11 @@ class Request
 		$children = $this->requests;
 		$this->requests = array();
 		return $children;
+	}
+
+	public function pass_data($data) {
+		foreach ($this->binded as $object) {
+			$object->recieve_data($data);
+		}
 	}
 }

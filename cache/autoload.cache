@@ -1,6 +1,5 @@
 def=/var/www/frontend/libs/def.php
 sets=/var/www/frontend/libs/sets.php
-error=/var/www/frontend/framework/error/wrapper.php
 config=/var/www/frontend/framework/libs/config.php
 http=/var/www/frontend/framework/libs/http.php
 session=/var/www/frontend/libs/session.php
@@ -18,3 +17,9 @@ module_html_abstract=/var/www/frontend/libs/module/html/abstract.php
 module_html_header=/var/www/frontend/libs/module/html/header.php
 module_html_body=/var/www/frontend/libs/module/html/body.php
 module_html_slideshow=/var/www/frontend/libs/module/html/slideshow.php
+multirequest_handler=/var/www/frontend/framework/external/multirequest/handler.php
+multirequest_queue=/var/www/frontend/framework/external/multirequest/queue.php
+multirequest_defaults=/var/www/frontend/framework/external/multirequest/defaults.php
+multirequest_callbacks=/var/www/frontend/framework/external/multirequest/callbacks.php
+multirequest_request=/var/www/frontend/framework/external/multirequest/request.php
+error=/var/www/frontend/framework/libs/error/wrapper.php
