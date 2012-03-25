@@ -2,9 +2,9 @@
 
 class Module_Html_Header extends Module_Html_Abstract
 {
-	/*
-	protected $css = array('reset');
-	protected $js = array('jquery.min');
+
+	protected $css = array('header');
+	/*	protected $js = array('jquery.min');
 
 	protected function get_modules(Query $query)
 	{
@@ -21,11 +21,18 @@ class Module_Html_Header extends Module_Html_Abstract
 	}
 	*/
 
-	protected function make_request() {
-		return new Request('head_menu', $this);
+	protected function get_params(Query $query)
+	{
+		$menu = Database::get_vector('head_menu_user',
+			array('id', 'url', 'name'),
+			'cookie = ? order by `order`',
+			Config::get('cookie', 'hash')
+		);
+
+		$this->set_param('personal', $menu);
 	}
 
-	public function recieve_data($data) {
-//		var_dump($data);
+	protected function make_request() {
+		return new Request('head_menu', $this);
 	}
 }

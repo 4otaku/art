@@ -1,0 +1,154 @@
+body {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 0.8em;
+	background: url(/images/topbg.gif) repeat-x;
+	padding: 0px;
+	margin: 0px;
+	min-width: 1006px;
+}
+
+a {
+	color: #42A3B9;
+	cursor:pointer;
+}
+
+a.plaintext {
+	color: #000000 !important;
+	text-decoration: none;
+}
+
+p {
+	margin-top: 0px;
+}
+
+img {
+	border: none;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+ul.plain_list {
+	margin: 0;
+	padding: 0;
+	list-style-type: !important;
+}
+
+.cancel-holder {
+	width: 90px;
+}
+
+.left  {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.relative {
+	position: relative;
+}
+
+.clear {
+	clear: both;
+}
+
+.hidden {
+	display: none;
+}
+
+.margin10 {
+	 margin-bottom: 10px;
+}
+
+.margin20 {
+	 margin-bottom: 20px;
+}
+
+.margin30 {
+	 margin-bottom: 30px;
+}
+
+.right20 {
+	margin-right: 20px;
+}
+
+.input60 {
+	width: 60%;
+}
+
+.input70 {
+	width: 70%;
+}
+
+.input80 {
+	width: 80%;
+}
+
+.second_button {
+	margin-left: 5px;
+}
+
+.first_button {
+	margin-right: 35px;
+}
+
+input, textarea {
+	-moz-border-radius: 0.5em !important;
+	-webkit-border-radius: 0.5em !important;
+	border-radius: 0.5em !important;
+	background-color:#efefef ;
+	border:1px solid #CCCCCC !important;
+	border-bottom:1px solid #eee !important;
+	border-right:1px solid #eee !important;
+	padding:3px 3px 3px 3px !important;
+}
+
+button, input {
+	background-color:#FFFFFF !important;
+	text-decoration:none !important;
+	font-weight:bold !important;
+	color:#565656 !important;
+	cursor:pointer !important;
+	padding:3px 3px 3px 3px !important;
+}
+
+textarea {
+	background-color:#FFFFFF !important;
+	cursor:pointer !important;
+	padding:3px 3px 3px 3px !important;
+}
+
+input:hover, input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
+	background-color:#efefef !important ;
+	border:1px solid #CCCCCC !important;
+	color:#565656 !important;
+
+}
+
+#easyTooltip {
+	padding:5px 10px;
+	border:1px solid #195fa4;
+	background:#195fa4 url('/images/bg.gif') repeat-x;
+	color:#fff;
+}
+
+wbr {
+	display: inline-block;
+}
+
+div.mini-shell div.text {
+	margin: 15px;
+}
+
+.clickable {
+	cursor:pointer !important;
+}

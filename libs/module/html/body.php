@@ -2,9 +2,8 @@
 
 class Module_Html_Body extends Module_Html_Abstract
 {
-	/*
-	protected $css = array('reset');
-	protected $js = array('jquery.min');
+	protected $css = array('base');
+	/*	protected $js = array('jquery.min');
 
 	protected function get_modules(Query $query)
 	{

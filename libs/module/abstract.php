@@ -46,7 +46,9 @@ abstract class Module_Abstract extends RainTPL
 	}
 
 	public function recieve_data($data) {
-		return;
+		foreach ($data as $key => $value) {
+			$this->set_param($key, $value);
+		}
 	}
 
 	public function dispatch() {
