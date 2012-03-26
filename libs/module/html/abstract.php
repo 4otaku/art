@@ -36,6 +36,10 @@ abstract class Module_Html_Abstract extends Module_Abstract
 	}
 
 	protected function get_meta_address($type, $array) {
+		if (empty($array)) {
+			return false;
+		}
+
 		$time = 0;
 		$base = $type == 'js' ? JS . SL : CSS . SL;
 		foreach ($array as &$file) {

@@ -24,3 +24,5 @@ multirequest_callbacks=/var/www/frontend/framework/external/multirequest/callbac
 multirequest_request=/var/www/frontend/framework/external/multirequest/request.php
 error=/var/www/frontend/framework/libs/error/wrapper.php
 module_html_footer=/var/www/frontend/libs/module/html/footer.php
+module_ajax=/var/www/frontend/libs/module/ajax/wrapper.php
+module_ajax_config=/var/www/frontend/libs/module/ajax/config.php

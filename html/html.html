@@ -5,7 +5,9 @@
 		<meta content="no-cache" http-equiv="Pragma">
 		<meta content="-1" http-equiv="Expires">
 		<title>4отаку. Материалы для отаку.</title>
-		<link rel="stylesheet" href="/external/m/?b=css&f={$css}" type="text/css" media="screen">
+		{if="$css"}
+			<link rel="stylesheet" href="/external/m/?b=css&f={$css}" type="text/css" media="screen">
+		{/if}
 		<script type="text/javascript">
 			INIT = {};
 			function add(type, id, events, values) {
@@ -24,7 +26,9 @@
 		{if="isset($module_footer)"}
 			{$module_footer}
 		{/if}
-		<script type="text/javascript" src="/external/m/?b=js&f={$js}"></script>
-		<script type="text/javascript">init_objects(INIT);</script>
+		{if="$js"}
+			<script type="text/javascript" src="/external/m/?b=js&f={$js}"></script>
+			<script type="text/javascript">init_objects(INIT);</script>
+		{/if}
 	</body>
 </html>

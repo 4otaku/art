@@ -7,6 +7,10 @@ class Module_Main extends Module_Abstract
 			return new Module_Download($query);
 		}
 
+		if ($query->url(0) == 'ajax') {
+			return new Module_Ajax($query);
+		}
+
 		return new Module_Html($query);
 	}
 }

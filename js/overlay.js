@@ -1,33 +1,63 @@
 Overlay = {
+	loading: false,
+
 	tpl: function (template, class_name) {
 		this.html(this.templates[template], class_name);
 	},
 
 	ajax: function (url, class_name) {
-		this.tpl('loading', 'loading');
+		this.tpl('loading', null, 240);
+		this.loading = url;
+
+		$.get('/ajax/config', $.proxy(function(data) {
+			var overlay = $(".overlay");
+			if (this.loading != url && overlay.length) {
+				return;
+			}
+
+			this.loading = false;
+			overlay.find('img').remove();
+			overlay.find('.overlay_content').html(data);
+
+			overlay.css('left', $(window).width()/2 - $(overlay).width()/2);
+			overlay.css('top', '80px');
+
+			if (overlay.height() > $(window).height() - 160) {
+				overlay.find('.overlay_content > div').css('height',
+					$(window).height() - 160 -
+					overlay.find('.overlay_content > h2').height());
+			}
+
+		}, this));
 	},
 
-	html: function (html, class_name) {
+	html: function (html, class_name, top) {
 		class_name = class_name || 'box';
+		top = top || 80;
+
 		$(".overlay").remove();
 
-		var div = $('<div/>').addClass('overlay_' + class_name)
-			.html(html).appendTo('body');
+		var div = $('<div/>').addClass('overlay').html(html)
+			.addClass('overlay_' + class_name).appendTo('body');
 
 		div.overlay({
-			top: 260,
+			top: top,
 			mask: {
 				color: '#000',
 				loadSpeed: 200,
 				opacity: 0.5
 			},
 			closeOnClick: false,
-			load: true
+			load: true,
+			onBeforeClose: $.proxy(function() {
+				this.loading = false;
+			}, this)
 		});
 	},
 
 	templates: {
-		loading: '<img src="/images/loading_overlay.gif" />',
+		loading: '<img src="/images/loading_overlay.gif" />' +
+			'<span class="overlay_content"></span>',
 		test: 'Hello world'
 	}
 }

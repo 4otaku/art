@@ -55,6 +55,10 @@ class Request
 
 		$data = $request->prepare();
 
+		if (empty($data)) {
+			return;
+		}
+
 		$url = Config::get('api', 'url');
 
 		if (function_exists('igbinary_serialize')) {
