@@ -7,39 +7,29 @@
 			<ul>
 				{if="Config::get('user', 'login')"}
 					<li>
-						<a title="Разлогиниться"
-						 class="logout link disabled"
-						 href="/">
+						<a id="clickable_logout">
 							Выйти
 						</a>
 					</li>
 					<li>
-						<a title="Поменять пароль от аккаунта"
-							 class="thickbox link"
-							 href="/ajax.php?m=box&f=change_pass&width=500&height=170">
+						<a id="clickable_change_pass">
 							Сменить пароль
 						</a>
 					</li>
 				{else}
 					<li>
-						<a title="Войти, используя свой логин и пароль"
-							 class="thickbox link"
-							 href="/ajax.php?m=box&f=login&width=500&height=140">
+						<a id="clickable_login">
 							Войти
 						</a>
 					</li>
 					<li>
-						<a title="Зарегистрироваться на сайте"
-							 class="thickbox link"
-							 href="/ajax.php?m=box&f=register&width=500&height=200">
+						<a id="clickable_register">
 							Регистрация
 						</a>
 					</li>
 				{/if}
 				<li>
-					<a title="Управление плагинами"
-						 class="thickbox link"
-						 href="/ajax.php?m=box&f=plugins&width=500&height=200">
+					<a id="clickable_plugins">
 						Плагины
 					</a>
 				</li>
@@ -59,9 +49,7 @@
 			{/if}
 		</li>
 		<li class="box header_menu_item">
-			<a title="Выберите, что показывать вам в RSS"
-				 class="thickbox"
-				 href="/ajax.php?m=box&f=rss&width=600&height=240">
+			<a id="clickable_rss">
 				RSS
 			</a>
 		</li>
@@ -102,9 +90,7 @@
 					</li>
 				{/loop}
 				<li class="box">
-					<a title="Добавить еще одну ссылку в личное меню"
-						 class="link thickbox"
-						 href="/ajax.php?m=box&f=add_personal_menu&width=600&height=200">
+					<a id="clickable_add_personal">
 						 Добавить ссылку
 					</a>
 				</li>

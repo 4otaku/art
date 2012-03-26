@@ -18,15 +18,16 @@ Overlay = {
 			this.loading = false;
 			overlay.find('img').remove();
 			overlay.find('.overlay_content').html(data);
-
-			overlay.css('left', $(window).width()/2 - $(overlay).width()/2);
 			overlay.css('top', '80px');
 
 			if (overlay.height() > $(window).height() - 160) {
 				overlay.find('.overlay_content > div').css('height',
 					$(window).height() - 160 -
 					overlay.find('.overlay_content > h2').height());
+				overlay.css('width', $(overlay).width() + 20);
 			}
+
+			overlay.css('left', $(window).width()/2 - $(overlay).width()/2);
 
 		}, this));
 	},
