@@ -100,5 +100,13 @@ OBJECT.settings = function(id, events, values) {
 
 	OBJECT.base.call(this, id, events, values);
 
-	this.el.val(this.value);
+	if (this.el.is(':checkbox')) {
+		if (this.value == 0) {
+			this.el.attr("checked", false);
+		} else {
+			this.el.attr("checked", "checked");
+		}
+	} else {
+		this.el.val(this.value);
+	}
 }
