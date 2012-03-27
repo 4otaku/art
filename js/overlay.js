@@ -1,5 +1,6 @@
 Overlay = {
 	loading: false,
+	need_reload: false,
 
 	tpl: function (template, class_name) {
 		this.html(this.templates[template], class_name);
@@ -51,6 +52,10 @@ Overlay = {
 			closeOnClick: false,
 			load: true,
 			onBeforeClose: $.proxy(function() {
+				if (this.need_reload) {
+					document.location.reload();
+				}
+
 				this.loading = false;
 			}, this)
 		});

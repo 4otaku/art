@@ -1,11 +1,11 @@
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".settings").unbind('change').change(function(){
+/*		$(".settings").unbind('change').change(function(){
 			if ($(this).is(':checkbox')) val = '{'+$(this).is(':checked')+'}';
 			else val = $(this).val();
 			$.post("/ajax.php?m=cookie&f=set&field="+$(this).attr('rel')+"&val="+val);
 			window.changed = true;
-		});
+		});*/
 		$("#TB_closeWindowButton").unbind('click').click(function(e){
 			e.preventDefault();
 			if (window.changed == true) document.location.reload();
@@ -31,7 +31,7 @@
 	 <input type="checkbox" class="settings" rel="show.nsfw" value="1"<?=($sets['show']['nsfw'] ? ' checked' : '');?>>
 	<br />
 	Количество комментариев на страницу:
-	 <select class="settings" rel="pp.comment_in_post">
+	 <select class="settings" rel="pp.comment_in_post" id="settings_2">
 		<option value="3"<?=(sets::pp('comment_in_post') == 3 ? ' selected="yes"' : '');?>>3</option>
 		<option value="4"<?=(sets::pp('comment_in_post') == 4 ? ' selected="yes"' : '');?>>4</option>
 		<option value="5"<?=(sets::pp('comment_in_post') == 5 ? ' selected="yes"' : '');?>>5</option>
@@ -225,7 +225,7 @@
 	</select>
 	<br />
 	Последних постов в треде:
-	 <select class="settings" rel="pp.board_posts">
+	 <select class="settings" id="settings_pp.board_posts">
 		<option value="3"<?=(sets::pp('board_posts') == 3 ? ' selected="yes"' : '');?>>3</option>
 		<option value="4"<?=(sets::pp('board_posts') == 4 ? ' selected="yes"' : '');?>>4</option>
 		<option value="5"<?=(sets::pp('board_posts') == 5 ? ' selected="yes"' : '');?>>5</option>
@@ -241,3 +241,15 @@
 	Сразу показывать видео:
 	 <input type="checkbox" class="settings" rel="board.embedvideo" value="1"<?=(sets::board('embedvideo') ? ' checked' : '');?>>
 </div>
+<script type="text/javascript">
+	INIT = {};
+	var reload = {change: function() {
+		Overlay.need_reload = true;
+	}};
+	add('settings', '2', reload, {
+		section: 'pp',
+		key: 'comment_in_post',
+		value: {function="Config::get('pp', 'comment_in_post')"}
+	});
+	init_objects(INIT);
+</script>

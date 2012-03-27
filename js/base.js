@@ -85,3 +85,20 @@ OBJECT.clickable = function(id, values) {
 
 	OBJECT.base.call(this, id, events, values);
 }
+
+OBJECT.settings = function(id, events, values) {
+
+	this.class_name = 'settings';
+
+	events = events || {};
+	events.change = events.change ? [events.change] : [];
+
+	events.change.push($.proxy(function() {
+		$.get('/ajax/set?section=' + this.section + '&key=' +
+			this.key + '&value=' + this.value);
+	}, this));
+
+	OBJECT.base.call(this, id, events, values);
+
+	this.el.val(this.value);
+}
