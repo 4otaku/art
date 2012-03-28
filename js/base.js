@@ -11,6 +11,12 @@ function init_objects(data) {
 	});
 }
 
+function init(type, id, events, values) {
+	events = events || {};
+	values = values || {};
+	new OBJECT[type](id, events, values);
+}
+
 // Base object
 
 var OBJECT = {}
