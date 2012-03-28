@@ -61,29 +61,36 @@ class Request
 
 		$url = Config::get('api', 'url');
 
-		if (function_exists('igbinary_serialize')) {
-			$data['format'] = 'igbinary';
-			$data = igbinary_serialize($data);
-			$url .= '?f=igbinary';
+		if (!empty($url)) {
+
+			if (function_exists('igbinary_serialize')) {
+				$data['format'] = 'igbinary';
+				$data = igbinary_serialize($data);
+				$url .= '?f=igbinary';
+			} else {
+				$data['format'] = 'json';
+				$data = json_encode($data);
+				$url .= '?f=json';
+			}
+
+			$response = Http::post($url, $data);
+
+			if (empty($response)) {
+				throw new Error('No response: ' . $url);
+			}
+
+			if (function_exists('igbinary_unserialize')) {
+				$response = igbinary_unserialize($response);
+			} else {
+				$response = json_decode($response, true);
+			}
 		} else {
-			$data['format'] = 'json';
-			$data = json_encode($data);
-			$url .= '?f=json';
+			$api_request = new Api_Request_Inner($data);
+			$worker = new Api_Read_Multi($api_request);
+			$response = $worker->process_request()->get_response();
 		}
 
-		$response = Http::post($url, $data);
-
-		if (empty($response)) {
-			throw new Error('No response: ' . $url);
-		}
-
-		if (function_exists('igbinary_unserialize')) {
-			$response = igbinary_unserialize($response);
-		} else {
-			$response = json_decode($response, true);
-		}
-
-		if (!$response['success']) {
+		if (empty($response['success'])) {
 			throw new Error('Request failed: ' . $data);
 		}
 

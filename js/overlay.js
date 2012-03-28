@@ -63,7 +63,48 @@ Overlay = {
 
 	templates: {
 		loading: '<img src="/images/loading_overlay.gif" />' +
-			'<span class="overlay_content"></span>',
-		test: 'Hello world'
+			'<span class="overlay_content"></span>'
 	}
 }
+
+Overlay.templates.register = '<h2>Форма регистрации</h2>' +
+'<div><table class="login_input_table">' +
+	'<tr>' +
+		'<td>' +
+			'<span>Логин:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="text" name="login" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="pass" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Повторите пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="pass2" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Е-мейл (не обязательно):</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="text" name="email" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2" class="action_holder">' +
+			'<input type="submit" value="Зарегистрироваться" ' +
+				'class="login_action" id="clickable_do_register" />' +
+		'</td>' +
+	'</tr>' +
+'</table></div>';

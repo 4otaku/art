@@ -2,7 +2,11 @@
 
 include_once 'framework/init.php';
 
-Autoload::init(array(LIBS, EXTERNAL, FRAMEWORK_LIBS, FRAMEWORK_EXTERNAL), CACHE);
+define('API_LIBS', ROOT_DIR . SL . 'api' . SL . 'libs' . SL);
+
+Autoload::init(array(LIBS, EXTERNAL, API_LIBS,
+	FRAMEWORK_LIBS, FRAMEWORK_EXTERNAL), CACHE);
+
 mb_internal_encoding('UTF-8');
 
 Config::parse(CONFIG . SL . 'define.ini', true);

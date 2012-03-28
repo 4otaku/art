@@ -39,3 +39,60 @@
 .overlay_box .overlay_content {
 	display: block;
 }
+
+
+.header_private_item li {
+	padding-right: 28px;
+}
+
+.header_private_item li.box {
+	padding-right: 0px;
+}
+
+.edit_private_item {
+	margin-top: 9px;
+	margin-right: -22px;
+	cursor: pointer;
+}
+
+.header_menu_input_table {
+	width: 550px;
+	border-collapse: collapse;
+}
+
+.header_menu_input_table td {
+	margin: 5px;
+}
+
+.header_menu_input {
+	width: 400px;
+}
+
+.login_input_table {
+	margin: 5px;
+	border-collapse: collapse;
+}
+
+.login_input_table td {
+   padding: 5px;
+}
+
+.login_input_table td span {
+   padding: 4px;
+}
+
+.login_input_table td span {
+   padding: 4px;
+}
+
+.login_input {
+	width: 280px;
+}
+
+.action_holder {
+	text-align: center;
+}
+
+.login_action {
+	margin-top: 10px;
+}
