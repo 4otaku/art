@@ -3,7 +3,7 @@
 class Module_Html extends Module_Html_Abstract
 {
 	protected $css = array('reset');
-	protected $js = array('external/jquery.min');
+	protected $js = array('external/jquery.min', 'external/common_plugins');
 
 	protected function get_modules(Query $query) {
 		if ($query->url(0) == 'slideshow') {

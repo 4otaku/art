@@ -102,4 +102,31 @@
 	add('clickable', 'settings', function() {
 		Overlay.ajax('/ajax/config');
 	});
+	add('clickable', 'logout', function() {
+		$.cookie("sets", null);
+		$.cookie("sets", null, {path: '/',
+			domain: '.' + document.location.host});
+		document.location.reload();
+	});
+	add('clickable', 'change_pass', function() {
+
+	});
+	add('clickable', 'login', function() {
+
+	});
+	add('clickable', 'register', function() {
+
+	});
+	add('clickable', 'plugins', function() {
+
+	});
+	add('clickable', 'rss', function() {
+
+	});
+	add('clickable', 'add_personal', function() {
+
+	});
+	add('clickable', 'edit_personal', function() {
+
+	});
 </script>

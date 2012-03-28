@@ -6,7 +6,7 @@ class Session
 	protected $domain = '';
 
 	// Имя куки
-	protected $name = 'settings';
+	protected $name = 'sets';
 
 	// Хеш куки пользователя
 	protected $hash = '';
