@@ -94,8 +94,12 @@ OBJECT.settings = function(id, events, values) {
 	events.change = events.change ? [events.change] : [];
 
 	events.change.push($.proxy(function() {
+		var value = this.el.is(':checkbox') ?
+			(this.el.attr("checked") == 'checked') - 0 :
+			this.el.val();
+
 		$.get('/ajax/set?section=' + this.section + '&key=' +
-			this.key + '&value=' + this.value);
+			this.key + '&value=' + value);
 	}, this));
 
 	OBJECT.base.call(this, id, events, values);

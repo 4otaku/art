@@ -26,3 +26,4 @@ error=/var/www/frontend/framework/libs/error/wrapper.php
 module_html_footer=/var/www/frontend/libs/module/html/footer.php
 module_ajax=/var/www/frontend/libs/module/ajax/wrapper.php
 module_ajax_config=/var/www/frontend/libs/module/ajax/config.php
+module_ajax_set=/var/www/frontend/libs/module/ajax/set.php
