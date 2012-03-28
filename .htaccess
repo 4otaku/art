@@ -6,6 +6,7 @@ AddDefaultCharset UTF-8
 	RewriteRule .*\.ini$ /boot.php [NE,L]
 
 	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !api/
 	RewriteRule .* /boot.php [NE,L]
 </IfModule>
 
@@ -17,6 +18,6 @@ AddDefaultCharset UTF-8
 #
 #	location / {
 #		if (!-f $request_filename) {
-#			rewrite ^.*$ /boot.php last;
+#			rewrite ^(?!api/).*$ /boot.php last;
 #		}
 #	}
