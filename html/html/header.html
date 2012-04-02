@@ -116,7 +116,9 @@
 	});
 	add('clickable', 'register', function() {
 		Overlay.tpl('register');
-		init('form', 'register');
+		init('form', 'register', {
+			url: '/api/user/create'
+		});
 	});
 	add('clickable', 'plugins', function() {
 

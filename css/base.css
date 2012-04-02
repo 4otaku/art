@@ -104,26 +104,26 @@ input, textarea {
 	-moz-border-radius: 0.5em !important;
 	-webkit-border-radius: 0.5em !important;
 	border-radius: 0.5em !important;
-	background-color:#efefef ;
-	border:1px solid #CCCCCC !important;
-	border-bottom:1px solid #eee !important;
-	border-right:1px solid #eee !important;
-	padding:3px 3px 3px 3px !important;
+	background-color: #efefef ;
+	border: 1px solid #CCCCCC !important;
+	border-bottom: 1px solid #eee !important;
+	border-right: 1px solid #eee !important;
+	padding: 3px 3px 3px 3px !important;
 }
 
 button, input {
-	background-color:#FFFFFF !important;
-	text-decoration:none !important;
-	font-weight:bold !important;
-	color:#565656 !important;
-	cursor:pointer !important;
-	padding:3px 3px 3px 3px !important;
+	background-color: #FFFFFF !important;
+	text-decoration: none !important;
+	font-weight: bold !important;
+	color: #565656 !important;
+	cursor: pointer !important;
+	padding: 3px 3px 3px 3px !important;
 }
 
 textarea {
-	background-color:#FFFFFF !important;
-	cursor:pointer !important;
-	padding:3px 3px 3px 3px !important;
+	background-color: #FFFFFF !important;
+	cursor: pointer !important;
+	padding: 3px 3px 3px 3px !important;
 }
 
 input:hover, input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
@@ -134,10 +134,10 @@ input:hover, input:focus, button:hover, button:focus, textarea:hover, textarea:f
 }
 
 #easyTooltip {
-	padding:5px 10px;
-	border:1px solid #195fa4;
+	padding: 5px 10px;
+	border: 1px solid #195fa4;
 	background: #195fa4 url('/images/bg.gif') repeat-x;
-	color:#fff;
+	color: #FFFFFF;
 }
 
 wbr {
@@ -153,6 +153,15 @@ div.mini-shell div.text {
 }
 
 .loader {
-	background-image: url('/images/loader.gif');
+	background-image: url('/images/ajax-loader.gif');
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 31px;
 	display: none;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+	text-align: center;
 }
