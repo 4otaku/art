@@ -82,7 +82,7 @@ Overlay.templates.register = '<h2>Форма регистрации</h2>' +
 			'<span>Пароль:</span>' +
 		'</td>' +
 		'<td>' +
-			'<input type="password" name="pass" class="login_input" value="">' +
+			'<input type="password" name="password" class="login_input" value="">' +
 		'</td>' +
 	'</tr>' +
 	'<tr>' +
@@ -90,7 +90,7 @@ Overlay.templates.register = '<h2>Форма регистрации</h2>' +
 			'<span>Повторите пароль:</span>' +
 		'</td>' +
 		'<td>' +
-			'<input type="password" name="pass2" class="login_input" value="">' +
+			'<input type="password" name="password2" class="login_input" value="">' +
 		'</td>' +
 	'</tr>' +
 	'<tr>' +

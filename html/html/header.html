@@ -117,7 +117,16 @@
 	add('clickable', 'register', function() {
 		Overlay.tpl('register');
 		init('form', 'register', {
-			url: '/api/user/create'
+			validate: {
+				login: Validate.non_empty,
+				password: Validate.non_empty,
+				password2: {
+					fn: Validate.match,
+					field: 'password',
+					text: 'Введенные пароли не совпадают'
+				}
+			},
+			url: '/api/create/user'
 		});
 	});
 	add('clickable', 'plugins', function() {

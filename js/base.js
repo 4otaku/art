@@ -157,12 +157,36 @@ OBJECT.form = function(id, values, events) {
 		if (this.disabled) {
 			return;
 		}
-		data = {};
-		this.el.find('input, select, textarea').each(function(){
+		var data = {};
+		var error = [];
+		var me = this;
+		this.el.find('input, select, textarea').each(function() {
 			if (this.name) {
-				data[this.name] = $(this).val();
+				var val = $(this).val();
+				if (me.validate[this.name]) {
+					if (typeof me.validate[this.name] == 'object') {
+						var params = me.validate[this.name];
+						var fn = me.validate[this.name].fn;
+					} else {
+						var params = {};
+						var fn = me.validate[this.name];
+					}
+
+					var errorText = fn.call(me, val, params);
+
+					if (typeof errorText == 'string' && error.indexOf(errorText) == -1) {
+						error.push(errorText);
+					}
+				}
+				data[this.name] = val;
 			}
 		});
+
+		if (error.length) {
+			this.child.error.html(error.join('<br />')).show();
+			return;
+		}
+
 		this.child.error.hide();
 		this.child.submit.hide();
 		this.child.loader.show();
@@ -189,10 +213,12 @@ OBJECT.form = function(id, values, events) {
 
 	events = add_event(events, 'on_enter', 'keydown', $.proxy(function(e) {
 		if (e.which == 13) {
-			this.submit.call(this);
+			this.submit();
 		}
 	}, this));
 	events = add_event(events, 'submit', 'click', $.proxy(this.submit, this));
+
+	values.validate = values.validate ? values.validate : {};
 
 	OBJECT.base.call(this, id, events, values);
 }
@@ -225,5 +251,39 @@ var Ajax = {
 		}
 
 		return 'Код ошибки: ' + error.code;
+	}
+}
+
+// Validations
+
+var Validate = {
+	email: function(email, params) {
+		if (email.match(/^\s*[a-z\d\_\-\.]+@[a-z\d\_\-\.]+\.[a-z]{2,5}\s*$/i)) {
+			return true;
+		}
+
+		return 'Указан некорректный емейл.';
+	},
+
+	non_empty: function(value, params) {
+		if (value) {
+			return true;
+		}
+
+		return 'Не все обязательные поля заполнены';
+	},
+
+	match: function(value, params) {
+		var field = this.el.find('[name=' + params.field + ']');
+
+		if (field.length == 0) {
+			return true;
+		}
+
+		if (field.val() == value) {
+			return true;
+		}
+
+		return params.text;
 	}
 }
