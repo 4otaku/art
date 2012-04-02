@@ -17,6 +17,28 @@ function init(type, id, events, values) {
 	new OBJECT[type](id, events, values);
 }
 
+function add_event(events, type, section, fn) {
+	if (typeof section == 'function') {
+		fn = section;
+		section = false;
+	}
+
+	events = events || {};
+
+	if (section) {
+		events[type] = add_event(events[type], section, fn);
+	} else {
+		if (typeof events[type] == 'undefined') {
+			events[type] = [];
+		} else if (!$.isArray(events[type])) {
+			events[type] = [events[type]];
+		}
+		events[type].push(fn);
+	}
+
+	return events;
+}
+
 // Base object
 
 var OBJECT = {}
@@ -34,7 +56,7 @@ OBJECT.base = function (id, events, values) {
 		this.el = $('#' + this.class_name + '_' + this.id).first();
 
 		$.each(this.child, $.proxy(function(key, value) {
-			this.child[key] = this.el.find(value).first();
+			this.child[key] = this.el.find(value);
 		}, this));
 	} else {
 		this.el = false;
@@ -96,10 +118,7 @@ OBJECT.settings = function(id, events, values) {
 
 	this.class_name = 'settings';
 
-	events = events || {};
-	events.change = events.change ? [events.change] : [];
-
-	events.change.push($.proxy(function() {
+	events = add_event(events, 'change', $.proxy(function() {
 		var value = this.el.is(':checkbox') ?
 			(this.el.attr("checked") == 'checked') - 0 :
 			this.el.val();
@@ -119,4 +138,40 @@ OBJECT.settings = function(id, events, values) {
 	} else {
 		this.el.val(this.value);
 	}
+}
+
+OBJECT.form = function(id, events, values) {
+
+	this.class_name = 'form';
+
+	this.child = {
+		on_enter: 'input[type=text],input[type=password]',
+		submit: '.submit',
+		loader: 'div.loader',
+		error: 'div.error'
+	};
+
+	this.submit = function() {
+		if (this.disabled) {
+			return;
+		}
+		data = {};
+		this.el.find('input, select, textarea').each(function(){
+			if (this.name) {
+				data[this.name] = $(this).val();
+			}
+		});
+		this.disabled = true;
+		this.child.loader.show();
+		Ajax.perform(this.url, this.mask_el, this.success)
+	}
+
+	events = add_event(events, 'on_enter', 'keydown', $.proxy(function(e) {
+		if (e.which == 13) {
+			this.submit.call(this);
+		}
+	}, this));
+	events = add_event(events, 'submit', 'click', $.proxy(this.submit, this));
+
+	OBJECT.base.call(this, id, events, values);
 }

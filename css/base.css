@@ -136,7 +136,7 @@ input:hover, input:focus, button:hover, button:focus, textarea:hover, textarea:f
 #easyTooltip {
 	padding:5px 10px;
 	border:1px solid #195fa4;
-	background:#195fa4 url('/images/bg.gif') repeat-x;
+	background: #195fa4 url('/images/bg.gif') repeat-x;
 	color:#fff;
 }
 
@@ -150,4 +150,9 @@ div.mini-shell div.text {
 
 .clickable {
 	cursor:pointer !important;
+}
+
+.loader {
+	background-image: url('/images/loader.gif');
+	display: none;
 }

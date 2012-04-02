@@ -68,7 +68,7 @@ Overlay = {
 }
 
 Overlay.templates.register = '<h2>Форма регистрации</h2>' +
-'<div><table class="login_input_table">' +
+'<div><table class="login_input_table" id="form_register">' +
 	'<tr>' +
 		'<td>' +
 			'<span>Логин:</span>' +
@@ -102,9 +102,15 @@ Overlay.templates.register = '<h2>Форма регистрации</h2>' +
 		'</td>' +
 	'</tr>' +
 	'<tr>' +
+		'<td colspan="2">' +
+			'<div class="loader" />' +
+			'<div class="error" />' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
 		'<td colspan="2" class="action_holder">' +
 			'<input type="submit" value="Зарегистрироваться" ' +
-				'class="login_action" id="clickable_do_register" />' +
+				'class="login_action submit" />' +
 		'</td>' +
 	'</tr>' +
 '</table></div>';
