@@ -80,6 +80,24 @@ Overlay = {
 				},
 				url: '/api/create/user',
 				success: function(response) {
+					$.cookie("sets", response.cookie);
+					$.cookie("sets", response.cookie, {path: '/',
+						domain: '.' + document.location.host});
+					document.location.reload();
+				}
+			});
+		},
+		login: function() {
+			init('form', 'login', {
+				validate: {
+					login: Validate.non_empty,
+					password: Validate.non_empty
+				},
+				url: '/api/read/user',
+				success: function(response) {
+					$.cookie("sets", response.cookie);
+					$.cookie("sets", response.cookie, {path: '/',
+						domain: '.' + document.location.host});
 					document.location.reload();
 				}
 			});
@@ -135,6 +153,38 @@ Overlay.templates.register = '<h2>Форма регистрации</h2>' +
 	'<tr>' +
 		'<td colspan="2" class="action_holder">' +
 			'<input type="submit" value="Зарегистрироваться" ' +
+				'class="login_action submit" />' +
+		'</td>' +
+	'</tr>' +
+'</table></div>';
+
+Overlay.templates.login = '<h2>Войти на сайт</h2>' +
+'<div><table class="login_input_table" id="form_login">' +
+	'<tr>' +
+		'<td>' +
+			'<span>Логин:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="text" name="login" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="password" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2">' +
+			'<div class="loader" />' +
+			'<div class="error" />' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2">' +
+			'<input type="submit" value="Залогиниться" ' +
 				'class="login_action submit" />' +
 		'</td>' +
 	'</tr>' +

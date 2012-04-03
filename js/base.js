@@ -88,7 +88,9 @@ var OBJECT = {
 }
 
 mixin(OBJECT.base.prototype, {
+	el: false,
 	child: {},
+	child_config: {},
 	class_name: 'base',
 	id: '',
 	events: {},
@@ -126,12 +128,9 @@ mixin(OBJECT.base.prototype, {
 		if (this.class_name && id) {
 			this.el = $('#' + this.class_name + '_' + id).first();
 
-			$.each(this.child, $.proxy(function(key, value) {
+			$.each(this.child_config, $.proxy(function(key, value) {
 				this.child[key] = this.el.find(value);
 			}, this));
-		} else {
-			this.el = false;
-			this.child = {};
 		}
 	},
 
@@ -230,13 +229,14 @@ OBJECT.form = function(id, values, events) {
 extend(OBJECT.form, OBJECT.base, {
 	class_name: 'form',
 	add_data: {},
-	child: {
+	child_config: {
 		on_enter: 'input[type=text],input[type=password]',
 		submit: '.submit',
 		loader: 'div.loader',
 		error: 'div.error'
 	},
-	submit: function() {
+	submit: function(e) {
+		e.preventDefault();
 		var data = this.get_data();
 
 		if (data.error.length) {
@@ -316,13 +316,13 @@ extend(OBJECT.form, OBJECT.base, {
 		on_enter: {
 			keydown: function(e) {
 				if (e.which == 13) {
-					this.submit();
+					this.submit(e);
 				}
 			}
 		},
 		submit: {
-			click: function() {
-				this.submit();
+			click: function(e) {
+				this.submit(e);
 			}
 		}
 	}
