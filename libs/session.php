@@ -85,14 +85,17 @@ class Session
 			return;
 		}
 
-		$this->data = $data;
-
 		$user = Database::get_row('user', 'login, email, rights',
 			'cookie = ?', $this->hash);
 
 		if (!empty($user)) {
+			if (empty($data['user'])) {
+				$data['user'] = array();
+			}
 			$data['user'] = array_replace($data['user'], $user);
 		}
+
+		$this->data = $data;
 	}
 
 	protected function create_session() {

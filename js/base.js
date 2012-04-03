@@ -275,15 +275,27 @@ extend(OBJECT.form, OBJECT.base, {
 			if (this.name) {
 				var val = $(this).val();
 				if (me.validate[this.name]) {
-					if (typeof me.validate[this.name] == 'object') {
-						var params = me.validate[this.name];
-						var fn = me.validate[this.name].fn;
-					} else {
-						var params = {};
-						var fn = me.validate[this.name];
+					if (!$.isArray(me.validate[this.name])) {
+						me.validate[this.name] = [me.validate[this.name]];
 					}
 
-					var errorText = fn.call(me, val, params);
+					var errorText = false;
+					$.each(me.validate[this.name], $.proxy(function(dev_null, validate) {
+						if (typeof errorText == 'string') {
+							return;
+						}
+
+						if (typeof validate == 'object') {
+							var params = validate;
+							var fn = validate.fn;
+						} else {
+							var params = {};
+							var fn = validate;
+						}
+
+						errorText = fn.call(me, val, params);
+					}, this));
+
 
 					if (typeof errorText == 'string' && error.indexOf(errorText) == -1) {
 						error.push(errorText);

@@ -119,12 +119,11 @@
 		init('form', 'register', {
 			validate: {
 				login: Validate.non_empty,
-				password: Validate.non_empty,
-				password2: {
+				password: [Validate.non_empty, {
 					fn: Validate.match,
-					field: 'password',
+					field: 'password2',
 					text: 'Введенные пароли не совпадают'
-				}
+				}]
 			},
 			url: '/api/create/user',
 			success: function(response) {
