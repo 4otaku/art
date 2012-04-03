@@ -224,139 +224,139 @@
 	var reload = {change: function() {
 		Overlay.need_reload = true;
 	}};
-	init('settings', 1, $.extend({}, reload), {
+	init('settings', 1, {
 		section: 'show',
 		key: 'nsfw',
 		value: {function="Config::get('show', 'nsfw')"}
-	});
-	init('settings', 2, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 2, {
 		section: 'pp',
 		key: 'comment_in_post',
 		value: {function="Config::get('pp', 'comment_in_post')"}
-	});
-	init('settings', 3, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 3, {
 		section: 'dir',
 		key: 'comments_tree',
 		value: {function="Config::get('dir', 'comments_tree')"}
-	});
-	init('settings', 4, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 4, {
 		section: 'pp',
 		key: 'news',
 		value: {function="Config::get('pp', 'news')"}
-	});
-	init('settings', 5, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 5, {
 		section: 'pp',
 		key: 'comment_in_line',
 		value: {function="Config::get('pp', 'comment_in_line')"}
-	});
-	init('settings', 6, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 6, {
 		section: 'pp',
 		key: 'tags',
 		value: {function="Config::get('pp', 'tags')"}
-	});
-	init('settings', 7, {}, {
+	}, $.extend({}, reload));
+	init('settings', 7, {
 		section: 'edit',
 		key: 'newtags',
 		value: {function="Config::get('edit', 'newtags')"}
 	});
-	init('settings', 8, $.extend({}, reload), {
+	init('settings', 8, {
 		section: 'pp',
 		key: 'post',
 		value: {function="Config::get('pp', 'post')"}
-	});
-	init('settings', 9, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 9, {
 		section: 'pp',
 		key: 'updates_in_line',
 		value: {function="Config::get('pp', 'updates_in_line')"}
-	});
-	init('settings', 10, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 10, {
 		section: 'pp',
 		key: 'post_gouf',
 		value: {function="Config::get('pp', 'post_gouf')"}
-	});
-	init('settings', 11, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 11, {
 		section: 'pp',
 		key: 'video',
 		value: {function="Config::get('pp', 'video')"}
-	});
-	init('settings', 12, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 12, {
 		section: 'video',
 		key: 'thumb',
 		value: '{function="Config::get('video', 'thumb')"}'
-	});
-	init('settings', 13, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 13, {
 		section: 'video',
 		key: 'full',
 		value: '{function="Config::get('video', 'full')"}'
-	});
-	init('settings', 14, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 14, {
 		section: 'pp',
 		key: 'art',
 		value: {function="Config::get('pp', 'art')"}
-	});
-	init('settings', 15, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 15, {
 		section: 'show',
 		key: 'yaoi',
 		value: {function="Config::get('show', 'yaoi')"}
-	});
-	init('settings', 16, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 16, {
 		section: 'show',
 		key: 'guro',
 		value: {function="Config::get('show', 'guro')"}
-	});
-	init('settings', 17, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 17, {
 		section: 'show',
 		key: 'furry',
 		value: {function="Config::get('show', 'furry')"}
-	});
-	init('settings', 18, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 18, {
 		section: 'art',
 		key: 'largethumbs',
 		value: {function="Config::get('art', 'largethumbs')"}
-	});
-	init('settings', 19, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 19, {
 		section: 'show',
 		key: 'translation',
 		value: {function="Config::get('show', 'translation')"}
-	});
-	init('settings', 20, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 20, {
 		section: 'art',
 		key: 'resized',
 		value: {function="Config::get('art', 'resized')"}
-	});
-	init('settings', 21, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 21, {
 		section: 'art',
 		key: 'blank_mode',
 		value: {function="Config::get('art', 'blank_mode')"}
-	});
-	init('settings', 22, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 22, {
 		section: 'art',
 		key: 'download_mode',
 		value: {function="Config::get('art', 'download_mode')"}
-	});
-	init('settings', 23, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 23, {
 		section: 'art',
 		key: 'sort',
 		value: '{function="Config::get('art', 'sort')"}'
-	});
-	init('settings', 24, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 24, {
 		section: 'pp',
 		key: 'board',
 		value: {function="Config::get('pp', 'board')"}
-	});
-	init('settings', 25, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 25, {
 		section: 'pp',
 		key: 'board_posts',
 		value: {function="Config::get('pp', 'board_posts')"}
-	});
-	init('settings', 26, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 26, {
 		section: 'board',
 		key: 'allthreads',
 		value: {function="Config::get('board', 'allthreads')"}
-	});
-	init('settings', 27, $.extend({}, reload), {
+	}, $.extend({}, reload));
+	init('settings', 27, {
 		section: 'board',
 		key: 'embedvideo',
 		value: {function="Config::get('board', 'embedvideo')"}
-	});
+	}, $.extend({}, reload));
 </script>
