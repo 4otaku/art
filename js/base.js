@@ -229,6 +229,7 @@ OBJECT.form = function(id, values, events) {
 
 extend(OBJECT.form, OBJECT.base, {
 	class_name: 'form',
+	add_data: {},
 	child: {
 		on_enter: 'input[type=text],input[type=password]',
 		submit: '.submit',
@@ -247,7 +248,9 @@ extend(OBJECT.form, OBJECT.base, {
 		this.child.submit.hide();
 		this.child.loader.show();
 
-		Ajax.perform(this.url, data.data, $.proxy(function(response) {
+		data = $.extend(data.data, this.add_data);
+
+		Ajax.perform(this.url, data, $.proxy(function(response) {
 			this.child.submit.show();
 			this.child.loader.hide();
 			if (response.success == false) {

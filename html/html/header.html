@@ -125,6 +125,9 @@
 					text: 'Введенные пароли не совпадают'
 				}]
 			},
+			add_data: {
+				cookie: $.cookie("sets")
+			},
 			url: '/api/create/user',
 			success: function(response) {
 				document.location.reload();
