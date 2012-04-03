@@ -116,23 +116,6 @@
 	});
 	add('clickable', 'register', function() {
 		Overlay.tpl('register');
-		init('form', 'register', {
-			validate: {
-				login: Validate.non_empty,
-				password: [Validate.non_empty, {
-					fn: Validate.match,
-					field: 'password2',
-					text: 'Введенные пароли не совпадают'
-				}]
-			},
-			add_data: {
-				cookie: $.cookie("sets")
-			},
-			url: '/api/create/user',
-			success: function(response) {
-				document.location.reload();
-			}
-		});
 	});
 	add('clickable', 'plugins', function() {
 

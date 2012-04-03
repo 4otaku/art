@@ -4,6 +4,9 @@ Overlay = {
 
 	tpl: function (template, class_name) {
 		this.html(this.templates[template], class_name);
+		if (this.callback[template]) {
+			this.callback[template].call(this);
+		}
 	},
 
 	ajax: function (url, class_name) {
@@ -59,6 +62,28 @@ Overlay = {
 				this.loading = false;
 			}, this)
 		});
+	},
+
+	callback: {
+		register: function () {
+			init('form', 'register', {
+				validate: {
+					login: Validate.non_empty,
+					password: [Validate.non_empty, {
+						fn: Validate.match,
+						field: 'password2',
+						text: 'Введенные пароли не совпадают'
+					}]
+				},
+				add_data: {
+					cookie: $.cookie("sets")
+				},
+				url: '/api/create/user',
+				success: function(response) {
+					document.location.reload();
+				}
+			});
+		}
 	},
 
 	templates: {
