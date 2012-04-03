@@ -165,3 +165,9 @@ div.mini-shell div.text {
 	font-weight: bold;
 	text-align: center;
 }
+
+.success {
+	color: green;
+	font-weight: bold;
+	text-align: center;
+}

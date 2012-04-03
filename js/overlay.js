@@ -101,6 +101,31 @@ Overlay = {
 					document.location.reload();
 				}
 			});
+		},
+		change_pass: function() {
+			init('form', 'change_pass', {
+				validate: {
+					old_password: Validate.non_empty,
+					password: [Validate.non_empty, {
+						fn: Validate.match,
+						field: 'password2',
+						text: 'Введенные пароли не совпадают'
+					}]
+				},
+				add_data: {
+					login: User
+				},
+				url: '/api/update/user',
+				success: function(response) {
+					this.child.error.hide();
+					this.child.submit.hide();
+					this.child.loader.hide();
+					this.child.success.html('Пароль успешно изменен').show();
+					setTimeout(function() {
+						$(".overlay").overlay().close();
+					}, 5000);
+				}
+			});
 		}
 	},
 
@@ -185,6 +210,47 @@ Overlay.templates.login = '<h2>Войти на сайт</h2>' +
 	'<tr>' +
 		'<td colspan="2">' +
 			'<input type="submit" value="Залогиниться" ' +
+				'class="login_action submit" />' +
+		'</td>' +
+	'</tr>' +
+'</table></div>';
+
+Overlay.templates.change_pass = '<h2>Смена пароля</h2>' +
+'<div><table class="login_input_table" id="form_change_pass">' +
+	'<tr>' +
+		'<td>' +
+			'<span>Старый пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="old_password" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Новый пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="password" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Повторите новый пароль:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="password" name="password2" class="login_input" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2">' +
+			'<div class="loader" />' +
+			'<div class="error" />' +
+			'<div class="success" />' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2">' +
+			'<input type="submit" value="Сменить пароль" ' +
 				'class="login_action submit" />' +
 		'</td>' +
 	'</tr>' +

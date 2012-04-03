@@ -232,6 +232,7 @@ extend(OBJECT.form, OBJECT.base, {
 	child_config: {
 		on_enter: 'input[type=text],input[type=password]',
 		submit: '.submit',
+		success: 'div.success',
 		loader: 'div.loader',
 		error: 'div.error'
 	},
