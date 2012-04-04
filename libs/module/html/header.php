@@ -4,7 +4,7 @@ class Module_Html_Header extends Module_Html_Abstract
 {
 
 	protected $css = array('base', 'header', 'misc/overlay');
-	protected $js = array('external/overlay', 'overlay');
+	protected $js = array('external/overlay', 'overlay', 'setting', 'form');
 
 	protected function get_params(Query $query)
 	{

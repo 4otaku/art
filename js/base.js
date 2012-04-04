@@ -1,3 +1,34 @@
+// Ajax functions
+
+var Ajax = {
+	perform: function(url, data, success, failure) {
+		$.ajax({
+			url: url,
+			data: data ? data: {},
+			type: 'POST',
+			success: success ? success : false,
+			failure: failure ? failure : false,
+			dataType: 'json'
+		});
+	},
+
+	error: {
+		410: 'Указан неправильный адрес в запросе.'
+	},
+
+	translate_error: function(error) {
+		if (this.error[error.code]) {
+			return this.error[error.code];
+		}
+
+		if (error.message) {
+			return error.message;
+		}
+
+		return 'Код ошибки: ' + error.code;
+	}
+}
+
 // Base OOP functions
 
 function mixin(dst, src) {
@@ -22,7 +53,8 @@ function extend(Child, Parent, mixinData) {
 	F.prototype = Parent.prototype;
 	Child.prototype = new F();
 	Child.prototype.constructor = Child;
-	Child.superclass = Parent.prototype;
+	Child.super = Parent.prototype;
+	Child.object = {};
 
 	if (typeof mixinData == 'object') {
 		mixin(Child.prototype, mixinData);
@@ -84,6 +116,10 @@ var OBJECT = {
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
+
+		if (this.get_static().object) {
+			this.get_static().object[id] = this;
+		}
 	}
 }
 
@@ -165,6 +201,14 @@ mixin(OBJECT.base.prototype, {
 				}, this));
 			}
 		}, this));
+	},
+
+	get_static: function() {
+		return OBJECT[this.class_name];
+	},
+
+	get_super: function() {
+		return this.get_static().super;
 	}
 });
 
@@ -176,7 +220,7 @@ OBJECT.clickable = function(id, values) {
 		values = {func: values};
 	}
 
-	OBJECT.clickable.superclass.constructor.call(this, id, values);
+	OBJECT.clickable.super.constructor.call(this, id, values);
 }
 
 extend(OBJECT.clickable, OBJECT.base, {
@@ -189,207 +233,3 @@ extend(OBJECT.clickable, OBJECT.base, {
 		}
 	}
 });
-
-OBJECT.settings = function(id, values, events) {
-
-	OBJECT.settings.superclass.constructor.call(this, id, values, events);
-
-	if (this.el.is(':checkbox')) {
-		if (this.value == 0) {
-			this.el.attr("checked", false);
-		} else {
-			this.el.attr("checked", "checked");
-		}
-	} else {
-		this.el.val(this.value);
-	}
-}
-
-extend(OBJECT.settings, OBJECT.base, {
-	class_name: 'settings',
-	events: {
-		change: function() {
-			var value = this.el.is(':checkbox') ?
-				(this.el.attr("checked") == 'checked') - 0 :
-				this.el.val();
-
-			$.get('/ajax/set?section=' + this.section + '&key=' +
-				this.key + '&value=' + value);
-		}
-	}
-});
-
-OBJECT.form = function(id, values, events) {
-
-	values.validate = values.validate ? values.validate : {};
-
-	OBJECT.base.call(this, id, values, events);
-}
-
-extend(OBJECT.form, OBJECT.base, {
-	class_name: 'form',
-	add_data: {},
-	child_config: {
-		on_enter: 'input[type=text],input[type=password]',
-		submit: '.submit',
-		success: 'div.success',
-		loader: 'div.loader',
-		error: 'div.error'
-	},
-	submit: function(e) {
-		e.preventDefault();
-		var data = this.get_data();
-
-		if (data.error.length) {
-			this.child.error.html(data.error.join('<br />')).show();
-			return;
-		}
-
-		this.child.error.hide();
-		this.child.submit.hide();
-		this.child.loader.show();
-
-		data = $.extend(data.data, this.add_data);
-
-		Ajax.perform(this.url, data, $.proxy(function(response) {
-			this.child.submit.show();
-			this.child.loader.hide();
-			if (response.success == false) {
-				var message = '';
-				$.each(response.errors, function(dev_null, error) {
-					error = Ajax.translate_error(error);
-					if (error) {
-						message += error + '<br />';
-					}
-				});
-				this.child.error.html(message).show();
-			} else {
-				this.success.call(this, response);
-			}
-		}, this), $.proxy(function(response) {
-			this.child.submit.show();
-			this.child.loader.hide();
-		}, this));
-	},
-	get_data: function() {
-		var data = {};
-		var error = [];
-		var me = this;
-		this.el.find('input, select, textarea').each(function() {
-			if (this.name) {
-				var val = $(this).val();
-				if (me.validate[this.name]) {
-					if (!$.isArray(me.validate[this.name])) {
-						me.validate[this.name] = [me.validate[this.name]];
-					}
-
-					var errorText = false;
-					$.each(me.validate[this.name], $.proxy(function(dev_null, validate) {
-						if (typeof errorText == 'string') {
-							return;
-						}
-
-						if (typeof validate == 'object') {
-							var params = validate;
-							var fn = validate.fn;
-						} else {
-							var params = {};
-							var fn = validate;
-						}
-
-						errorText = fn.call(me, val, params);
-					}, this));
-
-
-					if (typeof errorText == 'string' && error.indexOf(errorText) == -1) {
-						error.push(errorText);
-					}
-				}
-				data[this.name] = val;
-			}
-		});
-		return {
-			error: error,
-			data: data
-		}
-	},
-	events: {
-		on_enter: {
-			keydown: function(e) {
-				if (e.which == 13) {
-					this.submit(e);
-				}
-			}
-		},
-		submit: {
-			click: function(e) {
-				this.submit(e);
-			}
-		}
-	}
-});
-
-// Ajax functions
-
-var Ajax = {
-	perform: function(url, data, success, failure) {
-		$.ajax({
-			url: url,
-			data: data ? data: {},
-			type: 'POST',
-			success: success ? success : false,
-			failure: failure ? failure : false,
-			dataType: 'json'
-		});
-	},
-
-	error: {
-		410: 'Указан неправильный адрес в запросе.'
-	},
-
-	translate_error: function(error) {
-		if (this.error[error.code]) {
-			return this.error[error.code];
-		}
-
-		if (error.message) {
-			return error.message;
-		}
-
-		return 'Код ошибки: ' + error.code;
-	}
-}
-
-// Validations
-
-var Validate = {
-	email: function(email, params) {
-		if (email.match(/^\s*[a-z\d\_\-\.]+@[a-z\d\_\-\.]+\.[a-z]{2,5}\s*$/i)) {
-			return true;
-		}
-
-		return 'Указан некорректный емейл.';
-	},
-
-	non_empty: function(value, params) {
-		if (value) {
-			return true;
-		}
-
-		return 'Не все обязательные поля заполнены';
-	},
-
-	match: function(value, params) {
-		var field = this.el.find('[name=' + params.field + ']');
-
-		if (field.length == 0) {
-			return true;
-		}
-
-		if (field.val() == value) {
-			return true;
-		}
-
-		return params.text;
-	}
-}

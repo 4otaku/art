@@ -113,7 +113,7 @@ Overlay = {
 					}]
 				},
 				add_data: {
-					login: User
+					login: User.name
 				},
 				url: '/api/update/user',
 				success: function(response) {
@@ -126,6 +126,19 @@ Overlay = {
 					}, 5000);
 				}
 			});
+		},
+		rss: function() {
+			init('clickable', 'rss_link', function() {
+
+			});
+			init('settings_rss', 'post');
+			init('settings_rss', 'update');
+			init('settings_rss', 'video');
+			init('settings_rss', 'art');
+			init('settings_rss', 'news');
+			init('settings_rss', 'order');
+			init('settings_rss', 'comment');
+			init('settings_rss', 'workshop');
 		}
 	},
 
@@ -255,3 +268,20 @@ Overlay.templates.change_pass = '<h2>Смена пароля</h2>' +
 		'</td>' +
 	'</tr>' +
 '</table></div>';
+
+Overlay.templates.rss = '<h2>Настройка личного RSS-потока</h2>' +
+'<div>' +
+	'<div class="margin20">' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_post" />Записи</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_update" />Обновления записей</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_video" />Видео</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_art" />Арты</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_news" />Новости сайта</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_order" />Заказы</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_comment" />Комментарии</div>' +
+		'<div class="rss_item"><input type="checkbox" id="settings_rss_workshop" />Очереди премодерации</div>' +
+	'</div>' +
+	'<div class="center clear">' +
+		'<input type="submit" id="clickable_rss_link" value="Подписаться на выбранное" />' +
+	'</div>' +
+'</div>';
