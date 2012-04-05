@@ -130,6 +130,7 @@
 
 .plugin_table th.checkbox, .plugin_table td.checkbox {
 	width: 20%;
+	text-align: center;
 }
 
 .plugin_warning {
