@@ -130,8 +130,8 @@ Overlay = {
 		rss: function() {
 			init('clickable', 'rss_link', function() {
 				var string = '';
-				$.each(OBJECT.settings_rss.object, function(key, object) {
-					if (object.get_value()) {
+				$.each(User.rss, function(key, value) {
+					if (value) {
 						string += key[0];
 					}
 				});

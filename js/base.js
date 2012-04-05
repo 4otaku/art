@@ -54,7 +54,6 @@ function extend(Child, Parent, mixinData) {
 	Child.prototype = new F();
 	Child.prototype.constructor = Child;
 	Child.super = Parent.prototype;
-	Child.object = {};
 
 	if (typeof mixinData == 'object') {
 		mixin(Child.prototype, mixinData);
@@ -116,10 +115,6 @@ var OBJECT = {
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
-
-		if (this.get_static().object) {
-			this.get_static().object[id] = this;
-		}
 	}
 }
 
