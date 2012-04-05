@@ -182,7 +182,7 @@
 		<option value="date-asc">Инвертированная</option>
 		<option value="rating-desc">По рейтингу, лучшие</option>
 		<option value="rating-asc">По рейтингу, худшие</option>
-		{is="Config::get('user', 'rights')"}
+		{is="Config::get_front('user', 'rights')"}
 			<option value="tag-desc">По тегам</option>
 			<option value="tag-asc">По тегам, инвертированная</option>
 		{/is}
@@ -224,136 +224,136 @@
 	init('settings_overlay', 1, {
 		section: 'show',
 		key: 'nsfw',
-		value: {function="Config::get('show', 'nsfw')"}
+		value: {function="Config::get_front('show', 'nsfw')"}
 	});
 	init('settings_overlay', 2, {
 		section: 'pp',
 		key: 'comment_in_post',
-		value: {function="Config::get('pp', 'comment_in_post')"}
+		value: {function="Config::get_front('pp', 'comment_in_post')"}
 	});
 	init('settings_overlay', 3, {
 		section: 'dir',
 		key: 'comments_tree',
-		value: {function="Config::get('dir', 'comments_tree')"}
+		value: {function="Config::get_front('dir', 'comments_tree')"}
 	});
 	init('settings_overlay', 4, {
 		section: 'pp',
 		key: 'news',
-		value: {function="Config::get('pp', 'news')"}
+		value: {function="Config::get_front('pp', 'news')"}
 	});
 	init('settings_overlay', 5, {
 		section: 'pp',
 		key: 'comment_in_line',
-		value: {function="Config::get('pp', 'comment_in_line')"}
+		value: {function="Config::get_front('pp', 'comment_in_line')"}
 	});
 	init('settings_overlay', 6, {
 		section: 'pp',
 		key: 'tags',
-		value: {function="Config::get('pp', 'tags')"}
+		value: {function="Config::get_front('pp', 'tags')"}
 	});
 	init('settings', 7, {
 		section: 'edit',
 		key: 'newtags',
-		value: {function="Config::get('edit', 'newtags')"}
+		value: {function="Config::get_front('edit', 'newtags')"}
 	});
 	init('settings_overlay', 8, {
 		section: 'pp',
 		key: 'post',
-		value: {function="Config::get('pp', 'post')"}
+		value: {function="Config::get_front('pp', 'post')"}
 	});
 	init('settings_overlay', 9, {
 		section: 'pp',
 		key: 'updates_in_line',
-		value: {function="Config::get('pp', 'updates_in_line')"}
+		value: {function="Config::get_front('pp', 'updates_in_line')"}
 	});
 	init('settings_overlay', 10, {
 		section: 'pp',
 		key: 'post_gouf',
-		value: {function="Config::get('pp', 'post_gouf')"}
+		value: {function="Config::get_front('pp', 'post_gouf')"}
 	});
 	init('settings_overlay', 11, {
 		section: 'pp',
 		key: 'video',
-		value: {function="Config::get('pp', 'video')"}
+		value: {function="Config::get_front('pp', 'video')"}
 	});
 	init('settings_overlay', 12, {
 		section: 'video',
 		key: 'thumb',
-		value: '{function="Config::get('video', 'thumb')"}'
+		value: '{function="Config::get_front('video', 'thumb')"}'
 	});
 	init('settings_overlay', 13, {
 		section: 'video',
 		key: 'full',
-		value: '{function="Config::get('video', 'full')"}'
+		value: '{function="Config::get_front('video', 'full')"}'
 	});
 	init('settings_overlay', 14, {
 		section: 'pp',
 		key: 'art',
-		value: {function="Config::get('pp', 'art')"}
+		value: {function="Config::get_front('pp', 'art')"}
 	});
 	init('settings_overlay', 15, {
 		section: 'show',
 		key: 'yaoi',
-		value: {function="Config::get('show', 'yaoi')"}
+		value: {function="Config::get_front('show', 'yaoi')"}
 	});
 	init('settings_overlay', 16, {
 		section: 'show',
 		key: 'guro',
-		value: {function="Config::get('show', 'guro')"}
+		value: {function="Config::get_front('show', 'guro')"}
 	});
 	init('settings_overlay', 17, {
 		section: 'show',
 		key: 'furry',
-		value: {function="Config::get('show', 'furry')"}
+		value: {function="Config::get_front('show', 'furry')"}
 	});
 	init('settings_overlay', 18, {
 		section: 'art',
 		key: 'largethumbs',
-		value: {function="Config::get('art', 'largethumbs')"}
+		value: {function="Config::get_front('art', 'largethumbs')"}
 	});
 	init('settings_overlay', 19, {
 		section: 'show',
 		key: 'translation',
-		value: {function="Config::get('show', 'translation')"}
+		value: {function="Config::get_front('show', 'translation')"}
 	});
 	init('settings_overlay', 20, {
 		section: 'art',
 		key: 'resized',
-		value: {function="Config::get('art', 'resized')"}
+		value: {function="Config::get_front('art', 'resized')"}
 	});
 	init('settings_overlay', 21, {
 		section: 'art',
 		key: 'blank_mode',
-		value: {function="Config::get('art', 'blank_mode')"}
+		value: {function="Config::get_front('art', 'blank_mode')"}
 	});
 	init('settings_overlay', 22, {
 		section: 'art',
 		key: 'download_mode',
-		value: {function="Config::get('art', 'download_mode')"}
+		value: {function="Config::get_front('art', 'download_mode')"}
 	});
 	init('settings_overlay', 23, {
 		section: 'art',
 		key: 'sort',
-		value: '{function="Config::get('art', 'sort')"}'
+		value: '{function="Config::get_front('art', 'sort')"}'
 	});
 	init('settings_overlay', 24, {
 		section: 'pp',
 		key: 'board',
-		value: {function="Config::get('pp', 'board')"}
+		value: {function="Config::get_front('pp', 'board')"}
 	});
 	init('settings_overlay', 25, {
 		section: 'pp',
 		key: 'board_posts',
-		value: {function="Config::get('pp', 'board_posts')"}
+		value: {function="Config::get_front('pp', 'board_posts')"}
 	});
 	init('settings_overlay', 26, {
 		section: 'board',
 		key: 'allthreads',
-		value: {function="Config::get('board', 'allthreads')"}
+		value: {function="Config::get_front('board', 'allthreads')"}
 	});
 	init('settings_overlay', 27, {
 		section: 'board',
 		key: 'embedvideo',
-		value: {function="Config::get('board', 'embedvideo')"}
+		value: {function="Config::get_front('board', 'embedvideo')"}
 	});
 </script>

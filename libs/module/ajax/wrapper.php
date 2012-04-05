@@ -7,14 +7,14 @@ class Module_Ajax extends Module_Html_Abstract
 		array_shift($url);
 
 		if (empty($url)) {
-			return false;
+			return array();
 		}
 
 		$class = implode('_', array_map('ucfirst', $url));
 		$class = 'Module_Ajax_' . $class;
 
 		if (!class_exists($class)) {
-			return false;
+			return array();
 		}
 
 		return array(

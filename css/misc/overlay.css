@@ -108,3 +108,32 @@
 	position: relative;
 	bottom: 4px;
 }
+
+.plugin_table {
+	width: 100%;
+}
+
+.plugin_table th {
+	text-align: left;
+	border-bottom: 1px solid #333333;
+}
+
+.plugin_table th span {
+	font-weight: normal;
+}
+
+.plugin_table th, .plugin_table td {
+	width: 40%;
+	margin: 5px;
+	padding: 5px;
+}
+
+.plugin_table th.checkbox, .plugin_table td.checkbox {
+	width: 20%;
+}
+
+.plugin_warning {
+	margin-top: 20px;
+	max-width: 600px;
+	font-size: 90%;
+}

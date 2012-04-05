@@ -37,3 +37,4 @@ database_sorter=/var/www/frontend/framework/libs/database/sorter.php
 api_response_inner=/var/www/frontend/api/libs//api/response/inner.php
 api_response_abstract=/var/www/frontend/api/libs//api/response/abstract.php
 error_api=/var/www/frontend/api/libs//error/api.php
+module_ajax_plugin=/var/www/frontend/libs/module/ajax/plugin.php

@@ -13,7 +13,7 @@ Overlay = {
 		this.tpl('loading', null, 240);
 		this.loading = url;
 
-		$.get('/ajax/config', $.proxy(function(data) {
+		$.get(url, $.proxy(function(data) {
 			var overlay = $(".overlay");
 			if (this.loading != url && overlay.length) {
 				return;
@@ -136,8 +136,7 @@ Overlay = {
 					}
 				});
 				if (string.length > 0) {
-					// @TODO: открывать в новой вкладке
-					document.location.href = '/rss/=' + string;
+					window.open('/rss/=' + string);
 				}
 			});
 			init('settings_rss', 'post');

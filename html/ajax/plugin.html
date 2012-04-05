@@ -1,0 +1,41 @@
+<h2>Список подключенных плагинов.</h2>
+<div>
+	<table class="plugin_table">
+		<tr>
+			<th>
+				<span>Имя плагина</span>
+			</th>
+			<th>
+				<span>Ссылка на тред</span>
+			</th>
+			<th class="checkbox">
+				<span>Включен?</span>
+			</th>
+		</tr>
+		{loop="$plugin"}
+			<tr>
+				<td>
+					<span>{$value['name']}</span>
+				</td>
+				<td>
+					<a href="/board/d/thread/{$value['thread']}/">№{$value['thread']}</a>
+				</td>
+				<td class="checkbox">
+					<input type="checkbox" id="settings_overlay_{$value['id']}" />
+					<script type="text/javascript">
+						init('settings_overlay', {$value['id']}, {
+							section: 'plugins',
+							key: {$value['id']},
+							value: {function="Config::get_front('plugins', $value['id'])"}
+						});
+					</script>
+				</td>
+			</tr>
+		{/loop}
+	</table>
+
+	<div class="plugin_warning">
+		Если у вас достаточно старый браузер, некоторые из плагинов могут сломать вам просмотр сайта. <br />
+		Если это произошло и вы уже не можете отключить плагин, <a href="http://wiki.4otaku.ru/Очистка_cookies">удалите наши куки</a>, после чего сообщите в один из тредов поддержки плагинов.
+	</div>
+</div>
