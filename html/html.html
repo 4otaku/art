@@ -32,10 +32,12 @@
 		</script>
 	</head>
 	<body>
-		{if="isset($module_header)"}
-			{$module_header}
-		{/if}
-		{$module_body}
+		<div class="wrapper">
+			{if="isset($module_header)"}
+				{$module_header}
+			{/if}
+			{$module_body}
+		</div>
 		{if="isset($module_footer)"}
 			{$module_footer}
 		{/if}

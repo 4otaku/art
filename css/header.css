@@ -192,3 +192,11 @@
 .main_menu li.header_menu_item:hover ul {
 	display: block;
 }
+
+.header_private_item li {
+	padding-right: 28px;
+}
+
+.header_private_item li.box {
+	padding-right: 0px;
+}
