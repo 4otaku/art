@@ -1,12 +1,16 @@
 OBJECT.personal_link = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	if (values.url) {
-		this.child.link.attr('href', values.url);
+	if (this.url) {
+		this.child.link.attr('href', this.url);
+	} else {
+		this.url = this.child.link.attr('href');
 	}
 
-	if (values.name) {
-		this.child.link.html(values.name);
+	if (this.name) {
+		this.child.link.html(this.name);
+	} else {
+		this.name = this.child.link.html();
 	}
 }
 
@@ -15,5 +19,12 @@ extend(OBJECT.personal_link, OBJECT.base, {
 	child_config: {
 		edit: '.edit_private_item',
 		link: '.link'
+	},
+	events: {
+		edit: {
+			click: function() {
+				Overlay.ajax('/ajax/menu_edit');
+			}
+		}
 	}
 });
