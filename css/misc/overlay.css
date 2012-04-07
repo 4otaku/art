@@ -55,33 +55,16 @@
 	cursor: pointer;
 }
 
-.header_menu_input_table {
-	width: 550px;
-	border-collapse: collapse;
-}
-
-.header_menu_input_table td {
-	margin: 5px;
-}
-
-.header_menu_input {
-	width: 400px;
-}
-
-.login_input_table {
+.login_input_table, .table_add_menu {
 	margin: 5px;
 	border-collapse: collapse;
 }
 
-.login_input_table td {
+.login_input_table td, .table_add_menu td {
    padding: 5px;
 }
 
-.login_input_table td span {
-   padding: 4px;
-}
-
-.login_input_table td span {
+.login_input_table td span, .table_add_menu td span {
    padding: 4px;
 }
 
@@ -95,6 +78,10 @@
 
 .login_action {
 	margin-top: 10px;
+}
+
+.table_add_menu .input {
+	width: 300px;
 }
 
 .rss_item {

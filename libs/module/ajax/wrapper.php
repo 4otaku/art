@@ -14,7 +14,12 @@ class Module_Ajax extends Module_Html_Abstract
 		$class = 'Module_Ajax_' . $class;
 
 		if (!class_exists($class)) {
-			return array();
+			if ($query->get('format') == 'json') {
+				return array('body' =>
+					new Module_Ajax_Json_Error($query));
+			} else {
+				return array();
+			}
 		}
 
 		return array(

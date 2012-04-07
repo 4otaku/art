@@ -12,6 +12,18 @@ var Ajax = {
 		});
 	},
 
+	get: function(url, data, success, failure) {
+		data.format = 'json';
+		$.ajax({
+			url: url,
+			data: data ? data: {},
+			type: 'GET',
+			success: success ? success : false,
+			failure: failure ? failure : false,
+			dataType: 'json'
+		});
+	},
+
 	error: {
 		410: 'Указан неправильный адрес в запросе.'
 	},

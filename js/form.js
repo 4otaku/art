@@ -10,6 +10,7 @@ OBJECT.form = function(id, values, events) {
 extend(OBJECT.form, OBJECT.base, {
 	class_name: 'form',
 	add_data: {},
+	get: false,
 	child_config: {
 		on_enter: 'input[type=text],input[type=password]',
 		submit: '.submit',
@@ -32,7 +33,9 @@ extend(OBJECT.form, OBJECT.base, {
 
 		data = $.extend(data.data, this.add_data);
 
-		Ajax.perform(this.url, data, $.proxy(function(response) {
+		var fn = this.get ? Ajax.get : Ajax.perform;
+
+		fn.call(this, this.url, data, $.proxy(function(response) {
 			this.child.submit.show();
 			this.child.loader.hide();
 			if (response.success == false) {
@@ -94,6 +97,15 @@ extend(OBJECT.form, OBJECT.base, {
 			data: data
 		}
 	},
+	success_overlay: function(text) {
+		this.child.error.hide();
+		this.child.submit.hide();
+		this.child.loader.hide();
+		this.child.success.html(text).show();
+		setTimeout(function() {
+			$(".overlay").overlay().close();
+		}, 5000);
+	},
 	events: {
 		on_enter: {
 			keydown: function(e) {
@@ -141,5 +153,14 @@ var Validate = {
 		}
 
 		return params.text;
+	},
+
+	url: function(value, params) {
+		var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+		if (regexp.test(value)) {
+			return true;
+		}
+
+		return 'Указана некорректная ссылка.';
 	}
 }

@@ -38,3 +38,7 @@ api_response_inner=/var/www/frontend/api/libs//api/response/inner.php
 api_response_abstract=/var/www/frontend/api/libs//api/response/abstract.php
 error_api=/var/www/frontend/api/libs//error/api.php
 module_ajax_plugin=/var/www/frontend/libs/module/ajax/plugin.php
+module_ajax_setting=/var/www/frontend/libs/module/ajax/setting.php
+module_ajax_json_error=/var/www/frontend/libs/module/ajax/json_error.php
+module_ajax_json=/var/www/frontend/libs/module/ajax/json.php
+module_ajax_menu_add=/var/www/frontend/libs/module/ajax/menu_add.php

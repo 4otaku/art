@@ -1,6 +1,6 @@
 <?php
 
-class Module_Ajax_Set extends Module_Html_Abstract
+class Module_Ajax_Setting extends Module_Html_Abstract
 {
 	protected function get_params(Query $query)
 	{

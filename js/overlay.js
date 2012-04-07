@@ -117,13 +117,7 @@ Overlay = {
 				},
 				url: '/api/update/user',
 				success: function(response) {
-					this.child.error.hide();
-					this.child.submit.hide();
-					this.child.loader.hide();
-					this.child.success.html('Пароль успешно изменен').show();
-					setTimeout(function() {
-						$(".overlay").overlay().close();
-					}, 5000);
+					this.success_overlay('Пароль успешно изменен');
 				}
 			});
 		},
@@ -147,6 +141,19 @@ Overlay = {
 			init('settings_rss', 'order');
 			init('settings_rss', 'comment');
 			init('settings_rss', 'workshop');
+		},
+		add_menu: function() {
+			init('form', 'add_menu', {
+				validate: {
+					url: [Validate.non_empty, Validate.url],
+					name: Validate.non_empty
+				},
+				url: '/ajax/menu_add',
+				get: true,
+				success: function(response) {
+					this.success_overlay('Пункт успешно добавлен');
+				}
+			});
 		}
 	},
 
@@ -293,3 +300,35 @@ Overlay.templates.rss = '<h2>Настройка личного RSS-потока<
 		'<input type="submit" id="clickable_rss_link" value="Подписаться на выбранное" />' +
 	'</div>' +
 '</div>';
+
+Overlay.templates.add_menu = '<h2>Добавить пункт в личное меню.</h2>' +
+'<div><table class="table_add_menu" id="form_add_menu">' +
+	'<tr>' +
+		'<td>' +
+			'<span>Название ссылки:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="text" class="input" name="name" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td>' +
+			'<span>Адрес ссылки:</span>' +
+		'</td>' +
+		'<td>' +
+			'<input type="text" class="input" name="url" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2">' +
+			'<div class="loader" />' +
+			'<div class="error" />' +
+			'<div class="success" />' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2" class="action_holder">' +
+			'<input type="submit" class="submit" value="Добавить">' +
+		'</td>' +
+	'</tr>' +
+'</table></div>';

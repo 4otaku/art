@@ -54,7 +54,7 @@ abstract class Module_Abstract extends RainTPL
 	public function dispatch() {
 		$html = $this->get_html();
 
-		echo $html;
+		echo trim($html);
 	}
 
 	public function get_html() {
