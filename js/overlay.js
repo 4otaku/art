@@ -64,6 +64,10 @@ Overlay = {
 		});
 	},
 
+	close: function() {
+		$(".overlay").overlay().close();
+	},
+
 	callback: {
 		register: function () {
 			init('form', 'register', {
@@ -151,7 +155,7 @@ Overlay = {
 				url: '/ajax/menu_add',
 				get: true,
 				success: function(response) {
-					this.success_overlay('Пункт успешно добавлен');
+					Overlay.close();
 					$('#personal_link_dummy').clone()
 						.attr('id', 'personal_link_' + response.id)
 						.insertBefore('.header_private_item ul .add_menu');

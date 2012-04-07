@@ -43,3 +43,5 @@ module_ajax_json_error=/var/www/frontend/libs/module/ajax/json_error.php
 module_ajax_json=/var/www/frontend/libs/module/ajax/json.php
 module_ajax_menu_add=/var/www/frontend/libs/module/ajax/menu_add.php
 module_ajax_menu_edit=/var/www/frontend/libs/module/ajax/menu/edit.php
+module_ajax_menu_delete=/var/www/frontend/libs/module/ajax/menu/delete.php
+module_ajax_menu_save=/var/www/frontend/libs/module/ajax/menu/save.php

@@ -2,7 +2,7 @@
 	Редактирование ссылки <a href="{$url}" target="_blank">{$name}</a>.
 </h2>
 <div>
-	<table class="table_edit_menu">
+	<table class="table_edit_menu" id="form_edit_link_{$id}">
 		<tr>
 			<td>
 				<span>Название ссылки:</span>
@@ -37,10 +37,51 @@
 			</td>
 		</tr>
 		<tr>
+			<td colspan="2">
+				<div class="loader" />
+				<div class="error" />
+			</td>
+		</tr>
+		<tr>
 			<td colspan="2" class="action_holder">
-				<input type="submit" class="edit_personal_menu_item left disabled" value="Сохранить">
-				<input type="submit" class="delete_personal_menu_item right disabled" value="Удалить">
+				<input type="submit" class="submit left" value="Сохранить">
+				<input type="submit" class="right" id="clickable_delete_link_{$id}" value="Удалить">
 			</td>
 		</tr>
 	</table>
 </div>
+<script type="text/javascript">
+	init('clickable', 'delete_link_{$id}', function() {
+		Ajax.get('/ajax/menu_delete', {id: {$id}}, function() {
+			$('#personal_link_{$id}').remove();
+			Overlay.close();
+		});
+	});
+	init('form', 'edit_link_{$id}', {
+		validate: {
+			url: [Validate.non_empty, Validate.url],
+			name: Validate.non_empty
+		},
+		url: '/ajax/menu_save',
+		get: true,
+		add_data: {
+			id: {$id}
+		},
+		success: function(response) {
+			var item = $('#personal_link_{$id} .link');
+			item.attr('href', response.url);
+			item.html(response.name);
+			var order = [];
+			$.each(response.order, function(item) {
+				order.push(false);
+			});
+			$.each(response.order, function(key, item) {
+				order[item.new_order - 1] = $('#personal_link_' + item.id);
+			});
+			$.each(order, function(key, item){
+				item.insertBefore('.header_private_item ul .add_menu');
+			});
+			Overlay.close();
+		}
+	}, {id: {$id}});
+</script>

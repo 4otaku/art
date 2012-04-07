@@ -102,9 +102,7 @@ extend(OBJECT.form, OBJECT.base, {
 		this.child.submit.hide();
 		this.child.loader.hide();
 		this.child.success.html(text).show();
-		setTimeout(function() {
-			$(".overlay").overlay().close();
-		}, 5000);
+		setTimeout(Overlay.close, 5000);
 	},
 	events: {
 		on_enter: {
