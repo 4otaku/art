@@ -55,16 +55,16 @@
 	cursor: pointer;
 }
 
-.login_input_table, .table_add_menu {
+.login_input_table, .table_add_menu, .table_edit_menu {
 	margin: 5px;
 	border-collapse: collapse;
 }
 
-.login_input_table td, .table_add_menu td {
+.login_input_table td, .table_add_menu td, .table_edit_menu td {
    padding: 5px;
 }
 
-.login_input_table td span, .table_add_menu td span {
+.login_input_table td span, .table_add_menu td span, .table_edit_menu td span {
    padding: 4px;
 }
 
@@ -80,7 +80,7 @@
 	margin-top: 10px;
 }
 
-.table_add_menu .input {
+.table_add_menu .input, .table_edit_menu .input {
 	width: 300px;
 }
 

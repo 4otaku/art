@@ -23,7 +23,8 @@ extend(OBJECT.personal_link, OBJECT.base, {
 	events: {
 		edit: {
 			click: function() {
-				Overlay.ajax('/ajax/menu_edit');
+				console.log(this);
+				Overlay.ajax('/ajax/menu_edit?id=' + this.id);
 			}
 		}
 	}

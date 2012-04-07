@@ -129,6 +129,8 @@ var OBJECT = {
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
+
+		this.id = id;
 	}
 }
 

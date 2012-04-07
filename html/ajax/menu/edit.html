@@ -1,46 +1,46 @@
-<div class="margin20">
-	Редактирование ссылки <a href="{{url}}" target="_blank">{{name}}</a>.
+<h2>
+	Редактирование ссылки <a href="{$url}" target="_blank">{$name}</a>.
+</h2>
+<div>
+	<table class="table_edit_menu">
+		<tr>
+			<td>
+				<span>Название ссылки:</span>
+			</td>
+			<td>
+				<input type="text" name="name" class="input" value="{$name}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span>Адрес ссылки:</span>
+			</td>
+			<td>
+				<input type="text" name="url" class="input" value="{$url}">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span>Позиция ссылки:</span>
+			</td>
+			<td>
+				<select name="order">
+					{loop="$order"}
+						<option value="{$value['order']}"
+							{if="$value['selected']"}
+								 selected="selected"
+							{/if}>
+							{$value['order']}
+						</option>
+					{/loop}
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="action_holder">
+				<input type="submit" class="edit_personal_menu_item left disabled" value="Сохранить">
+				<input type="submit" class="delete_personal_menu_item right disabled" value="Удалить">
+			</td>
+		</tr>
+	</table>
 </div>
-<table class="header_menu_input_table">
-	<tr>
-		<td>
-			<span>Название ссылки:</span>
-		</td>
-		<td>
-			<input type="text" name="name" class="header_menu_input" value="{{name}}">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<span>Адрес ссылки:</span>
-		</td>
-		<td>
-			<input type="text" name="url" class="header_menu_input" value="{{url}}">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<span>Позиция ссылки:</span>
-		</td>
-		<td>
-			<select name="order">
-				{% for i in 1..count %}
-					<option value="{{i}}"
-						{% if i == order %}
-							 class="selected"
-						{% endif %}
-					>
-						{{i}}
-					</option>
-				{% endfor %}
-			</select>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<input type="hidden" name="id" value="{{id}}">
-			<input type="submit" class="edit_personal_menu_item disabled" value="Сохранить">
-			<input type="submit" class="delete_personal_menu_item right disabled" value="Удалить">
-		</td>
-	</tr>
-</table>
