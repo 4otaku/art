@@ -78,18 +78,27 @@
 			<span>Личное</span>
 			<ul>
 				{loop="$personal"}
-					<li>
+					<li id="personal_link_{$value['id']}">
 						<a title="Редактировать ссылку"
-							 class="right edit_private_item thickbox"
-							 href="/ajax.php?m=box&f=edit_personal_menu&width=600&height=200&id={{id}}">
+							 class="right edit_private_item">
 							<img src="/images/edit.gif" />
 						</a>
 						<a href="{$value['url']}" class="link">
 							{$value['name']}
 						</a>
 					</li>
+					<script type="text/javascript">
+						add('personal_link', {$value['id']});
+					</script>
 				{/loop}
-				<li class="box">
+				<li id="personal_link_dummy">
+					<a title="Редактировать ссылку"
+						 class="right edit_private_item">
+						<img src="/images/edit.gif" />
+					</a>
+					<a href="" class="link"></a>
+				</li>
+				<li class="add_menu">
 					<a id="clickable_add_menu" class="link">
 						 Добавить ссылку
 					</a>

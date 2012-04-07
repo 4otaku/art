@@ -4,11 +4,12 @@ class Module_Html_Header extends Module_Html_Abstract
 {
 
 	protected $css = array('base', 'header', 'misc/overlay');
-	protected $js = array('external/overlay', 'overlay', 'setting', 'form');
+	protected $js = array('external/overlay', 'overlay',
+		'setting', 'form', 'personal');
 
 	protected function get_params(Query $query)
 	{
-		$menu = Database::get_vector('head_menu_user',
+		$menu = Database::get_table('head_menu_user',
 			array('id', 'url', 'name'),
 			'cookie = ? order by `order`',
 			Config::get('cookie', 'hash')

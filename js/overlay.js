@@ -152,6 +152,10 @@ Overlay = {
 				get: true,
 				success: function(response) {
 					this.success_overlay('Пункт успешно добавлен');
+					$('#personal_link_dummy').clone()
+						.attr('id', 'personal_link_' + response.id)
+						.insertBefore('.header_private_item ul .add_menu');
+					init('personal_link', response.id, response);
 				}
 			});
 		}

@@ -5,6 +5,7 @@ abstract class Module_Ajax_Json extends Module_Html_Abstract
 	protected $success = false;
 	protected $error = '';
 	protected $error_code = 0;
+	protected $params = array();
 
 	public function get_html() {
 		$data = $this->params;

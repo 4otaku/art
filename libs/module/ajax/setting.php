@@ -1,6 +1,6 @@
 <?php
 
-class Module_Ajax_Setting extends Module_Html_Abstract
+class Module_Ajax_Setting extends Module_Ajax_Json
 {
 	protected function get_params(Query $query)
 	{
@@ -11,12 +11,13 @@ class Module_Ajax_Setting extends Module_Html_Abstract
 		if (preg_match('/[^a-z_\d]/ui', $section) ||
 			preg_match('/[^a-z_\d]/ui', $key)) {
 
-			exit();
+			$this->error_code = 430;
+			return;
 		}
 
 		$session = Session::get_instance();
 		$session->set($section, $key, $value);
 
-		exit();
+		$this->success = true;
 	}
 }

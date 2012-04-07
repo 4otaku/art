@@ -200,3 +200,7 @@
 .header_private_item li.box {
 	padding-right: 0px;
 }
+
+#personal_link_dummy {
+	display: none;
+}

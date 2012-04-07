@@ -3,7 +3,6 @@
 abstract class Module_Abstract extends RainTPL
 {
 	protected $modules = array();
-	protected $params = array();
 
 	public function __construct(Query $query) {
 		RainTPL::configure('tpl_dir', HTML . SL);
