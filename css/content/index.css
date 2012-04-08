@@ -1,0 +1,44 @@
+.branding {
+	height: 130px;
+	padding: 10px;
+	background: #fff url(/images/brand.png) repeat-x;
+}
+
+.logo {
+	float: left;
+	margin-top: 15px;
+}
+
+.branding img.yukari {
+	margin-right: 0px;
+	margin-top: -8px;
+}
+
+#search_main {
+	margin: 30px auto 10px auto;
+	text-align: center;
+}
+
+#search_main .field {
+	width: 685px;
+	padding-left: 65px;
+	position: relative;
+}
+
+#search_main span {
+	font-size: 90%;
+	position: relative;
+	bottom: 3px;
+}
+
+.searcharea {
+	margin-right: 5px;
+}
+
+input.search {
+	width: 530px;
+}
+
+#search_main .search_boxes {
+	margin-right: 200px;
+}

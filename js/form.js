@@ -1,5 +1,3 @@
-
-
 OBJECT.form = function(id, values, events) {
 
 	values.validate = values.validate ? values.validate : {};

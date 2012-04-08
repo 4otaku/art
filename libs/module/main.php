@@ -11,6 +11,10 @@ class Module_Main extends Module_Abstract
 			return new Module_Ajax($query);
 		}
 
+		if ($query->url(0) == 'rss') {
+			return new Module_Rss($query);
+		}
+
 		return new Module_Html($query);
 	}
 }

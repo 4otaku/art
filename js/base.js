@@ -126,6 +126,8 @@ var OBJECT = {
 		events = this.extend_events(events, this.events);
 		values = $.extend(values, this.values, true);
 
+		this.child = {};
+
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
@@ -136,7 +138,6 @@ var OBJECT = {
 
 mixin(OBJECT.base.prototype, {
 	el: false,
-	child: {},
 	child_config: {},
 	class_name: 'base',
 	id: '',

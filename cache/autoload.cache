@@ -45,3 +45,4 @@ module_ajax_menu_add=/var/www/frontend/libs/module/ajax/menu_add.php
 module_ajax_menu_edit=/var/www/frontend/libs/module/ajax/menu/edit.php
 module_ajax_menu_delete=/var/www/frontend/libs/module/ajax/menu/delete.php
 module_ajax_menu_save=/var/www/frontend/libs/module/ajax/menu/save.php
+module_content_index=/var/www/frontend/libs/module/content/index.php
