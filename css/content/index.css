@@ -39,6 +39,16 @@ input.search {
 	width: 530px;
 }
 
-#search_main .search_boxes {
-	margin-right: 200px;
+.search-main {
+	width: 600px;
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 50%;
+	margin-left: -272px;
+	opacity: 0.85;
+	z-index: 100500;
+}
+
+.search-main .mini-shell {
+	border-width: 2px;
 }

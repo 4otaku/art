@@ -15,10 +15,11 @@
 			<input value="art" type="checkbox"><span>В артах</span>
 			<input value="news" type="checkbox"><span>В новостях</span>
 			<input value="comment" type="checkbox"><span>В комментариях</span>
+			<input value="log" type="checkbox"><span>В логах</span>
 		</div>
 	</div>
 	<script type="text/javascript">
-		add('search', 'main');
+		add('search', 'main', {max_tip_length: 200});
 	</script>
 </div>
 {$module_panel}

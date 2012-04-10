@@ -1,18 +1,37 @@
 // Ajax functions
 
 var Ajax = {
-	perform: function(url, data, success, failure) {
+	perform: function(url, data, success, failure, scope) {
+		if (typeof data == 'function') {
+			scope = failure;
+			failure = success;
+			success = data;
+			data = {};
+		}
+		if (typeof failure == 'object') {
+			scope = failure;
+		}
 		$.ajax({
 			url: url,
 			data: data ? data: {},
 			type: 'POST',
 			success: success ? success : false,
 			failure: failure ? failure : false,
+			context: scope ? scope : this,
 			dataType: 'json'
 		});
 	},
 
-	get: function(url, data, success, failure) {
+	get: function(url, data, success, failure, scope) {
+		if (typeof data == 'function') {
+			scope = failure;
+			failure = success;
+			success = data;
+			data = {};
+		}
+		if (typeof failure == 'object') {
+			scope = failure;
+		}
 		data.format = 'json';
 		$.ajax({
 			url: url,
@@ -20,6 +39,7 @@ var Ajax = {
 			type: 'GET',
 			success: success ? success : false,
 			failure: failure ? failure : false,
+			context: scope ? scope : this,
 			dataType: 'json'
 		});
 	},

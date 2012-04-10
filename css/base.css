@@ -155,6 +155,11 @@ wbr {
 	display: inline-block;
 }
 
+div.mini-shell {
+	border: 1px solid #E7E7E7;
+	padding: 2px;
+}
+
 div.mini-shell div.text {
 	margin: 15px;
 }
