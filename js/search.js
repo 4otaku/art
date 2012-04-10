@@ -16,7 +16,7 @@ extend(OBJECT.search, OBJECT.base, {
 	},
 	parse_area: function() {
 		var area = [];
-		this.child.area.each(function(){
+		this.child.area.each(function() {
 			if ($(this).is(':checked')) {
 				area.push($(this).val());
 			}
@@ -24,7 +24,21 @@ extend(OBJECT.search, OBJECT.base, {
 		this.area = area;
 	},
 	get_val: function() {
-		return this.child.field.val().replace(/\//g," ");
+		return this.child.field.val().replace(/\//g, ' ')
+			.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	},
+	move_tip: function(move) {
+
+	},
+	perform_search: function(val, area) {
+		document.location.href='/search/'+area.join(',')+
+			'/'+this.get_sort(area)+'/'+encodeURI(val)+'/';
+	},
+	get_sort: function(area) {
+		if (area.length == 1 && area[0] == 'art') {
+			return 'art';
+		}
+		return 'rel';
 	},
 	events: {
 		area: {
@@ -42,29 +56,39 @@ extend(OBJECT.search, OBJECT.base, {
 						console.log(response);
 					});
 				}
+			},
+			keydown: function(e) {
+				switch (e.which) {
+					case 40: this.move_tip(1);
+					case 38: this.move_tip(-1);
+					case 13:
+						var val = this.get_val();
+						if (val.length > 2 && this.area.length > 0) {
+							this.perform_search(val, this.area);
+						}
+					default: break;
+				}
 			}
 		},
-		button: {},
+		button: {
+			click: function() {
+				var val = this.get_val();
+				if (val.length < 3) {
+					alert('В строке поиска должно быть больше двух символов.');
+				} else if (this.area.length < 1) {
+					alert('Задайте область поиска.');
+				} else {
+					this.perform_search(val, this.area);
+				}
+			}
+		},
 		tip: {}
 	}
 });
 
 /*
 
-	$("input.search").keyup(function(e){
-		string = urlencode($(this).val().replace(/\//g," "));
-		if (e.which != 38 && e.which != 40) {
-			if ($("#search-tip").is(".search-main")) var index = '&index=1';
-			else var index = '&index=0';
-			$("#search-tip").load(window.config.site_dir+'/ajax.php?m=search&f=searchtip&data='+string+'&area='+$("input.search").attr('rel')+index);
-		}
-	});
 
-	window.area = '';
-	$(".searcharea:checked").each(function(){
-		window.area = window.area + $(this).val();
-	});
-	$("input.search").attr('rel',window.area);
 
 	$("input.search").keydown(function(e){
 		switch (e.which) {
@@ -92,17 +116,8 @@ extend(OBJECT.search, OBJECT.base, {
 				}
 				break;
 			case 13:
-				if ($(this).val().length > 2 && $(this).attr('rel').length > 0) {
-					if ($(this).attr('rel') == 'a') sort_type = 'art';
-					else sort_type = 'rel';
-					document.location.href='/search/'+$(this).attr('rel')+'/'+sort_type+'/'+urlencode($(this).val().replace(/\//g," "))+'/';
-				}
-				break;
-			default:
-				break;
-		}
-	});
-
+			*
+			*
 	$(".search-tip").live('click',function(event){
 		if (event.button == 0) {
 			if($(this).is(".tip-type-search")) {
@@ -115,91 +130,3 @@ extend(OBJECT.search, OBJECT.base, {
 			}
 		}
 	});
-
-	$("input.searchb").click(function(event){
-		event.preventDefault();
-		search_string = trim($("input.search").val().replace(/\//g," "));
-		if (search_string.length > 2) {
-			if ($("input.search").attr('rel') == 'a') sort_type = 'art';
-			else sort_type = 'rel';
-			if ($("input.search").attr('rel').length > 0)
-				document.location.href='/search/'+$("input.search").attr('rel')+'/'+sort_type+'/'+urlencode(search_string)+'/';
-			else
-				alert('Задайте область поиска.');
-		}
-		else {
-			alert('В строке поиска должно быть больше двух символов.');
-		}
-	});
-
-	$("input.search_logs").keydown(function(e){
-		switch (e.which) {
-			case 13:
-				if ($(this).val().length > 2) {
-					document.location.href='/logs/search/'+urlencode($(this).val().replace(/\//g," "))+'/';
-				}
-				break;
-			default:
-				break;
-		}
-	});
-
-	$("input.search_logs_button").click(function(event){
-		event.preventDefault();
-		search_string = trim($("input.search_logs").val().replace(/\//g," "));
-		if (search_string.length > 2) {
-			document.location.href='/logs/search/'+urlencode(search_string)+'/';
-		} else {
-			alert('В строке поиска должно быть больше двух символов.');
-		}
-	});
-
-	$(".searcharea").change(function(){
-		window.area = '';
-		$(".searcharea:checked").each(function(){
-			window.area = window.area + $(this).val();
-		});
-		$("input.search").attr('rel',window.area);
-	});
-
-	$(".search-options").click(function(){
-		if ($(this).attr('rel') != 'open') {
-			$(this).parent('td').children('div').slideDown();
-			$(this).attr('rel','open');
-			$(this).html('Спрятать опции поиска');
-		}
-		else {
-			$(this).parent('td').children('div').slideUp();
-			$(this).attr('rel','closed');
-			$(this).html('Показать опции поиска');
-		}
-	});
-
-	$(".secondary_searcharea").change(function(){
-		window.area = '';
-		$(".secondary_searcharea:checked").each(function(){
-			window.area = window.area + $(this).val();
-		});
-		path = $(".secondary_search").attr("href").split('/');
-		$(".secondary_search").attr("href",'/search/'+window.area+'/'+path[3]+'/'+path[4]+'/');
-	});
-
-	$(".show_searchareas").click(function(){
-		if ($(this).attr('rel') != 'open') {
-			$('.secondary_searchareas').slideDown();
-			$(this).attr('rel','open');
-			$(this).html('Спрятать область поиска.');
-		}
-		else {
-			$('.secondary_searchareas').slideUp();
-			$(this).attr('rel','closed');
-			$(this).html('Изменить область поиска.');
-		}
-	});
-
-	$(".search-switcher").change(function(){
-		path = window.location.pathname.split('/');
-		document.location.href='/search/'+path[2]+'/'+$(this).val()+'/'+path[4]+'/';
-	});
-
-	*/
