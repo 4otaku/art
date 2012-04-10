@@ -121,40 +121,6 @@ extend(OBJECT.search, OBJECT.base, {
 					this.perform_search(val, this.area);
 				}
 			}
-		},
-		tip: {}
+		}
 	}
 });
-
-/*
-
-
-
-	$("input.search").keydown(function(e){
-		switch (e.which) {
-			case 40:
-				b = parseInt($("#search-tip").attr('rel')); a = b + 1;
-				if (!(a > $('.search-tip').size())) {
-					$('.search-tip-'+b).parent().removeClass('active');
-					$('.search-tip-'+a).parent().addClass('active');
-					if ($('.search-tip-'+a).is(".tip-type-search")) {
-						$(this).val($('.search-tip-'+a).attr('rel'));
-					}
-					else {
-						$(this).val($('.search-tip-'+a).html().split(': ')[1]);
-					}
-					$("#search-tip").attr('rel',a);
-				}
-				break;
-			case 38:
-				b = parseInt($("#search-tip").attr('rel')); a = b - 1;
-				if (!(a < 0)) {
-					$('.search-tip-'+b).parent().removeClass('active');
-					$('.search-tip-'+a).parent().addClass('active');
-					$(this).val($('.search-tip-'+a).attr('rel'));
-					$("#search-tip").attr('rel',a);
-				}
-				break;
-			case 13:
-			*
-			*/
