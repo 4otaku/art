@@ -57,16 +57,20 @@ abstract class Module_Abstract extends RainTPL
 	}
 
 	public function get_html() {
-		foreach ($this->modules as $key => $module) {
-			$var_name = 'module_' . $key;
-			$var_value = $module->get_html();
-			$this->set_param($var_name, $var_value);
-		}
+		$this->get_module_html();
 
 		$tpl_name = explode('_', strtolower(get_called_class()));
 		array_shift($tpl_name);
 		$tpl_name = implode(SL, $tpl_name);
 
 		return $this->draw($tpl_name, true);
+	}
+
+	protected function get_module_html() {
+		foreach ($this->modules as $key => $module) {
+			$var_name = 'module_' . $key;
+			$var_value = $module->get_html();
+			$this->set_param($var_name, $var_value);
+		}
 	}
 }

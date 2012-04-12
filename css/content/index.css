@@ -52,3 +52,8 @@ input.search {
 .search-main .mini-shell {
 	border-width: 2px;
 }
+
+.index_body {
+	padding-right: 3%;
+	padding-left: 3%;
+}
