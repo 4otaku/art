@@ -66,3 +66,5 @@ model_news=/var/www/frontend/api/libs//model/news.php
 model_abstract_meta=/var/www/frontend/api/libs//model/abstract_meta.php
 model_abstract_logged=/var/www/frontend/api/libs//model/abstract_logged.php
 request_single=/var/www/frontend/libs/request/single.php
+api_read_recentchanges=/var/www/frontend/api/libs//api/read/recentchanges.php
+model_recentchanges=/var/www/frontend/api/libs//model/recentchanges.php
