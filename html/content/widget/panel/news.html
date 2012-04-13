@@ -1,5 +1,5 @@
-<a href="/news/{$id}/">{$title}</a>
-{if="{$comment_count}"}
-	({$comment_count})
+<a href="/news/{$id}/">{$data.title}</a>
+{if="$data.comment_count"}
+	({$data.comment_count})
 {/if}
 <a href="/news/" class="news_bar">Архив новостей.</a>
