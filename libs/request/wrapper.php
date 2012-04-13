@@ -151,7 +151,7 @@ class Request
 
 	public function pass_data($data) {
 		foreach ($this->binded as $object) {
-			$object->recieve_data($data);
+			$object->recieve_data($data, $this->api);
 		}
 	}
 }
