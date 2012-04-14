@@ -10,13 +10,13 @@ class Request
 
 	protected $requests = array();
 
-	public function __construct($api = false, $object = false, $data = array()) {
+	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data') {
 		if ($api && $object && $object instanceOf Module_Abstract) {
 			$this->api = (string) $api;
 			$this->data = (array) $data;
 			$this->hash = md5($this->api . serialize($this->data));
 
-			$this->bind($object);
+			$this->bind(array($object, $method));
 		}
 	}
 
@@ -35,8 +35,8 @@ class Request
 			unset($request);
 		} else {
 			if (isset($this->requests[$hash])) {
-				foreach ($request->get_binded() as $object) {
-					$this->requests[$hash]->bind($object);
+				foreach ($request->get_binded() as $callback) {
+					$this->requests[$hash]->bind($callback);
 				}
 				unset($request);
 			} else {
@@ -117,14 +117,14 @@ class Request
 		return $return;
 	}
 
-	public function bind(Module_Abstract $object) {
+	public function bind($callback) {
 		foreach ($this->binded as $binded) {
-			if ($binded === $object) {
+			if ($binded === $callback) {
 				return;
 			}
 		}
 
-		$this->binded[] = $object;
+		$this->binded[] = $callback;
 	}
 
 	public function get_hash() {
@@ -150,8 +150,10 @@ class Request
 	}
 
 	public function pass_data($data) {
-		foreach ($this->binded as $object) {
-			$object->recieve_data($data, $this->api);
+		foreach ($this->binded as $callback) {
+			$object = $callback[0];
+			$method = $callback[1];
+			$object->$method($data);
 		}
 	}
 }

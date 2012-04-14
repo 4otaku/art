@@ -23,7 +23,7 @@ class Module_Content_Widget_Panel_Wiki extends Module_Content_Widget_Panel_Abstr
 	);
 
 	protected function make_request() {
-		return new Request_Single('recentchanges', $this, array(
+		return new Request_Item('recentchanges', $this, array(
 			'fields' => array('rc_title', 'rc_namespace'),
 			'mode' => 'no_count'));
 	}

@@ -68,3 +68,7 @@ model_abstract_logged=/var/www/frontend/api/libs//model/abstract_logged.php
 request_single=/var/www/frontend/libs/request/single.php
 api_read_recentchanges=/var/www/frontend/api/libs//api/read/recentchanges.php
 model_recentchanges=/var/www/frontend/api/libs//model/recentchanges.php
+request_item=/var/www/frontend/libs/request/item.php
+module_content_widget_panel_empty=/var/www/frontend/libs/module/content/widget/panel/empty.php
+api_read_board=/var/www/frontend/api/libs//api/read/board.php
+model_board=/var/www/frontend/api/libs//model/board.php

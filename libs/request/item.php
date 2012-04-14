@@ -1,9 +1,14 @@
 <?php
 
-class Request_Count extends Request
+class Request_Item extends Request
 {
 	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data') {
-		$data['mode'] = 'count_only';
+		$data['per_page'] = 1;
 		parent::__construct($api, $object, $data, $method);
+	}
+
+	public function pass_data($data) {
+		$data['data'] = reset($data['data']);
+		parent::pass_data($data);
 	}
 }

@@ -1,4 +1,4 @@
 <a href="/board/">Борда сайта</a>.
-Всего тредов: 9001{if="!empty($new)"},
-	<a href="/board/new/{$new_link}">{$new} из них новых</a>{/if}{if="!empty($updated)"},
-	<a href="/board/updated/{$updated_link}">{$updated} обновилось</a>{/if}.
+Всего тредов: {$count}{if="!empty($new)"},
+	<a href="/board/new/{$link}">{$new} из них новых</a>{/if}{if="!empty($updated)"},
+	<a href="/board/updated/{$link}">{$updated} обновилось</a>{/if}.
