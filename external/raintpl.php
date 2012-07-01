@@ -256,7 +256,7 @@ class RainTPL{
 		if( !isset($this->tpl['checked']) ){
 
 			$tpl_basename                       = basename( $tpl_name );														// template basename
-			$tpl_basedir                        = strpos($tpl_name,"/") ? dirname($tpl_name) . '/' : null;						// template basedirectory
+			$tpl_basedir                        = strpos($tpl_name, DIRECTORY_SEPARATOR) ? dirname($tpl_name) . DIRECTORY_SEPARATOR : null;						// template basedirectory
 			$tpl_dir                            = self::$tpl_dir . $tpl_basedir;								// template directory
 			$this->tpl['tpl_filename']          = $tpl_dir . $tpl_basename . '.' . self::$tpl_ext;	// template filename
 			$temp_compiled_filename             = self::$cache_dir . $tpl_basename . "." . md5( $tpl_dir . serialize(self::$config_name_sum));
