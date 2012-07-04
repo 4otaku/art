@@ -2,7 +2,7 @@ config/*
 !config/*sample*
 
 cache/*
-!files/index.php
+!cache/index.php
 
 files/board_cache/*
 !files/board_cache/index.php
