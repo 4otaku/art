@@ -24,9 +24,9 @@ class Module_Html extends Module_Html_Abstract
 		}
 
 		return array(
-			'header' => new Module_Html_Header($query),
+			'header' => new Module_Html_Part_Header($query),
 			'body' => new Module_Html_Body($query),
-			'footer' => new Module_Html_Footer($query)
+			'footer' => new Module_Html_Part_Footer($query)
 		);
 	}
 }
