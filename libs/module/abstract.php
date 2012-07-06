@@ -5,7 +5,7 @@ abstract class Module_Abstract extends RainTPL
 	protected $modules = array();
 
 	public function __construct(Query $query) {
-		RainTPL::configure('tpl_dir', HTML . SL);
+		RainTPL::configure('tpl_dir', TPL . SL);
 		RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
 		RainTPL::configure('path_replace', false);
 
