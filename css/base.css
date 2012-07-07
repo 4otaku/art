@@ -3,8 +3,6 @@ html, body {
 }
 
 body {
-	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
-	font-size: 0.8em;
 	padding: 0px;
 	margin: 0px;
 	min-width: 1006px;
@@ -15,6 +13,10 @@ body {
 	height: auto !important;
 	height: 100%;
 	margin: 0 auto -94px;
+}
+
+.content {
+	padding: 20px 10px 10px 10px;
 }
 
 a {
@@ -109,39 +111,6 @@ ul.plain_list {
 
 .first_button {
 	margin-right: 35px;
-}
-
-input, textarea {
-	-moz-border-radius: 0.5em !important;
-	-webkit-border-radius: 0.5em !important;
-	border-radius: 0.5em !important;
-	background-color: #efefef ;
-	border: 1px solid #CCCCCC !important;
-	border-bottom: 1px solid #eee !important;
-	border-right: 1px solid #eee !important;
-	padding: 3px 3px 3px 3px !important;
-}
-
-button, input {
-	background-color: #FFFFFF !important;
-	text-decoration: none !important;
-	font-weight: bold !important;
-	color: #565656 !important;
-	cursor: pointer !important;
-	padding: 3px 3px 3px 3px !important;
-}
-
-textarea {
-	background-color: #FFFFFF !important;
-	cursor: pointer !important;
-	padding: 3px 3px 3px 3px !important;
-}
-
-input:hover, input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
-	background-color:#efefef !important ;
-	border:1px solid #CCCCCC !important;
-	color:#565656 !important;
-
 }
 
 #easyTooltip {

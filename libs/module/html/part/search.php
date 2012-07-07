@@ -8,8 +8,7 @@ class Module_Html_Part_Search extends Module_Html_Abstract
 		'height', 'weight', 'size', 'md5'
 	);
 
-	protected function get_params(Query $query)
-	{
+	protected function get_params(Query $query) {
 		$search = array();
 		foreach ($query->get() as $key => $items) {
 			if (!in_array($key, $this->possible_keys)) {

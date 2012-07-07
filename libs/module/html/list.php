@@ -13,8 +13,7 @@ class Module_Html_List extends Module_Html_Abstract
 		);
 	}
 
-	protected function get_params(Query $query)
-	{
+	protected function get_params(Query $query) {
 	}
 
 	protected function make_request() {
