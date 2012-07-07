@@ -5,8 +5,8 @@ class Query
 	protected $url = array();
 	protected $get = array();
 
-	public function __construct($url, $get) {
-		$this->get = $this->clean_globals($get, array());
+	public function __construct($url, $get, $clean = true) {
+		$this->get = $clean ? $this->clean_globals($get, array()) : $get;
 
 		$url = explode('/', preg_replace('/\?[^\/]+$/', '', $url));
 
