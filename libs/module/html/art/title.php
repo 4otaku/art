@@ -1,73 +1,24 @@
 <?php
 
-class Module_Html_Part_Title extends Module_Html_Abstract
+class Module_Html_Art_Title extends Module_Html_Art_Abstract
 {
-	protected $numeric_keys = array(
-		'rating', 'width', 'height', 'weight', 'size'
-	);
-
-	protected $string_keys = array(
-		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5'
-	);
-
 	protected function get_params(Query $query) {
-		$search = array();
-		foreach ($query->get() as $key => $items) {
-			$is_numeric = in_array($key, $this->numeric_keys);
-			$is_string = in_array($key, $this->string_keys);
-
-			if (!$is_numeric && !$is_string) {
-				continue;
-			}
-
-			$data = array();
-			list($data['is'], $data['not'], $data['more'], $data['less']) =
-				$this->parse((array) $items, $is_numeric);
-			$data_key = (int) 1000 * (count($data['is']) * 1000 + count($data['more']) * 100 +
-				count($data['less']) * 10 + count($data['not']) + rand()/getrandmax());
-			while (isset($search[$data_key])) {
-				$data_key++;
-			}
-			$search[$data_key] = array('data' => $data, 'type' => $key);
-		}
-
-		krsort($search);
-
 		$primary = true;
-		foreach ($search as &$item) {
+		$search = array();
+		foreach ($query->parsed() as $key => $data) {
 			$part = array();
-			foreach ($item['data'] as $key => $data) {
-				if (!empty($data)) {
-					$function = 'word_for_' . $item['type'];
-					list($word, $separator) = $this->$function($primary, $key, count($data) > 1);
-					$part[] = $word . ' ' . implode($separator, $data);
+			foreach ($data as $type => $items) {
+				if (!empty($items)) {
+					$function = 'word_for_' . $key;
+					list($word, $separator) = $this->$function($primary, $type, count($items) > 1);
+					$part[] = $word . ' ' . implode($separator, $items);
 					$primary = false;
 				}
 			}
-			$item = implode(', ', $part);
+			$search[] = implode(', ', $part);
 		}
 
 		$this->set_param('query', implode(', ', $search));
-	}
-
-	protected function parse($items, $is_numeric) {
-		$is = $not = $more = $less = array();
-		foreach ($items as $item) {
-			if (strpos($item, '!') === 0) {
-				$not[] = substr($item, 1);
-				continue;
-			}
-			if (strpos($item, '>') === 0 && $is_numeric) {
-				$more[] = substr($item, 1);
-				continue;
-			}
-			if (strpos($item, '<') === 0 && $is_numeric) {
-				$less[] = substr($item, 1);
-				continue;
-			}
-			$is[] = $item;
-		}
-		return array($is, $not, $more, $less);
 	}
 
 	protected function word_for_rating($primary, $type, $multi) {

@@ -5,7 +5,14 @@ class Query
 	protected $url = array();
 	protected $get = array();
 
-	public function __construct($url, $get, $clean = true) {
+	public function __construct($url, $get = array(), $clean = true) {
+		// Если первым параметром уже существующий Query, то не надо ничего обрабатывать.
+		if ($url instanceOf Query) {
+			$this->url = $url->url();
+			$this->get = $url->get();
+			return;
+		}
+
 		$this->get = $clean ? $this->clean_globals($get, array()) : $get;
 
 		$url = explode('/', preg_replace('/\?[^\/]+$/', '', $url));

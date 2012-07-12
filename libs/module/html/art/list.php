@@ -1,15 +1,15 @@
 <?php
 
-class Module_Html_List extends Module_Html_Abstract
+class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
 	protected $css = array('base');
 	protected $js = array();
 
 	protected function get_modules(Query $query) {
 		return array(
-			'title' => new Module_Html_Part_Title($query),
-			'search' => new Module_Html_Part_Search($query),
-			'paginator' => new Module_Html_Part_Paginator($query)
+			'title' => new Module_Html_Art_Title($query),
+			'search' => new Module_Html_Art_Search($query),
+			'paginator' => new Module_Html_Art_Paginator($query)
 		);
 	}
 
