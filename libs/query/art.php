@@ -4,11 +4,11 @@ class Query_Art extends Query
 {
 	protected $parsed = array();
 	protected $other = array();
-	protected $numeric_keys = array(
-		'rating', 'width', 'height', 'weight', 'size'
+	protected $comparable_keys = array(
+		'rating', 'width', 'height', 'weight', 'date'
 	);
-	protected $string_keys = array(
-		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5'
+	protected $equal_keys = array(
+		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'state'
 	);
 	protected $other_keys = array(
 		'sort', 'order'
@@ -19,11 +19,11 @@ class Query_Art extends Query
 
 		$search = array();
 		foreach ($this->get() as $key => $items) {
-			$is_numeric = in_array($key, $this->numeric_keys);
-			$is_string = in_array($key, $this->string_keys);
+			$is_comparable = in_array($key, $this->comparable_keys);
+			$is_equal = in_array($key, $this->equal_keys);
 			$is_other = in_array($key, $this->other_keys);
 
-			if (!$is_numeric && !$is_string) {
+			if (!$is_comparable && !$is_equal) {
 				if ($is_other) {
 					$this->other[$key] = is_array($items) ? reset($items) : $items;
 				}
@@ -32,10 +32,10 @@ class Query_Art extends Query
 
 			$data = array();
 			list($data['is'], $data['not'], $data['more'], $data['less']) =
-				$this->parse((array) $items, $is_numeric);
+				$this->parse((array) $items, $is_comparable);
 			$data_key = count($data['is']) * 1000 + count($data['more']) * 100 +
-				count($data['less']) * 10 + count($data['not']) + 10 * $is_string +
-				array_search($key, $is_numeric ? $this->numeric_keys : $this->string_keys);
+				count($data['less']) * 10 + count($data['not']) + 10 * $is_equal +
+				array_search($key, $is_comparable ? $this->comparable_keys : $this->equal_keys);
 			while (isset($search[$data_key])) {
 				$data_key++;
 			}
@@ -61,18 +61,18 @@ class Query_Art extends Query
 		return array_merge($this->parsed, $this->other);
 	}
 
-	protected function parse($items, $is_numeric) {
+	protected function parse($items, $is_comparable) {
 		$is = $not = $more = $less = array();
 		foreach ($items as $item) {
 			if (strpos($item, '!') === 0) {
 				$not[] = substr($item, 1);
 				continue;
 			}
-			if (strpos($item, '>') === 0 && $is_numeric) {
+			if (strpos($item, '>') === 0 && $is_comparable) {
 				$more[] = substr($item, 1);
 				continue;
 			}
-			if (strpos($item, '<') === 0 && $is_numeric) {
+			if (strpos($item, '<') === 0 && $is_comparable) {
 				$less[] = substr($item, 1);
 				continue;
 			}
