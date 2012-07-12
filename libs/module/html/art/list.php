@@ -10,7 +10,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 		return array(
 			'title' => new Module_Html_Art_Title($query),
 			'search' => new Module_Html_Art_Search($query),
-			'paginator' => new Module_Html_Art_Paginator($query)
+			'paginator' => new Module_Html_Art_Paginator($query),
+			'list' => new Module_Html_Container('html_item_thumb')
 		);
 	}
 
@@ -22,8 +23,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 	protected function make_request() {
 		return new Request_Art_List($this, $this->query_params);
 	}
-/*
+
 	public function recieve_data($data) {
-		var_dump($data); die;
-	}*/
+		$this->modules['list']->recieve_data($data['data']);
+	}
 }
