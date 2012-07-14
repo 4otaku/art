@@ -1,0 +1,10 @@
+.thumb {
+	display: inline-block;
+	text-align: center;
+	position: relative;
+}
+
+.small_thumbnail {
+	width: 160px;
+	height: 160px;
+}

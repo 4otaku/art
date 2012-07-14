@@ -2,7 +2,7 @@
 
 class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
-	protected $css = array('base');
+	protected $css = array('list');
 	protected $js = array();
 	protected $query_params = array();
 
@@ -11,7 +11,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			'title' => new Module_Html_Art_Title($query),
 			'search' => new Module_Html_Art_Search($query),
 			'paginator' => new Module_Html_Art_Paginator($query),
-			'list' => new Module_Html_Container('html_item_thumb')
+			'list' => new Module_Html_Container('thumbnail_art')
 		);
 	}
 

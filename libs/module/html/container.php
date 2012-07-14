@@ -7,7 +7,7 @@ class Module_Html_Container extends Module_Html_Abstract
 	public function __construct($type = '') {
 		$type = explode('_', $type);
 		$type = array_map('ucfirst', $type);
-		$this->class_name = 'Module_' . implode('_', $type);
+		$this->class_name = 'Module_Html_' . implode('_', $type);
 
 		parent::__construct(new Query_Dummy());
 	}
