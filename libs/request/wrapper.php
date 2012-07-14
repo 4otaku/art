@@ -69,7 +69,7 @@ class Request
 				$url .= '?f=igbinary';
 			} else {
 				$data['format'] = 'json';
-				$data = json_encode($data);
+				$data = json_encode($data, JSON_NUMERIC_CHECK);
 				$url .= '?f=json';
 			}
 
