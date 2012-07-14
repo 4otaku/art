@@ -11,7 +11,10 @@ class Query_Art extends Query
 		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'state'
 	);
 	protected $other_keys = array(
-		'sort', 'order'
+		'sort', 'order', 'mode', 'page', 'per_page'
+	);
+	protected $possible_modes = array(
+		'art', 'comment', 'pack', 'group', 'manga', 'artist'
 	);
 
 	public function __construct($url, $get = array(), $clean = true) {
@@ -25,7 +28,11 @@ class Query_Art extends Query
 
 			if (!$is_comparable && !$is_equal) {
 				if ($is_other) {
-					$this->other[$key] = is_array($items) ? reset($items) : $items;
+					$item = is_array($items) ? reset($items) : $items;
+					if ($key == 'mode' && !in_array($item, $this->possible_modes)) {
+						continue;
+					}
+					$this->other[$key] = $item;
 				}
 				continue;
 			}
@@ -55,6 +62,11 @@ class Query_Art extends Query
 
 	public function other() {
 		return $this->other;
+	}
+
+	public function mode() {
+		return isset($this->other['mode']) ? $this->other['mode'] :
+			reset($this->possible_modes);
 	}
 
 	public function all() {

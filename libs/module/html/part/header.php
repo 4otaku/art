@@ -2,7 +2,7 @@
 
 class Module_Html_Part_Header extends Module_Html_Abstract
 {
-	protected $css = array('base', 'header', 'misc/overlay');
+	protected $css = array('base', 'header', 'overlay');
 	protected $js = array('external/overlay', 'overlay',
 		'setting', 'form', 'personal');
 
