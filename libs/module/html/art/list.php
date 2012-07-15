@@ -15,13 +15,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 		);
 	}
 
-	protected function get_params(Query $query) {
-		$this->query_params = $query->other();
-		$this->query_params['parsed'] = $query->parsed();
-	}
-
 	protected function make_request() {
-		return new Request_Art_List($this, $this->query_params);
+		return $this->get_common_request();
 	}
 
 	public function recieve_data($data) {

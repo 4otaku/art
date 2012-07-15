@@ -4,6 +4,7 @@ class Query_Art extends Query
 {
 	protected $parsed = array();
 	protected $other = array();
+	protected $forced_per_page = true;
 	protected $comparable_keys = array(
 		'rating', 'width', 'height', 'weight', 'date'
 	);
@@ -49,6 +50,11 @@ class Query_Art extends Query
 			$search[$data_key] = array('data' => $data, 'type' => $key);
 		}
 
+		if (empty($this->other['per_page'])) {
+			$this->other['per_page'] = Config::get('pp', 'art');
+			$this->forced_per_page = false;
+		}
+
 		krsort($search);
 		ksort($this->other);
 		foreach ($search as $item) {
@@ -67,6 +73,45 @@ class Query_Art extends Query
 	public function mode() {
 		return isset($this->other['mode']) ? $this->other['mode'] :
 			reset($this->possible_modes);
+	}
+
+	public function page() {
+		return isset($this->other['page']) ? $this->other['page'] : 1;
+	}
+
+	public function per_page() {
+		return $this->other['per_page'];
+	}
+
+	public function to_url_string() {
+		$parts = array();
+
+		$params = $this->parsed();
+
+		foreach ($params as $key => $param) {
+			foreach ($param as $mode => $items) {
+				switch ($mode) {
+					case 'is': $mode = ''; break;
+					case 'more': $mode = '>'; break;
+					case 'less': $mode = '<'; break;
+					case 'not': $mode = '!'; break;
+				}
+				foreach ($items as $item) {
+					$parts[] = $key . '[]=' . $mode . $item;
+				}
+			}
+		}
+
+		$params = $this->other();
+		unset($params['page']);
+		if (!$this->forced_per_page) {
+			unset($params['per_page']);
+		}
+		foreach ($params as $key => $param) {
+			$parts[] = $key . '=' . $param;
+		}
+
+		return implode('&', $parts);
 	}
 
 	public function all() {
