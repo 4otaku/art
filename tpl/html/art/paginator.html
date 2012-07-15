@@ -34,24 +34,22 @@
 				...
 			</li>
 		{/if}
-		{if condition="$end > $start"}
-			{loop="loop"}
-				{if condition="$value.current"}
-					<li class="active_page">
-						<a href="/?{$base}&page={$value.page}">
-							{$value.page}
-						</a>
-					</li>
-				{else}
-					<li>
-						<a href="/?{$base}&page={$value.page}">
-							{$value.page}
-						</a>
-					</li>
-				{/if}
-			{/loop}
-		{/if}
-		{if condition="$end < $last - 1"}
+		{loop="loop"}
+			{if condition="$value.current"}
+				<li class="active_page">
+					<a href="/?{$base}&page={$value.page}">
+						{$value.page}
+					</a>
+				</li>
+			{else}
+				<li>
+					<a href="/?{$base}&page={$value.page}">
+						{$value.page}
+					</a>
+				</li>
+			{/if}
+		{/loop}
+	{if condition="$end < $last - 1"}
 			<li class="space">
 				...
 			</li>

@@ -15,8 +15,8 @@ class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 		$end = min($curr + 6, $last - 1);
 
 		$loop = array();
-		if ($end > $start) {
-			for ($i = $start; $i > $end; $i++) {
+		if ($end >= $start) {
+			for ($i = $start; $i <= $end; $i++) {
 				$loop[] = array('current' => $i == $curr, 'page' => $i);
 			}
 		}
