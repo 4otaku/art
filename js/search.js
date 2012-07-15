@@ -1,31 +1,19 @@
 OBJECT.search = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	this.parse_area();
-	this.val = this.get_val();
+	this.terms = this.get_terms();
 }
 
 extend(OBJECT.search, OBJECT.base, {
 	class_name: 'search',
-	area: [],
 	child_config: {
-		area: '.search_boxes input',
-		field: '.field .search',
-		button: '.field .search-button',
+		field: '.input-append input',
+		button: '.input-append button',
 		tip: '.field .search-tip'
 	},
-	parse_area: function() {
-		var area = [];
-		this.child.area.each(function() {
-			if ($(this).is(':checked')) {
-				area.push($(this).val());
-			}
-		});
-		this.area = area;
-	},
-	get_val: function() {
-		return this.child.field.val().replace(/\//g, ' ')
-			.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	get_terms: function() {
+		return this.child.field.val().replace(/^\s\s*/, '')
+			.replace(/\s\s*$/, '').split(/\s\s*/);
 	},
 	move_tip: function(move) {
 		var position = this.child.tip.find('.active').index();
@@ -38,9 +26,33 @@ extend(OBJECT.search, OBJECT.base, {
 			}
 		}
 	},
-	perform_search: function(val, area) {
-		document.location.href='/search/'+area.join(',')+
-			'/'+this.get_sort(area)+'/'+encodeURI(val)+'/';
+	perform_search: function(terms) {
+		var items = {};
+		$.each(terms, function(key, term){
+			var sep_position = term.indexOf(':', 1);
+			if (sep_position === -1 || sep_position == term.length - 1) {
+				var type = 'tag';
+			} else {
+				var type = term.slice(0, sep_position);
+				term = term.slice(sep_position + 1, term.length);
+			}
+			if (!items[type]) {
+				items[type] = [];
+			}
+			items[type].push(term);
+		});
+		var parts = [];
+		$.each(items, function(type, item){
+			$.each(item, function(key, part){
+				if (item.length == 1) {
+					parts.push(type + '=' + part);
+				} else {
+					parts.push(type + '[]=' + part);
+				}
+			});
+		});
+		var uri = parts.join('&');
+		document.location.href = '/?' + uri;
 	},
 	get_sort: function(area) {
 		if (area.length == 1 && area[0] == 'art') {
@@ -70,11 +82,6 @@ extend(OBJECT.search, OBJECT.base, {
 		return ret;
 	},
 	events: {
-		area: {
-			click: function() {
-				this.parse_area();
-			}
-		},
 		field: {
 			keyup: function() {
 				var val = this.get_val();
@@ -112,13 +119,9 @@ extend(OBJECT.search, OBJECT.base, {
 		},
 		button: {
 			click: function() {
-				var val = this.get_val();
-				if (val.length < 3) {
-					alert('В строке поиска должно быть больше двух символов.');
-				} else if (this.area.length < 1) {
-					alert('Задайте область поиска.');
-				} else {
-					this.perform_search(val, this.area);
+				var terms = this.get_terms();
+				if (terms.length > 0) {
+					this.perform_search(terms);
 				}
 			}
 		}
