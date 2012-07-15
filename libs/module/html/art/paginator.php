@@ -11,8 +11,8 @@ class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 	public function recieve_data($data) {
 		$curr = $this->query->page();
 		$last = ceil($data['count'] / $this->query->per_page());
-		$start = max($curr - 5, 2);
-		$end = min($curr + 6, $last - 1);
+		$start = max($curr - 8, 2);
+		$end = min($curr + 9, $last - 1);
 
 		$loop = array();
 		if ($end >= $start) {
