@@ -3,6 +3,7 @@
 class Module_Html_Art_Search extends Module_Html_Art_Abstract
 {
 	protected $js = array('search');
+	protected $css = array('search');
 
 	protected function get_params(Query $query) {
 		$legal = $query->all();

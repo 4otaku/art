@@ -25,9 +25,14 @@ class Module_Ajax_Search_Tip extends Module_Ajax_Json
 	}
 
 	public function recieve_data($data) {
+		$tags = array();
+		foreach ($data['data'] as $tag) {
+			$tags[] = $tag['name'];
+		}
+
 		$this->success = true;
 		$this->params = array(
-			'data' => $data['data'],
+			'tags' => $tags,
 			'query' => $this->raw_term
 		);
 	}

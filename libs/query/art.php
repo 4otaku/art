@@ -12,7 +12,7 @@ class Query_Art extends Query
 		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'state'
 	);
 	protected $other_keys = array(
-		'sort', 'order', 'mode', 'page', 'per_page'
+		'sort', 'order', 'mode', 'page', 'per_page', 'approved', 'tagged', 'variations'
 	);
 	protected $possible_modes = array(
 		'art', 'comment', 'pack', 'group', 'manga', 'artist'

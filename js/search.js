@@ -7,10 +7,33 @@ OBJECT.search = function(id, values, events) {
 extend(OBJECT.search, OBJECT.base, {
 	class_name: 'search',
 	current_tip_request: '',
+	max_tip_length: 50,
+	query_language: {
+		rating: [],
+		width: [],
+		height: [],
+		weight: [],
+		date: [],
+		user: [],
+		pack: [],
+		group: [],
+		artist: [],
+		manga: [],
+		md5: [],
+		sort: ['none', 'random', 'date', 'width', 'height', 'weight', 'size',
+			'rating', 'parent_order', 'comment_count', 'comment_date', 'tag_count'],
+		order: ['desc', 'asc'],
+		mode: ['art', 'comment', 'pack', 'group', 'manga', 'artist'],
+		page: [],
+		per_page: [],
+		approved: ['yes', 'no', 'waiting', 'all'],
+		tagged: ['yes', 'no', 'all'],
+		variations: ['yes', 'no']
+	},
 	child_config: {
 		field: '.input-append input',
 		button: '.input-append button',
-		tip: '.field .search-tip'
+		tip: '.tips'
 	},
 	get_terms: function() {
 		return this.child.field.val().replace(/^\s\s*/, '')
@@ -60,30 +83,54 @@ extend(OBJECT.search, OBJECT.base, {
 		var uri = parts.join('&');
 		document.location.href = '/?' + uri;
 	},
-	build_tip_box: function(queries) {
-		var ret = $('<div/>').addClass('searchbox').addClass('mini-shell'),
-			me = this;
-		$.each(queries, function(key, query) {
-			var text = query.query.length < me.max_tip_length ?
-				query.query : (query.query.substring(0, me.max_tip_length) + ' ...');
-			var el = $('<div/>').addClass('search-tip');
-			var link = $('<a/>').click(function(e){
+	build_tip_box: function(tags) {
+		var ret = $('<div/>').addClass('searchbox'), me = this;
+		$.each(tags, function(key, tag) {
+			var text = tag.tag.length < me.max_tip_length ? tag.tag :
+				(tag.tag.substring(0, me.max_tip_length) + ' ...');
+
+			var el = $('<div/>').addClass('search-tip')
+				.data('tag', tag.tag + tag.postfix);
+			var link = $('<a/>').attr('href', '#').html(text).appendTo(el);
+			if (tag.language) {
+				el.addClass('search-language');
+			}
+
+			el.click(function(e){
 				e.preventDefault();
-				if($(this).data("type") == 'search') {
-					me.child.field.val($(this).data("alias"));
-					me.child.button.click();
+				var val = me.child.field.val();
+				var end = me.child.field.caret().start || 0;
+				var start = val.slice(0, end).lastIndexOf(' ');
+				if (start == 1 || start == -1) {
+					start = 0;
+				} else {
+					start++;
 				}
-				else {
-					document.location.href = $(this).data("alias");
+				if ($(this).is('.search-language') && val.slice(start, end).indexOf(':') != -1) {
+					var start = val.slice(0, end).lastIndexOf(':') + 1;
 				}
-			}).attr('href', '#').html(text).data(query).appendTo(el);
+				me.child.field.val(val.slice(0, start) + $(this).data('tag') +
+					val.slice(end, val.length)).caretTo(start + $(this).data('tag').length);
+				me.child.tip.empty();
+				me.current_tip_request = '';
+			});
+
 			ret.append(el);
 		});
+
+		if (tags.length) {
+			ret.addClass('mini-shell');
+		}
+
 		return ret;
 	},
 	events: {
 		field: {
-			keyup: function() {
+			keyup: function(e) {
+				if (e.which == 40 || e.which == 38 || e.which == 13) {
+					return;
+				}
+
 				var term = this.get_current();
 				if (term.length == 0) {
 					this.current_tip_request = '';
@@ -93,21 +140,41 @@ extend(OBJECT.search, OBJECT.base, {
 				var sep_position = term.indexOf(':', 1);
 				if (sep_position === -1 || sep_position == term.length - 1) {
 					term = term.replace(/^!/, '');
-					if (this.current_tip_request != term) {
+					if (term.length && this.current_tip_request != term) {
 						this.current_tip_request = term;
 						Ajax.get('/ajax/search_tip', {term: term}, function(response) {
-							console.log(response);
-							if (response.success) {
-								/*
-								var tip_box = this.build_tip_box(response.data);
-								if (response.query == this.val) {
-									this.child.tip.empty().append(tip_box);
-								}*/
+							if (response.success && response.query == this.current_tip_request) {
+								var tags = [];
+
+								$.each(this.query_language, function(query_term, values) {
+									if (query_term.indexOf(term) == 0) {
+										tags.push({tag: query_term, language: 1, postfix: ':'});
+									}
+								});
+								$.each(response.tags, function(key, tag) {
+									tags.push({tag: tag, language: 0, postfix: ' '});
+								});
+
+								var tip_box = this.build_tip_box(tags);
+								this.child.tip.empty().append(tip_box);
 							}
 						}, this);
 					}
 				} else {
+					var type = term.slice(0, sep_position);
+					var value = term.slice(sep_position + 1);
 
+					var vals = this.query_language[type] || [];
+
+					var tags = [];
+					$.each(vals, function(key, variant) {
+						if (variant.indexOf(value) == 0) {
+							tags.push({tag: variant, language: 1, postfix: ' '});
+						}
+					});
+
+					var tip_box = this.build_tip_box(tags);
+					this.child.tip.empty().append(tip_box);
 				}
 			},
 			keydown: function(e) {
@@ -117,7 +184,7 @@ extend(OBJECT.search, OBJECT.base, {
 					case 13:
 						var selected_tip = this.child.tip.find('.active');
 						if (selected_tip.length) {
-							selected_tip.children('a').click();
+							selected_tip.click();
 							return;
 						}
 						this.child.button.click();
