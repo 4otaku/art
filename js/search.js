@@ -6,6 +6,7 @@ OBJECT.search = function(id, values, events) {
 
 extend(OBJECT.search, OBJECT.base, {
 	class_name: 'search',
+	current_tip_request: '',
 	child_config: {
 		field: '.input-append input',
 		button: '.input-append button',
@@ -14,6 +15,11 @@ extend(OBJECT.search, OBJECT.base, {
 	get_terms: function() {
 		return this.child.field.val().replace(/^\s\s*/, '')
 			.replace(/\s\s*$/, '').split(/\s\s*/);
+	},
+	get_current: function() {
+		var pos = this.child.field.caret().start || 0;
+		var terms = this.child.field.val().slice(0, pos).split(/\s\s*/);
+		return terms[terms.length - 1];
 	},
 	move_tip: function(move) {
 		var position = this.child.tip.find('.active').index();
@@ -54,12 +60,6 @@ extend(OBJECT.search, OBJECT.base, {
 		var uri = parts.join('&');
 		document.location.href = '/?' + uri;
 	},
-	get_sort: function(area) {
-		if (area.length == 1 && area[0] == 'art') {
-			return 'art';
-		}
-		return 'rel';
-	},
 	build_tip_box: function(queries) {
 		var ret = $('<div/>').addClass('searchbox').addClass('mini-shell'),
 			me = this;
@@ -84,18 +84,30 @@ extend(OBJECT.search, OBJECT.base, {
 	events: {
 		field: {
 			keyup: function() {
-				var val = this.get_val();
-				if (this.val != val && val.length > 0) {
-					this.val = val;
-					var area = this.area.join(',');
-					Ajax.get('/ajax/search_tip', {area: area, val: val}, function(response) {
-						if (response.success) {
-							var tip_box = this.build_tip_box(response.data);
-							if (response.query == this.val) {
-								this.child.tip.empty().append(tip_box);
+				var term = this.get_current();
+				if (term.length == 0) {
+					this.current_tip_request = '';
+					return;
+				}
+
+				var sep_position = term.indexOf(':', 1);
+				if (sep_position === -1 || sep_position == term.length - 1) {
+					term = term.replace(/^!/, '');
+					if (this.current_tip_request != term) {
+						this.current_tip_request = term;
+						Ajax.get('/ajax/search_tip', {term: term}, function(response) {
+							console.log(response);
+							if (response.success) {
+								/*
+								var tip_box = this.build_tip_box(response.data);
+								if (response.query == this.val) {
+									this.child.tip.empty().append(tip_box);
+								}*/
 							}
-						}
-					}, this);
+						}, this);
+					}
+				} else {
+
 				}
 			},
 			keydown: function(e) {
@@ -108,10 +120,7 @@ extend(OBJECT.search, OBJECT.base, {
 							selected_tip.children('a').click();
 							return;
 						}
-						var val = this.get_val();
-						if (val.length > 2 && this.area.length > 0) {
-							this.perform_search(val, this.area);
-						}
+						this.child.button.click();
 						break;
 					default: break;
 				}
