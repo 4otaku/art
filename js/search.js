@@ -7,7 +7,7 @@ OBJECT.search = function(id, values, events) {
 extend(OBJECT.search, OBJECT.base, {
 	class_name: 'search',
 	current_tip_request: '',
-	max_tip_length: 50,
+	max_tip_length: 30,
 	query_language: {
 		rating: [],
 		width: [],
