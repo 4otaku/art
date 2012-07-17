@@ -22,6 +22,6 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	}
 
 	public function recieve_data($data) {
-		var_dump($data); die;
+		parent::recieve_data($data['data']);
 	}
 }

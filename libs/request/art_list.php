@@ -13,7 +13,7 @@ class Request_Art_List extends Request
 		'weight' => 'weight',
 		'date' => 'date',
 		'tag' => 'art_tag',
-		'user' => 'id_user',
+		'user' => 'user',
 		'pack' => 'art_pack',
 		'group' => 'art_group',
 		'artist' => 'art_artist',

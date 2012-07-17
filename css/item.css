@@ -1,0 +1,68 @@
+.tag {
+	border-top: #333333 solid 1px;
+	padding: 10px 0;
+}
+
+.scroll {
+	position: absolute;
+	opacity: 0.5;
+	cursor: pointer;
+	top: 45%;
+}
+
+.scroll:hover {
+	opacity: 1;
+}
+
+.scroll_left {
+	left: 5px;
+}
+
+.scroll_right {
+	right: 5px;
+}
+
+.info {
+	float: left;
+	text-align: left;
+	width: 232px;
+	border: 2px solid #999;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	padding: 6px 3px 0px 5px;
+}
+
+.info_row {
+	margin-bottom: 10px;
+}
+
+.art {
+	margin: 10px 10px 10px 250px;
+	text-align: center;
+}
+
+.list_tags {
+	border: 2px solid #999;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	list-style-type: none;
+	padding-top: 5px;
+	margin: 0px;
+}
+
+.list_tags li {
+	display: inline-block;
+	margin: 0 5px 5px 5px;
+}
+
+.list_tags .inactive_question a {
+	color: #999999;
+}
+
+.list_bottom {
+	margin: 10px 0 10px 0;
+}
