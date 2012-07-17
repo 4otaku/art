@@ -20,6 +20,12 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 	}
 
 	public function recieve_data($data) {
+		$query = $this->query->to_url_string();
+		foreach ($data['data'] as &$item) {
+			$item['query'] = $query;
+		}
+		unset($item);
+
 		$this->modules['list']->recieve_data($data['data']);
 	}
 }
