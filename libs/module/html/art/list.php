@@ -2,7 +2,7 @@
 
 class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
-	protected $css = array('list');
+	protected $css = array('list', 'sidebar');
 	protected $js = array();
 	protected $query_params = array();
 
@@ -11,7 +11,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			'title' => new Module_Html_Art_Title($query),
 			'search' => new Module_Html_Art_Search($query),
 			'paginator' => new Module_Html_Art_Paginator($query),
-			'list' => new Module_Html_Container('thumbnail_' . $query->mode())
+			'list' => new Module_Html_Container('thumbnail_' . $query->mode()),
+			'tags' =>new Module_Html_Sidebar_Tags($query)
 		);
 	}
 
@@ -26,6 +27,23 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 		}
 		unset($item);
 
+		$temp_tags = array();
+		$count = array();
+		foreach ($data['data'] as $item) {
+			foreach ($item['tag'] as $tag) {
+				$temp_tags[$tag['name']] = $tag;
+				$count[$tag['name']] = $tag['count'];
+			}
+		}
+		arsort($count);
+		$count = array_slice($count, 0, Config::get('pp', 'art_tags'), true);
+
+		$tags = array();
+		foreach ($count as $key => $count) {
+			$tags[] = $temp_tags[$key];
+		}
+
 		$this->modules['list']->recieve_data($data['data']);
+		$this->modules['tags']->recieve_data($tags);
 	}
 }

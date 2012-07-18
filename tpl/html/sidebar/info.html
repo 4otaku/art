@@ -1,0 +1,69 @@
+<div class="sidebar_part">
+	<div class="sidebar_row">
+		Загрузил: <a href="/?user={$user}">{$user}</a>.
+	</div>
+	<div class="sidebar_row">
+		Рейтинг: {$rating}.
+	</div>
+	{if condition="$resized"}
+		<div class="sidebar_row">
+			Полный размер: <a href="http://images.4otaku.ru/art/{$md5}.{$ext}">
+				{$width}px * {$height}px</a>.
+		</div>
+	{/if}
+	<div class="sidebar_row">
+		Скачать: <a class="download" href="http://images.4otaku.ru/art/{$md5}.{$ext}">{$weight}</a>.
+	</div>
+	{if condition="count($similar) > 1"}
+		<div class="sidebar_row">
+			Вариации:
+			{loop="similar"}
+				{if condition="$value==$id"}
+					{$counter}{if condition="$counter!=count($similar)-1"},{/if}
+				{else}
+					<a href="/{$value}?{$query}">{$counter}</a>{if condition="$counter!=count($similar)-1"},{/if}
+				{/if}
+			{/loop}
+		</div>
+	{/if}
+	{if condition="$group"}
+		<div class="sidebar_row">
+			В группах:
+			{loop="group"}
+				<a href="/?group={$value.id}">{$value.title}</a>{if condition="$counter!=count($group)-1"},{/if}
+			{/loop}
+		</div>
+	{/if}
+	{if condition="$pack"}
+		<div class="sidebar_row">
+			В паках:
+			{loop="pack"}
+				<a href="/?pack={$value.id}">{$value.title}</a>{if condition="$counter!=count($pack)-1"},{/if}
+			{/loop}
+		</div>
+	{/if}
+	{if condition="$manga"}
+		<div class="sidebar_row">
+			В манге:
+			{loop="manga"}
+				<a href="/?manga={$value.id}">{$value.title}</a>{if condition="$counter!=count($manga)-1"},{/if}
+			{/loop}
+		</div>
+	{/if}
+	{if condition="$artist"}
+		<div class="sidebar_row">
+			За авторством:
+			{loop="artist"}
+				<a href="/?artist={$value.id}">{$value.artist}</a>{if condition="$counter!=count($artist)-1"},{/if}
+			{/loop}
+		</div>
+	{/if}
+	{if condition="$query"}
+		<div class="sidebar_row">
+			<a href="/slideshow?{$query}">Включить слайдшоу</a>.
+		</div>
+	{/if}
+	<div class="sidebar_row">
+		Добавлено: {$date}.
+	</div>
+</div>

@@ -1,0 +1,38 @@
+.sidebar {
+	float: left;
+	text-align: left;
+	width: 232px;
+}
+
+.sidebar_part {
+	width: 232px;
+	border: 2px solid #999;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	padding: 6px 3px 6px 5px;
+	margin-bottom: 15px;
+}
+
+.sidebar_row {
+	margin-bottom: 5px;
+}
+
+.tag {
+	border-top: #333333 solid 1px;
+	padding: 10px 0;
+}
+
+.question, .inactive_question {
+	margin-left: 4px;
+	float: right;
+}
+
+.count {
+	float: right;
+}
+
+.inactive_question a {
+	color: #999999;
+}
