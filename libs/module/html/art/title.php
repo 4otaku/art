@@ -2,118 +2,264 @@
 
 class Module_Html_Art_Title extends Module_Html_Art_Abstract
 {
+	protected $sort_variants = array(
+		'none' => 'без сортировки',
+		'random' => 'в случайном порядке',
+		'date' => 'в порядке даты добавления',
+		'width' => 'сортировка по ширине',
+		'height' => 'сортировка по высоте',
+		'weight' => 'сортировка по весу файла',
+		'size' => 'сортировка по числу пикселей',
+		'rating' => 'сортировка по рейтингу',
+		'parent_order' => 'сортировка по номеру вариации',
+		'comment_count' => 'сортировка по числу комментариев',
+		'comment_date' => 'в порядке времени последнего комментария',
+		'tag_count' => 'сортировка по числу тегов'
+	);
+
+	protected $mode_variants = array(
+		'comment' => 'прокомментированные арты',
+		'pack' => 'CG-паки',
+		'group' => 'группы',
+		'manga' => 'манга',
+		'artist' => 'галереи художников',
+	);
+
+	protected $tagged_variants = array(
+		'no' => 'не протеганное',
+		'all' => 'вне зависимости от тегов',
+	);
+
+	protected $approved_variants = array(
+		'no' => 'барахолка',
+		'waiting' => 'очередь премодерации',
+		'all' => 'вне зависимости от одобрения',
+	);
+
+	protected $request = null;
+	protected $search = array();
+
 	protected function get_params(Query $query) {
-		$primary = true;
 		$search = array();
-		foreach ($query->parsed() as $key => $data) {
-			$part = array();
-			foreach ($data as $type => $items) {
-				if (!empty($items)) {
-					$function = 'word_for_' . $key;
-					list($word, $separator) = $this->$function($primary, $type, count($items) > 1);
-					$part[] = $word . ' ' . implode($separator, $items);
-					$primary = false;
-				}
+
+		$other = $query->other();
+		$parsed = $query->parsed(false);
+
+		if ($query->get_pool_mode()) {
+			$search[] = array($query->get_pool_mode() =>
+				$query->get_pool_value());
+		} elseif ($query->mode() != 'art') {
+			$search[] = array('mode' => $query->mode());
+		} else {
+			if (!empty($other['approved']) && $other['approved'] != 'yes') {
+				$search[] = array('approved' => $other['approved']);
 			}
-			$search[] = implode(', ', $part);
+			if (!empty($other['tagged']) && $other['tagged'] != 'yes') {
+				$search[] = array('tagged' => $other['tagged']);
+			}
 		}
 
-		$this->set_param('query', implode(', ', $search));
-	}
-
-	protected function word_for_rating($primary, $type, $multi) {
-		switch ($type) {
-			case 'is': $postfix = $primary ? ' равен' : ' равным'; break;
-			case 'more': $postfix = $primary ? ' больше' : ' больше чем'; break;
-			case 'less': $postfix = $primary ? ' меньше' : ' меньше чем'; break;
-			case 'not': $postfix = $primary ? ' не равен' : ' не равным'; break;
+		foreach ($parsed as $key => $data) {
+			if (!empty($data['is'])) {
+				$search[] = array($key . '_is' => $data['is']);
+			}
 		}
-		return array(($primary ? 'Рейтинг' : 'с рейтингом') . $postfix, ' и ');
-	}
-
-	protected function word_for_width($primary, $type, $multi) {
-		switch ($type) {
-			case 'is': $postfix = $primary ? ' равна' : ' равной'; break;
-			case 'more': $postfix = $primary ? ' больше' : ' большей'; break;
-			case 'less': $postfix = $primary ? ' меньше' : ' меньшей'; break;
-			case 'not': $postfix = $primary ? ' не равна' : ' не равной'; break;
+		foreach ($parsed as $key => $data) {
+			if (!empty($data['more'])) {
+				$search[] = array($key . '_more' => $data['more']);
+			}
 		}
-		return array(($primary ? 'Ширина' : 'с шириной') . $postfix, ' и ');
-	}
-
-	protected function word_for_height($primary, $type, $multi) {
-		switch ($type) {
-			case 'is': $postfix = $primary ? ' равна' : ' равной'; break;
-			case 'more': $postfix = $primary ? ' больше' : ' большей'; break;
-			case 'less': $postfix = $primary ? ' меньше' : ' меньшей'; break;
-			case 'not': $postfix = $primary ? ' не равна' : ' не равной'; break;
+		foreach ($parsed as $key => $data) {
+			if (!empty($data['less'])) {
+				$search[] = array($key . '_less' => $data['less']);
+			}
 		}
-		return array(($primary ? 'Высота' : 'с высотой') . $postfix, ' и ');
-	}
-
-	protected function word_for_weight($primary, $type, $multi) {
-		switch ($type) {
-			case 'is': $postfix = ' равным'; break;
-			case 'more': $postfix = ' больше чем'; break;
-			case 'less': $postfix = ' меньше чем'; break;
-			case 'not': $postfix = ' не равным'; break;
+		foreach ($parsed as $key => $data) {
+			if (!empty($data['not'])) {
+				$search[] = array($key . '_not' => $data['not']);
+			}
 		}
-		return array(($primary ? 'Весом' : 'с весом') . $postfix, ' и ');
-	}
 
-	protected function word_for_size($primary, $type, $multi) {
-		switch ($type) {
-			case 'is': $postfix = ' равным'; break;
-			case 'more': $postfix = ' большим'; break;
-			case 'less': $postfix = ' меньшим'; break;
-			case 'not': $postfix = ' не равным'; break;
+		$other['sort'] = empty($other['sort']) ? 'date' : $other['sort'];
+		$other['order'] = empty($other['order']) ? 'desc' : $other['order'];
+		if ($other['order'] != 'desc' || $other['sort'] != 'date') {
+			$search[] = array('sort' => $other['sort']);
+			if ($other['sort'] != 'none' && $other['sort'] != 'random') {
+				$search[] = array('order' => $other['order']);
+			}
 		}
-		return array(($primary ? 'Размером' : 'с размером') . $postfix, ' и ');
+
+		$primary = true;
+		foreach ($search as &$part) {
+			$value = reset($part);
+			$function = 'word_' . key($part);
+			if (is_callable(array($this, $function))) {
+				$part = $this->$function($value, $primary);
+				$primary = false;
+			} else {
+				$part = null;
+			}
+		}
+
+		$this->search = array_filter($search);
+
+		if ($this->request === null) {
+			$this->set_param('query', implode(', ', $this->search));
+		}
 	}
 
-	protected function word_for_tag($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? ($multi ? 'Теги' : 'Тег') : ($multi ? 'Без тегов' : 'Без тега')) :
-			($type == 'is' ? ($multi ? 'с тегами' : 'с тегом') : ($multi ? 'без тегов' : 'без тега'));
-		return array($word, ' и ');
+	protected function make_request() {
+		if ($this->request !== null) {
+			return $this->request;
+		}
+		return false;
 	}
 
-	protected function word_for_user($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? 'Загружен' : 'Загружен не') :
-			($type == 'is' ? 'загружен' : 'загружен не');
-		return array($word, ' и ');
+	public function recieve_data($data) {
+		foreach ($this->search as $key => &$part) {
+			if (strpos($part, '%')) {
+				foreach ($data['data'] as $field => $value) {
+					$part = str_replace('%'.$field.'%', $value, $part);
+				}
+				break;
+			}
+		}
+
+		$this->set_param('query', implode(', ', $this->search));
+
+		if (!empty($data['data']['weight'])) {
+			$this->set_param('weight', $this->format_weight($data['data']['weight']));
+			$this->set_param('pool_type', $this->query->get_pool_mode());
+			$this->set_param('pool_id', $this->query->get_pool_value());
+		}
+
+		if (!empty($data['data']['text'])) {
+			$text = new Text($data['data']['text']);
+			$text->format();
+			$this->set_param('text', $text);
+		}
 	}
 
-	protected function word_for_pack($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? ($multi ? 'В паках' : 'В паке') : ($multi ? 'Не в паках' : 'Не в паке')) :
-			($type == 'is' ? ($multi ? 'в паках' : 'в паке') : ($multi ? 'не в паках' : 'не в паке'));
-		return array($word, ' и ');
+	protected function word_group($data, $primary = false) {
+		$this->request = new Request_Item('art_group', $this, array('id' => $data));
+		return 'Группа %title%';
 	}
 
-	protected function word_for_group($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? ($multi ? 'В группах' : 'В группе') : ($multi ? 'Не в группах' : 'Не в группе')) :
-			($type == 'is' ? ($multi ? 'в группах' : 'в группе') : ($multi ? 'не в группах' : 'не в группе'));
-		return array($word, ' и ');
+	protected function word_pack($data, $primary = false) {
+		$this->request = new Request_Item('art_pack', $this, array('id' => $data));
+		return 'CG-пак %title%';
 	}
 
-	protected function word_for_artist($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? 'В галерее' : ($multi ? 'Не в галереях' : 'Не в галерее')) :
-			($type == 'is' ? 'в галерее' : ($multi ? 'не в галереях' : 'не в галерее'));
-		return array($word, ' и ');
+	protected function word_manga($data, $primary = false) {
+		$this->request = new Request_Item('art_manga', $this, array('id' => $data));
+		return 'Манга %title%';
 	}
 
-	protected function word_for_manga($primary, $type, $multi) {
-		$word = $primary ?
-			($type == 'is' ? 'Страницы манги' :  ($multi ? 'Не в мангах' : 'Не в манге')) :
-			($type == 'is' ? 'в манге' : ($multi ? 'не в мангах' : 'не в манге'));
-		return array($word, ' и ');
+	protected function word_artist($data, $primary = false) {
+		$this->request = new Request_Item('art_artist', $this, array('id' => $data));
+		return 'Галерея %artist%';
 	}
 
-	protected function word_for_md5($primary, $type, $multi) {
-		return array('md5', ' и ');
+	protected function word_approved($data, $primary = false) {
+		if (!in_array($data, $this->approved_variants)) {
+			return false;
+		}
+
+		$return = $this->approved_variants[$data];
+		if ($primary) {
+			$return = ucfirst($return);
+		}
+
+		return $return;
+	}
+
+	protected function word_tagged($data, $primary = false) {
+		if (!in_array($data, $this->tagged_variants)) {
+			return false;
+		}
+
+		$return = $this->tagged_variants[$data];
+		if ($primary) {
+			$return = ucfirst($return);
+		}
+
+		return $return;
+	}
+
+	protected function word_mode($data, $primary = false) {
+		if (!in_array($data, $this->mode_variants)) {
+			return false;
+		}
+
+		$return = $this->mode_variants[$data];
+		if ($primary) {
+			$return = ucfirst($return);
+		}
+
+		return $return;
+	}
+
+	protected function word_user_is($data, $primary = false) {
+		return ($primary ? 'Загружено ' : 'загружено ') .
+			implode(', ', $data);
+	}
+
+	protected function word_user_not($data, $primary = false) {
+		return ($primary ? 'Кроме загруженых ' : 'кроме загруженых ') .
+			implode(' или ', $data);
+	}
+
+	protected function word_tag_is($data, $primary = false) {
+		$return = ($primary ? 'Теги ' : 'с тегами ') .
+			implode(', ', $data);
+		return preg_replace('/^(.*),/ui', '$1 и', $return);
+	}
+
+	protected function word_tag_not($data, $primary = false) {
+		$return = ($primary ? 'Без тегов ' : 'без тегов ') .
+			implode(', ', $data);
+		return preg_replace('/^(.*),/ui', '$1 и', $return);
+	}
+
+	protected function word_rating_is($data, $primary = false) {
+		return ($primary ? 'Рейтинг ' : 'с рейтингом ') .
+			implode(' и ', $data);
+	}
+
+	protected function word_rating_more($data, $primary = false) {
+		return ($primary ? 'Рейтинг больше ' : 'с рейтингом большим ') .
+			implode(' и ', $data);
+	}
+
+	protected function word_rating_less($data, $primary = false) {
+		return ($primary ? 'Рейтинг меньше ' : 'с рейтингом меньшим ') .
+			implode(' и ', $data);
+	}
+
+	protected function word_rating_not($data, $primary = false) {
+		return ($primary ? 'Рейтинг не равен ' : 'с рейтингом не равным ') .
+			implode(' или ', $data);
+	}
+
+	protected function word_order($data, $primary = false) {
+		return $data == 'asc' ? 'по возрастанию' : 'по убыванию';
+	}
+
+	protected function word_sort($data, $primary = false) {
+		if (!in_array($data, $this->sort_variants)) {
+			return false;
+		}
+
+		$return = $this->sort_variants[$data];
+		if ($primary) {
+			$return = ucfirst($return);
+		}
+
+		return $return;
+	}
+
+	protected function word_md5_is($data, $primary) {
+		return ($primary ? 'С md5 ' : 'с md5 ') .
+			implode(' и ', $data);
 	}
 }

@@ -20,6 +20,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	protected function make_request() {
 		$params = $this->query->other();
 		$params['parsed'] = $this->query->parsed();
+		$params['pool_mode'] = (bool) $this->query->get_pool_mode();
 
 		$request = new Request_Art($this->query->url(0), $this);
 		$request->add(new Request_Art_Nextprev($this->query->url(0),

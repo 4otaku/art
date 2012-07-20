@@ -5,11 +5,12 @@ class Query_Art extends Query
 	protected $parsed = array();
 	protected $other = array();
 	protected $forced_per_page = true;
+	protected $pool_mode = false;
 	protected $comparable_keys = array(
 		'rating', 'width', 'height', 'weight', 'date'
 	);
 	protected $equal_keys = array(
-		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'state'
+		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5'
 	);
 	protected $other_keys = array(
 		'sort', 'order', 'mode', 'page', 'per_page', 'approved', 'tagged', 'variations'
@@ -17,15 +18,24 @@ class Query_Art extends Query
 	protected $possible_modes = array(
 		'art', 'comment', 'pack', 'group', 'manga', 'artist'
 	);
+	protected $pool_keys = array(
+		'pack', 'group', 'artist', 'manga'
+	);
+	protected $legal_sort = array(
+		'none', 'random', 'date', 'width', 'height', 'weight', 'size',
+			'rating', 'parent_order', 'comment_count', 'comment_date', 'tag_count'
+	);
 
 	public function __construct($url, $get = array(), $clean = true) {
 		parent::__construct($url, $get, $clean);
 
 		$search = array();
+		$pool_count = 0;
 		foreach ($this->get() as $key => $items) {
 			$is_comparable = in_array($key, $this->comparable_keys);
 			$is_equal = in_array($key, $this->equal_keys);
 			$is_other = in_array($key, $this->other_keys);
+			$is_pool = in_array($key, $this->pool_keys);
 
 			if (!$is_comparable && !$is_equal) {
 				if ($is_other) {
@@ -41,13 +51,20 @@ class Query_Art extends Query
 			$data = array();
 			list($data['is'], $data['not'], $data['more'], $data['less']) =
 				$this->parse((array) $items, $is_comparable);
-			$data_key = count($data['is']) * 1000 + count($data['more']) * 100 +
-				count($data['less']) * 10 + count($data['not']) + 10 * $is_equal +
-				array_search($key, $is_comparable ? $this->comparable_keys : $this->equal_keys);
-			while (isset($search[$data_key])) {
-				$data_key++;
+			$search[] = array('data' => $data, 'type' => $key);
+
+			if ($is_pool && $pool_count !== false) {
+				if (!empty($data['not']) || !empty($data['more']) || !empty($data['less'])) {
+					$pool_count = false;
+				} else {
+					$pool_count += count($data['is']);
+					$this->pool_mode = $key;
+				}
 			}
-			$search[$data_key] = array('data' => $data, 'type' => $key);
+		}
+
+		if ($pool_count !== 1) {
+			$this->pool_mode = false;
 		}
 
 		if (empty($this->other['per_page'])) {
@@ -55,15 +72,24 @@ class Query_Art extends Query
 			$this->forced_per_page = false;
 		}
 
-		krsort($search);
+		if (!empty($this->other['sort']) && !in_array($this->other['sort'], $this->legal_sort)) {
+			unset($this->other['sort']);
+		}
+
 		ksort($this->other);
 		foreach ($search as $item) {
 			$this->parsed[$item['type']] = $item['data'];
 		}
 	}
 
-	public function parsed() {
-		return $this->parsed;
+	public function parsed($add_pool_items = true) {
+		$return = $this->parsed;
+		if (!$add_pool_items) {
+			foreach ($this->pool_keys as $key) {
+				unset($return[$key]);
+			}
+		}
+		return $return;
 	}
 
 	public function other() {
@@ -81,6 +107,18 @@ class Query_Art extends Query
 
 	public function per_page() {
 		return $this->other['per_page'];
+	}
+
+	public function get_pool_mode() {
+		return $this->pool_mode;
+	}
+
+	public function get_pool_value() {
+		if(empty($this->pool_mode)) {
+			return null;
+		}
+
+		return reset($this->parsed[$this->pool_mode]['is']);
 	}
 
 	public function to_url_string() {

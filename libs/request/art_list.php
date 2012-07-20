@@ -22,6 +22,19 @@ class Request_Art_List extends Request
 		'state' => 'state',
 	);
 
+	protected $approved_filters = array(
+		'yes' => array('is' => 'approved'),
+		'no' => array('is' => 'disapproved'),
+		'waiting' => array('is' => 'unapproved'),
+		'all' => array(),
+	);
+
+	protected $tagged_filters = array(
+		'yes' => array('is' => 'tagged'),
+		'no' => array('is' => 'untagged'),
+		'all' => array(),
+	);
+
 	public function __construct($object = false, $data = array(), $method = 'recieve_data') {
 		$api = $this->fetch_api($data);
 		$data = $this->translate_data($data);
@@ -45,7 +58,32 @@ class Request_Art_List extends Request
 			$data['sort_order'] = $data['order'];
 			unset($data['order']);
 		}
+
 		$data['filter'] = array();
+		if (empty($data['pool_mode']) && $this->fetch_api($data) == 'art_list') {
+			$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
+				'yes' : $data['approved'];
+			$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
+				'yes' : $data['tagged'];
+			foreach ($this->approved_filters[$approved] as $type => $value) {
+				$data['filter'][] = array(
+					'name' => 'state',
+					'type' => $type,
+					'value' => $value
+				);
+			}
+			foreach ($this->tagged_filters[$tagged] as $type => $value) {
+				$data['filter'][] = array(
+					'name' => 'state',
+					'type' => $type,
+					'value' => $value
+				);
+			}
+		}
+		unset($data['pool_mode']);
+		unset($data['approved']);
+		unset($data['tagged']);
+
 		foreach ($data['parsed'] as $key => $parts) {
 			if (!array_key_exists($key, $this->filter_types)) {
 				continue;
