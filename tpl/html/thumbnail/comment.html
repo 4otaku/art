@@ -1,5 +1,21 @@
-<div class="thumb small_thumbnail">
-	<a href="/{$id}" class="tip" title="Теги: Hentai, Yaoi, Sugoi | Рейтинг: 9001 | Опубликовал: Юзернейм">
-		<img src="http://images.4otaku.ru/art/{$md5}_thumb.jpg">
+<div class="image_thumbnail small_thumbnail" id="thumbnail_{$id}">
+	<a href="/{$id}{if condition="$query"}?{$query}{/if}" title="{$tip}">
+		<img src="http://images.4otaku.ru/art/{$md5}_thumb.jpg" />
 	</a>
+	{if condition="$animated || $similar_count > 1"}
+		<span class="info_tip">
+		{if condition="$animated"}
+			A
+		{/if}
+		{if condition="$animated && $similar_count > 1"}
+			<br />
+		{/if}
+		{if condition="$similar_count > 1"}
+			+{$similar_count-1}
+		{/if}
+		</span>
+	{/if}
 </div>
+<script type="text/javascript">
+	add('thumbnail', '{$id}');
+</script>

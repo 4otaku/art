@@ -47,21 +47,35 @@ jQuery.cookie = function (key, value, options) {
 				$(this).attr("title","");
 				content = (options.content != "") ? options.content : title;
 				content = (options.useElement != "") ? $("#" + options.useElement).html() : content;
+				var window_width = $(window).width();
+				var right_mode = (window_width / e.pageX < 2);
 				if (content != "" && content != undefined){
 					$("body").append("<div id='"+ options.tooltipId +"'>"+ content +"</div>");
 					if (options.timeOut) {
-						$("#" + options.tooltipId)
+						var tip = $("#" + options.tooltipId)
 							.css("position","absolute")
-							.css("top",(e.pageY - options.yOffset) + "px")
-							.css("left",(e.pageX + options.xOffset) + "px")
-							.css("display","none");
+							.css("top",(e.pageY - options.yOffset) + "px");
+						if (right_mode) {
+							tip.css("right",(window_width - e.pageX + options.xOffset) + "px");
+							tip.css("left",null);
+						} else {
+							tip.css("left",(e.pageX + options.xOffset) + "px");
+							tip.css("right",null);
+						}
+						tip.css("display","none");
 							setTimeout(function() {$("#" + options.tooltipId).fadeIn("fast")}, options.timeOut);
 					} else {
-						$("#" + options.tooltipId)
+						var tip = $("#" + options.tooltipId)
 							.css("position","absolute")
-							.css("top",(e.pageY - options.yOffset) + "px")
-							.css("left",(e.pageX + options.xOffset) + "px")
-							.css("display","none").fadeIn("fast");
+							.css("top",(e.pageY - options.yOffset) + "px");
+						if (right_mode) {
+							tip.css("right",(window_width - e.pageX + options.xOffset) + "px");
+							tip.css("left",null);
+						} else {
+							tip.css("left",(e.pageX + options.xOffset) + "px");
+							tip.css("right",null);
+						}
+						tip.css("display","none").fadeIn("fast");
 					}
 				}
 			},
@@ -70,9 +84,17 @@ jQuery.cookie = function (key, value, options) {
 				$(this).attr("title",title);
 			});
 			$(this).mousemove(function(e){
-				$("#" + options.tooltipId)
-					.css("top",(e.pageY - options.yOffset) + "px")
-					.css("left",(e.pageX + options.xOffset) + "px")
+				var window_width = $(window).width();
+				var right_mode = (window_width / e.pageX < 2);
+				var tip = $("#" + options.tooltipId)
+					.css("top",(e.pageY - options.yOffset) + "px");
+				if (right_mode) {
+					tip.css("right",(window_width - e.pageX + options.xOffset) + "px");
+					tip.css("left",null);
+				} else {
+					tip.css("left",(e.pageX + options.xOffset) + "px");
+					tip.css("right",null);
+				}
 			});
 			if(options.clickRemove){
 				$(this).mousedown(function(e){

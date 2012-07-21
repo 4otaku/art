@@ -167,7 +167,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 		$return = $this->approved_variants[$data];
 		if ($primary) {
-			$return = ucfirst($return);
+			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
 		}
 
 		return $return;
@@ -180,7 +180,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 		$return = $this->tagged_variants[$data];
 		if ($primary) {
-			$return = ucfirst($return);
+			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
 		}
 
 		return $return;
@@ -193,7 +193,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 		$return = $this->mode_variants[$data];
 		if ($primary) {
-			$return = ucfirst($return);
+			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
 		}
 
 		return $return;
@@ -252,7 +252,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 		$return = $this->sort_variants[$data];
 		if ($primary) {
-			$return = ucfirst($return);
+			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
 		}
 
 		return $return;
