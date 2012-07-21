@@ -1,3 +1,8 @@
+.pool_description {
+	padding-bottom: 2px;
+	border-bottom: 1px solid #BBB;
+}
+
 .images_wrapper {
 	text-align: center;
 	position: relative;
@@ -8,7 +13,11 @@
 	margin: 10px 10px 10px 250px;
 }
 
-.pool_description {
-	padding-bottom: 2px;
-	border-bottom: 1px solid #BBB;
+.info_tip {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	font-weight: bold;
+	font-size: 15px;
+	color: #009900;
 }

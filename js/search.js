@@ -20,6 +20,7 @@ extend(OBJECT.search, OBJECT.base, {
 		artist: [],
 		manga: [],
 		md5: [],
+		parent: [],
 		sort: ['none', 'random', 'date', 'width', 'height', 'weight', 'size',
 			'rating', 'parent_order', 'comment_count', 'comment_date', 'tag_count'],
 		order: ['desc', 'asc'],

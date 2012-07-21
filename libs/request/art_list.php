@@ -19,6 +19,7 @@ class Request_Art_List extends Request
 		'artist' => 'art_artist',
 		'manga' => 'art_manga',
 		'md5' => 'md5',
+		'parent' => 'id_parent',
 		'state' => 'state',
 	);
 
@@ -58,9 +59,35 @@ class Request_Art_List extends Request
 			$data['sort_order'] = $data['order'];
 			unset($data['order']);
 		}
+		if (isset($data['variations']) && $data['variations'] == 'yes') {
+			$data['no_group'] = 1;
+			unset($data['variations']);
+		}
+
+		$no_state = (bool) $data['pool_mode'];
 
 		$data['filter'] = array();
-		if (empty($data['pool_mode']) && $this->fetch_api($data) == 'art_list') {
+		foreach ($data['parsed'] as $key => $parts) {
+			if (!array_key_exists($key, $this->filter_types)) {
+				continue;
+			}
+			foreach ($parts as $operation => $items) {
+				foreach ($items as $item) {
+					$data['filter'][] = array(
+						'name' => $this->filter_types[$key],
+						'type' => $operation,
+						'value' => $item
+					);
+				}
+				if ($key == 'parent' && $operation == 'is') {
+					$data['no_group'] = 1;
+					$no_state = true;
+				}
+			}
+		}
+		unset($data['parsed']);
+
+		if (!$no_state && $this->fetch_api($data) == 'art_list') {
 			$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
 				'yes' : $data['approved'];
 			$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
@@ -83,22 +110,6 @@ class Request_Art_List extends Request
 		unset($data['pool_mode']);
 		unset($data['approved']);
 		unset($data['tagged']);
-
-		foreach ($data['parsed'] as $key => $parts) {
-			if (!array_key_exists($key, $this->filter_types)) {
-				continue;
-			}
-			foreach ($parts as $operation => $items) {
-				foreach ($items as $item) {
-					$data['filter'][] = array(
-						'name' => $this->filter_types[$key],
-						'type' => $operation,
-						'value' => $item
-					);
-				}
-			}
-		}
-		unset($data['parsed']);
 
 		return $data;
 	}

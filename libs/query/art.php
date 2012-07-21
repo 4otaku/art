@@ -10,7 +10,7 @@ class Query_Art extends Query
 		'rating', 'width', 'height', 'weight', 'date'
 	);
 	protected $equal_keys = array(
-		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5'
+		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'parent'
 	);
 	protected $other_keys = array(
 		'sort', 'order', 'mode', 'page', 'per_page', 'approved', 'tagged', 'variations'

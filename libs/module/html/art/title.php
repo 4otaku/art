@@ -161,7 +161,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function word_approved($data, $primary = false) {
-		if (!in_array($data, $this->approved_variants)) {
+		if (!array_key_exists($data, $this->approved_variants)) {
 			return false;
 		}
 
@@ -174,7 +174,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function word_tagged($data, $primary = false) {
-		if (!in_array($data, $this->tagged_variants)) {
+		if (!array_key_exists($data, $this->tagged_variants)) {
 			return false;
 		}
 
@@ -187,7 +187,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function word_mode($data, $primary = false) {
-		if (!in_array($data, $this->mode_variants)) {
+		if (!array_key_exists($data, $this->mode_variants)) {
 			return false;
 		}
 
@@ -246,7 +246,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function word_sort($data, $primary = false) {
-		if (!in_array($data, $this->sort_variants)) {
+		if (!array_key_exists($data, $this->sort_variants)) {
 			return false;
 		}
 
