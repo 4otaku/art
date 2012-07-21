@@ -5,6 +5,7 @@ class Request_Art extends Request_Item
 	public function __construct($id, $object) {
 		$params = array(
 			'add_tags' => true,
+			'add_state' => true,
 			'add_translations' => true,
 			'add_comments' => true,
 			'add_similar' => true,

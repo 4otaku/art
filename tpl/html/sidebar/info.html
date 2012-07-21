@@ -19,11 +19,12 @@
 			Вариации:
 			{loop="similar"}
 				{if condition="$value==$id"}
-					{$counter}{if condition="$counter!=count($similar)-1"},{/if}
+					{$counter},
 				{else}
-					<a href="/{$value}?{$query}">{$counter}</a>{if condition="$counter!=count($similar)-1"},{/if}
+					<a href="/{$value}?{$query}">{$counter}</a>,
 				{/if}
 			{/loop}
+			<a href="/?parent={$id_parent}&sort=parent_order&order=asc">все</a>
 		</div>
 	{/if}
 	{if condition="$group"}
@@ -64,6 +65,11 @@
 		</div>
 	{/if}
 	<div class="sidebar_row">
-		Добавлено: {$date}.
+		Добавлено: {$created}.
 	</div>
+	{if condition="isset($date_main)"}
+		<div class="sidebar_row">
+			На главной с: {$date_main}.
+		</div>
+	{/if}
 </div>
