@@ -54,7 +54,14 @@ class Request_Art_List extends Request
 		if (isset($data['sort'])) {
 			$data['sort_by'] = $data['sort'];
 			unset($data['sort']);
+		} elseif (
+			!empty($data['pool_mode']) && isset($data['pool_value']) &&
+			($data['pool_mode'] == 'pack') || ($data['pool_mode'] == 'manga')
+		) {
+			$data['sort_by'] = array($data['pool_mode'] => $data['pool_value']);
+			$data['sort_order'] = 'asc';
 		}
+
 		if (isset($data['order'])) {
 			$data['sort_order'] = $data['order'];
 			unset($data['order']);
@@ -108,6 +115,7 @@ class Request_Art_List extends Request
 			}
 		}
 		unset($data['pool_mode']);
+		unset($data['pool_value']);
 		unset($data['approved']);
 		unset($data['tagged']);
 
