@@ -113,13 +113,6 @@ ul.plain_list {
 	margin-right: 35px;
 }
 
-#easyTooltip {
-	padding: 5px 10px;
-	border: 1px solid #195fa4;
-	background: #195fa4 url('/images/bg.gif') repeat-x;
-	color: #FFFFFF;
-}
-
 wbr {
 	display: inline-block;
 }
