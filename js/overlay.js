@@ -125,27 +125,6 @@ Overlay = {
 				}
 			});
 		},
-		rss: function() {
-			init('clickable', 'rss_link', function() {
-				var string = '';
-				$.each(User.rss, function(key, value) {
-					if (value) {
-						string += key[0];
-					}
-				});
-				if (string.length > 0) {
-					window.open('/rss/=' + string);
-				}
-			});
-			init('settings_rss', 'post');
-			init('settings_rss', 'update');
-			init('settings_rss', 'video');
-			init('settings_rss', 'art');
-			init('settings_rss', 'news');
-			init('settings_rss', 'order');
-			init('settings_rss', 'comment');
-			init('settings_rss', 'workshop');
-		},
 		add_menu: function() {
 			init('form', 'add_menu', {
 				validate: {
@@ -291,23 +270,6 @@ Overlay.templates.change_pass = '<h2>Смена пароля</h2>' +
 		'</td>' +
 	'</tr>' +
 '</table></div>';
-
-Overlay.templates.rss = '<h2>Настройка личного RSS-потока</h2>' +
-'<div>' +
-	'<div class="margin20">' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_post" />Записи</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_update" />Обновления записей</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_video" />Видео</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_art" />Арты</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_news" />Новости сайта</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_order" />Заказы</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_comment" />Комментарии</div>' +
-		'<div class="rss_item"><input type="checkbox" id="settings_rss_workshop" />Очереди премодерации</div>' +
-	'</div>' +
-	'<div class="center clear">' +
-		'<input type="submit" id="clickable_rss_link" value="Подписаться на выбранное" />' +
-	'</div>' +
-'</div>';
 
 Overlay.templates.add_menu = '<h2>Добавить пункт в личное меню.</h2>' +
 '<div><table class="table_add_menu" id="form_add_menu">' +

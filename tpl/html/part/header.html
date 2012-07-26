@@ -48,11 +48,6 @@
 				</a>
 			{/if}
 		</li>
-		<li class="box header_menu_item">
-			<a id="clickable_rss">
-				RSS
-			</a>
-		</li>
 	</ul>
 
 	<ul class="main_menu">
@@ -125,9 +120,6 @@
 	});
 	add('clickable', 'plugins', function() {
 		Overlay.ajax('/ajax/plugin');
-	});
-	add('clickable', 'rss', function() {
-		Overlay.tpl('rss');
 	});
 	add('clickable', 'add_menu', function() {
 		Overlay.tpl('add_menu');

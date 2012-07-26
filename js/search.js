@@ -45,6 +45,20 @@ extend(OBJECT.search, OBJECT.base, {
 		var terms = this.child.field.val().slice(0, pos).split(/\s\s*/);
 		return terms[terms.length - 1];
 	},
+	parse_term: function(term) {
+		var sep_position = term.indexOf(':', 1);
+		if (sep_position === -1) {
+			var type = 'tag';
+		} else {
+			var type = term.slice(0, sep_position);
+			if (typeof this.query_language[type] == 'undefined') {
+				var type = 'tag';
+			} else {
+				term = term.slice(sep_position + 1, term.length);
+			}
+		}
+		return {type: type, term: term};
+	},
 	move_tip: function(move) {
 		var position = this.child.tip.find('.active').index();
 		position = position + move;
@@ -57,19 +71,15 @@ extend(OBJECT.search, OBJECT.base, {
 		}
 	},
 	perform_search: function(terms) {
+		var me = this;
 		var items = {};
+
 		$.each(terms, function(key, term){
-			var sep_position = term.indexOf(':', 1);
-			if (sep_position === -1 || sep_position == term.length - 1) {
-				var type = 'tag';
-			} else {
-				var type = term.slice(0, sep_position);
-				term = term.slice(sep_position + 1, term.length);
+			var data = me.parse_term(term);
+			if (!items[data.type]) {
+				items[data.type] = [];
 			}
-			if (!items[type]) {
-				items[type] = [];
-			}
-			items[type].push(term);
+			items[data.type].push(data.term);
 		});
 		var parts = [];
 		$.each(items, function(type, item){
@@ -138,9 +148,9 @@ extend(OBJECT.search, OBJECT.base, {
 					return;
 				}
 
-				var sep_position = term.indexOf(':', 1);
-				if (sep_position === -1 || sep_position == term.length - 1) {
-					term = term.replace(/^!/, '');
+				var data = this.parse_term(term);
+				if (data.type == 'tag') {
+					term = data.term.replace(/^!/, '');
 					if (term.length && this.current_tip_request != term) {
 						this.current_tip_request = term;
 						Ajax.get('/ajax/search_tip', {term: term}, function(response) {
@@ -162,14 +172,11 @@ extend(OBJECT.search, OBJECT.base, {
 						}, this);
 					}
 				} else {
-					var type = term.slice(0, sep_position);
-					var value = term.slice(sep_position + 1);
-
-					var vals = this.query_language[type] || [];
+					var vals = this.query_language[data.type] || [];
 
 					var tags = [];
 					$.each(vals, function(key, variant) {
-						if (variant.indexOf(value) == 0) {
+						if (variant.indexOf(data.term) == 0) {
 							tags.push({tag: variant, language: 1, postfix: ' '});
 						}
 					});
