@@ -11,7 +11,7 @@ class Request_Art extends Request_Item
 			'add_similar' => true,
 			'add_groups' => true,
 			'add_manga' => true,
-			'add_pack' => true,
+			'add_packs' => true,
 			'add_artist' => true,
 			'id' => $id,
 		);
