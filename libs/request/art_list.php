@@ -2,6 +2,8 @@
 
 class Request_Art_List extends Request
 {
+	protected $stateful_api = true;
+
 	protected $api_modes = array(
 		'comment', 'pack', 'group', 'manga',  'artist',
 	);
@@ -45,6 +47,10 @@ class Request_Art_List extends Request
 	protected function fetch_api($data) {
 		if (!isset($data['mode']) || !in_array($data['mode'], $this->api_modes)) {
 			return 'art_list';
+		}
+
+		if ($data['mode'] != 'comment') {
+			$this->stateful_api = false;
 		}
 
 		return 'art_list_' . $data['mode'];
@@ -94,7 +100,7 @@ class Request_Art_List extends Request
 		}
 		unset($data['parsed']);
 
-		if (!$no_state && $this->fetch_api($data) == 'art_list') {
+		if (!$no_state && $this->stateful_api) {
 			$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
 				'yes' : $data['approved'];
 			$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
