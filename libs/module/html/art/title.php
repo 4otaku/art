@@ -95,6 +95,9 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			$function = 'word_' . key($part);
 			if (is_callable(array($this, $function))) {
 				$part = $this->$function($value, $primary);
+				if ($primary) {
+					$part = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $part);
+				}
 				$primary = false;
 			} else {
 				$part = null;
@@ -165,12 +168,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			return false;
 		}
 
-		$return = $this->approved_variants[$data];
-		if ($primary) {
-			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
-		}
-
-		return $return;
+		return $this->approved_variants[$data];
 	}
 
 	protected function word_tagged($data, $primary = false) {
@@ -178,12 +176,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			return false;
 		}
 
-		$return = $this->tagged_variants[$data];
-		if ($primary) {
-			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
-		}
-
-		return $return;
+		return $this->tagged_variants[$data];
 	}
 
 	protected function word_mode($data, $primary = false) {
@@ -191,33 +184,28 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			return false;
 		}
 
-		$return = $this->mode_variants[$data];
-		if ($primary) {
-			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
-		}
-
-		return $return;
+		return $this->mode_variants[$data];
 	}
 
 	protected function word_user_is($data, $primary = false) {
-		return ($primary ? 'Загружено ' : 'загружено ') .
-			implode(', ', $data);
+		return 'загружено ' . implode(', ', $data);
 	}
 
 	protected function word_user_not($data, $primary = false) {
-		return ($primary ? 'Кроме загруженых ' : 'кроме загруженых ') .
-			implode(' или ', $data);
+		return 'кроме загруженых ' . implode(' или ', $data);
 	}
 
 	protected function word_tag_is($data, $primary = false) {
-		$return = ($primary ? 'Теги ' : 'с тегами ') .
-			implode(', ', $data);
+		$return = ($primary ?
+			(count($data) > 1 ? 'Теги ' : 'Тег ') :
+			(count($data) > 1 ? 'с тегами ' : 'с тегом ')
+		) . implode(', ', $data);
 		return preg_replace('/^(.*),/ui', '$1 и', $return);
 	}
 
 	protected function word_tag_not($data, $primary = false) {
-		$return = ($primary ? 'Без тегов ' : 'без тегов ') .
-			implode(', ', $data);
+		$return = (count($data) > 1 ? 'без тегов ' : 'без тега ')
+			. implode(', ', $data);
 		return preg_replace('/^(.*),/ui', '$1 и', $return);
 	}
 
@@ -250,16 +238,10 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			return false;
 		}
 
-		$return = $this->sort_variants[$data];
-		if ($primary) {
-			$return = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $return);
-		}
-
-		return $return;
+		return $this->sort_variants[$data];
 	}
 
 	protected function word_md5_is($data, $primary) {
-		return ($primary ? 'С md5 ' : 'с md5 ') .
-			implode(' и ', $data);
+		return 'с md5 ' . implode(' и ', $data);
 	}
 }

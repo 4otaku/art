@@ -16,6 +16,11 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 	public function recieve_data($data) {
 		parent::recieve_data($data['data']);
 
+		if ($data['data']['source']) {
+			$source = new Text($data['data']['source']);
+			$this->set_param('source', $source->links2html());
+		}
+
 		$this->set_param('weight', $this->format_weight($data['data']['weight']));
 
 		if (

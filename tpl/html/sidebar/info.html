@@ -14,6 +14,25 @@
 	<div class="sidebar_row">
 		Скачать: <a class="download" href="http://images.4otaku.ru/art/{$md5}.{$ext}">{$weight}</a>.
 	</div>
+	{if condition="$source"}
+		<div class="sidebar_row">
+			Источник: {$source}.
+		</div>
+	{/if}
+	<div class="sidebar_row">
+		Состояние:
+		{if condition="in_array('unapproved', $state)"}
+			<a href="/?approved=waiting">на премодерации</a>.
+		{elseif condition="in_array('disapproved', $state)"}
+			<a href="/?approved=waiting">в барахолке</a>.
+		{else}
+			{if condition="in_array('tagged', $state)"}
+				<a href="/">в основном списке</a>.
+			{else}
+				<a href="/?tagged=no">одобрено, но не протегано</a>.
+			{/if}
+		{/if}
+	</div>
 	{if condition="count($similar) > 1"}
 		<div class="sidebar_row">
 			Вариации:
