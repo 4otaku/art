@@ -14,22 +14,32 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 	}
 
 	public function recieve_data($data) {
+		if (!$data['count']) {
+			return;
+		}
+
 		parent::recieve_data($data['data']);
 
-		if ($data['data']['source']) {
+		if (!empty($data['data']['source'])) {
 			$source = new Text($data['data']['source']);
 			$this->set_param('source', $source->links2html());
 		}
 
-		$this->set_param('weight', $this->format_weight($data['data']['weight']));
+		if (!empty($data['data']['weight'])) {
+			$this->set_param('weight', $this->format_weight($data['data']['weight']));
+		}
 
 		if (
+			isset($data['data']['state']) &&
+			is_array($data['data']['state']) &&
 			in_array('approved', $data['data']['state']) &&
 			in_array('tagged', $data['data']['state'])
 		) {
 			$this->set_param('date_main', $this->format_time($data['data']['sortdate']));
 		}
 
-		$this->set_param('created', $this->format_time($data['data']['created']));
+		if (!empty($data['data']['created'])) {
+			$this->set_param('created', $this->format_time($data['data']['created']));
+		}
 	}
 }

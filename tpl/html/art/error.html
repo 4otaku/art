@@ -1,0 +1,12 @@
+{if condition="$have_message"}
+	<div class="errors">
+		{loop="message"}
+			<div class="error_message">
+				{$value}
+			</div>
+		{/loop}
+	</div>
+{/if}
+<div class="center">
+	<img src="/images/error.jpg" />
+</div>

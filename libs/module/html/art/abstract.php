@@ -5,11 +5,11 @@ abstract class Module_Html_Art_Abstract extends Module_Html_Abstract
 	protected $query;
 	protected $size_types = array('б', 'кб', 'мб', 'гб');
 
-	public function __construct(Query $query) {
+	public function __construct(Query $query, $disabled = false) {
 		if (!($query instanceOf Query_Art)) {
 			$query = new Query_Art($query);
 		}
-		parent::__construct($query);
+		parent::__construct($query, $disabled);
 
 		$this->query = $query;
 	}

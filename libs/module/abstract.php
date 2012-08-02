@@ -3,8 +3,9 @@
 abstract class Module_Abstract extends RainTPL
 {
 	protected $modules = array();
+	protected $disabled = false;
 
-	public function __construct(Query $query) {
+	public function __construct(Query $query, $disabled = false) {
 		RainTPL::configure('tpl_dir', TPL . SL);
 		RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
 		RainTPL::configure('path_replace', false);
@@ -15,6 +16,8 @@ abstract class Module_Abstract extends RainTPL
 			$modules = array($modules);
 		}
 		$this->modules = $modules;
+
+		$this->disabled = (bool) $disabled;
 	}
 
 	protected function get_params(Query $query)
@@ -26,6 +29,14 @@ abstract class Module_Abstract extends RainTPL
 
 	protected function get_modules(Query $query) {
 		return array();
+	}
+
+	protected function disable() {
+		$this->disabled = true;
+	}
+
+	protected function enable() {
+		$this->disabled = false;
 	}
 
 	public function gather_request() {
@@ -57,6 +68,10 @@ abstract class Module_Abstract extends RainTPL
 	}
 
 	public function get_html() {
+		if ($this->disabled) {
+			return '';
+		}
+
 		$this->get_module_html();
 
 		$tpl_name = explode('_', strtolower(get_called_class()));

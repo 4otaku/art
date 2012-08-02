@@ -75,11 +75,13 @@ extend(OBJECT.search, OBJECT.base, {
 		var items = {};
 
 		$.each(terms, function(key, term){
-			var data = me.parse_term(term);
-			if (!items[data.type]) {
-				items[data.type] = [];
+			if (term.length) {
+				var data = me.parse_term(term);
+				if (!items[data.type]) {
+					items[data.type] = [];
+				}
+				items[data.type].push(data.term);
 			}
-			items[data.type].push(data.term);
 		});
 		var parts = [];
 		$.each(items, function(type, item){

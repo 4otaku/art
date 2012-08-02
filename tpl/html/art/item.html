@@ -1,3 +1,8 @@
+<div class="right">
+	{$module_search}
+</div>
+{$module_title}
+<div class="clear"></div>
 <div class="art_wrapper">
 	<div class="sidebar">
 		{$module_info}
@@ -14,11 +19,8 @@
 				<img class="scroll scroll_right" src="images/arrow_right.gif" />
 			</a>
 		{/if}
-		{if condition="$resized"}
-			<img src="http://images.4otaku.ru/art/{$md5}_resize.jpg" />
-		{else}
-			<img src="http://images.4otaku.ru/art/{$md5}.{$ext}" />
-		{/if}
+		{$module_error}
+		{$module_image}
 	</div>
 	<div class="clear"></div>
 </div>
