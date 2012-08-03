@@ -119,16 +119,11 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	public function recieve_data($data) {
-		foreach ($this->search as $key => &$part) {
-			if (strpos($part, '%')) {
-				foreach ($data['data'] as $field => $value) {
-					$part = str_replace('%'.$field.'%', $value, $part);
-				}
-				break;
-			}
+		if (!empty($data['data']['title'])) {
+			$this->search[0] .= $data['data']['title'];
+		} else {
+			$this->search[0] .= '(не найдено)';
 		}
-
-		$this->set_param('query', implode(', ', $this->search));
 
 		if (!empty($data['data']['weight'])) {
 			$this->set_param('weight', $this->format_weight($data['data']['weight']));
@@ -141,26 +136,28 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			$text->format();
 			$this->set_param('text', $text);
 		}
+
+		$this->set_param('query', implode(', ', $this->search));
 	}
 
 	protected function word_group($data, $primary = false) {
 		$this->request = new Request_Item('art_group', $this, array('id' => $data));
-		return 'Группа %title%';
+		return 'Группа ';
 	}
 
 	protected function word_pack($data, $primary = false) {
 		$this->request = new Request_Item('art_pack', $this, array('id' => $data));
-		return 'CG-пак %title%';
+		return 'CG-пак ';
 	}
 
 	protected function word_manga($data, $primary = false) {
 		$this->request = new Request_Item('art_manga', $this, array('id' => $data));
-		return 'Манга %title%';
+		return 'Манга ';
 	}
 
 	protected function word_artist($data, $primary = false) {
 		$this->request = new Request_Item('art_artist', $this, array('id' => $data));
-		return 'Галерея %artist%';
+		return 'Галерея ';
 	}
 
 	protected function word_approved($data, $primary = false) {
