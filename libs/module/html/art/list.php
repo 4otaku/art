@@ -11,9 +11,10 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			'title' => new Module_Html_Art_Title($query),
 			'search' => new Module_Html_Art_Search($query),
 			'error' => new Module_Html_Art_Error($query, true),
-			'paginator' => new Module_Html_Art_Paginator($query),
 			'list' => new Module_Html_Container('thumbnail_' . $query->mode()),
-			'tags' =>new Module_Html_Sidebar_Tags($query)
+			'tags' =>new Module_Html_Sidebar_Tags($query),
+			'recent_comments' => new Module_Html_Sidebar_Comment($query),
+			'paginator' => new Module_Html_Art_Paginator($query),
 		);
 	}
 

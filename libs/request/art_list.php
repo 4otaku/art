@@ -49,9 +49,7 @@ class Request_Art_List extends Request
 			return 'art_list';
 		}
 
-		if ($data['mode'] != 'comment') {
-			$this->stateful_api = false;
-		}
+		$this->stateful_api = false;
 
 		return 'art_list_' . $data['mode'];
 	}

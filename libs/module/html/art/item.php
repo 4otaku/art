@@ -13,7 +13,8 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 			'image' => new Module_Html_Art_Image($query),
 			'info' => new Module_Html_Sidebar_Info($query),
 			'tags' => new Module_Html_Sidebar_Tags($query),
-			'comment' => new Module_Html_Art_Comment($query),
+			'recent_comments' => new Module_Html_Sidebar_Comment($query),
+			'comment' => new Module_Html_Art_Comment($query)
 		);
 	}
 

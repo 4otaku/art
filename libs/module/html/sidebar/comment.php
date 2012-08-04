@@ -1,6 +1,6 @@
 <?php
 
-class Module_Html_Sidebar_Comments extends Module_Html_Abstract
+class Module_Html_Sidebar_Comment extends Module_Html_Abstract
 {
 	protected function make_request() {
 		return new Request('art_list_comment', $this,

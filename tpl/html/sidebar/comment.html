@@ -1,0 +1,13 @@
+<div class="sidebar_part">
+	<div class="sidebar_row">
+		<a href="/?mode=comment">Комментарии</a>
+	</div>
+
+	{loop="data"}
+		<div class="sidebar_row">
+			{$value.comment['username']}: {$value.comment['text']}
+			</br>
+			<a href="/{$value.id}#comment-{$value.comment['id']}">Арт №{$value.id}</a>
+		</div>
+	{/loop}
+</div>
