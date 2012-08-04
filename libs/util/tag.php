@@ -1,5 +1,6 @@
 <?php
 
+// Хороший кандидат в mixin, если будем переходить на PHP 5.4
 class Util_Tag
 {
 	public static function sort ($a, $b) {

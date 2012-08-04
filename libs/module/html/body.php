@@ -18,10 +18,6 @@ class Module_Html_Body extends Module_Html_Abstract
 			return new Module_Html_Settings($query);
 		}
 
-		if ($query->url(0) == 'art') {
-			return new Module_Html_Art($query);
-		}
-
 		return new Module_Html_Art_List($query);
 	}
 }
