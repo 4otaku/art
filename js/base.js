@@ -151,10 +151,12 @@ var OBJECT = {
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
+		this.init_listeners(this.listen);
 
 		this.id = id;
 	}
 }
+var LISTENERS = {};
 
 mixin(OBJECT.base.prototype, {
 	el: false,
@@ -163,6 +165,7 @@ mixin(OBJECT.base.prototype, {
 	id: '',
 	events: {},
 	values: {},
+	listen: {},
 
 	extend_events: function(from, to) {
 		$.each(to, $.proxy(function(key, value) {
@@ -235,12 +238,32 @@ mixin(OBJECT.base.prototype, {
 		}, this));
 	},
 
+	init_listeners: function(listeners) {
+		$.each(listeners, $.proxy(function(type, listener) {
+			if (!LISTENERS[type]) {
+				LISTENERS[type] = [];
+			}
+			LISTENERS[type].push({obj: this, func: listener});
+		}, this));
+	},
+
 	get_static: function() {
 		return OBJECT[this.class_name];
 	},
 
 	get_super: function() {
 		return this.get_static().super;
+	},
+
+	message: function(type) {
+		if (!LISTENERS[type]) {
+			return;
+		}
+		var params = Array.prototype.slice.call(arguments);
+		params.shift();
+		$.each(LISTENERS[type], function(dev_null, listener) {
+			listener.func.apply(listener.obj, params);
+		});
 	}
 });
 
@@ -258,9 +281,9 @@ OBJECT.clickable = function(id, values) {
 extend(OBJECT.clickable, OBJECT.base, {
 	class_name: 'clickable',
 	events: {
-		click: function() {
+		click: function(e) {
 			if (this.func) {
-				this.func.call(this);
+				this.func.call(this, e);
 			}
 		}
 	}

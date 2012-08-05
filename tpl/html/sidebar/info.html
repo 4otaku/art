@@ -7,8 +7,10 @@
 	</div>
 	{if condition="!empty($resized)"}
 		<div class="sidebar_row">
-			Полный размер: <a href="http://images.4otaku.ru/art/{$md5}.{$ext}">
-				{$width}px * {$height}px</a>.
+			Полный размер:
+				<a href="http://images.4otaku.ru/art/{$md5}.{$ext}"
+					id="clickable_fullsize"
+				>{$width}px * {$height}px</a>.
 		</div>
 	{/if}
 	<div class="sidebar_row">
@@ -105,3 +107,12 @@
 		</div>
 	{/if}
 </div>
+
+<script type="text/javascript">
+	add('clickable', 'fullsize', function(e) {
+		if (e.which == 1) {
+			e.preventDefault();
+			this.message('fullsize_clicked');
+		}
+	});
+</script>

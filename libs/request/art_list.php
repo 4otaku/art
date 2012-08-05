@@ -3,6 +3,8 @@
 class Request_Art_List extends Request
 {
 	protected $stateful_api = true;
+	protected $default_approved_state = 'yes';
+	protected $default_tagged_state = 'yes';
 
 	protected $api_modes = array(
 		'comment', 'translation', 'pack', 'group', 'manga',  'artist',
@@ -54,7 +56,12 @@ class Request_Art_List extends Request
 			return 'art_list';
 		}
 
-		$this->stateful_api = false;
+		if ($data['mode'] != 'comment' || $data['mode'] != 'translated') {
+			$this->stateful_api = false;
+		} else {
+			$this->default_approved_state = 'all';
+			$this->default_tagged_state = 'all';
+		}
 
 		return 'art_list_' . $data['mode'];
 	}
@@ -105,9 +112,9 @@ class Request_Art_List extends Request
 
 		if (!$no_state && $this->stateful_api) {
 			$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
-				'yes' : $data['approved'];
+				$this->default_approved_state : $data['approved'];
 			$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
-				'yes' : $data['tagged'];
+				$this->default_tagged_state : $data['tagged'];
 			foreach ($this->approved_filters[$approved] as $type => $value) {
 				$data['filter'][] = array(
 					'name' => 'state',

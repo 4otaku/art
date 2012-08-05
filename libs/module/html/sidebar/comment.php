@@ -11,7 +11,7 @@ class Module_Html_Sidebar_Comment extends Module_Html_Abstract
 		$data = $data['data'];
 		foreach ($data as &$comment){
 			$comment['comment']['text'] = new Text($comment['comment']['text']);
-			$comment['comment']['text']->format()->cut_long_text(100);
+			$comment['comment']['text']->format()->cut_long(100);
 		}
 		$this->set_param('data', $data);
 	}
