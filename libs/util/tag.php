@@ -23,13 +23,6 @@ class Util_Tag
 	}
 
 	public static function wcase($count) {
-		if ($count > 9) {
-			if ($count % 10 == 0 || $count % 10 > 4 || $count[strlen($count)-2] == 1) return 'тегов';
-			if ($count % 10 == 1) return 'тег';
-			return 'тега';
-		}
-		if ($count == 0 || $count > 4) return 'тегов';
-		if ($count == 1) return 'тег';
-		return 'тега';
+		return Util_Number::wcase($count, 'тег', 'тега', 'тегов');
 	}
 }

@@ -7,13 +7,16 @@ class Query_Art extends Query
 	protected $forced_per_page = true;
 	protected $pool_mode = false;
 	protected $comparable_keys = array(
-		'rating', 'width', 'height', 'weight', 'date'
+		'rating', 'width', 'height', 'weight', 'date', 'translation_date',
+		'tag_count', 'comment_count', 'comment_date'
 	);
 	protected $equal_keys = array(
-		'tag', 'user', 'pack', 'group', 'artist', 'manga', 'md5', 'parent'
+		'tag', 'user', 'pack', 'group', 'artist',
+		'manga', 'md5', 'parent', 'translator'
 	);
 	protected $other_keys = array(
-		'sort', 'order', 'mode', 'page', 'per_page', 'approved', 'tagged', 'variations'
+		'sort', 'order', 'mode', 'page', 'per_page',
+		'approved', 'tagged', 'variations'
 	);
 	protected $possible_modes = array(
 		'art', 'comment', 'translation', 'pack', 'group', 'manga', 'artist'

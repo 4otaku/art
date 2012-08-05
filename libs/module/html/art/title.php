@@ -17,7 +17,6 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		'tag_count' => 'сортировка по числу тегов',
 		'translation_date' => 'в порядке времени последнего перевода'
 	);
-
 	protected $mode_variants = array(
 		'comment' => 'прокомментированные арты',
 		'translation' => 'переведенные арты',
@@ -26,12 +25,10 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		'manga' => 'манга',
 		'artist' => 'галереи художников',
 	);
-
 	protected $tagged_variants = array(
 		'no' => 'не протеганное',
 		'all' => 'вне зависимости от тегов',
 	);
-
 	protected $approved_variants = array(
 		'no' => 'барахолка',
 		'waiting' => 'очередь премодерации',
@@ -192,6 +189,14 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 	protected function word_user_not($data, $primary = false) {
 		return 'кроме загруженых ' . implode(' или ', $data);
+	}
+
+	protected function word_translator_is($data, $primary = false) {
+		return 'переведено ' . implode(', ', $data);
+	}
+
+	protected function word_translator_not($data, $primary = false) {
+		return 'кроме переведенных ' . implode(' или ', $data);
 	}
 
 	protected function word_tag_is($data, $primary = false) {

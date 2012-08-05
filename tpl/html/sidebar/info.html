@@ -27,7 +27,8 @@
 				Переводчик:
 			{/if}
 			{loop="translator"}
-				{$value}{if condition="$counter + 1 == count($translator)"}.{else}, {/if}
+				<a href="/?mode=translation&translator={$value}"
+				>{$value}</a>{if condition="$counter + 1 == count($translator)"}.{else}, {/if}
 			{/loop}
 		</div>
 	{/if}
