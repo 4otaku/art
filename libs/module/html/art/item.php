@@ -3,7 +3,6 @@
 class Module_Html_Art_Item extends Module_Html_Art_Abstract
 {
 	protected $css = array('item', 'sidebar');
-	protected $js = array('item');
 
 	protected function get_modules(Query $query) {
 		return array(
@@ -12,7 +11,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 			'error' => new Module_Html_Art_Error($query, true),
 			'image' => new Module_Html_Art_Image($query),
 			'info' => new Module_Html_Sidebar_Info($query),
-			'tags' => new Module_Html_Sidebar_Tags($query),
+			'tags' => new Module_Html_Sidebar_Tag($query),
 			'recent_comments' => new Module_Html_Sidebar_Comment($query),
 			'comment' => new Module_Html_Art_Comment($query)
 		);

@@ -1,6 +1,6 @@
 <?php
 
-class Module_Html_Sidebar_Tags extends Module_Html_Abstract
+class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 {
 	protected $css = array('sidebar');
 	protected $js = array('sidebar');

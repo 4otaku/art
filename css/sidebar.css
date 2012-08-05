@@ -20,8 +20,9 @@
 }
 
 .tag {
-	border-top: #333333 solid 1px;
-	padding: 10px 0;
+	width: 170px;
+	display: block;
+	word-wrap: break-word;
 }
 
 .question, .inactive_question {

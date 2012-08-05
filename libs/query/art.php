@@ -16,14 +16,15 @@ class Query_Art extends Query
 		'sort', 'order', 'mode', 'page', 'per_page', 'approved', 'tagged', 'variations'
 	);
 	protected $possible_modes = array(
-		'art', 'comment', 'pack', 'group', 'manga', 'artist'
+		'art', 'comment', 'translation', 'pack', 'group', 'manga', 'artist'
 	);
 	protected $pool_keys = array(
 		'pack', 'group', 'artist', 'manga'
 	);
 	protected $legal_sort = array(
 		'none', 'random', 'date', 'width', 'height', 'weight', 'size',
-			'rating', 'parent_order', 'comment_count', 'comment_date', 'tag_count'
+		'rating', 'parent_order', 'comment_count', 'comment_date',
+		'tag_count', 'translation_date'
 	);
 
 	public function __construct($url, $get = array(), $clean = true) {

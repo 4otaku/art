@@ -14,11 +14,13 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		'parent_order' => 'сортировка по номеру вариации',
 		'comment_count' => 'сортировка по числу комментариев',
 		'comment_date' => 'в порядке времени последнего комментария',
-		'tag_count' => 'сортировка по числу тегов'
+		'tag_count' => 'сортировка по числу тегов',
+		'translation_date' => 'в порядке времени последнего перевода'
 	);
 
 	protected $mode_variants = array(
 		'comment' => 'прокомментированные арты',
+		'translation' => 'переведенные арты',
 		'pack' => 'CG-паки',
 		'group' => 'группы',
 		'manga' => 'манга',

@@ -5,7 +5,7 @@ class Request_Art_List extends Request
 	protected $stateful_api = true;
 
 	protected $api_modes = array(
-		'comment', 'pack', 'group', 'manga',  'artist',
+		'comment', 'translation', 'pack', 'group', 'manga',  'artist',
 	);
 
 	protected $filter_types = array(

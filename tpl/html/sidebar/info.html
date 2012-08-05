@@ -5,7 +5,7 @@
 	<div class="sidebar_row">
 		Рейтинг: {$rating}.
 	</div>
-	{if condition="$resized"}
+	{if condition="!empty($resized)"}
 		<div class="sidebar_row">
 			Полный размер: <a href="http://images.4otaku.ru/art/{$md5}.{$ext}">
 				{$width}px * {$height}px</a>.
@@ -14,9 +14,21 @@
 	<div class="sidebar_row">
 		Скачать: <a class="download" href="http://images.4otaku.ru/art/{$md5}.{$ext}">{$weight}</a>.
 	</div>
-	{if condition="$source"}
+	{if condition="!empty($source)"}
 		<div class="sidebar_row">
 			Источник: {$source}.
+		</div>
+	{/if}
+	{if condition="!empty($translator)"}
+		<div class="sidebar_row">
+			{if condition="count($translator) > 1"}
+				Переводчики:
+			{else}
+				Переводчик:
+			{/if}
+			{loop="translator"}
+				{$value}{if condition="$counter + 1 == count($translator)"}.{else}, {/if}
+			{/loop}
 		</div>
 	{/if}
 	<div class="sidebar_row">
@@ -46,7 +58,7 @@
 			<a href="/?parent={$id_parent}&sort=parent_order&order=asc">все</a>
 		</div>
 	{/if}
-	{if condition="$group"}
+	{if condition="!empty($group)"}
 		<div class="sidebar_row">
 			В группах:
 			{loop="group"}
@@ -54,7 +66,7 @@
 			{/loop}
 		</div>
 	{/if}
-	{if condition="$pack"}
+	{if condition="!empty($pack)"}
 		<div class="sidebar_row">
 			В паках:
 			{loop="pack"}
@@ -62,7 +74,7 @@
 			{/loop}
 		</div>
 	{/if}
-	{if condition="$manga"}
+	{if condition="!empty($manga)"}
 		<div class="sidebar_row">
 			В манге:
 			{loop="manga"}
@@ -70,7 +82,7 @@
 			{/loop}
 		</div>
 	{/if}
-	{if condition="$artist"}
+	{if condition="!empty($artist)"}
 		<div class="sidebar_row">
 			За авторством:
 			{loop="artist"}
@@ -78,7 +90,7 @@
 			{/loop}
 		</div>
 	{/if}
-	{if condition="$query"}
+	{if condition="!empty($query)"}
 		<div class="sidebar_row">
 			<a href="/slideshow?{$query}">Включить слайдшоу</a>.
 		</div>

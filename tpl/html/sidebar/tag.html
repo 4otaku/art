@@ -2,11 +2,6 @@
 	<div class="sidebar_part">
 		{loop="data"}
 			<div class="sidebar_row">
-				{if condition="$value.color"}
-					<a href="/?tag={$value.name}" style="color:#{$value.color};">{$value.name}</a>
-				{else}
-					<a href="/?tag={$value.name}">{$value.name}</a>
-				{/if}
 				{if condition="$value.have_description"}
 					<span class="question">
 						<a href="http://wiki.4otaku.ru/Tag:{$value.name}" target="_blank" class="tip" title="Описание тега {$value.name} в Вики">(?)</a>
@@ -17,6 +12,15 @@
 					</span>
 				{/if}
 				<span class="count">{$value.count}</span>
+				{if condition="$value.color"}
+					<a href="/?tag={$value.name}" class="tag" style="color:#{$value.color};">
+						{$value.name}
+					</a>
+				{else}
+					<a href="/?tag={$value.name}"  class="tag">
+						{$value.name}
+					</a>
+				{/if}
 			</div>
 		{/loop}
 	</div>
