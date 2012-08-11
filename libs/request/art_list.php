@@ -62,7 +62,7 @@ class Request_Art_List extends Request
 			return 'art_list';
 		}
 
-		if ($data['mode'] != 'comment' || $data['mode'] != 'translated') {
+		if ($data['mode'] != 'comment' && $data['mode'] != 'translated') {
 			$this->stateful_api = false;
 		} elseif ($data['mode'] == 'comment') {
 			$this->default_approved_state = 'all';
