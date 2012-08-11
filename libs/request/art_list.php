@@ -10,6 +10,12 @@ class Request_Art_List extends Request
 		'comment', 'translation', 'pack', 'group', 'manga',  'artist',
 	);
 
+	protected $pool_sorted = array(
+		'pack' => 'asc',
+		'group' => 'desc',
+		'manga' => 'asc',
+	);
+
 	protected $filter_types = array(
 		'rating' => 'art_rating',
 		'width' => 'width',
@@ -58,7 +64,7 @@ class Request_Art_List extends Request
 
 		if ($data['mode'] != 'comment' || $data['mode'] != 'translated') {
 			$this->stateful_api = false;
-		} else {
+		} elseif ($data['mode'] == 'comment') {
 			$this->default_approved_state = 'all';
 			$this->default_tagged_state = 'all';
 		}
@@ -71,11 +77,13 @@ class Request_Art_List extends Request
 			$data['sort_by'] = $data['sort'];
 			unset($data['sort']);
 		} elseif (
-			!empty($data['pool_mode']) && isset($data['pool_value']) &&
-			($data['pool_mode'] == 'pack') || ($data['pool_mode'] == 'manga')
+			!empty($data['pool_mode']) &&
+			isset($data['pool_value']) &&
+			array_key_exists($data['pool_mode'], $this->pool_sorted)
 		) {
-			$data['sort_by'] = array($data['pool_mode'] => $data['pool_value']);
-			$data['sort_order'] = 'asc';
+			$data['sort_by'] = $data['pool_mode'];
+			$data['sort_value'] = $data['pool_value'];
+			$data['sort_order'] = $this->pool_sorted[$data['pool_mode']];
 		}
 
 		if (isset($data['order'])) {
