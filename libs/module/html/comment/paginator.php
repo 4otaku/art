@@ -32,4 +32,13 @@ class Module_Html_Comment_Paginator extends Module_Html_Art_Paginator
 	protected function get_per_page() {
 		return $this->per_page;
 	}
+
+	public function recieve_data($data) {
+		$last = ceil($data['count'] / $this->get_per_page());
+		if ($last < 2) {
+			$this->disable();
+		}
+
+		parent::recieve_data($data);
+	}
 }

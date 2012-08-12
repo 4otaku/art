@@ -31,11 +31,11 @@ abstract class Module_Abstract extends RainTPL
 		return array();
 	}
 
-	protected function disable() {
+	public function disable() {
 		$this->disabled = true;
 	}
 
-	protected function enable() {
+	public function enable() {
 		$this->disabled = false;
 	}
 
