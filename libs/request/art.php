@@ -7,7 +7,6 @@ class Request_Art extends Request_Item
 			'add_tags' => true,
 			'add_state' => true,
 			'add_translations' => true,
-			'add_comments' => true,
 			'add_similar' => true,
 			'add_groups' => true,
 			'add_manga' => true,

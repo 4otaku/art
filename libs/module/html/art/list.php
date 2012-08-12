@@ -4,7 +4,6 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
 	protected $css = array('list', 'sidebar');
 	protected $js = array();
-	protected $query_params = array();
 
 	protected function get_modules(Query $query) {
 		return array(

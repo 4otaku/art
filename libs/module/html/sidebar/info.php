@@ -34,11 +34,11 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 			in_array('approved', $data['data']['state']) &&
 			in_array('tagged', $data['data']['state'])
 		) {
-			$this->set_param('date_main', $this->format_time($data['data']['sortdate']));
+			$this->set_param('date_main', Util_Date::format($data['data']['sortdate']));
 		}
 
 		if (!empty($data['data']['created'])) {
-			$this->set_param('created', $this->format_time($data['data']['created']));
+			$this->set_param('created', Util_Date::format($data['data']['created']));
 		}
 	}
 }

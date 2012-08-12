@@ -1,0 +1,31 @@
+<div class="comment comment-max-depth-{$max_depth} comment-depth-{$depth}" id="comment_{$id}">
+	<div class="comment-top">
+		<b>{$label} {$username}</b>
+		<span class="comment-datetime">
+			{$date}
+		</span>
+		<a href="#comment_{$id}" class="comment-metadata">#</a>
+		<div class="comment-right">
+			{if condition="$editdate"}
+				<span class="datetime">
+					Дата редактирования: {$editdate}
+				</span>
+			{/if}
+		</div>
+	</div>
+	<div class="comment-content">
+		<div class="comment-avatar">
+			<img src="http://www.gravatar.com/avatar/{$avatar}?s=50&d=identicon&r=G" />
+		</div>
+		<div class="comment-block">
+			<div class="comment-text">
+				{$text}
+			</div>
+			{if condition="$depth < 16"}
+				<div class="comment-reply">
+					<a href="#">Ответить</a>
+				</div>
+			{/if}
+		</div>
+	</div>
+</div>

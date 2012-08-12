@@ -32,16 +32,4 @@ abstract class Module_Html_Art_Abstract extends Module_Html_Abstract
 		$size = round($size, 1);
 		return $size . ' ' . $this->size_types[$type];
 	}
-
-	protected function format_time($time, $minutes = false) {
-		$rumonth = array(
-			'','Январь','Февраль','Март','Апрель',
-			'Май','Июнь','Июль','Август',
-			'Сентябрь','Октябрь','Ноябрь','Декабрь');
-		$date = $rumonth[date('n', strtotime($time))].date(' j, Y');
-		if ($minutes) {
-			$date .= date('; G:i');
-		}
-		return $date;
-	}
 }

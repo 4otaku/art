@@ -1,0 +1,305 @@
+.comment {
+	text-align: left;
+	padding-bottom: 20px;
+	border-top: 1px solid #DCDCDC;
+}
+
+.comment-datetime {
+	color: Gray;
+	font-size: 9px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.comment-metadata {
+	font-size: 10px;
+}
+
+.comment-right {
+	float: right;
+}
+
+.comment-top {
+	height: 23px;
+	background: #FFFAF0;
+	padding-left: 10px;
+	padding-top: 7px;
+}
+
+.comment-content {
+	padding-left: 10px;
+	padding-top: 10px;
+	min-height: 60px;
+}
+
+.comment-reply {
+	margin-top: 20px;
+}
+
+.comment-avatar {
+	float: left;
+	width: 50px;
+	height: 50px;
+	padding: 5px;
+	border: 1px solid Black;
+	margin-right: 10px;
+}
+
+.comment-search-text {
+	margin-left: 15px;
+}
+
+.comment-block {
+	margin-left: 75px;
+}
+
+.comment-depth-0 {
+	margin-left: 0px;
+}
+
+.comment-max-depth-1.comment-depth-1,
+.comment-max-depth-2.comment-depth-1,
+.comment-max-depth-3.comment-depth-1,
+.comment-max-depth-4.comment-depth-1,
+.comment-max-depth-5.comment-depth-1,
+.comment-max-depth-6.comment-depth-1 {
+	margin-left: 50px;
+}
+
+.comment-max-depth-2.comment-depth-2,
+.comment-max-depth-3.comment-depth-2,
+.comment-max-depth-4.comment-depth-2,
+.comment-max-depth-5.comment-depth-2,
+.comment-max-depth-6.comment-depth-2 {
+	margin-left: 100px;
+}
+
+.comment-max-depth-3.comment-depth-3,
+.comment-max-depth-4.comment-depth-3,
+.comment-max-depth-5.comment-depth-3,
+.comment-max-depth-6.comment-depth-3 {
+	margin-left: 150px;
+}
+
+.comment-max-depth-5.comment-depth-4,
+.comment-max-depth-6.comment-depth-4 {
+	margin-left: 200px;
+}
+
+.comment-max-depth-5.comment-depth-5,
+.comment-max-depth-6.comment-depth-5 {
+	margin-left: 250px;
+}
+
+
+.comment-max-depth-6.comment-depth-6 {
+	margin-left: 300px;
+}
+
+.comment-max-depth-7.comment-depth-1,
+.comment-max-depth-8.comment-depth-1 {
+	margin-left: 40px;
+}
+
+.comment-max-depth-7.comment-depth-2,
+.comment-max-depth-8.comment-depth-2 {
+	margin-left: 80px;
+}
+
+.comment-max-depth-7.comment-depth-3,
+.comment-max-depth-8.comment-depth-3 {
+	margin-left: 120px;
+}
+
+.comment-max-depth-7.comment-depth-4,
+.comment-max-depth-8.comment-depth-4 {
+	margin-left: 160px;
+}
+
+.comment-max-depth-7.comment-depth-5,
+.comment-max-depth-8.comment-depth-5 {
+	margin-left: 200px;
+}
+
+.comment-max-depth-7.comment-depth-6,
+.comment-max-depth-8.comment-depth-6 {
+	margin-left: 240px;
+}
+
+.comment-max-depth-7.comment-depth-7,
+.comment-max-depth-8.comment-depth-7 {
+	margin-left: 280px;
+}
+
+.comment-max-depth-8.comment-depth-8 {
+	margin-left: 320px;
+}
+
+.comment-max-depth-9.comment-depth-1,
+.comment-max-depth-10.comment-depth-1 {
+	margin-left: 30px;
+}
+
+.comment-max-depth-9.comment-depth-2,
+.comment-max-depth-10.comment-depth-2 {
+	margin-left: 60px;
+}
+
+.comment-max-depth-9.comment-depth-3,
+.comment-max-depth-10.comment-depth-3 {
+	margin-left: 90px;
+}
+
+.comment-max-depth-9.comment-depth-4,
+.comment-max-depth-10.comment-depth-4 {
+	margin-left: 120px;
+}
+
+.comment-max-depth-9.comment-depth-5,
+.comment-max-depth-10.comment-depth-5 {
+	margin-left: 150px;
+}
+
+.comment-max-depth-9.comment-depth-6,
+.comment-max-depth-10.comment-depth-6 {
+	margin-left: 180px;
+}
+
+.comment-max-depth-9.comment-depth-7,
+.comment-max-depth-10.comment-depth-7 {
+	margin-left: 210px;
+}
+
+.comment-max-depth-9.comment-depth-8,
+.comment-max-depth-10.comment-depth-8 {
+	margin-left: 240px;
+}
+
+.comment-max-depth-9.comment-depth-9,
+.comment-max-depth-10.comment-depth-9 {
+	margin-left: 270px;
+}
+
+.comment-max-depth-10.comment-depth-10 {
+	margin-left: 300px;
+}
+
+.comment-max-depth-11.comment-depth-1,
+.comment-max-depth-12.comment-depth-1 {
+	margin-left: 25px;
+}
+
+.comment-max-depth-11.comment-depth-2,
+.comment-max-depth-12.comment-depth-2 {
+	margin-left: 50px;
+}
+
+.comment-max-depth-11.comment-depth-3,
+.comment-max-depth-12.comment-depth-3 {
+	margin-left: 75px;
+}
+
+.comment-max-depth-11.comment-depth-4,
+.comment-max-depth-12.comment-depth-4 {
+	margin-left: 100px;
+}
+
+.comment-max-depth-11.comment-depth-5,
+.comment-max-depth-12.comment-depth-5 {
+	margin-left: 125px;
+}
+
+.comment-max-depth-11.comment-depth-6,
+.comment-max-depth-12.comment-depth-6 {
+	margin-left: 150px;
+}
+
+.comment-max-depth-11.comment-depth-7,
+.comment-max-depth-12.comment-depth-7 {
+	margin-left: 175px;
+}
+
+.comment-max-depth-11.comment-depth-8,
+.comment-max-depth-12.comment-depth-8 {
+	margin-left: 200px;
+}
+
+.comment-max-depth-11.comment-depth-9,
+.comment-max-depth-12.comment-depth-9 {
+	margin-left: 225px;
+}
+
+.comment-max-depth-11.comment-depth-10,
+.comment-max-depth-12.comment-depth-10 {
+	margin-left: 250px;
+}
+
+.comment-max-depth-11.comment-depth-11,
+.comment-max-depth-12.comment-depth-11 {
+	margin-left: 275px;
+}
+
+.comment-max-depth-12.comment-depth-12 {
+	margin-left: 300px;
+}
+
+.comment-depth-1 {
+	margin-left: 20px;
+}
+.comment-depth-2 {
+	margin-left: 40px;
+}
+.comment-depth-3 {
+	margin-left: 60px;
+}
+.comment-depth-4 {
+	margin-left: 80px;
+}
+.comment-depth-5 {
+	margin-left: 100px;
+}
+.comment-depth-6 {
+	margin-left: 120px;
+}
+.comment-depth-7 {
+	margin-left: 140px;
+}
+.comment-depth-8 {
+	margin-left: 160px;
+}
+.comment-depth-9 {
+	margin-left: 180px;
+}
+.comment-depth-10 {
+	margin-left: 200px;
+}
+.comment-depth-11 {
+	margin-left: 220px;
+}
+.comment-depth-12 {
+	margin-left: 240px;
+}
+.comment-depth-13 {
+	margin-left: 260px;
+}
+.comment-depth-14 {
+	margin-left: 280px;
+}
+.comment-depth-15 {
+	margin-left: 300px;
+}
+.comment-depth-16 {
+	margin-left: 320px;
+}
+.comment-depth-17 {
+	margin-left: 340px;
+}
+.comment-depth-18 {
+	margin-left: 360px;
+}
+.comment-depth-19 {
+	margin-left: 380px;
+}
+.comment-depth-20 {
+	margin-left: 400px;
+}

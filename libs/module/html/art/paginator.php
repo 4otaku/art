@@ -8,9 +8,17 @@ class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 		return $this->get_common_request();
 	}
 
+	protected function get_page() {
+		return $this->query->page();
+	}
+
+	protected function get_per_page() {
+		return $this->query->per_page();
+	}
+
 	public function recieve_data($data) {
-		$curr = $this->query->page();
-		$last = ceil($data['count'] / $this->query->per_page());
+		$curr = $this->get_page();
+		$last = ceil($data['count'] / $this->get_per_page());
 		$start = max($curr - 8, 2);
 		$end = min($curr + 9, $last - 1);
 
