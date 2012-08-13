@@ -2,13 +2,87 @@
 	{$module_list}
 	{$module_paginator}
 
-	<div id="comment_form_main">
-		<noscript>
-			Для возможности комментировать, включите пожалуйста javascript.
-		</noscript>
+	<div id="comment_form_main" class="comment_form">
+		<div class="comment_field">
+			<h4>Написать комментарий:</h4>
+			<br />
+			<input name="name" value="" size="22" type="text">
+			<span class="label">Имя</span>
+			<br />
+			<input name="mail" value="" size="22" type="text">
+			<span class="label">E-mail (не публикуется)</span>
+			<br />
+			<textarea class="comment_text" cols="70" rows="10"></textarea>
+		</div>
+		<div id="comment-main" class="hidden">
+			<a href="#" class="disabled">Комментировать изображение.</a>
+		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	// add('comment_form', 'main');
+	add('comment_form', 'main');
 </script>
+<!--
+'' +
+		'<table>' +
+			'<tr>' +
+				'<td colspan="2">' +
+					'' +
+				'</td>' +
+			'</tr>' +
+		'<tr>' +
+			'<td colspan="2">' +
+				'' +
+				'' +
+			'</td>' +
+		'</tr>' +
+		'<tr>' +
+			'<td>' +
+				'' +
+			'</td>' +
+			'<td valign="top">' +
+				'<table cellspacing="3px" class="bbholder">' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/bold.png" rel="b" class="bb" title="Выделить жирным" />' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/italic.png" rel="i" class="bb" title="Выделить курсивом" />' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/strike.png" rel="s" class="bb" title="Зачеркнутый текст" />' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/spoiler.png" rel="spoiler" class="bb" title="Спойлер" />' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/picture.png" rel="img" class="bb" title="Добавить картинку" />' +
+						'</td>' +
+					'</tr>' +
+					'<tr>' +
+						'<td>' +
+							'<img src="/images/bb/link.png" rel="url" class="bb" title="Добавить ссылку" />' +
+						'</td>' +
+					'</tr>' +
+				'</table>' +
+			'</td>' +
+		'</tr>' +
+		'<tr>' +
+			'<td colspan="2">' +
+				'<input name="do" value="comment.add" type="hidden">' +
+				'<input type="hidden" name="remember" value="true" />' +
+				'<input name="parent" value="0" type="hidden" id="comment-parent">' +
+				'<input name="submit" value="Отправить комментарий" type="submit">' +
+			'</td>' +
+		'</tr>' +
+	'</table>' +
+-->

@@ -2,7 +2,7 @@
 
 class Module_Html extends Module_Html_Abstract
 {
-	protected $css = array('bootstrap');
+	protected $css = array('external/bootstrap', 'external/plugins');
 	protected $js = array('external/jquery', 'external/plugins', 'base');
 
 	protected function get_params(Query $query) {

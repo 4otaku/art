@@ -53,6 +53,18 @@
 	margin-left: 75px;
 }
 
+.comment_form {
+	text-align: left;
+	border-top: 1px solid #DCDCDC;
+	padding-top: 20px;
+}
+
+.comment_field .label {
+	font-size: 110%;
+	position: relative;
+	bottom: 3px;
+}
+
 .comment-depth-0 {
 	margin-left: 0px;
 }
