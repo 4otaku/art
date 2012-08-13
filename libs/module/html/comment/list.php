@@ -2,6 +2,9 @@
 
 class Module_Html_Comment_List extends Module_Html_Abstract
 {
+	protected $css = array('comment');
+	protected $js = array('comment');
+
 	protected $is_tree = true;
 	protected $per_page = 7;
 	protected $reverse = true;
@@ -103,11 +106,13 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 
 		usort($comments, array($this, 'label_sort'));
 
-		foreach ($comments as &$comment) {
+		foreach ($comments as $key => &$comment) {
 			if ($this->is_tree) {
 				$comment['label'] = implode('.', $comment['label']) . ')';
+				$comment['list_mode'] = 0;
 			} else {
 				$comment['label'] = '';
+				$comment['list_mode'] = 1;
 			}
 			$comment['date'] = Util_Date::format($comment['sortdate'], true);
 			if (!empty($comment['editdate'])) {
@@ -115,6 +120,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 			}
 			$comment['text'] = new Text($comment['text']);
 			$comment['text']->format();
+			$comment['order'] = $key + 1;
 		}
 		unset($comment);
 

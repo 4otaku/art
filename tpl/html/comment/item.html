@@ -21,11 +21,25 @@
 			<div class="comment-text">
 				{$text}
 			</div>
-			{if condition="$depth < 16"}
-				<div class="comment-reply">
+			<div class="comment-reply">
+				{if condition="$depth < 16"}
 					<a href="#">Ответить</a>
-				</div>
-			{/if}
+				{/if}
+				<span class="comment-load-parent hidden">
+					{if condition="$depth < 16"}
+						<span class="comment-reply-separator">|</span>
+					{/if}
+					В ответ на: (<a href="#">Показать комментарий</a>)
+				</span>
+			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	add('comment', '{$id}', {
+		parent_load: {$list_mode},
+		parent: {$parent},
+		preload_order: {$order}
+	});
+</script>

@@ -36,6 +36,15 @@
 	margin-top: 20px;
 }
 
+.comment-reply-separator {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.comment-load-parent {
+	color: Gray;
+}
+
 .comment-avatar {
 	float: left;
 	width: 50px;
