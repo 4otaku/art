@@ -3,6 +3,25 @@
 abstract class Module_Abstract extends RainTPL
 {
 	protected $modules = array();
+	protected $header = array();
+	protected $status_headers = array(
+		200 => 'HTTP/1.1 200 OK',
+		201 => 'HTTP/1.1 201 Created',
+		204 => 'HTTP/1.1 204 No Content',
+		206 => 'HTTP/1.1 206 Partial Content',
+		301 => 'HTTP/1.1 301 Moved Permanently',
+		302 => 'HTTP/1.1 302 Found',
+		304 => 'HTTP/1.1 304 Not Modified',
+		307 => 'HTTP/1.1 307 Temporary Redirect',
+		400 => 'HTTP/1.1 400 Bad Request',
+		401 => 'HTTP/1.1 401 Unauthorized',
+		403 => 'HTTP/1.1 403 Forbidden',
+		404 => 'HTTP/1.1 404 Not Found',
+		500 => 'HTTP/1.1 500 Internal Server Error',
+		501 => 'HTTP/1.1 501 Not Implemented',
+		503 => 'HTTP/1.1 503 Service Unavailable',
+		504 => 'HTTP/1.1 504 Gateway Time-out',
+	);
 	protected $disabled = false;
 
 	public function __construct(Query $query, $disabled = false) {
@@ -61,7 +80,25 @@ abstract class Module_Abstract extends RainTPL
 		}
 	}
 
+	public function get_header() {
+		$header = (array) $this->header;
+
+		foreach ($this->modules as $module) {
+			$header = array_merge($module->get_header(), $header);
+		}
+
+		return $header;
+	}
+
 	public function dispatch() {
+		foreach ($this->get_header() as $key => $header) {
+			if ($key == 'status') {
+				header($this->status_headers[$header]);
+			} else {
+				header($key . ': ' . $header);
+			}
+		}
+
 		$html = $this->get_html();
 
 		echo trim($html);

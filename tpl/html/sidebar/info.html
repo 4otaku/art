@@ -14,7 +14,8 @@
 		</div>
 	{/if}
 	<div class="sidebar_row">
-		Скачать: <a class="download" href="http://images.4otaku.ru/art/{$md5}.{$ext}">{$weight}</a>.
+		Скачать: <a href="/download/?type=art&id={$id}{if condition="$pool_mode"}&{$pool_mode}={$pool_value}{/if}">
+			{$weight}</a>.
 	</div>
 	{if condition="!empty($source)"}
 		<div class="sidebar_row">

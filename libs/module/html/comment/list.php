@@ -2,14 +2,12 @@
 
 class Module_Html_Comment_List extends Module_Html_Abstract
 {
-	protected $css = array('comment');
-	protected $js = array('comment');
-
 	protected $is_tree = true;
 	protected $per_page = 7;
 	protected $reverse = true;
 	protected $page = 1;
 	protected $id = 0;
+	protected $id_comment = 0;
 
 	public function __construct(Query $query, $disabled = false) {
 		parent::__construct($query, $disabled);
@@ -21,7 +19,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new Module_Html_Container('comment_item'),
+			'list' => new Module_Container('html_comment_item'),
 			'paginator' => new Module_Html_Comment_Paginator($query)
 		);
 	}
@@ -36,24 +34,42 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 		if ($query->url(0)) {
 			$this->id = (int) $query->url(0);
 		}
+
+		if ($query->get('id_art')) {
+			$this->id = (int) $query->get('id_art');
+		}
+
+		if ($query->get('id_comment')) {
+			$this->id_comment = (int) $query->get('id_comment');
+		}
 	}
 
 	protected function make_request() {
-		if (empty($this->id)) {
-			return false;
+		if (!empty($this->id)) {
+			return new Request('comment', $this, array(
+				'root_only' => (int) $this->is_tree,
+				'add_tree' => (int) $this->is_tree,
+				'sort_order' => $this->reverse ? 'desc' : 'asc',
+				'page' => $this->page,
+				'per_page' => $this->per_page,
+				'filter' => array(
+					'area' => 'art',
+					'id_item' => $this->id
+				)
+			));
 		}
 
-		return new Request('comment', $this, array(
-			'root_only' => (int) $this->is_tree,
-			'add_tree' => (int) $this->is_tree,
-			'sort_order' => $this->reverse ? 'desc' : 'asc',
-			'page' => $this->page,
-			'per_page' => $this->per_page,
-			'filter' => array(
-				'area' => 'art',
-				'id_item' => $this->id
-			)
-		));
+		if (!empty($this->id_comment)) {
+			$this->modules['paginator']->disable();
+			$this->set_param('single_mode', 1);
+			return new Request('comment', $this, array(
+				'filter' => array(
+					'id' => $this->id_comment
+				)
+			));
+		}
+
+		return false;
 	}
 
 	public function recieve_data($data) {
@@ -114,12 +130,6 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 				$comment['label'] = '';
 				$comment['list_mode'] = 1;
 			}
-			$comment['date'] = Util_Date::format($comment['sortdate'], true);
-			if (!empty($comment['editdate'])) {
-				$comment['editdate'] = Util_Date::format($comment['editdate'], true);
-			}
-			$comment['text'] = new Text($comment['text']);
-			$comment['text']->format();
 			$comment['order'] = $key + 1;
 		}
 		unset($comment);

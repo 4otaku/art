@@ -29,12 +29,17 @@ class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 			}
 		}
 
+		$url_string = $this->query->to_url_string();
+		if (!empty($url_string)) {
+			$url_string .= '&';
+		}
+
 		$this->set_param('curr', $curr);
 		$this->set_param('last', $last);
 		$this->set_param('start', $start);
 		$this->set_param('end', $end);
 
 		$this->set_param('loop', $loop);
-		$this->set_param('base', $this->query->to_url_string());
+		$this->set_param('base', $url_string);
 	}
 }

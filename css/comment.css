@@ -1,5 +1,12 @@
-.comment {
+.comment-display {
 	text-align: left;
+}
+
+.comment-display .navi_bottom, .comment-display .navi_bottom div {
+	clear: inherit;
+}
+
+.comment {
 	padding-bottom: 20px;
 	border-top: 1px solid #DCDCDC;
 }
@@ -32,17 +39,31 @@
 	min-height: 60px;
 }
 
-.comment-reply {
+.comment-bottom {
 	margin-top: 20px;
 }
 
-.comment-reply-separator {
+.comment-bottom-separator {
 	padding-right: 10px;
 	padding-left: 10px;
 }
 
 .comment-load-parent {
 	color: Gray;
+}
+
+.comment-loading {
+	height: 22px;
+	border-top: 1px solid #DCDCDC;
+	background-image: url('/images/loading_comment.gif');
+	background-repeat: no-repeat;
+	background-position: 15px 5px;
+}
+
+.comment-page-loading {
+	background-image: url('/images/loading_comment_page.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 
 .comment-avatar {
@@ -66,6 +87,7 @@
 	text-align: left;
 	border-top: 1px solid #DCDCDC;
 	padding-top: 20px;
+	margin-top: 20px;
 	padding-left: 15px;
 }
 

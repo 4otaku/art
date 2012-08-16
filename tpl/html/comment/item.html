@@ -1,17 +1,15 @@
-<div class="comment comment-max-depth-{$max_depth} comment-depth-{$depth}" id="comment_{$id}">
-	<div class="comment-top">
+<div class="comment comment-max-depth-{$max_depth} comment-depth-{$depth}" id="comment_{$uid}">
+	<div class="comment-top" id="comment-{$id}">
 		<b>{$label} {$username}</b>
 		<span class="comment-datetime">
 			{$date}
 		</span>
-		<a href="#comment_{$id}" class="comment-metadata">#</a>
-		<div class="comment-right">
-			{if condition="$editdate"}
-				<span class="datetime">
-					Дата редактирования: {$editdate}
-				</span>
-			{/if}
-		</div>
+		{if condition="$editdate"}
+			<span class="comment-datetime">
+				(Отредактировано: {$editdate})
+			</span>
+		{/if}
+		<a href="#comment-{$id}" class="comment-metadata">#</a>
 	</div>
 	<div class="comment-content">
 		<div class="comment-avatar">
@@ -21,25 +19,30 @@
 			<div class="comment-text">
 				{$text}
 			</div>
-			<div class="comment-reply">
+			<div class="comment-bottom">
 				{if condition="$depth < 16"}
-					<a href="#">Ответить</a>
+					<span class="comment-reply">
+						<a href="#">Ответить</a>
+					</span>
 				{/if}
-				<span class="comment-load-parent hidden">
-					{if condition="$depth < 16"}
-						<span class="comment-reply-separator">|</span>
-					{/if}
-					В ответ на: (<a href="#">Показать комментарий</a>)
-				</span>
+				{if condition="$depth < 16 && $list_mode && $parent"}
+					<span class="comment-bottom-separator">|</span>
+				{/if}
+				{if condition="$list_mode && $parent"}
+					<span class="comment-load-parent">
+						В ответ на: (<a href="#">Показать комментарий</a>)
+					</span>
+				{/if}
 			</div>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	add('comment', '{$id}', {
+	add('comment', '{$uid}', {
+		id_comment: {$id},
 		parent_load: {$list_mode},
-		parent: {$parent},
+		id_parent: {$parent},
 		preload_order: {$order}
 	});
 </script>

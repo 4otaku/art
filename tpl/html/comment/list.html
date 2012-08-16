@@ -1,25 +1,8 @@
-<div>
-	{$module_list}
-	{$module_paginator}
-
-	<div id="comment_form_main" class="comment_form">
-		<div class="comment_field">
-			<h4>Написать комментарий:</h4>
-			<br />
-			<input name="name" value="" size="22" type="text">
-			<span class="label">Имя</span>
-			<br />
-			<input name="mail" value="" size="22" type="text">
-			<span class="label">E-mail (не публикуется)</span>
-			<br />
-			<textarea class="comment_text" cols="70" rows="10"></textarea>
-		</div>
-		<div class="comment_noreply hidden">
-			<a href="#" class="disabled">Комментировать изображение.</a>
-		</div>
+{if condition="empty($single_mode)"}
+	<div class="comment-display">
+		{$module_list}
+		{$module_paginator}
 	</div>
-</div>
-
-<script type="text/javascript">
-	add('comment_form', 'main');
-</script>
+{else}
+	{$module_list}
+{/if}

@@ -1,4 +1,4 @@
-<div class="navi_bottom">
+<div class="navi_bottom" id="comment_navi_main">
 	<ul>
 		<li class="page_info">
 			Страница комментариев {$curr} из {$last}
@@ -11,7 +11,7 @@
 			</li>
 		{elseif condition="$curr > 2"}
 			<li>
-				<a href="/{$id_item}?{$base}&comment_page={$curr-1}">
+				<a href="/{$id_item}?{$base}comment_page={$curr-1}">
 					&lt;
 				</a>
 			</li>
@@ -37,13 +37,13 @@
 		{loop="loop"}
 			{if condition="$value.current"}
 				<li class="active_page">
-					<a href="/{$id_item}?{$base}&comment_page={$value.page}">
+					<a href="/{$id_item}?{$base}comment_page={$value.page}">
 						{$value.page}
 					</a>
 				</li>
 			{else}
 				<li>
-					<a href="/{$id_item}?{$base}&comment_page={$value.page}">
+					<a href="/{$id_item}?{$base}comment_page={$value.page}">
 						{$value.page}
 					</a>
 				</li>
@@ -57,18 +57,18 @@
 		{if condition="$last > 1"}
 			{if condition="$last == $curr"}
 				<li class="active_page">
-					<a href="/{$id_item}?{$base}&comment_page={$last}">
+					<a href="/{$id_item}?{$base}comment_page={$last}">
 						{$last}
 					</a>
 				</li>
 			{else}
 				<li class="first_last_page">
-					<a href="/{$id_item}?{$base}&comment_page={$last}">
+					<a href="/{$id_item}?{$base}comment_page={$last}">
 						{$last}
 					</a>
 				</li>
 				<li>
-					<a href="/{$id_item}?{$base}&comment_page={$curr+1}">
+					<a href="/{$id_item}?{$base}comment_page={$curr+1}">
 						&gt;
 					</a>
 				</li>
@@ -79,3 +79,10 @@
 		&nbsp;
 	</div>
 </div>
+
+<script type="text/javascript">
+	add('comment_navi', 'main', {
+		target: '.comment-display',
+		id_art: '{$id_item}'
+	});
+</script>

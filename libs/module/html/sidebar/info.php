@@ -6,6 +6,9 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());
+
+		$this->set_param('pool_mode', $query->get_pool_mode());
+		$this->set_param('pool_value', $query->get_pool_value());
 	}
 
 	protected function make_request() {

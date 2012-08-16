@@ -1,28 +1,7 @@
 // Ajax functions
 
 var Ajax = {
-	perform: function(url, data, success, failure, scope) {
-		if (typeof data == 'function') {
-			scope = failure;
-			failure = success;
-			success = data;
-			data = {};
-		}
-		if (typeof failure == 'object') {
-			scope = failure;
-		}
-		$.ajax({
-			url: url,
-			data: data ? data: {},
-			type: 'POST',
-			success: success ? success : false,
-			failure: failure ? failure : false,
-			context: scope ? scope : this,
-			dataType: 'json'
-		});
-	},
-
-	get: function(url, data, success, failure, scope) {
+	request: function(url, data, success, failure, scope, json, is_get) {
 		if (typeof data == 'function') {
 			scope = failure;
 			failure = success;
@@ -36,12 +15,24 @@ var Ajax = {
 		$.ajax({
 			url: url,
 			data: data ? data: {},
-			type: 'GET',
+			type: is_get ? 'GET' : 'POST',
 			success: success ? success : false,
 			failure: failure ? failure : false,
 			context: scope ? scope : this,
-			dataType: 'json'
+			dataType: json ? 'json' : 'html'
 		});
+	},
+
+	get: function(url, data, success, failure, scope) {
+		this.request(url, data, success, failure, scope, true, true);
+	},
+
+	load: function(url, data, success, failure, scope) {
+		this.request(url, data, success, failure, scope, false, true);
+	},
+
+	perform: function(url, data, success, failure, scope) {
+		this.request(url, data, success, failure, scope, true, false);
 	},
 
 	error: {
@@ -96,8 +87,8 @@ function extend(Child, Parent, mixinData) {
 
 // Object adding functions
 
-function init_objects(data) {
-	$.each(data, function(type, objects) {
+function init_objects() {
+	$.each(INIT, function(type, objects) {
 		$.each(objects, function(dev_null, object) {
 			if (OBJECT[type]) {
 				var id = object[0];
@@ -107,6 +98,7 @@ function init_objects(data) {
 			}
 		});
 	});
+	INIT = {};
 }
 
 function init(type, id, values, events) {

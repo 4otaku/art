@@ -11,7 +11,7 @@
 			</li>
 		{elseif condition="$curr > 2"}
 			<li>
-				<a href="/?{$base}&page={$curr-1}">
+				<a href="/?{$base}page={$curr-1}">
 					&lt;
 				</a>
 			</li>
@@ -37,13 +37,13 @@
 		{loop="loop"}
 			{if condition="$value.current"}
 				<li class="active_page">
-					<a href="/?{$base}&page={$value.page}">
+					<a href="/?{$base}page={$value.page}">
 						{$value.page}
 					</a>
 				</li>
 			{else}
 				<li>
-					<a href="/?{$base}&page={$value.page}">
+					<a href="/?{$base}page={$value.page}">
 						{$value.page}
 					</a>
 				</li>
@@ -57,18 +57,18 @@
 		{if condition="$last > 1"}
 			{if condition="$last == $curr"}
 				<li class="active_page">
-					<a href="/?{$base}&page={$last}">
+					<a href="/?{$base}page={$last}">
 						{$last}
 					</a>
 				</li>
 			{else}
 				<li class="first_last_page">
-					<a href="/?{$base}&page={$last}">
+					<a href="/?{$base}page={$last}">
 						{$last}
 					</a>
 				</li>
 				<li>
-					<a href="/?{$base}&page={$curr+1}">
+					<a href="/?{$base}page={$curr+1}">
 						&gt;
 					</a>
 				</li>

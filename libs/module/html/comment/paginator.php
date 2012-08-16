@@ -2,6 +2,8 @@
 
 class Module_Html_Comment_Paginator extends Module_Html_Art_Paginator
 {
+	protected $js = array('comment');
+
 	protected $per_page = 7;
 	protected $page = 1;
 

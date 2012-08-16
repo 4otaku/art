@@ -19,7 +19,9 @@ abstract class Module_Html_Abstract extends Module_Abstract
 		$css = (array) $this->css;
 
 		foreach ($this->modules as $module) {
-			$css = array_merge($css, $module->get_css());
+			if (is_callable(array($module, 'get_css'))) {
+				$css = array_merge($css, $module->get_css());
+			}
 		}
 
 		return array_unique($css);
@@ -29,7 +31,9 @@ abstract class Module_Html_Abstract extends Module_Abstract
 		$js = (array) $this->js;
 
 		foreach ($this->modules as $module) {
-			$js = array_merge($js, $module->get_js());
+			if (is_callable(array($module, 'get_js'))) {
+				$js = array_merge($js, $module->get_js());
+			}
 		}
 
 		return array_unique($js);

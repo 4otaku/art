@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+	<rss version="2.0"
+		xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		xmlns:atom="http://www.w3.org/2005/Atom"
+	>
+
+	<channel>
+		<title>4отаку, арт.</title>
+		<description>{function="trim(strip_tags($module_title))"}</description>
+		<link>http://art.4otaku.ru/{if condition="$query"}?{$query}{/if}</link>
+		<atom:link href="http://{$domain}/rss/{if condition="$query"}?{$query}{/if}"
+			rel="self" type="application/rss+xml" />
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+
+		{$module_list}
+
+	</channel>
+</rss>
+

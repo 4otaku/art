@@ -3,6 +3,17 @@
 {else}
 	<h4>Основной список</h4>
 {/if}
-{if condition="!empty($text)"}
-	<div class="pool_description">{$text}</div>
+{if condition="!empty($text) or !empty($weight)"}
+	<div class="pool_description">
+		{if condition="!empty($text)"}
+			{$text}
+		{/if}
+
+		{if condition="!empty($weight)"}
+			<div class="pool_download">
+				<a href="/download?type={$pool_mode}&id={$pool_value}">
+					Скачать ({$weight})</a>.
+			</div>
+		{/if}
+	</div>
 {/if}
