@@ -79,11 +79,7 @@ abstract class Module_Download_Abstract extends Module_Abstract
 		}
 
 		$fileinfo = pathinfo($link);
-
-		return strstr($_SERVER['HTTP_USER_AGENT'], 'MSIE') === false ?
-			$fileinfo['basename'] :
-			preg_replace('/\./', '%2e', $fileinfo['basename'],
-				substr_count($fileinfo['basename'], '.') - 1);
+		return $fileinfo['basename'];
 	}
 
 	public function get_html() {

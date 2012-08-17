@@ -16,35 +16,37 @@ class Module_Download_Art extends Module_Download_Abstract
 	}
 
 	protected function request_item($id) {
-		$params = array('filter' => array(array(
-			'name' => 'id',
-			'type' => 'is',
-			'value' => $id
-		)));
+		$params = array('id' => $id);
 
 		if ($this->manga) {
-			$params['sort_by'] = 'manga';
-			$params['sort_value'] = $this->manga;
+			$params['add_manga'] = 1;
 		}
 
 		if ($this->pack) {
-			$params['sort_by'] = 'pack';
-			$params['sort_value'] = $this->pack;
+			$params['add_packs'] = 1;
 		}
 
-		return new Request_Item('art_list', $this, $params);
+		return new Request_Item('art', $this, $params);
 	}
 
 	public function recieve_data($data) {
-		if (!empty($data['data']['filename'])) {
-			$this->filename = $data['data']['filename'];
+		if (!empty($data['data']['pack'])) {
+			foreach ($data['data']['pack'] as $pack) {
+				if ($pack['id'] == $this->pack) {
+					$this->filename = $pack['filename'];
+				}
+			}
 		}
 
-		if (!empty($data['data']['order'])) {
-			$order = $data['data']['order'] + 1;
-			$zero_len = max(0, 5 - strlen($order));
-			$this->filename = str_repeat('0', $zero_len) .
-				$order . '.' . $data['data']['ext'];
+		if (!empty($data['data']['manga'])) {
+			foreach ($data['data']['manga'] as $manga) {
+				if ($manga['id'] == $this->manga) {
+					$order = $manga['order'] + 1;
+					$zero_len = max(0, 5 - strlen($order));
+					$this->filename = str_repeat('0', $zero_len) .
+						$order . '.' . $data['data']['ext'];
+				}
+			}
 		}
 
 		parent::recieve_data($data);
