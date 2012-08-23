@@ -1,88 +1,12 @@
-.navi_bottom ul, .navi_bottom li, .navi_bottom a, .navi_bottom span {
-	background: white;
-	padding: 0;
-	margin: 0;
-	border: none;
-	text-decoration: none;
-	font-weight: normal;
-	font-style: normal;
-	list-style: none;
-	text-transform: none;
-	text-indent: 0px;
-	font-variant: normal;
-	text-align: left;
-	line-height: 12px;
-	letter-spacing: 0px;
-	word-spacing: 0px;
-	font-size: 11px;
-	font-family: Arial;
+.pagination ul {
+	padding-left: 0px;
 }
 
-.navi_bottom {
-	margin-top: 10px;
-	width: 100%;
-	background: white;
-	clear:both;
-	display:block;
+.pagination li a, .pagination li span {
+	padding: 0 9px;
+	line-height: 28px;
 }
 
-.navi_bottom ul {
-	width: 100%;
-}
-
-.navi_bottom li {
-	float: left;
-	display: block;
-}
-
-.navi_bottom a, .navi_bottom span {
-	padding: 3px;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-left: 2px;
-	margin-right: 2px;
-	display: block;
-	color: #333;
-	border: 1px solid #bfbfbf;
-}
-
-.navi_bottom li a:hover, .navi_bottom li span:hover {
-	border-color: #ff8000;
-}
-
-.navi_bottom li.space {
-	padding: 6px;
-	padding-left: 2px;
-	padding-right: 2px;
-}
-
-.navi_bottom li.first_last_page {
-	font-style: italic;
-}
-
-.navi_bottom li.active_page a {
-	border-color: #46daff;
-}
-
-.navi_bottom li.active_page a:hover  {
-	color: black; /* IE fix */
-	text-decoration: underline;
-	border-color: #ff8000;
-}
-
-.navi_bottom li.page_info {
-	float: left;
-	display: block;
-	padding: 3px;
-	padding-left: 5px;
-	padding-right: 5px;
-	margin-right: 2px;
-	color: #666;
-	font-size: 11px;
-	border: 1px solid #bfbfbf;
-}
-
-.navi_bottom div {
-	float: none;
-	clear: both;
+.pagination li.active_page a, .pagination li.active_page a:hover {
+	color: #333333;
 }

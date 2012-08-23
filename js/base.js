@@ -256,6 +256,16 @@ mixin(OBJECT.base.prototype, {
 		$.each(LISTENERS[type], function(dev_null, listener) {
 			listener.func.apply(listener.obj, params);
 		});
+	},
+
+	on_outside_click: function(target, fn) {
+		$('body').one('click', $.proxy(function(e) {
+			fn.call(this, e);
+			target.off('click.propagation');
+		}, this));
+		target.on('click.propagation', function(e){
+			e.stopPropagation();
+		});
 	}
 });
 

@@ -1,7 +1,7 @@
-<div class="navi_bottom">
+<div class="pagination">
 	<ul>
-		<li class="page_info">
-			Страница {$curr} из {$last}
+		<li>
+			<span>Страница {$curr} из {$last}</span>
 		</li>
 		{if condition="$curr == 2"}
 			<li>
@@ -23,7 +23,7 @@
 				</a>
 			</li>
 		{else}
-			<li class="first_last_page">
+			<li>
 				<a href="/?{$base}">
 					1
 				</a>
@@ -31,7 +31,7 @@
 		{/if}
 		{if condition="$start > 2"}
 			<li class="space">
-				...
+				<span>...</span>
 			</li>
 		{/if}
 		{loop="loop"}
@@ -51,7 +51,7 @@
 		{/loop}
 	{if condition="$end < $last - 1"}
 			<li class="space">
-				...
+				<span>...</span>
 			</li>
 		{/if}
 		{if condition="$last > 1"}
@@ -75,7 +75,4 @@
 			{/if}
 		{/if}
 	</ul>
-	<div>
-		&nbsp;
-	</div>
 </div>

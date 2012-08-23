@@ -2,8 +2,12 @@
 	position: relative;
 }
 
+#search_main input[type="text"] {
+	width: 300px;
+}
+
 .tips {
-	width: 258px;
+	width: 358px;
 	position: absolute;
 	right: 1px;
 	top: 30px;

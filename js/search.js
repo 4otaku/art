@@ -176,6 +176,9 @@ extend(OBJECT.search, OBJECT.base, {
 
 								var tip_box = this.build_tip_box(tags);
 								this.child.tip.empty().append(tip_box);
+								this.on_outside_click(this.el, function(){
+									this.child.tip.empty();
+								});
 							}
 						}, this);
 					}
@@ -191,6 +194,9 @@ extend(OBJECT.search, OBJECT.base, {
 
 					var tip_box = this.build_tip_box(tags);
 					this.child.tip.empty().append(tip_box);
+					this.on_outside_click(this.el, function(){
+						this.child.tip.empty();
+					});
 				}
 			},
 			keydown: function(e) {
