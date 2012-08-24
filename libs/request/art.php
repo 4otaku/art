@@ -2,7 +2,7 @@
 
 class Request_Art extends Request_Item
 {
-	public function __construct($id, $object) {
+	public function __construct($id, $object, $method = 'recieve_data') {
 		$params = array(
 			'add_tags' => true,
 			'add_state' => true,
@@ -14,6 +14,6 @@ class Request_Art extends Request_Item
 			'add_artist' => true,
 			'id' => $id,
 		);
-		parent::__construct('art', $object, $params);
+		parent::__construct('art', $object, $params, $method);
 	}
 }

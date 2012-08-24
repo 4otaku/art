@@ -1,44 +1,39 @@
 OBJECT.slideshow = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	this.init_plugin();
+	this.current = this.start;
+	this.load_images();
 }
 
 extend(OBJECT.slideshow, OBJECT.base, {
 	class_name: 'slideshow',
-	child_config: {
-		list: 'ul'
-	},
-	plugin: null,
-	load_page: 1,
+	query: null,
 	per_page: 10,
+	current: 1,
+	from_page: null,
+	to_page: null,
 	load_images: function() {
-		page = this.load_page;
+		if (this.from_page === null || this.to_page === null) {
+			var callback = this.insert_first;
+			var page = Math.floor((this.current - 1) / this.per_page) + 1;
+		} else {
+			return;
+		}
 
 		var query = '?page=' + page + '&per_page=' +
 			this.per_page + '&' + this.query;
 
-		Ajax.get('/ajax/art_list' + query, function(result){
-			var position = (page - 1) * this.per_page;
+		Ajax.load('/ajax/art_list' + query, function(result){
+			callback.call(this, result, page);
 
-			$.each(result, $.proxy(function(key, item){
-				var image = '<img src="http://images.4otaku.ru/art/' + item.md5 +
-					(item.resized != '0' ? '_resize.jpg' : '.' + item.ext) + '" />';
-				this.plugin.add(position, image);
-				position = position + 1;
-				this.plugin.size(position);
-			}, this));
-
-			this.load_page = page + 1;
+			setTimeout($.proxy(function() {
+				this.load_images();
+			}, this), 3000);
 		}, this);
 	},
-	init_plugin: function() {
-		this.child.list.jcarousel({
-			itemLoadCallback: $.proxy(this.load_images, this),
-			itemFallbackDimension: 150,
-			scroll: 10
-		});
-
-		this.plugin = this.child.list.data('jcarousel');
+	insert_first: function(result, page) {
+		$(this.el).html(result);
+		this.from_page = page;
+		this.to_page = page;
 	}
 });
