@@ -6,8 +6,7 @@ class Module_Ajax_Art_list extends Module_Html_Art_Abstract
 	protected $count = 0;
 
 	protected function get_modules(Query $query) {
-		return array('list' =>
-			new Module_Container('html_art_image'));
+		return new Module_Container('html_art_image');
 	}
 
 	protected function make_request() {

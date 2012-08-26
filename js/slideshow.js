@@ -62,7 +62,6 @@ extend(OBJECT.slideshow, OBJECT.base, {
 		Ajax.load('/ajax/art_list' + query, function(result){
 			result = $(result);
 			this.child.images.append(result);
-			init_objects();
 			this.add_images(result, page);
 			callback.call(this, page);
 
@@ -114,7 +113,13 @@ extend(OBJECT.slideshow, OBJECT.base, {
 		var url = window.location.href;
 		var start_match = /(&|\?)?start=\d+/;
 		var symbol = url.match(start_match);
-		url = url.replace(start_match, symbol[1] + 'start=' + current);
+		if (symbol) {
+			url = url.replace(start_match,
+				symbol[1] + 'start=' + current);
+		} else {
+			url = url + (url.indexOf('?') === -1 ? '?' : '&')
+			 + 'start=' + current;
+		}
 
 		history.pushState(false, false, url);
 	},

@@ -1,8 +1,19 @@
 <div class="sidebar_part">
 	<div class="sidebar_row">
-		<a href="/rss/{if condition="$query"}?{$query}{/if}">Подписаться на RSS</a>
+		Артов в выборке: {$count}.
 	</div>
 	<div class="sidebar_row">
-		<a href="/slideshow/{if condition="$query"}?{$query}{/if}">Перейти в слайдшоу</a>
+		<a href="/rss/{if condition="$query"}?{$query}{/if}">Подписаться на RSS</a>
+	</div>
+	{if condition="$slideshow_enabled"}
+		<div class="sidebar_row">
+			<a href="/slideshow/{if condition="$query"}?{$query}{/if}">Перейти в слайдшоу</a>
+		</div>
+	{/if}
+	<div class="sidebar_row">
+		<a href="/add/">Загрузить арт</a>
+	</div>
+	<div class="sidebar_row">
+		<a href="#">Показать фильтры</a>
 	</div>
 </div>
