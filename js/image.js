@@ -1,7 +1,7 @@
 OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	this.el.imagesLoaded($.proxy(this.on_load, this));
+	this.el.imagesLoaded($.proxy(this.message_width, this));
 }
 
 extend(OBJECT.image, OBJECT.base, {
@@ -21,12 +21,15 @@ extend(OBJECT.image, OBJECT.base, {
 			this.el.imagesLoaded($.proxy(this.on_load, this));
 		}
 	},
-	on_load: function() {
-		this.message('image_resized', this.el.width());
+	message_width: function() {
+		this.message('image_resized', this.id, this.el.width());
 	},
 	events: {
 		click: function(e) {
 			this.message('image_clicked');
+		},
+		resize: function() {
+			this.message_width();
 		}
 	}
 });

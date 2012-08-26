@@ -4,6 +4,7 @@ OBJECT.translation = function(id, values, events) {
 
 extend(OBJECT.translation, OBJECT.base, {
 	class_name: 'translation',
+	id_image: 0,
 	resize_factor: 1,
 	current_width: 750,
 	full_width: 750,
@@ -18,7 +19,11 @@ extend(OBJECT.translation, OBJECT.base, {
 		image_clicked: function() {
 			this.el.toggle();
 		},
-		image_resized: function(width) {
+		image_resized: function(id, width) {
+			if (this.id_image != id) {
+				return;
+			}
+
 			this.current_width = width;
 			this.resize_factor = this.current_width / this.full_width;
 

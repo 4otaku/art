@@ -90,10 +90,6 @@ class Request
 			$response = $worker->process_request()->get_response();
 		}
 
-		if (empty($response['success'])) {
-			throw new Error('Request failed: ' . $data);
-		}
-
 		$request->process_response($response);
 	}
 

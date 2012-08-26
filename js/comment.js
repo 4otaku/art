@@ -168,7 +168,7 @@ extend(OBJECT.comment_navi, OBJECT.base, {
 					.css('height', height);
 				target.html(loader);
 
-				url = url.replace(/^\/\d+/, '').replace(page_match, '')
+				url = url.replace(/^\/\d+/, '').replace(page_match, '');
 
 				Ajax.load('/ajax/comment' + url, {
 					id_art: this.id_art,
