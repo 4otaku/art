@@ -2,13 +2,13 @@
 
 class Module_Rss extends Module_Html_Art_List
 {
-	protected $header = array('Content-type' => 'application/rss+xml');
+	protected $header = ['Content-type' => 'application/rss+xml'];
 
 	protected function get_modules(Query $query) {
-		return array(
+		return [
 			'title' => new Module_Html_Art_Title($query),
 			'list' => new Module_Container('rss_thumbnail_' . $query->mode())
-		);
+		];
 	}
 
 	protected function get_params(Query $query) {

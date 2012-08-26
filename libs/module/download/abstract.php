@@ -4,7 +4,7 @@ abstract class Module_Download_Abstract extends Module_Abstract
 {
 	protected $link = false;
 	protected $from = 0;
-	protected $header = array('status' => 404);
+	protected $header = ['status' => 404];
 	protected $filename = false;
 
 	protected function get_params(Query $query) {
@@ -75,7 +75,7 @@ abstract class Module_Download_Abstract extends Module_Abstract
 
 	protected function get_filename($link) {
 		if ($this->filename) {
-			return str_replace(array(' ', ';'), '_', $this->filename);
+			return str_replace([' ', ';'], '_', $this->filename);
 		}
 
 		$fileinfo = pathinfo($link);

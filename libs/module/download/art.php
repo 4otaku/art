@@ -16,7 +16,7 @@ class Module_Download_Art extends Module_Download_Abstract
 	}
 
 	protected function request_item($id) {
-		$params = array('id' => $id);
+		$params = ['id' => $id];
 
 		if ($this->manga) {
 			$params['add_manga'] = 1;

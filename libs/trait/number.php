@@ -1,9 +1,8 @@
 <?php
 
-// Хороший кандидат в mixin, если будем переходить на PHP 5.4
-class Util_Number
+trait Trait_Number
 {
-	public static function wcase($count, $form1, $form2, $form3) {
+	protected function wcase($count, $form1, $form2, $form3) {
 		if ($count > 9) {
 			if ($count % 10 == 0 || $count % 10 > 4 || $count[strlen($count)-2] == 1) return $form3;
 			if ($count % 10 == 1) return $form1;

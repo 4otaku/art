@@ -12,7 +12,7 @@ class Session
 	protected $hash = '';
 
 	// Настройки пользователя
-	protected $data = array();
+	protected $data = [];
 
 	protected $changed = false;
 
@@ -38,7 +38,7 @@ class Session
 		}
 
 		// Пробуем прочитать настройки для хэша
-		$sess = Database::get_row('settings', array('data', 'lastchange'),
+		$sess = Database::get_row('settings', ['data', 'lastchange'],
 			'cookie = ?', $this->hash);
 
 		// Проверяем полученные настройки
@@ -53,7 +53,7 @@ class Session
 			$this->create_session();
 		}
 
-		register_shutdown_function(array($this, 'write_changes'));
+		register_shutdown_function([$this, 'write_changes']);
 	}
 
 	public static function get_instance() {
@@ -67,7 +67,7 @@ class Session
 	protected function update_lifetime() {
 		setcookie($this->name, $this->hash, time()+3600*24*60, '/', $this->domain);
 		// Фиксируем факт обновления в БД
-		Database::update('settings', array('lastchange' => time()),
+		Database::update('settings', ['lastchange' => time()],
 			'cookie = ?', $this->hash);
 	}
 
@@ -90,7 +90,7 @@ class Session
 
 		if (!empty($user)) {
 			if (empty($data['user'])) {
-				$data['user'] = array();
+				$data['user'] = [];
 			}
 			$data['user'] = array_replace($data['user'], $user);
 		}
@@ -100,7 +100,7 @@ class Session
 
 	protected function create_session() {
 		// Вносим в БД сессию с дефолтными настройками
-		Database::insert('settings', array('cookie' => $this->hash));
+		Database::insert('settings', ['cookie' => $this->hash]);
 		$this->update_lifetime();
 		$this->changed = true;
 	}
@@ -111,7 +111,7 @@ class Session
 		}
 
 		Database::update('settings',
-			array('data' => base64_encode(serialize($this->data))),
+			['data' => base64_encode(serialize($this->data))],
 			'cookie = ?', $this->hash);
 	}
 

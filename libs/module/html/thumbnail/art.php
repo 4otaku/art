@@ -2,6 +2,8 @@
 
 class Module_Html_Thumbnail_Art extends Module_Html_Thumbnail_Abstract
 {
+	use Trait_Tag;
+
 	protected function make_tooltip($data) {
 		$parts = array();
 		$parts[] = 'Рейтинг: ' . $data['rating'];
@@ -19,13 +21,13 @@ class Module_Html_Thumbnail_Art extends Module_Html_Thumbnail_Abstract
 
 			$show_tags = array_slice($tags, 0, $tag_limit, true);
 			$show_tags = array_keys($show_tags);
-			usort($show_tags, 'Util_Tag::sort');
+			usort($show_tags, array($this, 'sort_tag'));
 
 			$start = count($show_tags) > 1 ? 'Теги' : 'Тег';
 			$end = '';
 			if (count($tags) > $tag_limit) {
 				$count = count($tags) - $tag_limit;
-				$end = ' и еще ' . $count . ' ' . Util_Tag::wcase($count);
+				$end = ' и еще ' . $count . ' ' . $this->wcase_tag($count);
 			}
 			$parts[] = $start . ': ' . implode(', ', $show_tags) . $end;
 		}

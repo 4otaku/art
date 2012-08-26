@@ -9,11 +9,9 @@ class Module_Download extends Module_Abstract
 		$class = 'Module_Download_' . $type;
 
 		if (!class_exists($class)) {
-			return array();
+			return [];
 		}
 
-		return array(
-			'body' => new $class($query)
-		);
+		return array['body' => new $class($query)];
 	}
 }

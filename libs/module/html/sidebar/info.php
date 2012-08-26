@@ -2,7 +2,9 @@
 
 class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 {
-	protected $css = array('sidebar');
+	use Trait_Date, Trait_File;
+
+	protected $css = ['sidebar'];
 
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());
@@ -37,11 +39,13 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 			in_array('approved', $data['data']['state']) &&
 			in_array('tagged', $data['data']['state'])
 		) {
-			$this->set_param('date_main', Util_Date::format($data['data']['sortdate']));
+			$this->set_param('date_main',
+				$this->format_date($data['data']['sortdate']));
 		}
 
 		if (!empty($data['data']['created'])) {
-			$this->set_param('created', Util_Date::format($data['data']['created']));
+			$this->set_param('created',
+				$this->format_date($data['data']['created']));
 		}
 	}
 }

@@ -2,6 +2,8 @@
 
 class Module_Html_Art_Title extends Module_Html_Art_Abstract
 {
+	use Trait_File;
+
 	protected $sort_variants = array(
 		'none' => 'без сортировки',
 		'random' => 'в случайном порядке',

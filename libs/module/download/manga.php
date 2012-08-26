@@ -2,10 +2,10 @@
 
 class Module_Download_Manga extends Module_Download_Abstract
 {
-	protected $header = array('Content-type' => 'application/zip');
+	protected $header = ['Content-type' => 'application/zip'];
 
 	protected function request_item($id) {
-		return new Request_Item('art_manga', $this, array('id' => $id));
+		return new Request_Item('art_manga', $this, ['id' => $id]);
 	}
 
 	public function recieve_data($data) {

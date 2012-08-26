@@ -2,13 +2,15 @@
 
 class Module_Html_Comment_Item extends Module_Html_Abstract
 {
+	use Trait_Date;
+
 	protected $css = array('comment');
 	protected $js = array('comment');
 
 	public function recieve_data($data) {
-		$data['date'] = Util_Date::format($data['sortdate'], true);
+		$data['date'] = $this->format_time($data['sortdate']);
 		if (!empty($data['editdate'])) {
-			$data['editdate'] = Util_Date::format($data['editdate'], true);
+			$data['editdate'] = $this->format_time($data['editdate']);
 		}
 
 		$data['text'] = new Text($data['text']);

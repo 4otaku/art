@@ -1,9 +1,10 @@
 <?php
 
-// Хороший кандидат в mixin, если будем переходить на PHP 5.4
-class Util_Tag
+trait Trait_Tag
 {
-	public static function sort ($a, $b) {
+	use Trait_Number;
+
+	protected function sort_tag ($a, $b) {
 		if (isset($a['name']) && isset($b['name'])) {
 			return self::locale_natcmp($a['name'], $b['name']);
 		}
@@ -22,7 +23,7 @@ class Util_Tag
 		return strnatcasecmp($a, $b);
 	}
 
-	public static function wcase($count) {
-		return Util_Number::wcase($count, 'тег', 'тега', 'тегов');
+	protected function wcase_tag($count) {
+		return $this->wcase($count, 'тег', 'тега', 'тегов');
 	}
 }
