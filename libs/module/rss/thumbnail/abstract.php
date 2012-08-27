@@ -2,6 +2,8 @@
 
 abstract class Module_Rss_Thumbnail_Abstract extends Module_Abstract
 {
+	use Trait_Output_Tpl;
+
 	public function recieve_data($data) {
 		$this->set_param('title', $this->get_title($data));
 		$this->set_param('description', $this->get_description($data));

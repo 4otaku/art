@@ -2,6 +2,8 @@
 
 class Module_Download extends Module_Abstract
 {
+	use Trait_Output_Plain;
+
 	protected function get_modules(Query $query) {
 		$type = (string) $query->get('type');
 		$type = explode('_', $type);
@@ -12,6 +14,6 @@ class Module_Download extends Module_Abstract
 			return [];
 		}
 
-		return array['body' => new $class($query)];
+		return new $class($query);
 	}
 }

@@ -4,6 +4,8 @@ abstract class Module_Abstract extends RainTPL
 {
 	protected $modules = array();
 	protected $header = array();
+	protected $css = array();
+	protected $js = array();
 	protected $status_headers = array(
 		200 => 'HTTP/1.1 200 OK',
 		201 => 'HTTP/1.1 201 Created',
@@ -90,6 +92,26 @@ abstract class Module_Abstract extends RainTPL
 		return $header;
 	}
 
+	public function get_css() {
+		$css = (array) $this->css;
+
+		foreach ($this->modules as $module) {
+			$css = array_merge($css, $module->get_css());
+		}
+
+		return array_unique($css);
+	}
+
+	public function get_js() {
+		$js = (array) $this->js;
+
+		foreach ($this->modules as $module) {
+			$js = array_merge($js, $module->get_js());
+		}
+
+		return array_unique($js);
+	}
+
 	public function dispatch() {
 		foreach ($this->get_header() as $key => $header) {
 			if ($key == 'status') {
@@ -99,29 +121,26 @@ abstract class Module_Abstract extends RainTPL
 			}
 		}
 
-		$html = $this->get_html();
+		$output = $this->get_data();
 
-		echo trim($html);
+		echo trim($output);
 	}
 
-	public function get_html() {
+	public function get_data() {
 		if ($this->disabled) {
 			return '';
 		}
 
-		$this->get_module_html();
-
-		$tpl_name = explode('_', strtolower(get_called_class()));
-		array_shift($tpl_name);
-		$tpl_name = implode(SL, $tpl_name);
-
-		return $this->draw($tpl_name, true);
+		$this->get_module_data();
+		return $this->format_data();
 	}
 
-	protected function get_module_html() {
+	abstract protected function format_data();
+
+	protected function get_module_data() {
 		foreach ($this->modules as $key => $module) {
 			$var_name = 'module_' . $key;
-			$var_value = $module->get_html();
+			$var_value = $module->get_data();
 			$this->set_param($var_name, $var_value);
 		}
 	}

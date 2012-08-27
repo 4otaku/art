@@ -1,7 +1,9 @@
 <?php
 
-class Module_Container extends Module_Html_Abstract
+class Module_Container extends Module_Abstract
 {
+	use Trait_Output_Container;
+
 	protected $class_name;
 
 	public function __construct($type = '', $disabled = false) {
@@ -20,13 +22,5 @@ class Module_Container extends Module_Html_Abstract
 			$module->recieve_data($value);
 			$this->modules[] = $module;
 		}
-	}
-
-	public function get_html() {
-		$return = '';
-		foreach ($this->modules as $key => $module) {
-			$return .= $module->get_html();
-		}
-		return $return;
 	}
 }

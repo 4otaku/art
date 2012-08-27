@@ -2,6 +2,8 @@
 
 class Module_Rss extends Module_Html_Art_List
 {
+	use Trait_Output_Tpl;
+
 	protected $header = ['Content-type' => 'application/rss+xml'];
 
 	protected function get_modules(Query $query) {

@@ -2,6 +2,8 @@
 
 abstract class Module_Download_Abstract extends Module_Abstract
 {
+	use Trait_Output_Download;
+
 	protected $link = false;
 	protected $from = 0;
 	protected $header = ['status' => 404];
@@ -80,26 +82,6 @@ abstract class Module_Download_Abstract extends Module_Abstract
 
 		$fileinfo = pathinfo($link);
 		return $fileinfo['basename'];
-	}
-
-	public function get_html() {
-		if (!$this->link) {
-			die;
-		}
-
-		$fp = fopen($this->link, 'rb');
-		fseek($fp, $this->from);
-
-		while(!feof($fp)) {
-			set_time_limit(0);
-			print(fread($fp, 1024*1024));
-			flush();
-			ob_flush();
-		}
-
-		fclose($fp);
-
-		die;
 	}
 
 	abstract protected function get_link($data);

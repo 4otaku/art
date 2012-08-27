@@ -1,6 +1,6 @@
 <?php
 
-abstract class Module_Ajax_Json extends Module_Html_Abstract
+abstract class Module_Ajax_Json extends Module_Abstract
 {
 	protected $success = false;
 	protected $error = '';
