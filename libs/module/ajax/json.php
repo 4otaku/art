@@ -2,21 +2,10 @@
 
 abstract class Module_Ajax_Json extends Module_Abstract
 {
+	use Trait_Output_Json;
+
 	protected $success = false;
 	protected $error = '';
 	protected $error_code = 0;
-	protected $params = array();
 	protected $header = array('Content-type' => 'application/json');
-
-	public function get_html() {
-		$data = $this->params;
-		$data['success'] = $this->success;
-
-		if (!$data['success']) {
-			$data['errors'] = array(array('code' => $this->error_code,
-				'message' => $this->error));
-		}
-
-		return json_encode($data);
-	}
 }

@@ -31,9 +31,9 @@ class Module_Ajax_Search_Tip extends Module_Ajax_Json
 		}
 
 		$this->success = true;
-		$this->params = array(
+		$this->set_params([
 			'tags' => $tags,
 			'query' => $this->raw_term
-		);
+		]);
 	}
 }

@@ -15,7 +15,7 @@ class Module_Ajax_Menu_Save extends Module_Ajax_Json
 		}
 
 		Database::update('head_menu_user',
-			array('url' => $url, 'name' => $name), $id);
+			['url' => $url, 'name' => $name], $id);
 
 		$session = Session::get_instance();
 		$cookie = $session->get_hash();
@@ -48,17 +48,17 @@ class Module_Ajax_Menu_Save extends Module_Ajax_Json
 
 		foreach ($items as $item) {
 			if ($item['new_order'] != $item['order']) {
-				Database::update('head_menu_user', array(
+				Database::update('head_menu_user', [
 					'order' => $item['new_order']
-				), $item['id']);
+				], $item['id']);
 			}
 		}
 
 		$this->success = true;
-		$this->params = array(
+		$this->set_params([
 			'name' => $name,
 			'url' => $url,
 			'order' => $items
-		);
+		]);
 	}
 }

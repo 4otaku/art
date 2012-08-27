@@ -18,18 +18,18 @@ class Module_Ajax_Menu_Add extends Module_Ajax_Json
 		$order = Database::get_field('head_menu_user',
 			'max(`order`)', 'cookie = ?', $cookie);
 
-		Database::insert('head_menu_user', array(
+		Database::insert('head_menu_user', [
 			'cookie' => $cookie,
 			'name' => $name,
 			'url' => $url,
 			'order' => (int) $order + 1
-		));
+		]);
 
 		$this->success = true;
-		$this->params = array(
+		$this->set_params([
 			'id' => Database::last_id(),
 			'name' => $name,
 			'url' => $url
-		);
+		]);
 	}
 }

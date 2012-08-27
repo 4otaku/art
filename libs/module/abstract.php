@@ -48,6 +48,12 @@ abstract class Module_Abstract extends RainTPL
 		$this->assign($key, $value);
 	}
 
+	protected function set_params($data) {
+		foreach ($data as $key => $value) {
+			$this->set_param($key, $value);
+		}
+	}
+
 	protected function get_modules(Query $query) {
 		return array();
 	}
