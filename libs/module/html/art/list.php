@@ -2,6 +2,8 @@
 
 class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
+	use Trait_Module_Art_List;
+
 	protected $css = array('list', 'sidebar');
 	protected $js = array();
 
@@ -31,7 +33,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 	}
 
 	protected function recieve_succesful($data) {
-		$query = $this->query->to_url_string();
+		$query = $this->get_query()->to_url_string();
 		foreach ($data as &$item) {
 			$item['query'] = $query;
 		}

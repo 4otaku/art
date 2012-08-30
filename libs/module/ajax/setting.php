@@ -11,13 +11,13 @@ class Module_Ajax_Setting extends Module_Ajax_Json
 		if (preg_match('/[^a-z_\d]/ui', $section) ||
 			preg_match('/[^a-z_\d]/ui', $key)) {
 
-			$this->error_code = 430;
+			$this->set_error(430);
 			return;
 		}
 
 		$session = Session::get_instance();
 		$session->set($section, $key, $value);
 
-		$this->success = true;
+		$this->set_success(true);
 	}
 }

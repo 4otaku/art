@@ -1,7 +1,9 @@
 <?php
 
-class Module_Html_Sidebar_Tool extends Module_Html_Art_Abstract
+class Module_Html_Sidebar_Tool extends Module_Html_Abstract
 {
+	use Trait_Module_Art_List;
+
 	protected $css = array('sidebar');
 
 	protected function get_params(Query $query) {

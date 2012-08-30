@@ -1,8 +1,8 @@
 <?php
 
-class Module_Rss extends Module_Html_Art_List
+class Module_Rss extends Module_Abstract
 {
-	use Trait_Output_Tpl;
+	use Trait_Output_Tpl, Trait_Module_Art_List;
 
 	protected $header = ['Content-type' => 'application/rss+xml'];
 
@@ -11,6 +11,10 @@ class Module_Rss extends Module_Html_Art_List
 			'title' => new Module_Html_Art_Title($query),
 			'list' => new Module_Container('rss_thumbnail_' . $query->mode())
 		];
+	}
+
+	protected function make_request() {
+		return $this->get_common_request();
 	}
 
 	protected function get_params(Query $query) {

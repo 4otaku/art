@@ -22,16 +22,17 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	}
 
 	protected function make_request() {
-		$params = $this->query->other();
-		$params['parsed'] = $this->query->parsed();
-		$params['pool_mode'] = $this->query->get_pool_mode();
-		$params['pool_value'] = $this->query->get_pool_value();
+		$query = $this->get_query();
+		$params = $query->other();
+		$params['parsed'] = $query->parsed();
+		$params['pool_mode'] = $query->get_pool_mode();
+		$params['pool_value'] = $query->get_pool_value();
 
-		$request = new Request_Art($this->query->url(0), $this);
-		$request->add(new Request_Art_Nextprev($this->query->url(0),
-			$this, $params, 'recieve_nextprev'));
-
-		return $request;
+		return new Request_Multi(
+			new Request_Art($query->url(0), $this),
+			new Request_Art_Nextprev($query->url(0),
+				$this, $params, 'recieve_nextprev')
+		);
 	}
 
 	public function recieve_data($data) {

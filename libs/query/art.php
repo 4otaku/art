@@ -2,38 +2,38 @@
 
 class Query_Art extends Query
 {
-	protected $parsed = array();
-	protected $other = array();
+	protected $parsed = [];
+	protected $other = [];
 	protected $forced_per_page = true;
 	protected $pool_mode = false;
-	protected $comparable_keys = array(
+	protected $comparable_keys = [
 		'rating', 'width', 'height', 'weight', 'date', 'translation_date',
 		'tag_count', 'comment_count', 'comment_date'
-	);
-	protected $equal_keys = array(
+	];
+	protected $equal_keys = [
 		'tag', 'user', 'pack', 'group', 'artist',
 		'manga', 'md5', 'parent', 'translator'
-	);
-	protected $other_keys = array(
+	];
+	protected $other_keys = [
 		'sort', 'order', 'mode', 'page', 'per_page',
 		'approved', 'tagged', 'variations'
-	);
-	protected $possible_modes = array(
+	];
+	protected $possible_modes = [
 		'art', 'comment', 'translation', 'pack', 'group', 'manga', 'artist'
-	);
-	protected $pool_keys = array(
+	];
+	protected $pool_keys = [
 		'pack', 'group', 'artist', 'manga'
-	);
-	protected $legal_sort = array(
+	];
+	protected $legal_sort = [
 		'none', 'random', 'date', 'width', 'height', 'weight', 'size',
 		'rating', 'parent_order', 'comment_count', 'comment_date',
 		'tag_count', 'translation_date'
-	);
+	];
 
-	public function __construct($url, $get = array(), $clean = true) {
+	public function __construct($url, $get = [], $clean = true) {
 		parent::__construct($url, $get, $clean);
 
-		$search = array();
+		$search = [];
 		$pool_count = 0;
 		foreach ($this->get() as $key => $items) {
 			$is_comparable = in_array($key, $this->comparable_keys);
@@ -52,10 +52,10 @@ class Query_Art extends Query
 				continue;
 			}
 
-			$data = array();
+			$data = [];
 			list($data['is'], $data['not'], $data['more'], $data['less']) =
 				$this->parse((array) $items, $is_comparable);
-			$search[] = array('data' => $data, 'type' => $key);
+			$search[] = ['data' => $data, 'type' => $key];
 
 			if ($is_pool && $pool_count !== false) {
 				if (!empty($data['not']) || !empty($data['more']) || !empty($data['less'])) {
@@ -126,8 +126,7 @@ class Query_Art extends Query
 	}
 
 	public function to_url_string() {
-		$parts = array();
-
+		$parts = [];
 		$params = $this->parsed();
 
 		foreach ($params as $key => $param) {
@@ -161,7 +160,7 @@ class Query_Art extends Query
 	}
 
 	protected function parse($items, $is_comparable) {
-		$is = $not = $more = $less = array();
+		$is = $not = $more = $less = [];
 		foreach ($items as $item) {
 			if (strpos($item, '!') === 0) {
 				$not[] = substr($item, 1);
@@ -177,6 +176,6 @@ class Query_Art extends Query
 			}
 			$is[] = $item;
 		}
-		return array($is, $not, $more, $less);
+		return [$is, $not, $more, $less];
 	}
 }

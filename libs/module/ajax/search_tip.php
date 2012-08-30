@@ -14,7 +14,7 @@ class Module_Ajax_Search_Tip extends Module_Ajax_Json
 
 	protected function make_request() {
 		if (empty($this->term)) {
-			$this->error_code = 420;
+			$this->set_error(420);
 			return false;
 		}
 
@@ -30,7 +30,7 @@ class Module_Ajax_Search_Tip extends Module_Ajax_Json
 			$tags[] = $tag['name'];
 		}
 
-		$this->success = true;
+		$this->set_success(true);
 		$this->set_params([
 			'tags' => $tags,
 			'query' => $this->raw_term

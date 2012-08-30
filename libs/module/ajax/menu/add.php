@@ -8,7 +8,7 @@ class Module_Ajax_Menu_Add extends Module_Ajax_Json
 		$name = $query->get('name');
 
 		if (empty($url) || empty($name)) {
-			$this->error_code = 420;
+			$this->set_error(420);
 			return;
 		}
 
@@ -25,7 +25,7 @@ class Module_Ajax_Menu_Add extends Module_Ajax_Json
 			'order' => (int) $order + 1
 		]);
 
-		$this->success = true;
+		$this->set_success(true);
 		$this->set_params([
 			'id' => Database::last_id(),
 			'name' => $name,

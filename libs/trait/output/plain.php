@@ -3,7 +3,7 @@
 trait Trait_Output_Plain
 {
 	protected function format_data() {
-		return isset($this->var['module_0']) ?
-			$this->var['module_0'] : 0;
+		return isset($this->params['module_0']) ?
+			$this->params['module_0'] : '';
 	}
 }

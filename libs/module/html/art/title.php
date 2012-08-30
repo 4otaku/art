@@ -128,8 +128,8 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 		if (!empty($data['data']['weight'])) {
 			$this->set_param('weight', $this->format_weight($data['data']['weight']));
-			$this->set_param('pool_mode', $this->query->get_pool_mode());
-			$this->set_param('pool_value', $this->query->get_pool_value());
+			$this->set_param('pool_mode', $this->get_query()->get_pool_mode());
+			$this->set_param('pool_value', $this->get_query()->get_pool_value());
 		}
 
 		if (!empty($data['data']['text'])) {

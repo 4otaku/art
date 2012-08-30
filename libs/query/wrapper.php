@@ -5,7 +5,7 @@ class Query
 	protected $url = array();
 	protected $get = array();
 
-	public function __construct($url, $get = array(), $clean = true) {
+	public function __construct($url, $get = [], $clean = true) {
 		// Если первым параметром уже существующий Query, то не надо ничего обрабатывать.
 		if ($url instanceOf Query) {
 			$this->url = $url->url();
@@ -13,7 +13,7 @@ class Query
 			return;
 		}
 
-		$this->get = $clean ? $this->clean_globals($get, array()) : $get;
+		$this->get = $clean ? $this->clean_globals($get, []) : $get;
 
 		$url = explode('/', preg_replace('/\?[^\/]+$/', '', $url));
 
@@ -27,7 +27,7 @@ class Query
 		$this->url = $url;
 	}
 
-	protected function clean_globals($data, $input = array(), $iteration = 0) {
+	protected function clean_globals($data, $input = [], $iteration = 0) {
 		if ($iteration > 10) {
 			return $input;
 		}
@@ -35,7 +35,7 @@ class Query
 		foreach ($data as $k => $v) {
 
 			if (is_array($v)) {
-				$input[$k] = $this->clean_globals($data[$k], array(), $iteration + 1);
+				$input[$k] = $this->clean_globals($data[$k], [], $iteration + 1);
 			} else {
 				$v = stripslashes($v);
 

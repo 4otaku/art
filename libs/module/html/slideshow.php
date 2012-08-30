@@ -1,7 +1,9 @@
 <?php
 
-class Module_Html_Slideshow extends Module_Html_Art_Abstract
+class Module_Html_Slideshow extends Module_Html_Abstract
 {
+	use Trait_Module_Art;
+
 	protected $js = array('slideshow', 'image', 'translation');
 	protected $css = array('item', 'slideshow');
 

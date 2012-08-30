@@ -1,7 +1,9 @@
 <?php
 
-class Module_Ajax_Menu_Edit extends Module_Html_Abstract
+class Module_Ajax_Menu_Edit extends Module_Abstract
 {
+	use Trait_Output_Tpl;
+
 	protected function get_params(Query $query)
 	{
 		$id = $query->get('id');

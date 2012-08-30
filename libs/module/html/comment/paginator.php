@@ -1,15 +1,14 @@
 <?php
 
-class Module_Html_Comment_Paginator extends Module_Html_Art_Paginator
+class Module_Html_Comment_Paginator extends Module_Html_Abstract
 {
-	protected $js = array('comment');
+	use Trait_Module_Paginator, Trait_Module_Art;
+
+	protected $js = ['comment'];
+	protected $css = ['paginator'];
 
 	protected $per_page = 7;
 	protected $page = 1;
-
-	protected function make_request() {
-		return false;
-	}
 
 	public function set_page($value) {
 		$this->page = $value;
@@ -26,7 +25,6 @@ class Module_Html_Comment_Paginator extends Module_Html_Art_Paginator
 		return $this;
 	}
 
-
 	protected function get_page() {
 		return $this->page;
 	}
@@ -35,12 +33,16 @@ class Module_Html_Comment_Paginator extends Module_Html_Art_Paginator
 		return $this->per_page;
 	}
 
+	protected function get_url() {
+		return $this->get_query()->to_url_string();
+	}
+
 	public function recieve_data($data) {
 		$last = ceil($data['count'] / $this->get_per_page());
 		if ($last < 2) {
 			$this->disable();
 		}
 
-		parent::recieve_data($data);
+		$this->build_pager($data['count']);
 	}
 }

@@ -2,5 +2,8 @@
 
 class Module_Ajax_Json_Error extends Module_Ajax_Json
 {
-	protected $error_code = 410;
+	public function __construct(Query $query, $disabled = false) {
+		parent::__construct($query, $disabled);
+		$this->set_error(410);
+	}
 }

@@ -2,7 +2,7 @@
 
 trait Trait_Output_Tpl
 {
-	abstract public function draw($tpl_name, $return_string = false);
+	private $tpl = false;
 
 	protected function format_data() {
 		$css = $this->get_css();
@@ -15,7 +15,20 @@ trait Trait_Output_Tpl
 		array_shift($tpl_name);
 		$tpl_name = implode(SL, $tpl_name);
 
-		return $this->draw($tpl_name, true);
+		return $this->get_tpl()->draw($tpl_name, true);
+	}
+
+	private function get_tpl() {
+		if (empty($this->tpl)) {
+			$this->tpl = new RainTPL();
+		}
+
+		return $this->tpl;
+	}
+
+	protected function set_param($key, $value) {
+		parent::set_param($key, $value);
+		$this->get_tpl()->assign($key, $value);
 	}
 
 	protected function get_meta_address($type, $array) {

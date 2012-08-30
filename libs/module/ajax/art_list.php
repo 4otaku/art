@@ -1,9 +1,10 @@
 <?php
 
-class Module_Ajax_Art_list extends Module_Html_Art_Abstract
+class Module_Ajax_Art_list extends Module_Abstract
 {
+	use Trait_Output_Tpl, Trait_Module_Art_List;
+
 	protected $data = array();
-	protected $count = 0;
 
 	protected function get_modules(Query $query) {
 		return new Module_Container('html_art_image');
@@ -39,14 +40,6 @@ class Module_Ajax_Art_list extends Module_Html_Art_Abstract
 			}
 			unset($this->data[$key]);
 		}
-		$this->modules['list']->recieve_data($this->data);
-	}
-
-	public function get_css() {
-		return array();
-	}
-
-	public function get_js() {
-		return array();
+		$this->modules[0]->recieve_data($this->data);
 	}
 }

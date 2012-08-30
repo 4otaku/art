@@ -7,12 +7,12 @@ class Module_Ajax_Menu_Delete extends Module_Ajax_Json
 		$id = $query->get('id');
 
 		if (empty($id)) {
-			$this->error_code = 420;
+			$this->set_error(420);
 			return;
 		}
 
 		Database::delete('head_menu_user', $id);
 
-		$this->success = true;
+		$this->set_success(true);
 	}
 }

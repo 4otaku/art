@@ -2,7 +2,7 @@
 
 class Request_Item extends Request
 {
-	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data') {
+	public function __construct($api = false, $object = false, $data = [], $method = 'recieve_data') {
 		$data['per_page'] = 1;
 		parent::__construct($api, $object, $data, $method);
 	}

@@ -24,6 +24,10 @@ Config::add($session->get_data());
 $query = new Query($_SERVER['REQUEST_URI'], $_GET);
 unset ($_GET, $_POST);
 
+RainTPL::configure('tpl_dir', TPL . SL);
+RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
+RainTPL::configure('path_replace', false);
+
 $module = new Module_Main($query);
 $request = $module->gather_request();
 

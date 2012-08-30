@@ -1,12 +1,13 @@
 <?php
 
-abstract class Module_Abstract extends RainTPL
+abstract class Module_Abstract
 {
-	protected $modules = array();
-	protected $header = array();
-	protected $css = array();
-	protected $js = array();
-	protected $status_headers = array(
+	protected $modules = [];
+	protected $params = [];
+	protected $header = [];
+	protected $css = [];
+	protected $js = [];
+	protected $status_headers = [
 		200 => 'HTTP/1.1 200 OK',
 		201 => 'HTTP/1.1 201 Created',
 		204 => 'HTTP/1.1 204 No Content',
@@ -23,29 +24,31 @@ abstract class Module_Abstract extends RainTPL
 		501 => 'HTTP/1.1 501 Not Implemented',
 		503 => 'HTTP/1.1 503 Service Unavailable',
 		504 => 'HTTP/1.1 504 Gateway Time-out',
-	);
+	];
 	protected $disabled = false;
 
 	public function __construct(Query $query, $disabled = false) {
-		RainTPL::configure('tpl_dir', TPL . SL);
-		RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
-		RainTPL::configure('path_replace', false);
-
+		$query = $this->preprocess_query($query);
 		$this->get_params($query);
 		$modules = $this->get_modules($query);
 		if (!is_array($modules)) {
-			$modules = array($modules);
+			$modules = [$modules];
 		}
 		$this->modules = $modules;
 
 		$this->disabled = (bool) $disabled;
 	}
 
+	protected function preprocess_query(Query $query)
+	{
+		return $query;
+	}
+
 	protected function get_params(Query $query)
 	{}
 
 	protected function set_param($key, $value) {
-		$this->assign($key, $value);
+		$this->params[$key] = $value;
 	}
 
 	protected function set_params($data) {

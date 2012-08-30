@@ -1,8 +1,8 @@
 <?php
 
-class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
+class Module_Html_Sidebar_Info extends Module_Html_Abstract
 {
-	use Trait_Date, Trait_File;
+	use Trait_Date, Trait_File, Trait_Module_Art;
 
 	protected $css = ['sidebar'];
 
@@ -14,7 +14,7 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Art($this->query->url(0), $this);
+		return new Request_Art($this->get_query()->url(0), $this);
 	}
 
 	public function recieve_data($data) {
@@ -30,7 +30,8 @@ class Module_Html_Sidebar_Info extends Module_Html_Art_Abstract
 		}
 
 		if (!empty($data['data']['weight'])) {
-			$this->set_param('weight', $this->format_weight($data['data']['weight']));
+			$this->set_param('weight',
+				$this->format_weight($data['data']['weight']));
 		}
 
 		if (

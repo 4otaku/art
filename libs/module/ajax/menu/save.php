@@ -10,7 +10,7 @@ class Module_Ajax_Menu_Save extends Module_Ajax_Json
 		$order = $query->get('order');
 
 		if (empty($url) || empty($name) || empty($id) || empty($order)) {
-			$this->error_code = 420;
+			$this->set_error(420);
 			return;
 		}
 
@@ -54,7 +54,7 @@ class Module_Ajax_Menu_Save extends Module_Ajax_Json
 			}
 		}
 
-		$this->success = true;
+		$this->set_success(true);
 		$this->set_params([
 			'name' => $name,
 			'url' => $url,
