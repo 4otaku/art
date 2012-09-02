@@ -1,8 +1,8 @@
 <div class="image">
 	{if condition="$resized"}
-		<img id="image_{$id}" src="http://images.4otaku.ru/art/{$md5}_resize.jpg" />
+		<img id="image_{$id}" src="{function="Config::get('api', 'image_url')"}art/{$md5}_resize.jpg" />
 	{else}
-		<img id="image_{$id}" src="http://images.4otaku.ru/art/{$md5}.{$ext}" />
+		<img id="image_{$id}" src="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}" />
 	{/if}
 	{loop="translation"}
 		<div class="art_translation" id="translation_{$value.id}">
@@ -13,8 +13,8 @@
 <script type="text/javascript">
 	add('image', '{$id}', {
 		is_resized: {$resized},
-		resized: 'http://images.4otaku.ru/art/{$md5}_resize.jpg',
-		full: 'http://images.4otaku.ru/art/{$md5}.{$ext}',
+		resized: '{function="Config::get('api', 'image_url')"}art/{$md5}_resize.jpg',
+		full: '{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}',
 	});
 	{loop="translation"}
 		add('translation', '{$value.id}', {

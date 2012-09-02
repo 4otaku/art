@@ -2,7 +2,9 @@
 
 include_once 'framework/init.php';
 
-define('API_LIBS', ROOT_DIR . SL . 'api' . SL . 'libs' . SL);
+define('API', ROOT_DIR . SL . 'api' . SL);
+define('API_LIBS', API . 'libs' . SL);
+define('API_IMAGES', API . 'images' . SL);
 
 Autoload::init(array(LIBS, EXTERNAL, API_LIBS,
 	FRAMEWORK_LIBS, FRAMEWORK_EXTERNAL), CACHE);

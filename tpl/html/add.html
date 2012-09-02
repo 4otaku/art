@@ -11,46 +11,78 @@
 		<input type="text" value="" class="source" />
 	</div>
 </div> -->
-<form id="upload_main" action="server/php/" method="POST" enctype="multipart/form-data">
-	<!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+<form id="upload_main" action="/ajax/upload/" method="POST" enctype="multipart/form-data">
 	<div class="row fileupload-buttonbar">
 		<div class="span7">
-			<!-- The fileinput-button span is used to style the file input field as button -->
 			<span class="btn btn-success fileinput-button">
-				<i class="icon-plus icon-white"></i>
-				<span>Add files...</span>
-				<input type="file" name="files[]" multiple>
+				<i class="icon-picture icon-white"></i>
+				<span>Добавить изображения</span>
+				<input type="file" name="file[]" multiple />
 			</span>
-			<button type="submit" class="btn btn-primary start">
+			<button type="submit" class="btn btn-warning start">
 				<i class="icon-upload icon-white"></i>
-				<span>Start upload</span>
+				<span>Закачать все</span>
 			</button>
-			<button type="reset" class="btn btn-warning cancel">
-				<i class="icon-ban-circle icon-white"></i>
-				<span>Cancel upload</span>
+			<button type="button" class="btn btn-primary add">
+				<i class="icon-plus icon-white"></i>
+				<span>Добавить все</span>
 			</button>
-			<button type="button" class="btn btn-danger delete">
-				<i class="icon-trash icon-white"></i>
-				<span>Delete</span>
-			</button>
-			<input type="checkbox" class="toggle">
 		</div>
-		<!-- The global progress information -->
 		<div class="span5 fileupload-progress fade">
-			<!-- The global progress bar -->
 			<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
 				<div class="bar" style="width:0%;"></div>
 			</div>
-			<!-- The extended global progress information -->
 			<div class="progress-extended">&nbsp;</div>
 		</div>
 	</div>
-	<!-- The loading indicator is shown during file processing -->
 	<div class="fileupload-loading"></div>
 	<br>
-	<!-- The table listing the files available for upload/download -->
-	<table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+	<table role="presentation" class="table table-striped">
+		<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
+	</table>
 </form>
 <script type="text/javascript">
 	add('upload', 'main');
+	UPLOAD_UNITS_COUNT = 0;
+</script>
+<script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+	<tr class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
+		<td class="preview"><span class="fade"></span></td>
+		<td class="name"><span>{%=file.name%}</span></td>
+		<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+		<td class="error{% if (!file.error) { %} hidden{%}%}" colspan="3">
+			<span class="label label-important">Ошибка</span>
+			{% if (file.code == 30) { %}
+				<a href="/{%=file.error%}">Уже добавлено</a>
+			{% } else { %}
+				{%=locale.fileupload.errors[file.error] || file.error%}
+			{% } %}
+		</td>
+		{% if (o.files.valid && !i) { %}
+			<td class="progress-bar">
+				<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+			</td>
+			<td class="start">
+				<button class="btn btn-warning">
+					<i class="icon-upload icon-white"></i>
+					<span>Закачать</span>
+				</button>
+			</td>
+			<td class="add">
+				<button class="btn btn-primary">
+					<i class="icon-upload icon-white"></i>
+					<span>Добавить</span>
+				</button>
+			</td>
+		{% } %}
+		<td class="cancel">{% if (!i) { %}
+			<button class="btn btn-danger">
+				<i class="icon-ban-circle icon-white"></i>
+				<span>Отменить</span>
+			</button>
+		{% } %}</td>
+	</tr>
+	{% add('add', UPLOAD_UNITS_COUNT); %}
+{% } %}
 </script>

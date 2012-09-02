@@ -2,88 +2,146 @@ OBJECT.upload = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.el.fileupload({
-		uploadTemplateId: null,
-		downloadTemplateId: null,
-		uploadTemplate: function (o) {
-			var rows = $();
-			$.each(o.files, function (index, file) {
-				var row = $('<tr class="template-upload fade">' +
-					'<td class="preview"><span class="fade"></span></td>' +
-					'<td class="name"></td>' +
-					'<td class="size"></td>' +
-					(file.error ? '<td class="error" colspan="2"></td>' :
-							'<td><div class="progress">' +
-								'<div class="bar" style="width:0%;"></div></div></td>' +
-								'<td class="start"><button>Start</button></td>'
-					) + '<td class="cancel"><button>Cancel</button></td></tr>');
-				row.find('.name').text(file.name);
-				row.find('.size').text(o.formatFileSize(file.size));
-				if (file.error) {
-					row.find('.error').text(
-						locale.fileupload.errors[file.error] || file.error
-					);
-				}
-				rows = rows.add(row);
-			});
-			return rows;
-		},
-		downloadTemplate: function (o) {
-			var rows = $();
-			$.each(o.files, function (index, file) {
-				var row = $('<tr class="template-download fade">' +
-					(file.error ? '<td></td><td class="name"></td>' +
-						'<td class="size"></td><td class="error" colspan="2"></td>' :
-							'<td class="preview"></td>' +
-								'<td class="name"><a></a></td>' +
-								'<td class="size"></td><td colspan="2"></td>'
-					) + '<td class="delete"><button>Delete</button> ' +
-						'<input type="checkbox" name="delete" value="1"></td></tr>');
-				row.find('.size').text(o.formatFileSize(file.size));
-				if (file.error) {
-					row.find('.name').text(file.name);
-					row.find('.error').text(
-						locale.fileupload.errors[file.error] || file.error
-					);
-				} else {
-					row.find('.name a').text(file.name);
-					if (file.thumbnail_url) {
-						row.find('.preview').append('<a><img></a>')
-							.find('img').prop('src', file.thumbnail_url);
-						row.find('a').prop('rel', 'gallery');
-					}
-					row.find('a').prop('href', file.url);
-					row.find('.delete button')
-						.attr('data-type', file.delete_type)
-						.attr('data-url', file.delete_url);
-				}
-				rows = rows.add(row);
-			});
-			return rows;
-		}
+		maxFileSize: 10 * 1024 * 1024,
+		acceptFileTypes: /(gif|jpeg|png)$/i,
+		previewSourceMaxFileSize: 10 * 1024 * 1024,
+		limitConcurrentUploads: 3,
+		previewMaxWidth: 150,
+		previewMaxHeight: 150,
+		done: this.doneCallback,
+		fail: this.failCallback,
+		downloadTemplateId: null
+	}).bind('fileuploadadded', function (e, data){
+		init_objects();
 	});
+
+	this.el.data('object', this);
 }
 
 extend(OBJECT.upload, OBJECT.base, {
-	class_name: 'upload'
+	class_name: 'upload',
+	// Функция вынужденно скопирована почти целиком
+	doneCallback: function (e, data) {
+		var that = $(this).data('fileupload'),
+	// Начало моего кода
+			object = $(this).data('object');
+	// Конец моего кода
+		if (data.context) {
+			data.context.each(function (index) {
+				var file = ($.isArray(data.result) &&
+						data.result[index]) || {error: 'emptyResult'};
+				if (file.error) {
+					that._adjustMaxNumberOfFiles(1);
+				}
+	// Начало моего кода
+				object.message('upload_done',
+					data.context.attr('id'), file);
+	// Конец моего кода
+			});
+		} else {
+			if ($.isArray(data.result)) {
+				$.each(data.result, function (index, file) {
+					if (data.maxNumberOfFilesAdjusted && file.error) {
+						that._adjustMaxNumberOfFiles(1);
+					} else if (!data.maxNumberOfFilesAdjusted &&
+							!file.error) {
+						that._adjustMaxNumberOfFiles(-1);
+					}
+				});
+				data.maxNumberOfFilesAdjusted = true;
+			}
+	// Начало моего кода
+			var template = that._renderUpload(data.result)
+				.appendTo(that.options.filesContainer);
+	// Конец моего кода
+			that._forceReflow(template);
+			that._transition(template).done(
+				function () {
+					data.context = $(this);
+					that._trigger('completed', e, data);
+				}
+			);
+		}
+	},
+	// Функция вынужденно скопирована почти целиком
+	failCallback: function (e, data) {
+		var that = $(this).data('fileupload'),
+	// Начало моего кода
+			object = $(this).data('object');
+	// Конец моего кода
+		if (data.maxNumberOfFilesAdjusted) {
+			that._adjustMaxNumberOfFiles(data.files.length);
+		}
+		if (data.context) {
+			data.context.each(function (index) {
+				if (data.errorThrown !== 'abort') {
+					var file = data.files[index];
+					file.error = file.error || data.errorThrown ||
+						true;
+	// Начало моего кода
+				object.message('upload_done',
+					data.context.attr('id'), file);
+	// Конец моего кода
+				} else {
+					that._transition($(this)).done(
+						function () {
+							$(this).remove();
+							that._trigger('failed', e, data);
+						}
+					);
+				}
+			});
+		} else if (data.errorThrown !== 'abort') {
+			data.context = that._renderUpload(data.files)
+				.appendTo(that.options.filesContainer)
+				.data('data', data);
+			that._forceReflow(data.context);
+			that._transition(data.context).done(
+				function () {
+					data.context = $(this);
+					that._trigger('failed', e, data);
+				}
+			);
+		} else {
+			that._trigger('failed', e, data);
+		}
+	}
 });
 
 OBJECT.add = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
-/*
-	this.child.upload.fileupload({
-		dataType: 'json',
-		done: function (e, data) {
-			$.each(data.result, function (index, file) {
-				$('<p/>').text(file.name).appendTo(document.body);
-			});
-		}
-	});
-	console.log(this); */
 }
 
 extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
 	child_config: {
-		upload: 'button.upload'
+		add_wrapper: 'td.add',
+		upload_wrapper: 'td.start',
+		progress_wrapper: 'td.progress-bar',
+		error_wrapper: 'td.error',
+		add: 'td.add button'
+	},
+	processSuccess: function(data) {
+		console.log(this.child.progress_wrapper)
+		this.child.progress_wrapper.html('');
+		this.child.progress_wrapper.addClass('progress-successful');
+	},
+	processError: function(data) {
+		this.child.add_wrapper.hide();
+		this.child.upload_wrapper.hide();
+		this.child.progress_wrapper.hide();
+		this.child.error_wrapper.removeClass('hidden');
+		console.log(data);
+	},
+	listen: {
+		upload_done: function(id, data) {
+			if (this.el.attr('id') == id) {
+				if (data.error) {
+					this.processError(data);
+				} else {
+					this.processSuccess(data);
+				}
+			}
+		}
 	}
 });

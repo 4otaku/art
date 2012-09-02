@@ -8,7 +8,7 @@
 	{if condition="!empty($resized)"}
 		<div class="sidebar_row">
 			Полный размер:
-				<a href="http://images.4otaku.ru/art/{$md5}.{$ext}"
+				<a href="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}"
 					id="clickable_fullsize"
 				>{$width}px * {$height}px</a>.
 		</div>

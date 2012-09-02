@@ -1,1 +1,30 @@
+#upload_main table {
+	width: 100%;
+}
 
+.files .progress-successful {
+	background-image: url(/images/ok.png);
+	background-repeat: no-repeat;
+	background-position: center 10px;
+}
+
+.files .preview {
+	width: 150px;
+}
+
+.files .size {
+	width: 60px;
+}
+
+.files .progress-bar {
+	width: 210px;
+}
+
+.files .error {
+	width: 313px;
+	text-align: center;
+}
+
+.files .start, .files .add, .files .cancel {
+	width: 110px;
+}

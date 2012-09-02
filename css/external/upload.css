@@ -62,23 +62,3 @@
 *+html .fileinput-button {
   margin: 1px 0 0 0;
 }
-
-@media (max-width: 480px) {
-  .files .btn span {
-    display: none;
-  }
-  .files .preview * {
-    width: 40px;
-  }
-  .files .name * {
-    width: 80px;
-    display: inline-block;
-    word-wrap: break-word;
-  }
-  .files .progress {
-    width: 20px;
-  }
-  .files .delete {
-    width: 60px;
-  }
-}

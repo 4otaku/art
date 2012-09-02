@@ -189,6 +189,7 @@ mixin(OBJECT.base.prototype, {
 
 	init_elements: function(id) {
 		if (this.class_name && id) {
+
 			this.el = $('#' + this.class_name + '_' + id).first();
 
 			$.each(this.child_config, $.proxy(function(key, value) {

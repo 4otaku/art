@@ -63,6 +63,8 @@ class Request
 
 		if (!empty($url)) {
 
+			$url .= '/read/multi';
+
 			if (function_exists('igbinary_serialize')) {
 				$data['format'] = 'igbinary';
 				$data = igbinary_serialize($data);

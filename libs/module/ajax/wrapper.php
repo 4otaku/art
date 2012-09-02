@@ -7,6 +7,7 @@ class Module_Ajax extends Module_Abstract
 	protected function get_modules(Query $query) {
 		$url = $query->url();
 		array_shift($url);
+		$url = array_filter($url);
 
 		if (empty($url)) {
 			return array();
