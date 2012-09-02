@@ -2,6 +2,11 @@
 	width: 100%;
 }
 
+.files td {
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
 .files .progress-successful {
 	background-image: url(/images/ok.png);
 	background-repeat: no-repeat;
@@ -26,5 +31,9 @@
 }
 
 .files .start, .files .add, .files .cancel {
-	width: 110px;
+	width: 105px;
+}
+
+.files .start button, .files .add button, .files .cancel button {
+	width: 105px;
 }

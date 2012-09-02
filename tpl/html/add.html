@@ -51,13 +51,12 @@
 		<td class="preview"><span class="fade"></span></td>
 		<td class="name"><span>{%=file.name%}</span></td>
 		<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-		<td class="error{% if (!file.error) { %} hidden{%}%}" colspan="3">
-			<span class="label label-important">Ошибка</span>
-			{% if (file.code == 30) { %}
-				<a href="/{%=file.error%}">Уже добавлено</a>
-			{% } else { %}
-				{%=locale.fileupload.errors[file.error] || file.error%}
-			{% } %}
+		<td class="error{% if (!file.error) { %} hidden{% } %}" colspan="3">
+			<span class="label label-important">
+				{% if (file.error) { %}
+					{%=locale.fileupload.errors[file.error] || file.error%}
+				{% } %}
+			</span>
 		</td>
 		{% if (o.files.valid && !i) { %}
 			<td class="progress-bar">
@@ -79,7 +78,7 @@
 		<td class="cancel">{% if (!i) { %}
 			<button class="btn btn-danger">
 				<i class="icon-ban-circle icon-white"></i>
-				<span>Отменить</span>
+				<span>Удалить</span>
 			</button>
 		{% } %}</td>
 	</tr>
