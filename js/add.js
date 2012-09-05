@@ -130,6 +130,8 @@ extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
 	child_config: {
 		preview: 'td.preview',
+		name: 'td.name span',
+		size: 'td.size span',
 		add_wrapper: 'td.add',
 		upload_wrapper: 'td.start',
 		progress_wrapper: 'td.progress-bar',
@@ -138,13 +140,28 @@ extend(OBJECT.add, OBJECT.base, {
 		add: 'td.add button',
 		cancel: 'td.cancel button'
 	},
-	processSuccess: function(data) {
-		this.child.preview.html('<img src="'+data.thumbnail_url+'"/>');
+	process_success: function(data) {
+		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');
+		this.child.name.html('<a href="'+data.url+'" target="_blank">' +
+			data.name + '</a>');
+		this.child.size.html(this.format_size(data.size));
 		this.child.upload_wrapper.html('');
 		this.child.progress_wrapper.html('');
 		this.child.progress_wrapper.addClass('progress-successful');
 	},
-	processError: function(data) {
+	format_size: function (bytes) {
+		if (typeof bytes !== 'number') {
+			return '';
+		}
+		if (bytes >= 1000000000) {
+			return (bytes / 1000000000).toFixed(2) + ' GB';
+		}
+		if (bytes >= 1000000) {
+			return (bytes / 1000000).toFixed(2) + ' MB';
+		}
+		return (bytes / 1000).toFixed(2) + ' KB';
+	},
+	process_error: function(data) {
 		if (data.code == 30) {
 			this.child.error.html('Уже добавлено');
 			this.child.error_wrapper.append('<a href="/'+data.error+'" target="_blank">Перейти</a>');
@@ -165,7 +182,7 @@ extend(OBJECT.add, OBJECT.base, {
 		cancel: {
 			click: function(e) {
 				var text = "Вы уверены, что хотите удалить это изображение?\n" +
-					"Это удалит загруженный файл, все добавленные к нему теги и прочие данные";
+					"Это действие сотрет загруженный файл, все добавленные к нему теги и прочие данные";
 				if (!confirm(text)) {
 					e.preventDefault();
 					e.stopPropagation();
@@ -177,9 +194,9 @@ extend(OBJECT.add, OBJECT.base, {
 		upload_done: function(id, data) {
 			if (this.el.attr('id') == id) {
 				if (data.error) {
-					this.processError(data);
+					this.process_error(data);
 				} else {
-					this.processSuccess(data);
+					this.process_success(data);
 				}
 			}
 		}
