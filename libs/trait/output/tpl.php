@@ -2,6 +2,8 @@
 
 trait Trait_Output_Tpl
 {
+	use Trait_Output_Html;
+
 	private $tpl = false;
 
 	protected function format_data() {

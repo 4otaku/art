@@ -203,9 +203,12 @@ extend(OBJECT.slideshow, OBJECT.base, {
 		},
 		delay_input: {
 			keydown: function() {
-				this.delay = parseInt(this.child.delay_input.val());
-				clearTimeout(this.slide_next);
-				this.do_slide(true);
+				var delay = parseInt(this.child.delay_input.val());
+				if (delay > 0) {
+					this.delay = delay;
+					clearTimeout(this.slide_next);
+					this.do_slide(true);
+				}
 			}
 		}
 	}

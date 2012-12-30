@@ -2,6 +2,8 @@
 
 trait Trait_Output_Container
 {
+	use Trait_Output_Html;
+
 	protected function format_data() {
 		$return = '';
 		foreach ($this->params as $key => $module) {

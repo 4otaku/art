@@ -4,11 +4,11 @@ OBJECT.comment = function(id, values, events) {
 
 	if (this.parent_load && this.id_parent > 0) {
 		this.create_parent();
-	}
 
-	setTimeout($.proxy(function() {
-		this.load_parent();
-	}, this), this.preload_order * 10000 + Math.random(0, 10000));
+		setTimeout($.proxy(function() {
+			this.load_parent();
+		}, this), this.preload_order * 10000 + Math.random(0, 10000));
+	}
 }
 
 extend(OBJECT.comment, OBJECT.base, {
@@ -33,7 +33,7 @@ extend(OBJECT.comment, OBJECT.base, {
 		this.parent_obj.insertBefore(this.el);
 	},
 	load_parent: function() {
-		if (this.id_parent == 0 || this.parent_loaded) {
+		if (this.parent_loaded) {
 			return;
 		}
 
@@ -41,6 +41,7 @@ extend(OBJECT.comment, OBJECT.base, {
 			id_comment: this.id_parent
 		}, function(result){
 			var obj = $(result);
+
 			if (!this.parent_obj.is(':visible')) {
 				obj.hide();
 			}
