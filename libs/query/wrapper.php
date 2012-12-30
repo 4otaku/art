@@ -15,7 +15,7 @@ class Query
 
 		$this->get = $clean ? $this->clean_globals($get, []) : $get;
 
-		$url = explode('/', preg_replace('/\?[^\/]+$/', '', $url));
+		$url = explode('/', preg_replace('/\?[^\/]*$/', '', $url));
 
 		if (isset($url[0])) {
 			array_shift($url);
