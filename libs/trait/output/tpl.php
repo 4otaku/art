@@ -10,6 +10,7 @@ trait Trait_Output_Tpl
 
 		$this->set_param('css', $this->get_meta_address('css', $css));
 		$this->set_param('js', $this->get_meta_address('js', $js));
+		$this->set_param('prefetch', $this->get_prefetch());
 
 		$tpl_name = explode('_', strtolower(get_called_class()));
 		array_shift($tpl_name);

@@ -121,6 +121,17 @@ abstract class Module_Abstract
 		return array_unique($js);
 	}
 
+	public function get_prefetch() {
+		$prefetch = [];
+
+		foreach ($this->modules as $module) {
+			$prefetch = array_merge($prefetch,
+				(array) $module->get_prefetch());
+		}
+
+		return array_unique($prefetch);
+	}
+
 	public function dispatch() {
 		foreach ($this->get_header() as $key => $header) {
 			if ($key == 'status') {

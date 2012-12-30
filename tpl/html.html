@@ -20,6 +20,10 @@
 				name: '{function="Config::get('user', 'login')"}'
 			};
 		</script>
+		{loop="prefetch"}
+			<link rel="prefetch" href="{$value}" />
+			<link rel="prerender" href="{$value}" />
+		{/loop}
 	</head>
 	<body>
 		<div class="wrapper">
