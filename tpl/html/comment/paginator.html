@@ -5,26 +5,26 @@
 		</li>
 		{if condition="$curr == 2"}
 			<li>
-				<a href="/{$id_item}?{$base}">
+				<a href="/{$id_item}?{$base}#comments">
 					&lt;
 				</a>
 			</li>
 		{elseif condition="$curr > 2"}
 			<li>
-				<a href="/{$id_item}?{$base}comment_page={$curr-1}">
+				<a href="/{$id_item}?{$base}comment_page={$curr-1}#comments">
 					&lt;
 				</a>
 			</li>
 		{/if}
 		{if condition="$curr == 1"}
 			<li class="active_page">
-				<a href="/{$id_item}?{$base}">
+				<a href="/{$id_item}?{$base}#comments">
 					1
 				</a>
 			</li>
 		{else}
 			<li>
-				<a href="/{$id_item}?{$base}">
+				<a href="/{$id_item}?{$base}#comments">
 					1
 				</a>
 			</li>
@@ -37,13 +37,13 @@
 		{loop="loop"}
 			{if condition="$value.current"}
 				<li class="active_page">
-					<a href="/{$id_item}?{$base}comment_page={$value.page}">
+					<a href="/{$id_item}?{$base}comment_page={$value.page}#comments">
 						{$value.page}
 					</a>
 				</li>
 			{else}
 				<li>
-					<a href="/{$id_item}?{$base}comment_page={$value.page}">
+					<a href="/{$id_item}?{$base}comment_page={$value.page}#comments">
 						{$value.page}
 					</a>
 				</li>
@@ -57,18 +57,18 @@
 		{if condition="$last > 1"}
 			{if condition="$last == $curr"}
 				<li class="active_page">
-					<a href="/{$id_item}?{$base}comment_page={$last}">
+					<a href="/{$id_item}?{$base}comment_page={$last}#comments">
 						{$last}
 					</a>
 				</li>
 			{else}
 				<li>
-					<a href="/{$id_item}?{$base}comment_page={$last}">
+					<a href="/{$id_item}?{$base}comment_page={$last}#comments">
 						{$last}
 					</a>
 				</li>
 				<li>
-					<a href="/{$id_item}?{$base}comment_page={$curr+1}">
+					<a href="/{$id_item}?{$base}comment_page={$curr+1}#comments">
 						&gt;
 					</a>
 				</li>

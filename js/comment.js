@@ -175,6 +175,7 @@ extend(OBJECT.comment_navi, OBJECT.base, {
 					comment_page: page_number
 				}, function(result){
 					$(this.target).replaceWith(result);
+					document.getElementById('comments').scrollIntoView(true);
 				}, this);
 
 				e.preventDefault();

@@ -125,6 +125,7 @@
 	margin-left: 150px;
 }
 
+.comment-max-depth-4.comment-depth-4,
 .comment-max-depth-5.comment-depth-4,
 .comment-max-depth-6.comment-depth-4 {
 	margin-left: 200px;
