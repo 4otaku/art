@@ -41,7 +41,7 @@ extend(OBJECT.upload, OBJECT.base, {
 		if (data.context) {
 			data.context.each(function (index) {
 				var file = ($.isArray(data.result) &&
-						data.result[index]) || {error: 'emptyResult'};
+					data.result[index]) || {error: 'emptyResult'};
 				if (file.error) {
 					that._adjustMaxNumberOfFiles(1);
 				}
@@ -124,47 +124,40 @@ OBJECT.add = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.child.cancel.off(".upload");
+	this.translate_size();
+	this.child.name.html(
+		this.fix_name_length(this.child.name.html()));
 }
 
 extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
+	uploaded: false,
 	child_config: {
-		preview: 'td.preview',
-		name: 'td.name span',
-		size: 'td.size span',
-		add_wrapper: 'td.add',
-		upload_wrapper: 'td.start',
-		progress_wrapper: 'td.progress-bar',
-		error_wrapper: 'td.error',
-		error: 'td.error .label',
-		add: 'td.add button',
-		cancel: 'td.cancel button'
+		preview: 'div.preview',
+		name: 'div.name span',
+		size: 'div.size span',
+		add_wrapper: 'div.add',
+		upload_wrapper: 'div.start',
+		progress_wrapper: 'div.progress-bar',
+		error_wrapper: 'div.error',
+		error: 'div.error .label',
+		add: 'div.add button',
+		cancel: 'div.cancel button'
 	},
 	process_success: function(data) {
 		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');
+		var name = this.fix_name_length(data.name);
 		this.child.name.html('<a href="'+data.url+'" target="_blank">' +
-			data.name + '</a>');
-		this.child.size.html(this.format_size(data.size));
-		this.child.upload_wrapper.html('');
-		this.child.progress_wrapper.html('');
+			name + '</a>');
+		this.translate_size();
+		this.child.upload_wrapper.html('&nbsp;');
+		this.child.progress_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.addClass('progress-successful');
-	},
-	format_size: function (bytes) {
-		if (typeof bytes !== 'number') {
-			return '';
-		}
-		if (bytes >= 1000000000) {
-			return (bytes / 1000000000).toFixed(2) + ' GB';
-		}
-		if (bytes >= 1000000) {
-			return (bytes / 1000000).toFixed(2) + ' MB';
-		}
-		return (bytes / 1000).toFixed(2) + ' KB';
 	},
 	process_error: function(data) {
 		if (data.code == 30) {
 			this.child.error.html('Уже добавлено');
-			this.child.error_wrapper.append('<a href="/'+data.error+'" target="_blank">Перейти</a>');
+			this.child.error_wrapper.append('<a href="/'+data.error+'" target="_blank">Посмотреть</a>');
 		} else if (data.code == 10) {
 			this.child.error.html(locale.fileupload.errors.maxFileSize);
 		} else if (data.code == 20 || data.code == 260) {
@@ -173,10 +166,27 @@ extend(OBJECT.add, OBJECT.base, {
 			this.child.error.html(data.error);
 		}
 
-		this.child.add_wrapper.hide();
-		this.child.upload_wrapper.hide();
+		this.child.add_wrapper.html('&nbsp;');
+		this.child.upload_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.hide();
 		this.child.error_wrapper.removeClass('hidden');
+	},
+	translate_size: function () {
+		var size = this.child.size.html();
+		size = size.replace('GB', 'Гб')
+			.replace('MB', 'Мб').replace('KB', 'Кб');
+		this.child.size.html(size);
+	},
+	fix_name_length: function(name) {
+		if (name.length < 22) {
+			return name;
+		}
+
+		var ext = name.match(/\.[a-z\d]{1,5}$/i)[0] || '';
+		var part_length = Math.floor((18 - ext.length) / 2);
+		name = name.substr(0, name.length - ext.length);
+		return name.substr(0, part_length) +
+			'..' + name.substr(-1 * part_length) + ext;
 	},
 	events: {
 		cancel: {
@@ -186,6 +196,10 @@ extend(OBJECT.add, OBJECT.base, {
 				if (!confirm(text)) {
 					e.preventDefault();
 					e.stopPropagation();
+					return;
+				}
+				if (this.uploaded) {
+					this.el.remove();
 				}
 			}
 		}
@@ -193,6 +207,7 @@ extend(OBJECT.add, OBJECT.base, {
 	listen: {
 		upload_done: function(id, data) {
 			if (this.el.attr('id') == id) {
+				this.uploaded = true;
 				if (data.error) {
 					this.process_error(data);
 				} else {

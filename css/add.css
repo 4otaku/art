@@ -1,37 +1,52 @@
-#upload_main table {
-	width: 100%;
+.template-upload {
+	border-top: 1px solid #DDDDDD;
+	padding: 10px 0;
 }
 
-.files td {
-	padding-left: 1px;
-	padding-right: 1px;
+.template-upload:first-child {
+	border-top: none;
+}
+
+.files .name {
+	padding-left: 30px;
 }
 
 .files .progress-successful {
 	background-image: url(/images/ok.png);
 	background-repeat: no-repeat;
-	background-position: center 10px;
+	background-position: center top;
 }
 
 .files .preview {
 	width: 150px;
+	height: 150px;
+}
+
+.files .name {
+	margin-left: 30px;
+	width: 150px;
+	word-wrap: break-word;
 }
 
 .files .size {
 	width: 60px;
+	margin-right: 10px;
 }
 
 .files .progress-bar {
 	width: 210px;
+	margin-right: 20px;
 }
 
 .files .error {
-	width: 313px;
+	width: 210px;
 	text-align: center;
+	margin-right: 20px;
 }
 
 .files .start, .files .add, .files .cancel {
 	width: 105px;
+	margin-right: 10px;
 }
 
 .files .start button, .files .add button, .files .cancel button {

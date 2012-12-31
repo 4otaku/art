@@ -1,22 +1,9 @@
-<!-- <div class="add_shell" id="add_1">
-	<button class="btn btn-success btn-large upload">
-		Добавить изображение
-		<i class="icon-white icon-picture"></i>
-	</button>
-	<div class="hidden">
-		Теги
-		Группы
-		Манги
-		Паки
-		<input type="text" value="" class="source" />
-	</div>
-</div> -->
 <form id="upload_main" action="/ajax/upload/" method="POST" enctype="multipart/form-data">
 	<div class="row fileupload-buttonbar">
 		<div class="span7">
 			<span class="btn btn-success fileinput-button">
 				<i class="icon-picture icon-white"></i>
-				<span>Добавить изображения</span>
+				<span>Выбрать изображения</span>
 				<input type="file" name="file[]" multiple />
 			</span>
 			<button type="submit" class="btn btn-warning start">
@@ -37,9 +24,9 @@
 	</div>
 	<div class="fileupload-loading"></div>
 	<br>
-	<table role="presentation" class="table table-striped">
-		<tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-	</table>
+	<div role="presentation" class="table table-striped">
+		<div class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></div>
+	</div>
 </form>
 <script type="text/javascript">
 	add('upload', 'main');
@@ -47,41 +34,52 @@
 </script>
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-	<tr class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
-		<td class="preview"><span class="fade"></span></td>
-		<td class="name"><span>{%=file.name%}</span></td>
-		<td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
-		<td class="error{% if (!file.error) { %} hidden{% } %}" colspan="3">
+	<div class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
+		<div class="preview left"><span class="fade"></span></div>
+		<div class="name left"><span>{%=file.name%}</span></div>
+
+		<div class="cancel right">
+			{% if (!i) { %}
+				<button class="btn btn-danger">
+					<i class="icon-ban-circle icon-white"></i>
+					<span>Удалить</span>
+				</button>
+			{% } %}
+		</div>
+		<div class="add right">
+			{% if (o.files.valid && !i) { %}
+				<button class="btn btn-primary">
+					<i class="icon-upload icon-white"></i>
+					<span>Добавить</span>
+				</button>
+			{% } %}
+		</div>
+		<div class="start right">
+			{% if (o.files.valid && !i) { %}
+				<button class="btn btn-warning">
+					<i class="icon-upload icon-white"></i>
+					<span>Закачать</span>
+				</button>
+			{% } %}
+		</div>
+		<div class="progress-bar right">
+			{% if (o.files.valid && !i) { %}
+				<div class="progress progress-success progress-striped active"
+				     role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+					<div class="bar" style="width:0%;"></div>
+				</div>
+			{% } %}
+		</div>
+		<div class="error {% if (!file.error) { %}hidden{% } %} right">
 			<span class="label label-important">
 				{% if (file.error) { %}
 					{%=locale.fileupload.errors[file.error] || file.error%}
 				{% } %}
 			</span>
-		</td>
-		{% if (o.files.valid && !i) { %}
-			<td class="progress-bar">
-				<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
-			</td>
-			<td class="start">
-				<button class="btn btn-warning">
-					<i class="icon-upload icon-white"></i>
-					<span>Закачать</span>
-				</button>
-			</td>
-			<td class="add">
-				<button class="btn btn-primary">
-					<i class="icon-upload icon-white"></i>
-					<span>Добавить</span>
-				</button>
-			</td>
-		{% } %}
-		<td class="cancel">{% if (!i) { %}
-			<button class="btn btn-danger">
-				<i class="icon-ban-circle icon-white"></i>
-				<span>Удалить</span>
-			</button>
-		{% } %}</td>
-	</tr>
+		</div>
+		<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
+		<div class="clear"></div>
+	</div>
 	{% add('add', UPLOAD_UNITS_COUNT); %}
 {% } %}
 </script>

@@ -117,6 +117,10 @@ wbr {
 	display: inline-block;
 }
 
+.no-border {
+	border: none !important;
+}
+
 div.mini-shell {
 	border: 1px solid #E7E7E7;
 	padding: 2px;
