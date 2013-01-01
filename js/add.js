@@ -145,6 +145,7 @@ extend(OBJECT.add, OBJECT.base, {
 		cancel: 'div.cancel button',
 		data: 'div.data_active',
 		hide: 'div.data_active .hide_data',
+		show_panel: 'div.data_passive',
 		show: 'div.data_passive .show_data'
 	},
 	process_success: function(data) {
@@ -212,6 +213,15 @@ extend(OBJECT.add, OBJECT.base, {
 					index = el.index();
 
 				this.child.data.children().eq(index).show();
+				el.hide();
+			}
+		},
+		hide: {
+			click: function(e) {
+				var el = $(e.target).parents('.data_block'),
+					index = el.index();
+
+				this.child.show_panel.children().eq(index).show();
 				el.hide();
 			}
 		}

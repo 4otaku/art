@@ -54,8 +54,30 @@
 	padding: 10px;
 }
 
+.files .data_active > div {
+	position: relative;
+}
+
 .files .data_active .tags {
 	min-height: 1.5em;
+}
+
+.files .data_active .data_name {
+	position: absolute;
+	left: 0;
+	top: 3px;
+	width: 80px;
+}
+
+.files .data_active .hide_data {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20px;
+}
+
+.files .data_field {
+	margin: 0 30px 0 80px;
 }
 
 .files .data_passive {

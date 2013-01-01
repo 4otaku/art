@@ -79,16 +79,71 @@
 		</div>
 		<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
 		<div class="data_active">
-			<div class="hidden" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
-				Теги:
-				<div class="textinput tags" contenteditable="true"></div>
+			<div class="hidden data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
+				<div class="data_name">Теги:</div>
+				<div class="data_field textinput tags" contenteditable="true"></div>
 				<!-- <span style="color: blue">var</span> foo = <span style="color: green">"bar"</span>; -->
 				<div class="tips"></div>
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
+			<div class="hidden data_block">
+				<div class="data_name">Источник:</div>
+				<input type="text" class="textinput data_field" />
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
+			<div class="hidden data_block" id="add_pools_{%=(UPLOAD_UNITS_COUNT)%}">
+				<div class="data_name">Группы:</div>
+				<input type="text" class="textinput data_field" />
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
+			<div class="hidden data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
+				<div class="data_name">CG-пак:</div>
+				<input type="text" class="textinput data_field" />
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
+			<div class="hidden data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
+				<div class="data_name">Манга:</div>
+				<input type="text" class="textinput data_field" />
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
+			<div class="hidden data_block">
+				<div>
+					Вы указали, что являетесь художником, нарисовавшим этот арт.
+					Он будет присоединен к вашей личной галерее.
+				</div>
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
 			</div>
 		</div>
 		<div class="data_passive">
 			<button type="button" class="btn btn-small show_data">
 				<i class="icon-plus"></i> Теги
+			</button>
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> Источник
+			</button>
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> В группы
+			</button>
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> В CG-пак
+			</button>
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> В мангу
+			</button>
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> Я нарисовал
 			</button>
 		</div>
 		<div class="clear"></div>
