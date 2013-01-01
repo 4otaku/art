@@ -78,8 +78,22 @@
 			</span>
 		</div>
 		<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
+		<div class="data_active">
+			<div class="hidden" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
+				Теги:
+				<div class="textinput tags" contenteditable="true"></div>
+				<!-- <span style="color: blue">var</span> foo = <span style="color: green">"bar"</span>; -->
+				<div class="tips"></div>
+			</div>
+		</div>
+		<div class="data_passive">
+			<button type="button" class="btn btn-small show_data">
+				<i class="icon-plus"></i> Теги
+			</button>
+		</div>
 		<div class="clear"></div>
-	</div>
+	</div>data_passive
 	{% add('add', UPLOAD_UNITS_COUNT); %}
+	{% add('add_tags', UPLOAD_UNITS_COUNT); %}
 {% } %}
 </script>

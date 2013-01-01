@@ -57,15 +57,18 @@ var Ajax = {
 // Base OOP functions
 
 function mixin(dst, src) {
-	var tobj = {}
 	for(var x in src) {
-		if((typeof tobj[x] == "undefined") || (tobj[x] != src[x])) {
-			dst[x] = src[x];
+		if((typeof dst[x] == "undefined") || (dst[x] != src[x])) {
+			if ($.isPlainObject(dst[x]) && $.isPlainObject(src[x])) {
+				dst[x] = $.extend(true, {}, dst[x], src[x]);
+			} else {
+				dst[x] = src[x];
+			}
 		}
 	}
 	if(document.all && !document.isOpera) {
 		var p = src.toString;
-		if(typeof p == "function" && p != dst.toString && p != tobj.toString &&
+		if(typeof p == "function" && p != dst.toString &&
 			p != "\nfunction toString() {\n    [native code]\n}\n") {
 
 			dst.toString = src.toString;
@@ -241,6 +244,7 @@ mixin(OBJECT.base.prototype, {
 	},
 
 	get_static: function() {
+		console.log(this.class_name);
 		return OBJECT[this.class_name];
 	},
 

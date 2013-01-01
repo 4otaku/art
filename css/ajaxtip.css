@@ -1,0 +1,12 @@
+.tips {
+	width: 358px;
+	position: absolute;
+	right: 1px;
+	top: 30px;
+	z-index: 9001;
+	background-color: #FFF;
+}
+
+.ajax-tip.active {
+	background-color: #AADDFF;
+}

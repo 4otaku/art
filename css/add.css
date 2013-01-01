@@ -7,10 +7,6 @@
 	border-top: none;
 }
 
-.files .name {
-	padding-left: 30px;
-}
-
 .files .progress-successful {
 	background-image: url(/images/ok.png);
 	background-repeat: no-repeat;
@@ -51,4 +47,18 @@
 
 .files .start button, .files .add button, .files .cancel button {
 	width: 105px;
+}
+
+.files .data_active {
+	margin: 30px 0 0 190px;
+	padding: 10px;
+}
+
+.files .data_active .tags {
+	min-height: 1.5em;
+}
+
+.files .data_passive {
+	margin: 10px 0 0 190px;
+	padding: 10px;
 }

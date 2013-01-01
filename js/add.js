@@ -142,7 +142,10 @@ extend(OBJECT.add, OBJECT.base, {
 		error_wrapper: 'div.error',
 		error: 'div.error .label',
 		add: 'div.add button',
-		cancel: 'div.cancel button'
+		cancel: 'div.cancel button',
+		data: 'div.data_active',
+		hide: 'div.data_active .hide_data',
+		show: 'div.data_passive .show_data'
 	},
 	process_success: function(data) {
 		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');
@@ -202,6 +205,15 @@ extend(OBJECT.add, OBJECT.base, {
 					this.el.remove();
 				}
 			}
+		},
+		show: {
+			click: function(e) {
+				var el = $(e.target),
+					index = el.index();
+
+				this.child.data.children().eq(index).show();
+				el.hide();
+			}
 		}
 	},
 	listen: {
@@ -215,5 +227,18 @@ extend(OBJECT.add, OBJECT.base, {
 				}
 			}
 		}
+	}
+});
+
+OBJECT.add_tags = function(id, values, events) {
+	OBJECT.ajaxtip.call(this, id, values, events);
+}
+
+extend(OBJECT.add_tags, OBJECT.ajaxtip, {
+	class_name: 'add_tags',
+	address: 'tip_tag',
+	child_config: {
+		field: '.tags',
+		tip: '.tips'
 	}
 });

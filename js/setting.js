@@ -76,6 +76,7 @@ extend(OBJECT.settings_rss, OBJECT.settings, {
 	section: 'rss',
 	events: {
 		change: function() {
+			console.log(this.class_name);
 			this.get_super().events.change.call(this);
 			User.rss[this.key] = this.get_value();
 		}

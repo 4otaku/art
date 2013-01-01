@@ -1,6 +1,6 @@
 <?php
 /**
- * Class Minify_Lines  
+ * Class Minify_Lines
  * @package Minify
  */
 
@@ -17,13 +17,13 @@ class Minify_Lines {
      * Add line numbers in C-style comments
      *
      * This uses a very basic parser easily fooled by comment tokens inside
-     * strings or regexes, but, otherwise, generally clean code will not be 
+     * strings or regexes, but, otherwise, generally clean code will not be
      * mangled. URI rewriting can also be performed.
      *
      * @param string $content
-     * 
+     *
      * @param array $options available options:
-     * 
+     *
      * 'id': (optional) string to identify file. E.g. file name/path
      *
      * 'currentDir': (default null) if given, this is assumed to be the
@@ -31,19 +31,25 @@ class Minify_Lines {
      * all relative URIs in import/url declarations to correctly point to
      * the desired files, and prepend a comment with debugging information about
      * this process.
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function minify($content, $options = array()) 
+    public static function minify($content, $options = array())
     {
         $id = (isset($options['id']) && $options['id'])
             ? $options['id']
             : '';
         $content = str_replace("\r\n", "\n", $content);
+
+        // Hackily rewrite strings with XPath expressions that are
+        // likely to throw off our dumb parser (for Prototype 1.6.1).
+        $content = str_replace('"/*"', '"/"+"*"', $content);
+        $content = preg_replace('@([\'"])(\\.?//?)\\*@', '$1$2$1+$1*', $content);
+
         $lines = explode("\n", $content);
         $numLines = count($lines);
         // determine left padding
-        $padTo = strlen($numLines);
+        $padTo = strlen((string) $numLines); // e.g. 103 lines = 3 digits
         $inComment = false;
         $i = 0;
         $newLines = array();
@@ -56,10 +62,9 @@ class Minify_Lines {
             $inComment = self::_eolInComment($line, $inComment);
         }
         $content = implode("\n", $newLines) . "\n";
-        
+
         // check for desired URI rewriting
         if (isset($options['currentDir'])) {
-            require_once 'Minify/CSS/UriRewriter.php';
             Minify_CSS_UriRewriter::$debugText = '';
             $content = Minify_CSS_UriRewriter::rewrite(
                  $content
@@ -67,22 +72,22 @@ class Minify_Lines {
                 ,isset($options['docRoot']) ? $options['docRoot'] : $_SERVER['DOCUMENT_ROOT']
                 ,isset($options['symlinks']) ? $options['symlinks'] : array()
             );
-            $content = "/* Minify_CSS_UriRewriter::\$debugText\n\n" 
+            $content = "/* Minify_CSS_UriRewriter::\$debugText\n\n"
                      . Minify_CSS_UriRewriter::$debugText . "*/\n"
                      . $content;
         }
-        
+
         return $content;
     }
-    
+
     /**
      * Is the parser within a C-style comment at the end of this line?
      *
      * @param string $line current line of code
-     * 
+     *
      * @param bool $inComment was the parser in a comment at the
      * beginning of the line?
-     * 
+     *
      * @return bool
      */
     private static function _eolInComment($line, $inComment)
@@ -107,19 +112,19 @@ class Minify_Lines {
         }
         return $inComment;
     }
-    
+
     /**
      * Prepend a comment (or note) to the given line
      *
      * @param string $line current line of code
      *
      * @param string $note content of note/comment
-     * 
+     *
      * @param bool $inComment was the parser in a comment at the
      * beginning of the line?
      *
      * @param int $padTo minimum width of comment
-     * 
+     *
      * @return string
      */
     private static function _addNote($line, $note, $inComment, $padTo)

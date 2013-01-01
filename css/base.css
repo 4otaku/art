@@ -3,8 +3,8 @@ html, body {
 }
 
 body {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	min-width: 1006px;
 }
 
@@ -44,7 +44,7 @@ ul li {
 ul.plain_list {
 	margin: 0;
 	padding: 0;
-	list-style-type: !important;
+	list-style-type: none !important;
 }
 
 .cancel-holder {
@@ -152,4 +152,25 @@ div.mini-shell div.text {
 	color: green;
 	font-weight: bold;
 	text-align: center;
+}
+
+.textinput {
+	text-decoration: none !important;
+	font-weight: bold !important;
+	color: #565656 !important;
+	cursor: pointer !important;
+	padding: 3px 3px 3px 3px !important;
+	border-radius: 0.5em !important;
+	background-color: #EFEFEF !important;
+	border-top: 1px solid #CCC !important;
+	border-left: 1px solid #CCC !important;
+	border-bottom: 1px solid #EEE !important;
+	border-right: 1px solid #EEE !important;
+	padding: 3px 3px 3px 3px !important;
+}
+
+.textinput:hover {
+	background-color: white !important;
+	border: 1px solid #CCC !important;
+	color: #565656 !important;
 }

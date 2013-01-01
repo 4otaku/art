@@ -6,19 +6,6 @@
 	width: 300px;
 }
 
-.tips {
-	width: 358px;
-	position: absolute;
-	right: 1px;
-	top: 30px;
-	z-index: 9001;
-	background-color: #FFF;
-}
-
-.search-tip.search-language a {
+.ajax-tip.search-language a {
 	color: #CE890B;
-}
-
-.search-tip.active {
-	background-color: #AADDFF;
 }
