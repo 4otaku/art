@@ -52,22 +52,7 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 
 			el.click(function(e){
 				e.preventDefault();
-				var val = me.child.field.val();
-				var end = me.child.field.caret().start || 0;
-				var start = val.slice(0, end).lastIndexOf(' ');
-				if (start == 1 || start == -1) {
-					start = 0;
-				} else {
-					start++;
-				}
-				if ($(this).data('append_from')) {
-					var separator = $(this).data('append_from');
-					if (val.slice(start, end).indexOf(separator) != -1) {
-						start = val.slice(0, end).lastIndexOf(separator) + 1;
-					}
-				}
-				me.child.field.val(val.slice(0, start) + $(this).data('term') +
-					val.slice(end, val.length)).caretTo(start + $(this).data('term').length);
+				me.on_tip_click($(this).data());
 				me.child.tip.empty();
 				me.current_tip_request = '';
 			});
@@ -80,6 +65,24 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 		}
 
 		return ret;
+	},
+	on_tip_click: function(data){
+		var val = this.child.field.val();
+		var end = this.child.field.caret().start || 0;
+		var start = val.slice(0, end).lastIndexOf(this.postfix);
+		if (start == 1 || start == -1) {
+			start = 0;
+		} else {
+			start++;
+		}
+		if (data.append_from) {
+			var separator = data.append_from;
+			if (val.slice(start, end).indexOf(separator) != -1) {
+				start = val.slice(0, end).lastIndexOf(separator) + 1;
+			}
+		}
+		this.child.field.val(val.slice(0, start) + data.term +
+			val.slice(end, val.length)).caretTo(start + data.term.length);
 	},
 	do_request: function(term) {
 		if (term.length && this.current_tip_request != term) {
@@ -126,11 +129,18 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 			},
 			keydown: function(e) {
 				switch (e.which) {
-					case 40: this.move_tip(1);  break;
-					case 38: this.move_tip(-1);  break;
+					case 40:
+						this.move_tip(1);
+						e.preventDefault();
+						break;
+					case 38:
+						this.move_tip(-1);
+						e.preventDefault();
+						break;
 					case 13:
 						var selected_tip = this.child.tip.find('.active');
 						this.on_enter(selected_tip);
+						e.preventDefault();
 						break;
 					default: break;
 				}

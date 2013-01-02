@@ -244,7 +244,6 @@ mixin(OBJECT.base.prototype, {
 	},
 
 	get_static: function() {
-		console.log(this.class_name);
 		return OBJECT[this.class_name];
 	},
 

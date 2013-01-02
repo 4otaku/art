@@ -81,8 +81,9 @@
 		<div class="data_active">
 			<div class="hidden data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">Теги:</div>
-				<div class="data_field textinput tags" contenteditable="true"></div>
-				<!-- <span style="color: blue">var</span> foo = <span style="color: green">"bar"</span>; -->
+				<div class="data_field with_input">
+					<textarea class="textinput tags autogrow-short">&#8203;</textarea>
+				</div>
 				<div class="tips"></div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
@@ -90,28 +91,36 @@
 			</div>
 			<div class="hidden data_block">
 				<div class="data_name">Источник:</div>
-				<input type="text" class="textinput data_field" />
+				<div class="data_field with_input">
+					<input type="text" class="textinput" />
+				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
 				</button>
 			</div>
 			<div class="hidden data_block" id="add_pools_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">Группы:</div>
-				<input type="text" class="textinput data_field" />
+				<div class="data_field with_input">
+					<input type="text" class="textinput" />
+				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
 				</button>
 			</div>
 			<div class="hidden data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">CG-пак:</div>
-				<input type="text" class="textinput data_field" />
+				<div class="data_field with_input">
+					<input type="text" class="textinput" />
+				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
 				</button>
 			</div>
 			<div class="hidden data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">Манга:</div>
-				<input type="text" class="textinput data_field" />
+				<div class="data_field with_input">
+					<input type="text" class="textinput" />
+				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
 				</button>

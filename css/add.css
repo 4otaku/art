@@ -54,12 +54,9 @@
 	padding: 10px;
 }
 
-.files .data_active > div {
+.files .data_active .data_block {
 	position: relative;
-}
-
-.files .data_active .tags {
-	min-height: 1.5em;
+	margin-bottom: 5px;
 }
 
 .files .data_active .data_name {
@@ -73,6 +70,7 @@
 	position: absolute;
 	right: 0;
 	top: 0;
+	padding: 3px 0;
 	width: 20px;
 }
 
@@ -80,7 +78,24 @@
 	margin: 0 30px 0 80px;
 }
 
+.files .data_field.with_input {
+	margin-right: 38px;
+}
+
+.files .data_field input, .files .data_field textarea {
+	width: 100%;
+	margin-bottom: 0;
+}
+
+.files .data_field textarea {
+	resize: none;
+}
+
 .files .data_passive {
-	margin: 10px 0 0 190px;
+	margin: 0 0 0 190px;
 	padding: 10px;
+}
+
+.files .data_passive button {
+	margin-left: 10px;
 }

@@ -209,8 +209,11 @@ extend(OBJECT.add, OBJECT.base, {
 		},
 		show: {
 			click: function(e) {
-				var el = $(e.target),
-					index = el.index();
+				var el = $(e.target);
+				if (!el.is('button')) {
+					el = el.parents('button');
+				}
+				var index = el.index();
 
 				this.child.data.children().eq(index).show();
 				el.hide();
@@ -242,6 +245,8 @@ extend(OBJECT.add, OBJECT.base, {
 
 OBJECT.add_tags = function(id, values, events) {
 	OBJECT.ajaxtip.call(this, id, values, events);
+
+	this.child.field.css('overflow', 'hidden').autogrow();
 }
 
 extend(OBJECT.add_tags, OBJECT.ajaxtip, {
@@ -250,5 +255,87 @@ extend(OBJECT.add_tags, OBJECT.ajaxtip, {
 	child_config: {
 		field: '.tags',
 		tip: '.tips'
-	}
+	}/*,
+	colors: {},
+	get_current: function() {
+		var range = rangy.getSelection().getRangeAt(0),
+			text = range.endContainer.nodeValue || '',
+			current = text.substr(0, range.endOffset);
+		return current.replace(/^.*[\s\u200b]/, '');
+	},
+	build_tip_box: function(items) {
+		var me = this;
+		$.each(items, function(key, item){
+			me.colors[item.name.toLocaleLowerCase()] = item.color || '';
+		});
+
+		return this.get_super().build_tip_box.call(this, items);
+	},
+	on_tip_click: function(data){
+		var range = rangy.getSelection().getRangeAt(0),
+			text = range.endContainer.nodeValue || '',
+			current = text.substr(0, range.endOffset),
+			leftover = text.substr(range.endOffset);
+
+		range.endContainer.nodeValue =
+			current.replace(/[^\s\u200b]*$/, data.term) + leftover;
+
+		this.parse_contents();
+	},
+	parse_contents: function() {
+		var text = this.child.field.text(),
+			add_space = text.match(/\s$/),
+			tags = text.split(/\s|\u200b/),
+			html = '&#8203;',
+			colors = this.colors;
+		$.each(tags, function(key, tag){
+			if (!tag.length) {
+				return;
+			}
+			var search = tag.toLocaleLowerCase();
+			var color = colors[search] ? colors[search] : 'auto';
+			html += '<span style="color: #' + color + '">'
+				+ tag + '</span> ';
+		});
+		if (!add_space) {
+			html = html.replace(/ $/, '');
+		} else {
+			html += '<span></span>';
+		}
+
+		this.child.field.html(html);
+
+		var range = rangy.createRange();
+		var last = this.child.field[0].lastChild;
+		range.setStartAfter(last);
+		range.setEndAfter(last);
+		var sel = rangy.getSelection();
+		sel.setSingleRange(range);
+	},
+	events: {
+		field: {
+			keyup: function(e) {
+				this.get_super().events
+					.field.keyup.call(this, e);
+
+				this.child.field.children('br').remove();
+				if (!this.child.field.text().length) {
+					this.child.field.html('&#8203;');
+				}
+
+				if (e.keyCode == 17 && e.ctrlKey) {
+					this.parse_contents();
+				}
+				if (e.keyCode == 32) {
+					var range = rangy.getSelection().getRangeAt(0);
+
+					if (range.endContainer == range.startContainer &&
+						range.endContainer == this.child.field[0].lastChild) {
+
+						this.parse_contents();
+					}
+				}
+			}
+		}
+	}*/
 });
