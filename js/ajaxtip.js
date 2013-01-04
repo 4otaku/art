@@ -1,11 +1,11 @@
-OBJECT.ajaxtip = function(id, values, events) {
+OBJECT.ajax_tip = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.terms = this.get_terms();
 }
 
-extend(OBJECT.ajaxtip, OBJECT.base, {
-	class_name: 'ajaxtip',
+extend(OBJECT.ajax_tip, OBJECT.base, {
+	class_name: 'ajax_tip',
 	address: '',
 	current_tip_request: '',
 	postfix: ' ',
@@ -15,12 +15,12 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 		tip: ''
 	},
 	get_terms: function() {
-		return this.child.field.val().replace(/^\s\s*/, '')
-			.replace(/\s\s*$/, '').split(/\s\s*/);
+		return this.child.field.val().replace(/^[\s\u200b]+/, '')
+			.replace(/[\s\u200b]+$/, '').split(/[\s\u200b]+/);
 	},
 	get_current: function() {
 		var pos = this.child.field.caret().start || 0;
-		var terms = this.child.field.val().slice(0, pos).split(/\s\s*/);
+		var terms = this.child.field.val().slice(0, pos).split(/[\s\u200b]+/);
 		return terms[terms.length - 1];
 	},
 	move_tip: function(move) {
@@ -42,9 +42,9 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 			var text = item.name.length < me.max_tip_length ? item.name :
 				(item.name.substring(0, me.max_tip_length) + ' ...');
 
-			var el = $('<div/>').addClass('ajax-tip')
-				.data('term', item.name + item.postfix)
-				.data('append_from', item.append_from || false);
+			item.term = item.name + item.postfix;
+			item.append_from = item.append_from || false;
+			var el = $('<div/>').addClass('ajax-tip').data(item);
 			var link = $('<a/>').attr('href', '#').html(text).appendTo(el);
 			if (item.cls) {
 				el.addClass(item.cls);
@@ -146,5 +146,48 @@ extend(OBJECT.ajaxtip, OBJECT.base, {
 				}
 			}
 		}
+	}
+});
+
+OBJECT.pool_tip = function(id, values, events) {
+	OBJECT.ajax_tip.call(this, id, values, events);
+}
+
+extend(OBJECT.pool_tip, OBJECT.ajax_tip, {
+	class_name: 'pool_tip',
+	child_config: {
+		selected: ''
+	},
+	get_terms: function() {
+		var ret = [];
+		this.child.selected.find('.pool').each(function(){
+			ret.push($(this).data('id'));
+		});
+		return ret;
+	},
+	get_current: function() {
+		return this.child.field.val();
+	},
+	on_tip_click: function(data){
+		var insert = this.build_selected(data);
+		insert.appendTo(this.child.selected);
+
+		this.child.field.val('');
+	},
+	build_selected: function(data){
+		var insert = $('<div/>').addClass('pool'),
+			pool = $('<div/>').addClass('btn').addClass('btn-small'),
+			del = $('<button/>').addClass('btn').addClass('btn-small'),
+			icon = $('<i/>').addClass('icon-minus');
+
+		pool.html(data.name).appendTo(insert);
+		icon.appendTo(del);
+		del.appendTo(insert);
+		insert.data('id', data.id);
+
+		del.click(function(){
+			insert.remove();
+		});
+		return insert;
 	}
 });

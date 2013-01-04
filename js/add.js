@@ -182,6 +182,8 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.size.html(size);
 	},
 	fix_name_length: function(name) {
+		this.message('added_image_filename', this.id, name);
+
 		if (name.length < 22) {
 			return name;
 		}
@@ -244,98 +246,82 @@ extend(OBJECT.add, OBJECT.base, {
 });
 
 OBJECT.add_tags = function(id, values, events) {
-	OBJECT.ajaxtip.call(this, id, values, events);
+	OBJECT.ajax_tip.call(this, id, values, events);
 
 	this.child.field.css('overflow', 'hidden').autogrow();
 }
 
-extend(OBJECT.add_tags, OBJECT.ajaxtip, {
+extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 	class_name: 'add_tags',
 	address: 'tip_tag',
+	max_tip_length: 100,
 	child_config: {
 		field: '.tags',
 		tip: '.tips'
-	}/*,
-	colors: {},
-	get_current: function() {
-		var range = rangy.getSelection().getRangeAt(0),
-			text = range.endContainer.nodeValue || '',
-			current = text.substr(0, range.endOffset);
-		return current.replace(/^.*[\s\u200b]/, '');
-	},
-	build_tip_box: function(items) {
-		var me = this;
-		$.each(items, function(key, item){
-			me.colors[item.name.toLocaleLowerCase()] = item.color || '';
+	}
+});
+
+OBJECT.add_pools = function(id, values, events) {
+	OBJECT.pool_tip.call(this, id, values, events);
+}
+
+extend(OBJECT.add_pools, OBJECT.pool_tip, {
+	class_name: 'add_pool',
+	max_tip_length: 100,
+	child_config: {
+		field: '.text',
+		tip: '.tips',
+		selected: '.selected'
+	}
+});
+
+OBJECT.add_groups = function(id, values, events) {
+	OBJECT.add_pools.call(this, id, values, events);
+}
+
+extend(OBJECT.add_groups, OBJECT.add_pools, {
+	class_name: 'add_groups',
+	address: 'tip_group'
+});
+
+OBJECT.add_packs = function(id, values, events) {
+	OBJECT.add_pools.call(this, id, values, events);
+}
+
+extend(OBJECT.add_packs, OBJECT.add_pools, {
+	class_name: 'add_packs',
+	address: 'tip_pack',
+	filename: '',
+	get_terms: function() {
+		var ret = [];
+		this.child.selected.find('.pool').each(function(){
+			var name = $(this).find('.filename').val() || this.filename;
+			ret.push({id: $(this).data('id'), name: name});
 		});
-
-		return this.get_super().build_tip_box.call(this, items);
+		return ret;
 	},
-	on_tip_click: function(data){
-		var range = rangy.getSelection().getRangeAt(0),
-			text = range.endContainer.nodeValue || '',
-			current = text.substr(0, range.endOffset),
-			leftover = text.substr(range.endOffset);
+	build_selected: function(data){
+		var insert = this.get_super().build_selected.call(this, data),
+			filename = $('<input/>').attr('type', 'text')
+				.addClass('filename').addClass('textinput');
 
-		range.endContainer.nodeValue =
-			current.replace(/[^\s\u200b]*$/, data.term) + leftover;
-
-		this.parse_contents();
+		filename.val(this.filename).appendTo(insert);
+		return insert;
 	},
-	parse_contents: function() {
-		var text = this.child.field.text(),
-			add_space = text.match(/\s$/),
-			tags = text.split(/\s|\u200b/),
-			html = '&#8203;',
-			colors = this.colors;
-		$.each(tags, function(key, tag){
-			if (!tag.length) {
-				return;
-			}
-			var search = tag.toLocaleLowerCase();
-			var color = colors[search] ? colors[search] : 'auto';
-			html += '<span style="color: #' + color + '">'
-				+ tag + '</span> ';
-		});
-		if (!add_space) {
-			html = html.replace(/ $/, '');
-		} else {
-			html += '<span></span>';
-		}
-
-		this.child.field.html(html);
-
-		var range = rangy.createRange();
-		var last = this.child.field[0].lastChild;
-		range.setStartAfter(last);
-		range.setEndAfter(last);
-		var sel = rangy.getSelection();
-		sel.setSingleRange(range);
-	},
-	events: {
-		field: {
-			keyup: function(e) {
-				this.get_super().events
-					.field.keyup.call(this, e);
-
-				this.child.field.children('br').remove();
-				if (!this.child.field.text().length) {
-					this.child.field.html('&#8203;');
-				}
-
-				if (e.keyCode == 17 && e.ctrlKey) {
-					this.parse_contents();
-				}
-				if (e.keyCode == 32) {
-					var range = rangy.getSelection().getRangeAt(0);
-
-					if (range.endContainer == range.startContainer &&
-						range.endContainer == this.child.field[0].lastChild) {
-
-						this.parse_contents();
-					}
-				}
+	listen: {
+		added_image_filename: function(id, name) {
+			if (this.id == id) {
+				this.filename = name;
 			}
 		}
-	}*/
+	}
+});
+
+OBJECT.add_manga = function(id, values, events) {
+	OBJECT.add_pools.call(this, id, values, events);
+}
+
+extend(OBJECT.add_manga, OBJECT.add_pools, {
+	class_name: 'add_manga',
+	address: 'tip_manga'
 });

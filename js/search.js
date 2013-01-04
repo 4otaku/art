@@ -1,8 +1,8 @@
 OBJECT.search = function(id, values, events) {
-	OBJECT.ajaxtip.call(this, id, values, events);
+	OBJECT.ajax_tip.call(this, id, values, events);
 }
 
-extend(OBJECT.search, OBJECT.ajaxtip, {
+extend(OBJECT.search, OBJECT.ajax_tip, {
 	class_name: 'search',
 	address: 'tip_tag',
 	query_language: {

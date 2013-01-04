@@ -6,6 +6,12 @@
 	width: 300px;
 }
 
+.tips {
+	width: 358px;
+	right: 1px;
+	top: 30px;
+}
+
 .ajax-tip.search-language a {
 	color: #CE890B;
 }
