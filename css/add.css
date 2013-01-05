@@ -103,6 +103,11 @@
 	resize: none;
 }
 
+.files .data_field textarea.autogrow-short {
+	resize: none;
+	height: 0;
+}
+
 .tips_container {
 	position: relative;
 	margin: 0 32px 0 80px;

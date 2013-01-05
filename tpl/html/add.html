@@ -79,7 +79,7 @@
 		</div>
 		<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
 		<div class="data_active">
-			<div class="hidden data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
+			<div class="data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">Теги:</div>
 				<div class="data_field with_input">
 					<textarea class="textinput tags autogrow-short">&#8203;{$tags}</textarea>
@@ -98,9 +98,16 @@
 					<i class="icon-minus"></i>
 				</button>
 			</div>
-			<div class="hidden data_block" id="add_groups_{%=(UPLOAD_UNITS_COUNT)%}">
+			<div class="{if="!$have_groups"}hidden {/if}data_block" id="add_groups_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">В группы:</div>
-				<div class="selected"></div>
+				<div class="selected">
+					{loop="groups"}
+						<div class="pool" data-id="{$value.id}">
+							<div class="btn btn-small">{$value.title}</div>
+							<button class="btn btn-small"><i class="icon-minus"></i></button>
+						</div>
+					{/loop}
+				</div>
 				<div class="relative">
 					<div class="data_field with_input">
 						<input type="text" class="textinput text" />
@@ -111,9 +118,16 @@
 					</button>
 				</div>
 			</div>
-			<div class="hidden data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
+			<div class="{if="!$have_packs"}hidden {/if}data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">В CG-паки:</div>
-				<div class="selected"></div>
+				<div class="selected">
+					{loop="packs"}
+						<div class="pool" data-id="{$value.id}">
+							<div class="btn btn-small">{$value.title}</div>
+							<button class="btn btn-small"><i class="icon-minus"></i></button>
+						</div>
+					{/loop}
+				</div>
 				<div class="relative">
 					<div class="data_field with_input">
 						<input type="text" class="textinput text" />
@@ -124,9 +138,16 @@
 					</button>
 				</div>
 			</div>
-			<div class="hidden data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
+			<div class="{if="!$have_manga"}hidden {/if}data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">В мангу:</div>
-				<div class="selected"></div>
+				<div class="selected">
+					{loop="manga"}
+						<div class="pool" data-id="{$value.id}">
+							<div class="btn btn-small">{$value.title}</div>
+							<button class="btn btn-small"><i class="icon-minus"></i></button>
+						</div>
+					{/loop}
+				</div>
 				<div class="relative">
 					<div class="data_field with_input">
 						<input type="text" class="textinput text" />
@@ -164,7 +185,7 @@
 			{/if}
 		</div>
 		<div class="data_passive">
-			<button type="button" class="btn btn-small show_data"
+			<button type="button" class="btn btn-small show_data hidden"
 				title="Проставить теги для этого арта.">
 				<i class="icon-plus"></i> Теги
 			</button>
@@ -172,15 +193,15 @@
 				title="Указать ссылку на источник, откуда вы взяли этот арт.">
 				<i class="icon-plus"></i> Источник
 			</button>
-			<button type="button" class="btn btn-small show_data"
+			<button type="button" class="btn btn-small show_data{if="$have_groups"} hidden{/if}"
 				title="Добавить арт в одну или несколько групп.">
 				<i class="icon-plus"></i> В группы
 			</button>
-			<button type="button" class="btn btn-small show_data"
+			<button type="button" class="btn btn-small show_data{if="$have_packs"} hidden{/if}"
 				title="Добавить арт в один или несколько CG-паков.">
 				<i class="icon-plus"></i> В CG-паки
 			</button>
-			<button type="button" class="btn btn-small show_data"
+			<button type="button" class="btn btn-small show_data{if="$have_manga"} hidden{/if}"
 				title="Добавить арт в одну мангу или в несколько.">
 				<i class="icon-plus"></i> В мангу
 			</button>
@@ -201,10 +222,6 @@
 	{% add('add_groups', UPLOAD_UNITS_COUNT); %}
 	{% add('add_packs', UPLOAD_UNITS_COUNT); %}
 	{% add('add_manga', UPLOAD_UNITS_COUNT); %}
-	{% add('add', UPLOAD_UNITS_COUNT, {}, {
-		groups: [{$groups}],
-		packs: [{$packs}],
-		manga: [{$manga}]
-	}); %}
+	{% add('add', UPLOAD_UNITS_COUNT); %}
 {% } %}
 </script>

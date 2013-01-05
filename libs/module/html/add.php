@@ -18,6 +18,13 @@ class Module_Html_Add extends Module_Html_Abstract
 		} else {
 			$this->set_param('tags', '');
 		}
+
+		$this->set_param('groups', []);
+		$this->set_param('have_groups', 0);
+		$this->set_param('packs', []);
+		$this->set_param('have_packs', 0);
+		$this->set_param('manga', []);
+		$this->set_param('have_manga', 0);
 	}
 
 	protected function make_request()
@@ -29,28 +36,16 @@ class Module_Html_Add extends Module_Html_Abstract
 		if (!empty($parsed['group']['is'])) {
 			$request[] = new Request('art_group', $this,
 				['id' => $parsed['group']['is']], 'recieve_groups');
-			$this->set_param('have_groups', 1);
-		} else {
-			$this->set_param('groups', []);
-			$this->set_param('have_groups', 0);
 		}
 
 		if (!empty($parsed['pack']['is'])) {
 			$request[] = new Request('art_pack', $this,
 				['id' => $parsed['pack']['is']], 'recieve_packs');
-			$this->set_param('have_packs', 1);
-		} else {
-			$this->set_param('packs', []);
-			$this->set_param('have_packs', 0);
 		}
 
 		if (!empty($parsed['manga']['is'])) {
 			$request[] = new Request('art_pack', $this,
 				['id' => $parsed['manga']['is']], 'recieve_manga');
-			$this->set_param('have_manga', 1);
-		} else {
-			$this->set_param('manga', []);
-			$this->set_param('have_manga', 0);
 		}
 
 		return new Request_Multi($request);
@@ -58,16 +53,28 @@ class Module_Html_Add extends Module_Html_Abstract
 
 	public function recieve_groups($data)
 	{
-		var_dump($data);
+		$this->set_param('have_groups', !empty($data['data']));
+		$this->set_param('groups', array_map(function(&$item){
+			unset($item['text']);
+			return $item;
+		}, $data['data']));
 	}
 
 	public function recieve_packs($data)
 	{
-		var_dump($data);
+		$this->set_param('have_packs', !empty($data['data']));
+		$this->set_param('packs', array_map(function(&$item){
+			unset($item['text']);
+			return $item;
+		}, $data['data']));
 	}
 
 	public function recieve_manga($data)
 	{
-		var_dump($data);
+		$this->set_param('have_manga', !empty($data['data']));
+		$this->set_param('manga', array_map(function(&$item){
+			unset($item['text']);
+			return $item;
+		}, $data['data']));
 	}
 }
