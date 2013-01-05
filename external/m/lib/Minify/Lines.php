@@ -35,7 +35,7 @@ class Minify_Lines {
      * @return string
      */
     public static function minify($content, $options = array())
-    {
+    {return $content;
         $id = (isset($options['id']) && $options['id'])
             ? $options['id']
             : '';

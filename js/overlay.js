@@ -97,7 +97,7 @@ Overlay = {
 					login: Validate.non_empty,
 					password: Validate.non_empty
 				},
-				url: '/api/read/user',
+				url: '/api/read/cookie',
 				success: function(response) {
 					$.cookie("sets", response.cookie);
 					$.cookie("sets", response.cookie, {path: '/',

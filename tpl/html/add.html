@@ -82,7 +82,7 @@
 			<div class="hidden data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
 				<div class="data_name">Теги:</div>
 				<div class="data_field with_input">
-					<textarea class="textinput tags autogrow-short">&#8203;</textarea>
+					<textarea class="textinput tags autogrow-short">&#8203;{$tags}</textarea>
 				</div>
 				<div class="tips_container"><div class="tips"></div></div>
 				<button type="button" class="btn btn-small hide_data">
@@ -137,35 +137,63 @@
 					</button>
 				</div>
 			</div>
-			<div class="hidden data_block">
+			<div class="hidden data_block artist">
 				<div>
-					Вы указали, что являетесь художником, нарисовавшим этот арт.
-					Он будет присоединен к вашей личной галерее.
+					<span class="hidden with_gallery">
+						Вы указали, что являетесь автором данного изображения.
+						Оно будет присоединено к вашей <a href="#" target="_blank">личной галерее</a>.
+					</span>
+					<span class="hidden without_gallery">
+						Вы указали, что являетесь автором данного изображения.
+						Будет создана ваша личная галерея, и арт будет помещен туда.
+					</span>
 				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
 				</button>
 			</div>
+			{if="Session::is_moderator()"}
+				<div class="hidden data_block">
+					<div>
+						Арт получит ваше модераторское одобрение сразу при добавлении.
+					</div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
+				</div>
+			{/if}
 		</div>
 		<div class="data_passive">
-			<button type="button" class="btn btn-small show_data">
+			<button type="button" class="btn btn-small show_data"
+				title="Проставить теги для этого арта.">
 				<i class="icon-plus"></i> Теги
 			</button>
-			<button type="button" class="btn btn-small show_data">
+			<button type="button" class="btn btn-small show_data"
+				title="Указать ссылку на источник, откуда вы взяли этот арт.">
 				<i class="icon-plus"></i> Источник
 			</button>
-			<button type="button" class="btn btn-small show_data">
+			<button type="button" class="btn btn-small show_data"
+				title="Добавить арт в одну или несколько групп.">
 				<i class="icon-plus"></i> В группы
 			</button>
-			<button type="button" class="btn btn-small show_data">
-				<i class="icon-plus"></i> В CG-пак
+			<button type="button" class="btn btn-small show_data"
+				title="Добавить арт в один или несколько CG-паков.">
+				<i class="icon-plus"></i> В CG-паки
 			</button>
-			<button type="button" class="btn btn-small show_data">
+			<button type="button" class="btn btn-small show_data"
+				title="Добавить арт в одну мангу или в несколько.">
 				<i class="icon-plus"></i> В мангу
 			</button>
-			<button type="button" class="btn btn-small show_data">
+			<button type="button" class="btn btn-small show_data show_artist"
+				title="Добавить этот арт в вашу личную галерею художника.">
 				<i class="icon-plus"></i> Я нарисовал
 			</button>
+			{if="Session::is_moderator()"}
+				<button type="button" class="btn btn-small show_data"
+					title="Сразу дать этому арту ваше одобрение модератора.">
+					<i class="icon-plus"></i> Одобрить
+				</button>
+			{/if}
 		</div>
 		<div class="clear"></div>
 	</div>
@@ -173,6 +201,10 @@
 	{% add('add_groups', UPLOAD_UNITS_COUNT); %}
 	{% add('add_packs', UPLOAD_UNITS_COUNT); %}
 	{% add('add_manga', UPLOAD_UNITS_COUNT); %}
-	{% add('add', UPLOAD_UNITS_COUNT); %}
+	{% add('add', UPLOAD_UNITS_COUNT, {}, {
+		groups: [{$groups}],
+		packs: [{$packs}],
+		manga: [{$manga}]
+	}); %}
 {% } %}
 </script>

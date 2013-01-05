@@ -11,7 +11,7 @@ class Request
 	protected $requests = array();
 
 	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data') {
-		if ($api && $object && $object instanceOf Module_Abstract) {
+		if ($api && $object && is_callable(array($object, $method))) {
 			$this->api = (string) $api;
 			$this->data = (array) $data;
 			$this->hash = md5($this->api . serialize($this->data));

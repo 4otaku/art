@@ -14,11 +14,14 @@ class Session
 	// Настройки пользователя
 	protected $data = [];
 
+	protected $moderator = false;
+
 	protected $changed = false;
 
 	protected static $instance;
 
-	private function __construct() {
+	private function __construct()
+	{
 		// Удалим все левые куки, нечего захламлять пространство
 		foreach ($_COOKIE as $key => $cook) {
 			if ($key != $this->name) {
@@ -53,10 +56,15 @@ class Session
 			$this->create_session();
 		}
 
+		// Пробуем считаем пользователя из api
+		$request = new Request('user', $this, ['cookie' => $this->hash]);
+		$request->perform();
+
 		register_shutdown_function([$this, 'write_changes']);
 	}
 
-	public static function get_instance() {
+	public static function get_instance()
+	{
 		if (empty(self::$instance)) {
 			self::$instance = new Session();
 		}
@@ -64,14 +72,21 @@ class Session
 		return self::$instance;
 	}
 
-	protected function update_lifetime() {
+	public static function is_moderator()
+	{
+		return self::get_instance()->moderator;
+	}
+
+	protected function update_lifetime()
+	{
 		setcookie($this->name, $this->hash, time()+3600*24*60, '/', $this->domain);
 		// Фиксируем факт обновления в БД
 		Database::update('settings', ['lastchange' => time()],
 			'cookie = ?', $this->hash);
 	}
 
-	protected function parse_data($data) {
+	protected function parse_data($data)
+	{
 		// Проверяем валидность настроек и исправляем, если что-то не так
 		$data = base64_decode($data);
 		if ($data === false) {
@@ -85,27 +100,33 @@ class Session
 			return;
 		}
 
-		$user = Database::get_row('user', 'login, email, rights',
-			'cookie = ?', $this->hash);
-
-		if (!empty($user)) {
-			if (empty($data['user'])) {
-				$data['user'] = [];
-			}
-			$data['user'] = array_replace($data['user'], $user);
+		if (empty($data['user'])) {
+			$data['user'] = [];
 		}
-
 		$this->data = $data;
 	}
 
-	protected function create_session() {
+	public function recieve_data($data)
+	{
+		$this->data['user']['login'] = empty($data['login']) ?
+			'' : (string) $data['login'];
+		$this->data['user']['gallery'] = empty($data['gallery']) ?
+			false : (int) $data['gallery'];
+
+		$this->moderator = empty($data['moderator']) ?
+			false : (bool) $data['moderator'];
+	}
+
+	protected function create_session()
+	{
 		// Вносим в БД сессию с дефолтными настройками
 		Database::insert('settings', ['cookie' => $this->hash]);
 		$this->update_lifetime();
 		$this->changed = true;
 	}
 
-	public function write_changes() {
+	public function write_changes()
+	{
 		if (!$this->changed) {
 			return;
 		}
@@ -115,16 +136,19 @@ class Session
 			'cookie = ?', $this->hash);
 	}
 
-	public function set($section, $field, $value) {
+	public function set($section, $field, $value)
+	{
 		$this->data[$section][$field] = $value;
 		$this->changed = true;
 	}
 
-	public function get_hash() {
+	public function get_hash()
+	{
 		return $this->hash;
 	}
 
-	public function get_data() {
+	public function get_data()
+	{
 		$data = $this->data;
 		$data['cookie']['hash'] = $this->hash;
 

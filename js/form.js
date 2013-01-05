@@ -33,7 +33,7 @@ extend(OBJECT.form, OBJECT.base, {
 
 		var fn = this.get ? Ajax.get : Ajax.perform;
 
-		fn.call(this, this.url, data, $.proxy(function(response) {
+		fn.call(Ajax, this.url, data, $.proxy(function(response) {
 			this.child.submit.show();
 			this.child.loader.hide();
 			if (response.success == false) {

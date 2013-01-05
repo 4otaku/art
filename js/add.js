@@ -127,6 +127,22 @@ OBJECT.add = function(id, values, events) {
 	this.translate_size();
 	this.child.name.html(
 		this.fix_name_length(this.child.name.html()));
+
+	if (User.name) {
+		if (User.gallery) {
+			this.child.with_gallery.find('a')
+				.attr('href', '?artist=' + User.gallery);
+			this.child.with_gallery.show();
+		} else {
+			this.child.without_gallery.show();
+		}
+	} else {
+		this.child.show_artist.attr('title', 'Чтобы добавить арт в свою галерею необходимо залогиниться.');
+		this.child.show_artist.click(function(e){
+			e.preventDefault();
+		}).addClass('disabled');
+	}
+
 }
 
 extend(OBJECT.add, OBJECT.base, {
@@ -146,7 +162,10 @@ extend(OBJECT.add, OBJECT.base, {
 		data: 'div.data_active',
 		hide: 'div.data_active .hide_data',
 		show_panel: 'div.data_passive',
-		show: 'div.data_passive .show_data'
+		show: 'div.data_passive .show_data',
+		show_artist: 'div.data_passive .show_data.show_artist',
+		with_gallery: 'div.data_active .artist .with_gallery',
+		without_gallery: 'div.data_active .artist .without_gallery'
 	},
 	process_success: function(data) {
 		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');

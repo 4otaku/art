@@ -17,7 +17,8 @@
 				INIT[type].push([id, events, values]);
 			}
 			User = {
-				name: '{function="Config::get('user', 'login')"}'
+				name: '{function="Config::get('user', 'login')"}',
+				gallery: '{function="Config::get('user', 'gallery')"}'
 			};
 		</script>
 		{loop="prefetch"}
@@ -36,7 +37,7 @@
 			{$module_footer}
 		{/if}
 		{if="$js"}
-			<script type="text/javascript" src="/external/m/?b=js&f={$js}"></script>
+			<script type="text/javascript" src="/external/m/?b=js&f={$js}&debug=1"></script>
 			<script type="text/javascript">init_objects();</script>
 		{/if}
 	</body>
