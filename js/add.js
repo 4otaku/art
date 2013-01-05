@@ -282,6 +282,10 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 
 OBJECT.add_pools = function(id, values, events) {
 	OBJECT.pool_tip.call(this, id, values, events);
+
+	this.child.selected.find('.pool button').click(function(){
+		$(this).parents('.pool').remove();
+	});
 }
 
 extend(OBJECT.add_pools, OBJECT.pool_tip, {
