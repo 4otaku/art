@@ -331,6 +331,12 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 		added_image_filename: function(id, name) {
 			if (this.id == id) {
 				this.filename = name;
+
+				this.child.selected.find('.pool .filename').each(function(){
+					if (!$(this).val()) {
+						$(this).val(name);
+					}
+				});
 			}
 		}
 	}
