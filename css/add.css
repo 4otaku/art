@@ -13,6 +13,10 @@
 	background-position: center top;
 }
 
+.files .progress-successful.progress-adding {
+	background-image: url(/images/ajax-loader-small.gif) !important;
+}
+
 .files .preview {
 	width: 150px;
 	height: 150px;

@@ -255,6 +255,14 @@ extend(OBJECT.add, OBJECT.base, {
 					return;
 				}
 
+				this.child.add.addClass('disabled').unbind('click').click(function(e){
+					e.preventDefault();
+				});
+				this.child.cancel.addClass('disabled').unbind('click').click(function(e){
+					e.preventDefault();
+				});
+				this.child.progress_wrapper.addClass('progress-adding');
+
 				var data = {
 					id_upload: this.id_upload,
 					tag: this.submodule.tags.get_terms(),
@@ -265,7 +273,10 @@ extend(OBJECT.add, OBJECT.base, {
 					artist: this.child.artist.is(':visible') ? 1 : 0,
 					approved: this.child.approved.is(':visible') ? 1 : 0
 				};
-				console.log(data);
+
+				Ajax.perform('/ajax/create', data, function(response) {
+					console.log(response);
+				}, this);
 			}
 		},
 		cancel: {
@@ -348,7 +359,9 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 			var val = this.child.field.val();
 			var pos = this.child.field.caret().start || 0;
 			this.child.field.val(val.substr(0, 1) + prepend + val.substr(1));
-			this.child.field.caretTo(pos + prepend.length);
+			if (this.child.field.is(':focus')) {
+				this.child.field.caretTo(pos + prepend.length);
+			}
 		}
 	}
 });

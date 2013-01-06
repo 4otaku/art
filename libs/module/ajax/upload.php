@@ -1,6 +1,6 @@
 <?php
 
-class Module_Ajax_Upload extends Module_Abstract
+class Module_Ajax_Upload extends Module_Ajax_Json
 {
 	const
 		LOW_WIDTH = 800,
@@ -25,8 +25,8 @@ class Module_Ajax_Upload extends Module_Abstract
 	{
 		$url = Config::get('api', 'url');
 
+		// Hacked because of file send
 		if (!empty($url)) {
-
 			$url .= '/upload/art';
 
 			$post = [];
@@ -71,7 +71,8 @@ class Module_Ajax_Upload extends Module_Abstract
 				];
 			}
 		}
-		sleep(3);
+sleep(5);
+		return false;
 	}
 
 	public function format_data() {
