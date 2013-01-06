@@ -22,16 +22,20 @@ OBJECT.upload = function(id, values, events) {
 window.locale = {
 	fileupload: {
 		errors: {
-			"maxFileSize": "Слишком большой файл",
-			"acceptFileTypes": "Файл не является корректным изображением gif/jpg/png",
-			"uploadedBytes": "Ошибка загрузки",
-			"emptyResult": "Сервер не отвечает"
+			maxFileSize: "Слишком большой файл",
+			acceptFileTypes: "Файл не является корректным изображением gif/jpg/png",
+			uploadedBytes: "Ошибка загрузки",
+			emptyResult: "Сервер не отвечает",
+			serverError: "Сбой сервера"
 		}
 	}
 };
 
 extend(OBJECT.upload, OBJECT.base, {
 	class_name: 'upload',
+	child_config: {
+		add: 'button.add'
+	},
 	// Функция вынужденно скопирована почти целиком
 	doneCallback: function (e, data) {
 		var that = $(this).data('fileupload'),
@@ -117,6 +121,14 @@ extend(OBJECT.upload, OBJECT.base, {
 		} else {
 			that._trigger('failed', e, data);
 		}
+	},
+	events: {
+		add: {
+			click: function(e) {
+				e.preventDefault();
+				this.message('add_all');
+			}
+		}
 	}
 });
 
@@ -142,12 +154,19 @@ OBJECT.add = function(id, values, events) {
 			e.preventDefault();
 		}).addClass('disabled');
 	}
-
 }
 
 extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
+	id_upload: false,
 	uploaded: false,
+	add_pending: false,
+	submodule_config: {
+		tags: 'add_tags',
+		groups: 'add_groups',
+		packs: 'add_packs',
+		manga: 'add_manga'
+	},
 	child_config: {
 		preview: 'div.preview',
 		name: 'div.name span',
@@ -157,25 +176,36 @@ extend(OBJECT.add, OBJECT.base, {
 		progress_wrapper: 'div.progress-bar',
 		error_wrapper: 'div.error',
 		error: 'div.error .label',
+		upload: 'div.start button',
 		add: 'div.add button',
 		cancel: 'div.cancel button',
 		data: 'div.data_active',
+		source: 'div.data_active .source',
 		hide: 'div.data_active .hide_data',
 		show_panel: 'div.data_passive',
 		show: 'div.data_passive .show_data',
 		show_artist: 'div.data_passive .show_data.show_artist',
+		artist: 'div.data_active .artist',
 		with_gallery: 'div.data_active .artist .with_gallery',
-		without_gallery: 'div.data_active .artist .without_gallery'
+		without_gallery: 'div.data_active .artist .without_gallery',
+		approved: 'div.data_active .approved'
 	},
 	process_success: function(data) {
+		this.id_upload = data.id_upload;
+
 		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');
 		var name = this.fix_name_length(data.name);
 		this.child.name.html('<a href="'+data.url+'" target="_blank">' +
 			name + '</a>');
 		this.translate_size();
+		this.submodule.tags.add_tags(data.tags);
 		this.child.upload_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.addClass('progress-successful');
+
+		if (this.add_pending) {
+			this.child.add.click();
+		}
 	},
 	process_error: function(data) {
 		if (data.code == 30) {
@@ -185,6 +215,8 @@ extend(OBJECT.add, OBJECT.base, {
 			this.child.error.html(locale.fileupload.errors.maxFileSize);
 		} else if (data.code == 20 || data.code == 260) {
 			this.child.error.html(locale.fileupload.errors.acceptFileTypes);
+		} else if (data.code == 540) {
+			this.child.error.html(locale.fileupload.errors.serverError);
 		} else {
 			this.child.error.html(data.error);
 		}
@@ -201,7 +233,7 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.size.html(size);
 	},
 	fix_name_length: function(name) {
-		this.message('added_image_filename', this.id, name);
+		this.submodule.packs.set_default_filename(name);
 
 		if (name.length < 22) {
 			return name;
@@ -214,6 +246,28 @@ extend(OBJECT.add, OBJECT.base, {
 			'..' + name.substr(-1 * part_length) + ext;
 	},
 	events: {
+		add: {
+			click: function(e) {
+				e.preventDefault();
+				if (!this.uploaded) {
+					this.add_pending = true;
+					this.child.upload.click();
+					return;
+				}
+
+				var data = {
+					id_upload: this.id_upload,
+					tag: this.submodule.tags.get_terms(),
+					source: this.child.source.val(),
+					group: this.submodule.groups.get_terms(),
+					pack: this.submodule.packs.get_terms(),
+					manga: this.submodule.manga.get_terms(),
+					artist: this.child.artist.is(':visible') ? 1 : 0,
+					approved: this.child.approved.is(':visible') ? 1 : 0
+				};
+				console.log(data);
+			}
+		},
 		cancel: {
 			click: function(e) {
 				var text = "Вы уверены, что хотите удалить это изображение?\n" +
@@ -254,12 +308,15 @@ extend(OBJECT.add, OBJECT.base, {
 		upload_done: function(id, data) {
 			if (this.el.attr('id') == id) {
 				this.uploaded = true;
-				if (data.error) {
+				if (typeof data.error != 'undefined') {
 					this.process_error(data);
 				} else {
 					this.process_success(data);
 				}
 			}
+		},
+		add_all: function() {
+			this.child.add.click();
 		}
 	}
 });
@@ -273,10 +330,26 @@ OBJECT.add_tags = function(id, values, events) {
 extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 	class_name: 'add_tags',
 	address: 'tip_tag',
-	max_tip_length: 100,
+	max_tip_length: 120,
 	child_config: {
 		field: '.tags',
 		tip: '.tips'
+	},
+	add_tags: function(tags) {
+		var current = this.get_terms(),
+			prepend = '';
+		$.each(tags, $.proxy(function(key, tag){
+			if (current.indexOf(tag) == -1) {
+				prepend += tag + ' ';
+			}
+		}, this));
+
+		if (prepend) {
+			var val = this.child.field.val();
+			var pos = this.child.field.caret().start || 0;
+			this.child.field.val(val.substr(0, 1) + prepend + val.substr(1));
+			this.child.field.caretTo(pos + prepend.length);
+		}
 	}
 });
 
@@ -290,7 +363,7 @@ OBJECT.add_pools = function(id, values, events) {
 
 extend(OBJECT.add_pools, OBJECT.pool_tip, {
 	class_name: 'add_pool',
-	max_tip_length: 100,
+	max_tip_length: 120,
 	child_config: {
 		field: '.text',
 		tip: '.tips',
@@ -331,18 +404,14 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 		filename.val(this.filename).appendTo(insert);
 		return insert;
 	},
-	listen: {
-		added_image_filename: function(id, name) {
-			if (this.id == id) {
-				this.filename = name;
+	set_default_filename: function(name) {
+		this.filename = name;
 
-				this.child.selected.find('.pool .filename').each(function(){
-					if (!$(this).val()) {
-						$(this).val(name);
-					}
-				});
+		this.child.selected.find('.pool .filename').each(function(){
+			if (!$(this).val()) {
+				$(this).val(name);
 			}
-		}
+		});
 	}
 });
 

@@ -107,29 +107,7 @@ function init_objects() {
 function init(type, id, values, events) {
 	events = events || {};
 	values = values || {};
-	new OBJECT[type](id, values, events);
-}
-
-function add_event(events, type, section, fn) {
-	if (typeof section == 'function') {
-		fn = section;
-		section = false;
-	}
-
-	events = events || {};
-
-	if (section) {
-		events[type] = add_event(events[type], section, fn);
-	} else {
-		if (typeof events[type] == 'undefined') {
-			events[type] = [];
-		} else if (!$.isArray(events[type])) {
-			events[type] = [events[type]];
-		}
-		events[type].push(fn);
-	}
-
-	return events;
+	return new OBJECT[type](id, values, events);
 }
 
 // Base object
@@ -142,6 +120,7 @@ var OBJECT = {
 		values = $.extend(values, this.values, true);
 
 		this.child = {};
+		this.submodule = {};
 
 		this.init_elements(id);
 		this.init_values(values);
@@ -156,6 +135,7 @@ var LISTENERS = {};
 mixin(OBJECT.base.prototype, {
 	el: false,
 	child_config: {},
+	submodule_config: {},
 	class_name: 'base',
 	id: '',
 	events: {},
@@ -197,6 +177,15 @@ mixin(OBJECT.base.prototype, {
 
 			$.each(this.child_config, $.proxy(function(key, value) {
 				this.child[key] = this.el.find(value);
+			}, this));
+
+			$.each(this.submodule_config, $.proxy(function(key, value) {
+				if (typeof value == 'string') {
+					value = {type: value};
+				}
+
+				this.submodule[key] = init(value.type, id + (value.postfix || ''),
+					value.events || {}, value.values || {});
 			}, this));
 		}
 	},
@@ -281,7 +270,7 @@ OBJECT.clickable = function(id, values) {
 		values = {func: values};
 	}
 
-	OBJECT.clickable.super.constructor.call(this, id, values);
+	OBJECT.base.call(this, id, values);
 }
 
 extend(OBJECT.clickable, OBJECT.base, {

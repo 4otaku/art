@@ -92,7 +92,7 @@
 			<div class="hidden data_block">
 				<div class="data_name">Источник:</div>
 				<div class="data_field with_input">
-					<input type="text" class="textinput" />
+					<input type="text" class="textinput source" />
 				</div>
 				<button type="button" class="btn btn-small hide_data">
 					<i class="icon-minus"></i>
@@ -174,16 +174,14 @@
 					<i class="icon-minus"></i>
 				</button>
 			</div>
-			{if="Session::is_moderator()"}
-				<div class="hidden data_block">
-					<div>
-						Арт получит ваше модераторское одобрение сразу при добавлении.
-					</div>
-					<button type="button" class="btn btn-small hide_data">
-						<i class="icon-minus"></i>
-					</button>
+			<div class="hidden data_block approved">
+				<div>
+					Арт получит ваше модераторское одобрение сразу при добавлении.
 				</div>
-			{/if}
+				<button type="button" class="btn btn-small hide_data">
+					<i class="icon-minus"></i>
+				</button>
+			</div>
 		</div>
 		<div class="data_passive">
 			<button type="button" class="btn btn-small show_data hidden"
@@ -219,10 +217,6 @@
 		</div>
 		<div class="clear"></div>
 	</div>
-	{% add('add_tags', UPLOAD_UNITS_COUNT); %}
-	{% add('add_groups', UPLOAD_UNITS_COUNT); %}
-	{% add('add_packs', UPLOAD_UNITS_COUNT); %}
-	{% add('add_manga', UPLOAD_UNITS_COUNT); %}
 	{% add('add', UPLOAD_UNITS_COUNT); %}
 {% } %}
 </script>

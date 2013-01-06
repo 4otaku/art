@@ -14,7 +14,7 @@ class Module_Html_Add extends Module_Html_Abstract
 		$parsed = $query->parsed();
 
 		if (!empty($parsed['tag']['is'])) {
-			$this->set_param('tags', implode(' ', $parsed['tag']['is']));
+			$this->set_param('tags', implode(' ', $parsed['tag']['is']) . ' ');
 		} else {
 			$this->set_param('tags', '');
 		}

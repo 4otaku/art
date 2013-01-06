@@ -2390,12 +2390,12 @@ $.Widget.prototype = {
                 return '';
             }
             if (bytes >= 1000000000) {
-                return (bytes / 1000000000).toFixed(2) + ' GB';
+                return (bytes / 1000000000).toFixed(2) + ' ГБ';
             }
             if (bytes >= 1000000) {
-                return (bytes / 1000000).toFixed(2) + ' MB';
+                return (bytes / 1000000).toFixed(2) + ' МБ';
             }
-            return (bytes / 1000).toFixed(2) + ' KB';
+            return (bytes / 1000).toFixed(2) + ' КБ';
         },
 
         _formatBitrate: function (bits) {
@@ -2403,13 +2403,13 @@ $.Widget.prototype = {
                 return '';
             }
             if (bits >= 1000000000) {
-                return (bits / 1000000000).toFixed(2) + ' Gbit/s';
+                return (bits / 1000000000).toFixed(2) + ' Гбит/с';
             }
             if (bits >= 1000000) {
-                return (bits / 1000000).toFixed(2) + ' Mbit/s';
+                return (bits / 1000000).toFixed(2) + ' Мбит/с';
             }
             if (bits >= 1000) {
-                return (bits / 1000).toFixed(2) + ' kbit/s';
+                return (bits / 1000).toFixed(2) + ' Кбит/с';
             }
             return bits + ' bit/s';
         },
