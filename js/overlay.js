@@ -80,12 +80,12 @@ Overlay = {
 					}]
 				},
 				add_data: {
-					cookie: $.cookie("sess")
+					cookie: $.cookie(Cookie.name)
 				},
 				url: '/api/create/user',
 				success: function(response) {
-					$.cookie("sess", null, {path: '/'});
-					$.cookie("sess", response.cookie, {path: '/',
+					$.cookie(Cookie.name, null, {path: '/'});
+					$.cookie(Cookie.name, response.cookie, {path: '/',
 						domain: document.location.host});
 					document.location.reload();
 				}
@@ -99,8 +99,8 @@ Overlay = {
 				},
 				url: '/api/read/cookie',
 				success: function(response) {
-					$.cookie("sess", null, {path: '/'});
-					$.cookie("sess", response.cookie, {path: '/',
+					$.cookie(Cookie.name, null, {path: '/'});
+					$.cookie(Cookie.name, response.cookie, {path: '/',
 						domain: document.location.host});
 					document.location.reload();
 				}

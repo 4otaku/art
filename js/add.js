@@ -150,7 +150,7 @@ OBJECT.add = function(id, values, events) {
 	if (User.name) {
 		if (User.gallery) {
 			this.child.with_gallery.find('a')
-				.attr('href', '?artist=' + User.gallery);
+				.attr('href', '/?artist=' + User.gallery);
 			this.child.with_gallery.show();
 		} else {
 			this.child.without_gallery.show();

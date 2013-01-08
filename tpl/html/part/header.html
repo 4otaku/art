@@ -107,8 +107,8 @@
 </div>
 <script type="text/javascript">
 	add('clickable', 'logout', function() {
-		$.cookie("sets", null);
-		$.cookie("sets", null, {path: '/',
+		$.cookie(Cookie.name, null, {path: '/'});
+		$.cookie(Cookie.name, null, {path: '/',
 			domain: '.' + document.location.host});
 		document.location.reload();
 	});

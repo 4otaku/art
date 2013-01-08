@@ -20,6 +20,9 @@
 				name: '{function="Config::get('user', 'login')"}',
 				gallery: '{function="Config::get('user', 'gallery')"}'
 			};
+			Cookie = {
+				name: '{function="Config::get('cookie', 'name')"}'
+			};
 		</script>
 		{loop="prefetch"}
 			<link rel="prefetch" href="{$value}" />
