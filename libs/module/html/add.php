@@ -44,7 +44,7 @@ class Module_Html_Add extends Module_Html_Abstract
 		}
 
 		if (!empty($parsed['manga']['is'])) {
-			$request[] = new Request('art_pack', $this,
+			$request[] = new Request('art_manga', $this,
 				['id' => $parsed['manga']['is']], 'recieve_manga');
 		}
 
