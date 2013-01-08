@@ -122,6 +122,8 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	public function recieve_data($data) {
 		if (!empty($data['data']['title'])) {
 			$this->search[0] .= $data['data']['title'];
+		} elseif (!empty($data['data']['artist'])) {
+			$this->search[0] .= $data['data']['artist'];
 		} else {
 			$this->search[0] .= '(не найдено)';
 		}

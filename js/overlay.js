@@ -80,13 +80,13 @@ Overlay = {
 					}]
 				},
 				add_data: {
-					cookie: $.cookie("sets")
+					cookie: $.cookie("sess")
 				},
 				url: '/api/create/user',
 				success: function(response) {
-					$.cookie("sets", response.cookie);
-					$.cookie("sets", response.cookie, {path: '/',
-						domain: '.' + document.location.host});
+					$.cookie("sess", null, {path: '/'});
+					$.cookie("sess", response.cookie, {path: '/',
+						domain: document.location.host});
 					document.location.reload();
 				}
 			});
@@ -99,9 +99,9 @@ Overlay = {
 				},
 				url: '/api/read/cookie',
 				success: function(response) {
-					$.cookie("sets", response.cookie);
-					$.cookie("sets", response.cookie, {path: '/',
-						domain: '.' + document.location.host});
+					$.cookie("sess", null, {path: '/'});
+					$.cookie("sess", response.cookie, {path: '/',
+						domain: document.location.host});
 					document.location.reload();
 				}
 			});
