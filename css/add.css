@@ -120,7 +120,7 @@
 
 .files .data_field textarea.autogrow-short {
 	resize: none;
-	height: 0;
+	height: 20px;
 }
 
 .tips_container {

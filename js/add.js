@@ -1,3 +1,8 @@
+$(window).bind('beforeunload', function(e) {
+	return $('.template-upload:not(.editing-disabled)').length ?
+		true: null;
+});
+
 OBJECT.upload = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
@@ -34,6 +39,7 @@ window.locale = {
 extend(OBJECT.upload, OBJECT.base, {
 	class_name: 'upload',
 	child_config: {
+		start: 'button.start',
 		add: 'button.add'
 	},
 	// Функция вынужденно скопирована почти целиком
@@ -129,6 +135,18 @@ extend(OBJECT.upload, OBJECT.base, {
 				this.message('add_all');
 			}
 		}
+	},
+	listen: {
+		file_number_changed: function(modificator){
+			modificator = modificator || 0;
+			if ($('.template-upload').length + modificator > 1) {
+				this.child.start.show();
+				this.child.add.show();
+			} else {
+				this.child.start.hide();
+				this.child.add.hide();
+			}
+		}
 	}
 });
 
@@ -161,6 +179,8 @@ OBJECT.add = function(id, values, events) {
 			e.preventDefault();
 		}).addClass('disabled');
 	}
+
+	this.message('file_number_changed');
 }
 
 extend(OBJECT.add, OBJECT.base, {
@@ -253,6 +273,7 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.show_panel.find('button').addClass('disabled').unbind('click').click(function(e){
 			e.preventDefault();
 		});
+		this.el.addClass('editing-disabled');
 	},
 	fix_name_length: function(name) {
 		this.submodule.packs.set_default_filename(name);
@@ -332,12 +353,16 @@ extend(OBJECT.add, OBJECT.base, {
 				}
 				if (this.uploaded) {
 					this.el.remove();
+					this.message('file_number_changed');
+				} else {
+					this.message('file_number_changed', -1);
 				}
 			}
 		},
 		remove: {
 			click: function(e) {
 				this.el.remove();
+				this.message('file_number_changed');
 			}
 		},
 		show: {
