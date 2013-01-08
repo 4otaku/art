@@ -22,6 +22,8 @@ class Session
 
 	private function __construct()
 	{
+		$this->name = Config::get('cookie', 'name', $this->name);
+
 		// Удалим все левые куки, нечего захламлять пространство
 		foreach ($_COOKIE as $key => $cook) {
 			if ($key != $this->name) {

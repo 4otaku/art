@@ -38,9 +38,9 @@
 	<div class="sidebar_row">
 		Состояние:
 		{if condition="in_array('unapproved', $state)"}
-			<a href="/?approved=waiting">на премодерации</a>.
+			<a href="/?approved=waiting&tagged=all">на премодерации</a>.
 		{elseif condition="in_array('disapproved', $state)"}
-			<a href="/?approved=waiting">в барахолке</a>.
+			<a href="/?approved=no&tagged=all">в барахолке</a>.
 		{else}
 			{if condition="in_array('tagged', $state)"}
 				<a href="/">в основном списке</a>.

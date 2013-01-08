@@ -3,13 +3,19 @@
 class Module_Ajax_Upload extends Module_Ajax_Json
 {
 	const
-		LOW_WIDTH = 800,
-		LOW_HEIGHT = 600,
+		LOW_WIDTH = 480,
+		LOW_HEIGHT = 640,
 		LOW_RES = 'lowres',
-		HIGH_WIDTH = 1920,
-		HIGH_HEIGHT = 1080,
+		HIGH_WIDTH = 1600,
+		HIGH_HEIGHT = 1200,
 		HIGH_RES = 'highres',
-		WALLPAPER = 'wallpaper';
+		ABSURD_WIDTH = 3200,
+		ABSURD_HEIGHT = 2400,
+		ABSURD_RES = 'absurdres',
+		WALLPAPER = 'wallpaper',
+		ANIMATED = 'animated',
+		ANIMATED_GIF = 'animated_gif',
+		ANIMATED_PNG = 'animated_png';
 
 	protected static $wallpaper_sizes = [
 		[1152,864], [1280,960], [1400,1050],
@@ -61,8 +67,8 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 					'size' => $item['weight'],
 					'url' => Config::get('api', 'image_url') . $item['image'],
 					'thumbnail_url' => Config::get('api', 'image_url') . $item['thumbnail'],
-					'id_upload' => $item['id_upload'],
-					'tags' => $this->get_size_tags($item['width'], $item['height'])
+					'upload_key' => $item['upload_key'],
+					'tags' => $this->get_auto_tags($item)
 				];
 			} else {
 				$this->data[] = [
@@ -71,7 +77,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 				];
 			}
 		}
-sleep(5);
+
 		return false;
 	}
 
@@ -79,17 +85,31 @@ sleep(5);
 		return json_encode($this->data);
 	}
 
-	protected function get_size_tags($width, $height) {
+	protected function get_auto_tags($data) {
 		$return = [];
 
+		$width = $data['width'];
+		$height = $data['height'];
 		if (in_array([$width, $height], self::$wallpaper_sizes)) {
 			$return[] = self::WALLPAPER;
 		}
 		if ($width < self::LOW_WIDTH && $height < self::LOW_HEIGHT) {
 			$return[] = self::LOW_RES;
 		}
-		if ($width >= self::HIGH_WIDTH && $height >= self::HIGH_HEIGHT) {
+		if ($width >= self::ABSURD_WIDTH && $height >= self::ABSURD_HEIGHT) {
+			$return[] = self::ABSURD_RES;
+		} elseif ($width >= self::HIGH_WIDTH && $height >= self::HIGH_HEIGHT) {
 			$return[] = self::HIGH_RES;
+		}
+
+		if ($data['animated']) {
+			$return[] = self::ANIMATED;
+			if ($data['extension'] == 'gif') {
+				$return[] = self::ANIMATED_GIF;
+			}
+			if ($data['extension'] == 'png') {
+				$return[] = self::ANIMATED_PNG;
+			}
 		}
 
 		return $return;

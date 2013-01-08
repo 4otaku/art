@@ -158,7 +158,7 @@ OBJECT.add = function(id, values, events) {
 
 extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
-	id_upload: false,
+	upload_key: false,
 	uploaded: false,
 	add_pending: false,
 	submodule_config: {
@@ -178,7 +178,8 @@ extend(OBJECT.add, OBJECT.base, {
 		error: 'div.error .label',
 		upload: 'div.start button',
 		add: 'div.add button',
-		cancel: 'div.cancel button',
+		cancel: 'div.cancel button.delete',
+		remove: 'div.cancel button.remove',
 		data: 'div.data_active',
 		source: 'div.data_active .source',
 		hide: 'div.data_active .hide_data',
@@ -191,7 +192,7 @@ extend(OBJECT.add, OBJECT.base, {
 		approved: 'div.data_active .approved'
 	},
 	process_success: function(data) {
-		this.id_upload = data.id_upload;
+		this.upload_key = data.upload_key;
 
 		this.child.preview.html('<img src="'+data.thumbnail_url+'" />');
 		var name = this.fix_name_length(data.name);
@@ -218,19 +219,32 @@ extend(OBJECT.add, OBJECT.base, {
 		} else if (data.code == 540) {
 			this.child.error.html(locale.fileupload.errors.serverError);
 		} else {
-			this.child.error.html(data.error);
+			this.child.error.html('Неизвестная ошибка');
 		}
 
 		this.child.add_wrapper.html('&nbsp;');
 		this.child.upload_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.hide();
-		this.child.error_wrapper.removeClass('hidden');
+		this.child.error_wrapper.show();
+		this.child.cancel.hide();
+		this.child.remove.show();
+
+		this.disable_edit();
 	},
 	translate_size: function () {
 		var size = this.child.size.html();
 		size = size.replace('GB', 'Гб')
 			.replace('MB', 'Мб').replace('KB', 'Кб');
 		this.child.size.html(size);
+	},
+	disable_edit: function() {
+		this.child.data.find(':input').addClass('disabled').attr('readonly', true);
+		this.child.data.find('button').addClass('disabled').unbind('click').click(function(e){
+			e.preventDefault();
+		});
+		this.child.show_panel.find('button').addClass('disabled').unbind('click').click(function(e){
+			e.preventDefault();
+		});
 	},
 	fix_name_length: function(name) {
 		this.submodule.packs.set_default_filename(name);
@@ -264,7 +278,7 @@ extend(OBJECT.add, OBJECT.base, {
 				this.child.progress_wrapper.addClass('progress-adding');
 
 				var data = {
-					id_upload: this.id_upload,
+					upload_key: this.upload_key,
 					tag: this.submodule.tags.get_terms(),
 					source: this.child.source.val(),
 					group: this.submodule.groups.get_terms(),
@@ -275,7 +289,28 @@ extend(OBJECT.add, OBJECT.base, {
 				};
 
 				Ajax.perform('/ajax/create', data, function(response) {
-					console.log(response);
+					this.child.cancel.hide();
+					this.child.add.hide();
+					this.child.remove.show();
+					this.child.progress_wrapper.removeClass('progress-adding');
+
+					if (response.errors) {
+						this.process_error({
+							code: response.errors[0].code,
+							error: response.errors[0].message
+						});
+						return;
+					}
+					if (!response.id) {
+						this.process_error({code: 540, error: ''});
+						return;
+					}
+
+					this.child.progress_wrapper.removeClass('progress-successful');
+					this.child.progress_wrapper.html('<a href="/' +
+						response.id + '" target="_blank">Успешно добавлено</a>');
+					this.disable_edit();
+
 				}, this);
 			}
 		},
@@ -291,6 +326,11 @@ extend(OBJECT.add, OBJECT.base, {
 				if (this.uploaded) {
 					this.el.remove();
 				}
+			}
+		},
+		remove: {
+			click: function(e) {
+				this.el.remove();
 			}
 		},
 		show: {
@@ -405,7 +445,7 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 		var ret = [];
 		this.child.selected.find('.pool').each(function(){
 			var name = $(this).find('.filename').val() || this.filename;
-			ret.push({id: $(this).data('id'), name: name});
+			ret.push({id: $(this).data('id'), filename: name});
 		});
 		return ret;
 	},

@@ -87,6 +87,17 @@
 	margin-bottom: 5px;
 }
 
+.files .selected .pool div {
+	cursor: default;
+}
+
+.files .selected .pool div:hover {
+	background-color: inherit;
+	background-position: inherit;
+	color: inherit;
+	transition: none;
+}
+
 .files .selected .filename {
 	float: right;
 	width: 40%;

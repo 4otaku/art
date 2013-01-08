@@ -9,10 +9,15 @@ class Request
 	protected $binded = array();
 
 	protected $requests = array();
+	protected $change = array();
 
-	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data') {
-		if ($api && $object && is_callable(array($object, $method))) {
+	public function __construct($api = false, $object = false, $data = array(), $method = 'recieve_data')
+	{
+		if ($api) {
 			$this->api = (string) $api;
+		}
+
+		if ($object && is_callable(array($object, $method))) {
 			$this->data = (array) $data;
 			$this->hash = md5($this->api . serialize($this->data));
 
@@ -20,7 +25,8 @@ class Request
 		}
 	}
 
-	public function add($request) {
+	public function add($request)
+	{
 		if (empty($request) ||!($request instanceOf Request)) {
 			return;
 		}
@@ -28,19 +34,24 @@ class Request
 		$hash = $request->get_hash();
 		$new_requests = $request->extract_children();
 
-		if ($this->get_hash() == $hash) {
-			foreach ($request->get_binded() as $object) {
-				$this->bind($object);
-			}
-			unset($request);
+		if ($request instanceOf Request_Change) {
+			// Change requests can not be bundled and must be performed before all others
+			$this->change[] = $request;
 		} else {
-			if (isset($this->requests[$hash])) {
-				foreach ($request->get_binded() as $callback) {
-					$this->requests[$hash]->bind($callback);
+			if ($this->get_hash() == $hash) {
+				foreach ($request->get_binded() as $object) {
+					$this->bind($object);
 				}
 				unset($request);
 			} else {
-				$this->requests[$hash] = $request;
+				if (isset($this->requests[$hash])) {
+					foreach ($request->get_binded() as $callback) {
+						$this->requests[$hash]->bind($callback);
+					}
+					unset($request);
+				} else {
+					$this->requests[$hash] = $request;
+				}
 			}
 		}
 
@@ -49,8 +60,15 @@ class Request
 		}
 	}
 
-	public function perform() {
-		$request = new Request();
+	public function perform()
+	{
+		// Perform all change requests separately
+		foreach ($this->change as $request) {
+			$request->do_request($request->get_data());
+		}
+
+		// Then bulk-perform all read requests
+		$request = new Request('read_multi');
 		$request->add($this);
 
 		$data = $request->prepare();
@@ -59,11 +77,17 @@ class Request
 			return;
 		}
 
+		$request->do_request($data);
+	}
+
+	protected function do_request($data)
+	{
 		$url = Config::get('api', 'url');
+		$api = $this->get_api();
 
 		if (!empty($url)) {
 
-			$url .= '/read/multi';
+			$url .= '/' . str_replace('_', '/', $api);
 
 			if (function_exists('igbinary_serialize')) {
 				$data['format'] = 'igbinary';
@@ -87,15 +111,18 @@ class Request
 				$response = json_decode($response, true);
 			}
 		} else {
+			$class = 'Api_' . implode('_',
+				array_map('ucfirst', explode('_', $api)));
 			$api_request = new Api_Request_Inner($data);
-			$worker = new Api_Read_Multi($api_request);
+			$worker = new $class($api_request);
 			$response = $worker->process_request()->get_response();
 		}
 
-		$request->process_response($response);
+		$this->process_response($response);
 	}
 
-	public function process_response($response) {
+	protected function process_response($response)
+	{
 		foreach ($response as $hash => $data) {
 			if (isset($this->requests[$hash])) {
 				$this->requests[$hash]->pass_data($data);
@@ -104,7 +131,8 @@ class Request
 		}
 	}
 
-	public function prepare() {
+	public function prepare()
+	{
 		$return = array();
 		foreach ($this->requests as $request) {
 			$data = $request->get_data();
@@ -115,7 +143,8 @@ class Request
 		return $return;
 	}
 
-	public function bind($callback) {
+	public function bind($callback)
+	{
 		foreach ($this->binded as $binded) {
 			if ($binded === $callback) {
 				return;
@@ -125,29 +154,37 @@ class Request
 		$this->binded[] = $callback;
 	}
 
-	public function get_hash() {
+	public function get_hash()
+	{
 		return $this->hash;
 	}
 
-	public function get_api() {
+	public function get_api()
+	{
 		return $this->api;
 	}
 
-	public function get_data() {
+	public function get_data()
+	{
 		return $this->data;
 	}
 
-	public function get_binded() {
+	public function get_binded()
+	{
 		return $this->binded;
 	}
 
-	public function extract_children() {
-		$children = $this->requests;
+	public function extract_children()
+	{
+		$children = array_merge(array_values($this->requests),
+			array_values($this->change));
 		$this->requests = array();
+		$this->change = array();
 		return $children;
 	}
 
-	public function pass_data($data) {
+	public function pass_data($data)
+	{
 		foreach ($this->binded as $callback) {
 			$object = $callback[0];
 			$method = $callback[1];

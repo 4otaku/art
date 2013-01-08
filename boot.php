@@ -23,7 +23,8 @@ if ($domain && $domain != $_SERVER['SERVER_NAME']) {
 $session = Session::get_instance();
 Config::add($session->get_data());
 
-$query = new Query($_SERVER['REQUEST_URI'], $_GET);
+$query = new Query($_SERVER['REQUEST_URI'],
+	array_replace($_POST, $_GET));
 unset ($_GET, $_POST);
 
 RainTPL::configure('tpl_dir', TPL . SL);
