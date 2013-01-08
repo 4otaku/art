@@ -140,6 +140,13 @@ OBJECT.add = function(id, values, events) {
 	this.child.name.html(
 		this.fix_name_length(this.child.name.html()));
 
+	if (this.child.error.is(':visible')) {
+		this.disable_edit();
+		this.child.data.hide();
+		this.child.show_panel.hide();
+		return;
+	}
+
 	if (User.name) {
 		if (User.gallery) {
 			this.child.with_gallery.find('a')
@@ -226,8 +233,6 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.upload_wrapper.html('&nbsp;');
 		this.child.progress_wrapper.hide();
 		this.child.error_wrapper.show();
-		this.child.cancel.hide();
-		this.child.remove.show();
 
 		this.disable_edit();
 	},
@@ -238,6 +243,9 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.size.html(size);
 	},
 	disable_edit: function() {
+		this.child.cancel.hide();
+		this.child.remove.show();
+
 		this.child.data.find(':input').addClass('disabled').attr('readonly', true);
 		this.child.data.find('button').addClass('disabled').unbind('click').click(function(e){
 			e.preventDefault();
@@ -253,7 +261,8 @@ extend(OBJECT.add, OBJECT.base, {
 			return name;
 		}
 
-		var ext = name.match(/\.[a-z\d]{1,5}$/i)[0] || '';
+		var match = name.match(/\.[a-z\d]{1,5}$/i);
+		var ext = match ? match[0] : '';
 		var part_length = Math.floor((18 - ext.length) / 2);
 		name = name.substr(0, name.length - ext.length);
 		return name.substr(0, part_length) +
@@ -289,9 +298,7 @@ extend(OBJECT.add, OBJECT.base, {
 				};
 
 				Ajax.perform('/ajax/create', data, function(response) {
-					this.child.cancel.hide();
 					this.child.add.hide();
-					this.child.remove.show();
 					this.child.progress_wrapper.removeClass('progress-adding');
 
 					if (response.errors) {
