@@ -157,7 +157,7 @@ OBJECT.add = function(id, values, events) {
 		}
 	} else {
 		this.child.show_artist.attr('title', 'Чтобы добавить арт в свою галерею необходимо залогиниться.');
-		this.child.show_artist.click(function(e){
+		this.child.show_artist.unbind('click').click(function(e){
 			e.preventDefault();
 		}).addClass('disabled');
 	}
