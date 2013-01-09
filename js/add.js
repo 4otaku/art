@@ -139,7 +139,8 @@ extend(OBJECT.upload, OBJECT.base, {
 	listen: {
 		file_number_changed: function(modificator){
 			modificator = modificator || 0;
-			if ($('.template-upload').length + modificator > 1) {
+			var count = $('.template-upload:not(.editing-disabled)').length;
+			if (count + modificator > 1) {
 				this.child.start.show();
 				this.child.add.show();
 			} else {
