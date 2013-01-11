@@ -123,6 +123,17 @@
 	height: 20px;
 }
 
+.files .data_active .input-done {
+	border-color: #CCCCCC #EEEEEE #EEEEEE #CCCCCC !important;
+	border-style: solid !important;
+	border-width: 1px !important;
+	padding: 3px !important;
+}
+
+.files .data_active .input-done.filename {
+	margin-right: 38px;
+}
+
 .tips_container {
 	position: relative;
 	margin: 0 32px 0 80px;

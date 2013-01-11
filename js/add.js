@@ -267,13 +267,14 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.cancel.hide();
 		this.child.remove.show();
 
-		this.child.data.find(':input').addClass('disabled').attr('readonly', true);
-		this.child.data.find('button').addClass('disabled').unbind('click').click(function(e){
-			e.preventDefault();
-		});
-		this.child.show_panel.find('button').addClass('disabled').unbind('click').click(function(e){
-			e.preventDefault();
-		});
+		this.child.source.replaceWith($('<div/>').
+			addClass('input-done').text(this.child.source.val()));
+		this.submodule.tags.disable();
+		this.submodule.groups.disable();
+		this.submodule.packs.disable();
+		this.submodule.manga.disable();
+		this.child.data.find('button').hide();
+		this.child.show_panel.hide();
 		this.el.addClass('editing-disabled');
 	},
 	fix_name_length: function(name) {
@@ -419,6 +420,11 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 		field: '.tags',
 		tip: '.tips'
 	},
+	disable: function() {
+		this.child.field.replaceWith($('<div/>').
+			addClass('input-done').text(this.child.field.val()));
+		this.child.tip.hide();
+	},
 	add_tags: function(tags) {
 		var current = this.get_terms(),
 			prepend = '';
@@ -454,6 +460,10 @@ extend(OBJECT.add_pools, OBJECT.pool_tip, {
 		field: '.text',
 		tip: '.tips',
 		selected: '.selected'
+	},
+	disable: function() {
+		this.child.field.hide();
+		this.child.tip.hide();
 	}
 });
 
@@ -474,6 +484,13 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 	class_name: 'add_packs',
 	address: 'tip_pack',
 	filename: '',
+	disable: function() {
+		this.get_super().disable.call(this);
+		$.each(this.child.selected.find('.filename'), function(){
+			$(this).replaceWith($('<div/>').addClass('filename').
+				addClass('input-done').text($(this).val()));
+		});
+	},
 	get_terms: function() {
 		var ret = [];
 		this.child.selected.find('.pool').each(function(){
