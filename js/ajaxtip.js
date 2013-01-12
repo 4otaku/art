@@ -7,9 +7,10 @@ OBJECT.ajax_tip = function(id, values, events) {
 extend(OBJECT.ajax_tip, OBJECT.base, {
 	class_name: 'ajax_tip',
 	address: '',
-	current_tip_request: '',
+	current_tip_request: null,
 	postfix: ' ',
 	max_tip_length: 30,
+	minimum_term_length: 1,
 	child_config: {
 		field: '',
 		tip: ''
@@ -85,7 +86,9 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 			val.slice(end, val.length)).caretTo(start + data.term.length);
 	},
 	do_request: function(term) {
-		if (term.length && this.current_tip_request != term) {
+		if (term.length >= this.minimum_term_length
+			&& this.current_tip_request !== term) {
+
 			this.current_tip_request = term;
 			Ajax.get('/ajax/' + this.address, {term: term}, function(response) {
 				if (response.success && response.query == this.current_tip_request) {
@@ -114,17 +117,16 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 	},
 	events: {
 		field: {
+			focus: function(e) {
+				var term = this.get_current();
+				this.do_request(term);
+			},
 			keyup: function(e) {
 				if (e.which == 40 || e.which == 38 || e.which == 13) {
 					return;
 				}
 
 				var term = this.get_current();
-				if (term.length == 0) {
-					this.current_tip_request = '';
-					return;
-				}
-
 				this.do_request(term);
 			},
 			keydown: function(e) {

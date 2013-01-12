@@ -416,6 +416,7 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 	class_name: 'add_tags',
 	address: 'tip_tag',
 	max_tip_length: 120,
+	minimum_term_length: 0,
 	child_config: {
 		field: '.tags',
 		tip: '.tips'
@@ -456,6 +457,7 @@ OBJECT.add_pools = function(id, values, events) {
 extend(OBJECT.add_pools, OBJECT.pool_tip, {
 	class_name: 'add_pool',
 	max_tip_length: 120,
+	minimum_term_length: 0,
 	child_config: {
 		field: '.text',
 		tip: '.tips',
