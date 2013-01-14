@@ -36,14 +36,15 @@ Overlay = {
 		}, this));
 	},
 
-	html: function (html, class_name, top) {
+	html: function (html, width, class_name, top) {
+		width = width || 'auto';
 		class_name = class_name || 'box';
 		top = top || 80;
 
 		$(".overlay").remove();
 
-		var div = $('<div/>').addClass('overlay').html(html)
-			.addClass('overlay_' + class_name).appendTo('body');
+		var div = $('<div/>').css('width', width).addClass('overlay')
+			.html(html).addClass('overlay_' + class_name).appendTo('body');
 
 		div.overlay({
 			top: top,

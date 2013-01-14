@@ -1,0 +1,22 @@
+.help_static {
+	border: 3px dashed #008b8b;
+	border-radius: 20px;
+	background-color: #ffffe0;
+	padding: 10px;
+	margin: 10px;
+}
+
+.help_static p {
+	text-indent: 0.5em;
+	text-align: justify;
+}
+
+.add_form {
+	position: relative;
+}
+
+.help_show {
+	position: absolute;
+	top: 0;
+	right: 0;
+}

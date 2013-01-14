@@ -1,3 +1,15 @@
+window.locale = {
+	fileupload: {
+		errors: {
+			maxFileSize: "Слишком большой файл",
+			acceptFileTypes: "Файл не является корректным изображением gif/jpg/png",
+			uploadedBytes: "Ошибка загрузки",
+			emptyResult: "Сервер не отвечает",
+			serverError: "Сбой сервера"
+		}
+	}
+};
+
 $(window).bind('beforeunload', function(e) {
 	return $('.template-upload:not(.editing-disabled)').length ?
 		true: null;
@@ -23,18 +35,6 @@ OBJECT.upload = function(id, values, events) {
 
 	this.el.data('object', this);
 }
-
-window.locale = {
-	fileupload: {
-		errors: {
-			maxFileSize: "Слишком большой файл",
-			acceptFileTypes: "Файл не является корректным изображением gif/jpg/png",
-			uploadedBytes: "Ошибка загрузки",
-			emptyResult: "Сервер не отвечает",
-			serverError: "Сбой сервера"
-		}
-	}
-};
 
 extend(OBJECT.upload, OBJECT.base, {
 	class_name: 'upload',
