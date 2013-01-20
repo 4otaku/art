@@ -10,6 +10,7 @@ class Module_Ajax_Create extends Module_Ajax_Json
 			'upload_key' => (string) $query->get('upload_key'),
 			'tag' => array_filter((array) $query->get('tag')),
 			'source' => (string) $query->get('source'),
+			'comment' => (string) $query->get('comment'),
 			'group' => $this->parse_groups($query->get('group')),
 			'pack' => (array) $query->get('pack'),
 			'manga' => $this->parse_groups($query->get('manga')),

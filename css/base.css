@@ -19,7 +19,7 @@ body {
 	padding: 20px 10px 10px 10px;
 }
 
-a {
+a, .pseudolink {
 	color: #42A3B9;
 	cursor:pointer;
 }

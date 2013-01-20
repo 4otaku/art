@@ -283,3 +283,17 @@ extend(OBJECT.clickable, OBJECT.base, {
 		}
 	}
 });
+
+OBJECT.bb = function(id, values) {
+	OBJECT.base.call(this, id, values);
+
+	var text = this.el.html();
+
+	text = $('<textarea/>').val(text).wysibb().getHTML();
+
+	this.el.html(text);
+}
+
+extend(OBJECT.bb, OBJECT.base, {
+	class_name: 'bb'
+});

@@ -3,197 +3,222 @@
 </script>
 <script id="template-upload" type="text/x-tmpl">
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
-	<div class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
-		<div class="preview left"><span class="fade"></span></div>
-		<div class="name left"><span title="{%=file.name%}">{%=file.name%}</span></div>
+		<div class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
 
-		<div class="cancel right">
-			{% if (!i) { %}
-			<button class="btn btn-danger delete">
-				<i class="icon-ban-circle icon-white"></i>
-				<span>Удалить</span>
-			</button>
-			<button class="btn btn-inverse hidden remove">
-				<i class="icon-ban-circle icon-white"></i>
-				<span>Скрыть</span>
-			</button>
-			{% } %}
-		</div>
-		<div class="add right">
-			{% if (o.files.valid && !i) { %}
-			<button class="btn btn-primary">
-				<i class="icon-upload icon-white"></i>
-				<span>Добавить</span>
-			</button>
-			{% } else { %}
-			&nbsp;
-			{% } %}
-		</div>
-		<div class="start right">
-			{% if (o.files.valid && !i) { %}
-			<button class="btn btn-warning">
-				<i class="icon-upload icon-white"></i>
-				<span>Закачать</span>
-			</button>
-			{% } else { %}
-			&nbsp;
-			{% } %}
-		</div>
-		<div class="progress-bar right">
-			{% if (o.files.valid && !i) { %}
-			<div class="progress progress-success progress-striped active"
-			     role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-				<div class="bar" style="width:0%;"></div>
-			</div>
-			{% } %}
-		</div>
-		<div class="error {% if (!file.error) { %}hidden{% } %} right">
-			<span class="label label-important">
-				{% if (file.error) { %}
-					{%=locale.fileupload.errors[file.error] || file.error%}
+			<div class="preview left"><span class="fade"></span></div>
+			<div class="name left"><span title="{%=file.name%}">{%=file.name%}</span></div>
+
+			<div class="cancel right">
+				{% if (!i) { %}
+					<button class="btn btn-danger delete">
+						<i class="icon-ban-circle icon-white"></i>
+						<span>Удалить</span>
+					</button>
+					<button class="btn btn-inverse hidden remove">
+						<i class="icon-ban-circle icon-white"></i>
+						<span>Скрыть</span>
+					</button>
 				{% } %}
-			</span>
-		</div>
-		<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
-		<div class="data_active">
-			<div class="data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
-				<div class="data_name">Теги:</div>
-				<div class="data_field with_input">
-					<textarea class="textinput tags autogrow-short">&#8203;{$tags}</textarea>
+			</div>
+
+			<div class="add right">
+				{% if (o.files.valid && !i) { %}
+					<button class="btn btn-primary">
+						<i class="icon-upload icon-white"></i>
+						<span>Добавить</span>
+					</button>
+				{% } else { %}
+					&nbsp;
+				{% } %}
+			</div>
+
+			<div class="start right">
+				{% if (o.files.valid && !i) { %}
+					<button class="btn btn-warning">
+						<i class="icon-upload icon-white"></i>
+						<span>Закачать</span>
+					</button>
+				{% } else { %}
+					&nbsp;
+				{% } %}
+			</div>
+
+			<div class="progress-bar right">
+				{% if (o.files.valid && !i) { %}
+					<div class="progress progress-success progress-striped active"
+					     role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+						<div class="bar" style="width:0%;"></div>
+					</div>
+				{% } %}
+			</div>
+
+			<div class="error {% if (!file.error) { %}hidden{% } %} right">
+				<span class="label label-important">
+					{% if (file.error) { %}
+						{%=locale.fileupload.errors[file.error] || file.error%}
+					{% } %}
+				</span>
+			</div>
+
+			<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
+
+			<div class="data_active">
+
+				<div class="data_block" id="add_tags_{%=(UPLOAD_UNITS_COUNT)%}">
+					<div class="data_name">Теги:</div>
+					<div class="data_field with_input">
+						<textarea class="textinput tags autogrow-short">&#8203;{$tags}</textarea>
+					</div>
+					<div class="tips_container"><div class="tips"></div></div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
 				</div>
-				<div class="tips_container"><div class="tips"></div></div>
-				<button type="button" class="btn btn-small hide_data">
-					<i class="icon-minus"></i>
+
+				<div class="hidden data_block">
+					<div class="data_name">Источник:</div>
+					<div class="data_field with_input">
+						<input type="text" class="textinput source" />
+					</div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
+				</div>
+
+				<div class="{if="!$have_groups"}hidden {/if}data_block" id="add_groups_{%=(UPLOAD_UNITS_COUNT)%}">
+					<div class="data_name">В группы:</div>
+					<div class="selected">
+						{loop="groups"}
+							<div class="pool" data-id="{$value.id}">
+								<div class="btn btn-small">{$value.title}</div>
+								<button class="btn btn-small"><i class="icon-minus"></i></button>
+							</div>
+						{/loop}
+					</div>
+					<div class="relative">
+						<div class="data_field with_input">
+							<input type="text" class="textinput text" />
+						</div>
+						<div class="tips_container"><div class="tips"></div></div>
+						<button type="button" class="btn btn-small hide_data">
+							<i class="icon-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="{if="!$have_packs"}hidden {/if}data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
+					<div class="data_name">В CG-паки:</div>
+					<div class="selected">
+						{loop="packs"}
+							<div class="pool" data-id="{$value.id}">
+								<div class="btn btn-small">{$value.title}</div>
+								<button class="btn btn-small"><i class="icon-minus"></i></button>
+								<input type="text" class="filename textinput">
+							</div>
+						{/loop}
+					</div>
+					<div class="relative">
+						<div class="data_field with_input">
+							<input type="text" class="textinput text" />
+						</div>
+						<div class="tips_container"><div class="tips"></div></div>
+						<button type="button" class="btn btn-small hide_data">
+							<i class="icon-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="{if="!$have_manga"}hidden {/if}data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
+					<div class="data_name">В мангу:</div>
+					<div class="selected">
+						{loop="manga"}
+							<div class="pool" data-id="{$value.id}">
+								<div class="btn btn-small">{$value.title}</div>
+								<button class="btn btn-small"><i class="icon-minus"></i></button>
+							</div>
+						{/loop}
+					</div>
+					<div class="relative">
+						<div class="data_field with_input">
+							<input type="text" class="textinput text" />
+						</div>
+						<div class="tips_container"><div class="tips"></div></div>
+						<button type="button" class="btn btn-small hide_data">
+							<i class="icon-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="hidden data_block artist">
+					<div>
+						<span class="hidden with_gallery">
+							Вы указали, что являетесь автором данного изображения.
+							Оно будет присоединено к вашей <a href="#" target="_blank">личной галерее</a>.
+						</span>
+						<span class="hidden without_gallery">
+							Вы указали, что являетесь автором данного изображения.
+							Будет создана ваша личная галерея, и арт будет помещен туда.
+						</span>
+					</div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
+				</div>
+				<div class="hidden data_block comment" id="add_comment_{%=(UPLOAD_UNITS_COUNT)%}">
+					<div class="data_name">Комментарий:</div>
+					<div class="relative">
+						<div class="data_field">
+							<textarea class="comment_text" rows="10"></textarea>
+						</div>
+					</div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
+				</div>
+				<div class="hidden data_block approved">
+					<div>
+						Арт получит ваше модераторское одобрение сразу при добавлении.
+					</div>
+					<button type="button" class="btn btn-small hide_data">
+						<i class="icon-minus"></i>
+					</button>
+				</div>
+			</div>
+			<div class="data_passive">
+				<button type="button" class="btn btn-small show_data hidden"
+				        title="Проставить теги для этого арта.">
+					<i class="icon-plus"></i> Теги
 				</button>
-			</div>
-			<div class="hidden data_block">
-				<div class="data_name">Источник:</div>
-				<div class="data_field with_input">
-					<input type="text" class="textinput source" />
-				</div>
-				<button type="button" class="btn btn-small hide_data">
-					<i class="icon-minus"></i>
+				<button type="button" class="btn btn-small show_data"
+				        title="Указать ссылку на источник, откуда вы взяли этот арт.">
+					<i class="icon-plus"></i> Источник
 				</button>
-			</div>
-			<div class="{if="!$have_groups"}hidden {/if}data_block" id="add_groups_{%=(UPLOAD_UNITS_COUNT)%}">
-			<div class="data_name">В группы:</div>
-			<div class="selected">
-				{loop="groups"}
-				<div class="pool" data-id="{$value.id}">
-					<div class="btn btn-small">{$value.title}</div>
-					<button class="btn btn-small"><i class="icon-minus"></i></button>
-				</div>
-				{/loop}
-			</div>
-			<div class="relative">
-				<div class="data_field with_input">
-					<input type="text" class="textinput text" />
-				</div>
-				<div class="tips_container"><div class="tips"></div></div>
-				<button type="button" class="btn btn-small hide_data">
-					<i class="icon-minus"></i>
+				<button type="button" class="btn btn-small show_data{if="$have_groups"} hidden{/if}"
+				title="Добавить арт в одну или несколько групп.">
+				<i class="icon-plus"></i> В группы
 				</button>
+				<button type="button" class="btn btn-small show_data{if="$have_packs"} hidden{/if}"
+				title="Добавить арт в один или несколько CG-паков.">
+				<i class="icon-plus"></i> В CG-паки
+				</button>
+				<button type="button" class="btn btn-small show_data{if="$have_manga"} hidden{/if}"
+				title="Добавить арт в одну мангу или в несколько.">
+				<i class="icon-plus"></i> В мангу
+				</button>
+				<button type="button" class="btn btn-small show_data show_artist"
+				        title="Добавить этот арт в вашу личную галерею художника.">
+					<i class="icon-plus"></i> Я нарисовал
+				</button>
+				<button type="button" class="btn btn-small show_data show_artist"
+				        title="Добавить комментарий оставленный автором изображения.">
+					<i class="icon-plus"></i> Комментарий автора
+				</button>
+				{if="Session::is_moderator()"}
+				<button type="button" class="btn btn-small show_data"
+				        title="Сразу дать этому арту ваше одобрение модератора.">
+					<i class="icon-plus"></i> Одобрить
+				</button>
+				{/if}
 			</div>
+			<div class="clear"></div>
 		</div>
-		<div class="{if="!$have_packs"}hidden {/if}data_block" id="add_packs_{%=(UPLOAD_UNITS_COUNT)%}">
-		<div class="data_name">В CG-паки:</div>
-		<div class="selected">
-			{loop="packs"}
-			<div class="pool" data-id="{$value.id}">
-				<div class="btn btn-small">{$value.title}</div>
-				<button class="btn btn-small"><i class="icon-minus"></i></button>
-				<input type="text" class="filename textinput">
-			</div>
-			{/loop}
-		</div>
-		<div class="relative">
-			<div class="data_field with_input">
-				<input type="text" class="textinput text" />
-			</div>
-			<div class="tips_container"><div class="tips"></div></div>
-			<button type="button" class="btn btn-small hide_data">
-				<i class="icon-minus"></i>
-			</button>
-		</div>
-	</div>
-	<div class="{if="!$have_manga"}hidden {/if}data_block" id="add_manga_{%=(UPLOAD_UNITS_COUNT)%}">
-	<div class="data_name">В мангу:</div>
-	<div class="selected">
-		{loop="manga"}
-		<div class="pool" data-id="{$value.id}">
-			<div class="btn btn-small">{$value.title}</div>
-			<button class="btn btn-small"><i class="icon-minus"></i></button>
-		</div>
-		{/loop}
-	</div>
-	<div class="relative">
-		<div class="data_field with_input">
-			<input type="text" class="textinput text" />
-		</div>
-		<div class="tips_container"><div class="tips"></div></div>
-		<button type="button" class="btn btn-small hide_data">
-			<i class="icon-minus"></i>
-		</button>
-	</div>
-	</div>
-	<div class="hidden data_block artist">
-		<div>
-					<span class="hidden with_gallery">
-						Вы указали, что являетесь автором данного изображения.
-						Оно будет присоединено к вашей <a href="#" target="_blank">личной галерее</a>.
-					</span>
-					<span class="hidden without_gallery">
-						Вы указали, что являетесь автором данного изображения.
-						Будет создана ваша личная галерея, и арт будет помещен туда.
-					</span>
-		</div>
-		<button type="button" class="btn btn-small hide_data">
-			<i class="icon-minus"></i>
-		</button>
-	</div>
-	<div class="hidden data_block approved">
-		<div>
-			Арт получит ваше модераторское одобрение сразу при добавлении.
-		</div>
-		<button type="button" class="btn btn-small hide_data">
-			<i class="icon-minus"></i>
-		</button>
-	</div>
-	</div>
-	<div class="data_passive">
-		<button type="button" class="btn btn-small show_data hidden"
-		        title="Проставить теги для этого арта.">
-			<i class="icon-plus"></i> Теги
-		</button>
-		<button type="button" class="btn btn-small show_data"
-		        title="Указать ссылку на источник, откуда вы взяли этот арт.">
-			<i class="icon-plus"></i> Источник
-		</button>
-		<button type="button" class="btn btn-small show_data{if="$have_groups"} hidden{/if}"
-		title="Добавить арт в одну или несколько групп.">
-		<i class="icon-plus"></i> В группы
-		</button>
-		<button type="button" class="btn btn-small show_data{if="$have_packs"} hidden{/if}"
-		title="Добавить арт в один или несколько CG-паков.">
-		<i class="icon-plus"></i> В CG-паки
-		</button>
-		<button type="button" class="btn btn-small show_data{if="$have_manga"} hidden{/if}"
-		title="Добавить арт в одну мангу или в несколько.">
-		<i class="icon-plus"></i> В мангу
-		</button>
-		<button type="button" class="btn btn-small show_data show_artist"
-		        title="Добавить этот арт в вашу личную галерею художника.">
-			<i class="icon-plus"></i> Я нарисовал
-		</button>
-		{if="Session::is_moderator()"}
-		<button type="button" class="btn btn-small show_data"
-		        title="Сразу дать этому арту ваше одобрение модератора.">
-			<i class="icon-plus"></i> Одобрить
-		</button>
-		{/if}
-	</div>
-	<div class="clear"></div>
-	</div>
-	{% add('add', UPLOAD_UNITS_COUNT); %}
+		{% add('add', UPLOAD_UNITS_COUNT); %}
 	{% } %}
 </script>

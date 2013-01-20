@@ -193,7 +193,8 @@ extend(OBJECT.add, OBJECT.base, {
 		tags: 'add_tags',
 		groups: 'add_groups',
 		packs: 'add_packs',
-		manga: 'add_manga'
+		manga: 'add_manga',
+		comment: 'add_comment'
 	},
 	child_config: {
 		preview: 'div.preview',
@@ -273,6 +274,7 @@ extend(OBJECT.add, OBJECT.base, {
 		this.submodule.groups.disable();
 		this.submodule.packs.disable();
 		this.submodule.manga.disable();
+		this.submodule.comment.disable();
 		this.child.data.find('button').hide();
 		this.child.show_panel.hide();
 		this.el.addClass('editing-disabled');
@@ -317,6 +319,7 @@ extend(OBJECT.add, OBJECT.base, {
 					pack: this.submodule.packs.get_terms(),
 					manga: this.submodule.manga.get_terms(),
 					artist: this.child.artist.is(':visible') ? 1 : 0,
+					comment: this.submodule.comment.get_text(),
 					approved: this.child.approved.is(':visible') ? 1 : 0
 				};
 
@@ -527,4 +530,29 @@ OBJECT.add_manga = function(id, values, events) {
 extend(OBJECT.add_manga, OBJECT.add_pools, {
 	class_name: 'add_manga',
 	address: 'tip_manga'
+});
+
+OBJECT.add_comment = function(id, values, events) {
+
+	OBJECT.base.call(this, id, values, events);
+
+	this.child.text.wysibb({
+		buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,link'
+	});
+}
+
+extend(OBJECT.add_comment, OBJECT.base, {
+	class_name: 'add_comment',
+	child_config: {
+		text: '.comment_text'
+	},
+	get_text: function() {
+		return this.child.text.bbcode() || '';
+	},
+	disable: function() {
+		var html = this.child.text.htmlcode() || '';
+		this.child.text.destroy();
+		this.child.text.replaceWith($('<div/>').
+			addClass('input-done').html(html));
+	}
 });

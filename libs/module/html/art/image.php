@@ -2,7 +2,7 @@
 
 class Module_Html_Art_Image extends Module_Html_Art_Abstract
 {
-	protected $js = array('image', 'translation');
+	protected $js = ['external/wysibb', 'image', 'translation'];
 
 	public function recieve_data($data) {
 		foreach ($data['translation'] as &$translation) {

@@ -52,3 +52,12 @@
 	overflow: auto;
 	z-index: 15;
 }
+
+.image_comment_block {
+	border-top: 1px solid #DCDCDC;
+}
+
+.image_comment {
+	text-align: left;
+	margin: 20px 40px;
+}

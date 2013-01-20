@@ -10,6 +10,14 @@
 		</div>
 	{/loop}
 </div>
+{if condition="$comment"}
+	<div class="image_comment_block">
+		<span class="pseudolink pull-left" data-toggle="collapse" data-target="#bb_image_comment">
+			Показать комментарий автора:
+		</span>
+		<div id="bb_image_comment" class="image_comment collapse">{$comment}</div>
+	</div>
+{/if}
 <script type="text/javascript">
 	add('image', '{$id}', {
 		is_resized: {$resized},
@@ -26,4 +34,5 @@
 			y2: {$value.y2}
 		});
 	{/loop}
+	add('bb', 'image_comment');
 </script>

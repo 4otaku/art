@@ -67,7 +67,7 @@
 	position: absolute;
 	left: 0;
 	top: 3px;
-	width: 80px;
+	width: 90px;
 }
 
 .files .data_active .hide_data, .files .selected .pool button {
@@ -79,7 +79,7 @@
 }
 
 .files .data_field, .files .selected .pool div {
-	margin: 0 30px 0 80px;
+	margin: 0 30px 0 90px;
 }
 
 .files .selected .pool {
@@ -116,6 +116,10 @@
 
 .files .data_field textarea {
 	resize: none;
+}
+
+.files .data_field .comment_text {
+	height: 100px;
 }
 
 .files .data_field textarea.autogrow-short {

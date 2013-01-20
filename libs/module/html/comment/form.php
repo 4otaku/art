@@ -2,6 +2,6 @@
 
 class Module_Html_Comment_Form extends Module_Html_Abstract
 {
-	protected $css = array('comment');
-	protected $js = array('comment');
+	protected $css = ['comment'];
+	protected $js = ['external/wysibb', 'comment'];
 }

@@ -2,8 +2,8 @@
 
 class Module_Html extends Module_Html_Abstract
 {
-	protected $css = array('external/bootstrap', 'external/plugins');
-	protected $js = array('external/jquery', 'external/plugins', 'base');
+	protected $css = ['external/bootstrap', 'external/plugins'];
+	protected $js = ['external/jquery', 'external/bootstrap', 'external/plugins', 'base'];
 
 	protected function get_params(Query $query) {
 		$plugins = Database::get_vector('plugin', array('id', 'filename'));
