@@ -12,12 +12,14 @@ window.locale = {
 
 $(window).bind('beforeunload', function(e) {
 	return $('.template-upload:not(.editing-disabled)').length ?
-		true: null;
+		'Вы действительно хотите покинуть эту страницу? Несохраненные арты будут потеряны.' :
+		null;
 });
 
 OBJECT.upload = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
+	var me = this;
 	this.el.fileupload({
 		namespace: 'upload',
 		maxFileSize: 10 * 1024 * 1024,
@@ -31,6 +33,8 @@ OBJECT.upload = function(id, values, events) {
 		downloadTemplateId: null
 	}).bind('fileuploadadded', function (e, data){
 		init_objects();
+	}).bind('fileuploadchange fileuploadpaste fileuploaddrop fileuploaddragover', function (e, data){
+		me.message('file_number_changed', 1);
 	});
 
 	this.el.data('object', this);
@@ -152,6 +156,8 @@ extend(OBJECT.upload, OBJECT.base, {
 });
 
 OBJECT.add = function(id, values, events) {
+	this.message('file_number_changed');
+
 	OBJECT.base.call(this, id, values, events);
 
 	this.child.cancel.off(".upload");
@@ -180,8 +186,6 @@ OBJECT.add = function(id, values, events) {
 			e.preventDefault();
 		}).addClass('disabled');
 	}
-
-	this.message('file_number_changed');
 }
 
 extend(OBJECT.add, OBJECT.base, {
@@ -323,7 +327,7 @@ extend(OBJECT.add, OBJECT.base, {
 					approved: this.child.approved.is(':visible') ? 1 : 0
 				};
 
-				Ajax.perform('/ajax/create', data, function(response) {
+				Ajax.perform('/ajax/create/art', data, function(response) {
 					this.child.add.hide();
 					this.child.progress_wrapper.removeClass('progress-adding');
 
@@ -405,46 +409,6 @@ extend(OBJECT.add, OBJECT.base, {
 		},
 		add_all: function() {
 			this.child.add.click();
-		}
-	}
-});
-
-OBJECT.add_tags = function(id, values, events) {
-	OBJECT.ajax_tip.call(this, id, values, events);
-
-	this.child.field.css('overflow', 'hidden').autogrow();
-}
-
-extend(OBJECT.add_tags, OBJECT.ajax_tip, {
-	class_name: 'add_tags',
-	address: 'tip_tag',
-	max_tip_length: 120,
-	minimum_term_length: 0,
-	child_config: {
-		field: '.tags',
-		tip: '.tips'
-	},
-	disable: function() {
-		this.child.field.replaceWith($('<div/>').
-			addClass('input-done').text(this.child.field.val()));
-		this.child.tip.hide();
-	},
-	add_tags: function(tags) {
-		var current = this.get_terms(),
-			prepend = '';
-		$.each(tags, $.proxy(function(key, tag){
-			if (current.indexOf(tag) == -1) {
-				prepend += tag + ' ';
-			}
-		}, this));
-
-		if (prepend) {
-			var val = this.child.field.val();
-			var pos = this.child.field.caret().start || 0;
-			this.child.field.val(val.substr(0, 1) + prepend + val.substr(1));
-			if (this.child.field.is(':focus')) {
-				this.child.field.caretTo(pos + prepend.length);
-			}
 		}
 	}
 });
@@ -536,9 +500,7 @@ OBJECT.add_comment = function(id, values, events) {
 
 	OBJECT.base.call(this, id, values, events);
 
-	this.child.text.wysibb({
-		buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,link'
-	});
+	this.child.text.wysibb(wbbconfig);
 }
 
 extend(OBJECT.add_comment, OBJECT.base, {

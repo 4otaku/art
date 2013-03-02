@@ -34,5 +34,7 @@
 			y2: {$value.y2}
 		});
 	{/loop}
-	add('bb', 'image_comment');
+	{if condition="$comment"}
+		add('bb', 'image_comment');
+	{/if}
 </script>

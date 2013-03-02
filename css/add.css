@@ -138,12 +138,12 @@
 	margin-right: 38px;
 }
 
-.tips_container {
+.files .tips_container {
 	position: relative;
 	margin: 0 32px 0 80px;
 }
 
-.tips {
+.files .tips {
 	width: 100%;
 	left: 1px;
  }

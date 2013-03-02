@@ -1,0 +1,31 @@
+<div id="new_group" class="new_pool">
+	<h4>Добавление новой группы</h4>
+	<div class="pool_data">
+		<div class="data_name">Заголовок:</div>
+		<div class="data_field with_input">
+			<input type="text" class="title" />
+		</div>
+	</div>
+	<div class="pool_data" id="add_tags">
+		<div class="data_name">Теги:</div>
+		<div class="data_field with_input">
+			<textarea class="tags autogrow-short">&#8203;{$tags}</textarea>
+		</div>
+		<div class="tips_container"><div class="tips"></div></div>
+	</div>
+	<div class="pool_data">
+		<div class="data_name">Описание:</div>
+		<div class="data_field">
+			<textarea class="text" rows="10"></textarea>
+		</div>
+	</div>
+	<div class="pool_data">
+		<span class="btn btn-success create disabled">
+			<i class="icon-plus icon-white"></i>
+			<span>Создать</span>
+		</span>
+	</div>
+</div>
+<script type="text/javascript">
+	add('new_group');
+</script>

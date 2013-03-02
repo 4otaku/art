@@ -1,8 +1,8 @@
 <?php
 
-class Module_Ajax_Create extends Module_Ajax_Json
+class Module_Ajax_Create_Art extends Module_Ajax_Create_Abstract
 {
-	protected $data = [];
+	protected $request_type = 'create_art';
 
 	protected function get_params(Query $query)
 	{
@@ -26,22 +26,5 @@ class Module_Ajax_Create extends Module_Ajax_Json
 			$item = ['id' => $item];
 		}
 		return $items;
-	}
-
-	protected function make_request()
-	{
-		return new Request_Change('create_art', $this, $this->data);
-	}
-
-	public function recieve_data($data)
-	{
-		if (isset($data['id'])) {
-			$this->set_param('id', $data['id']);
-			$this->set_success(true);
-		}
-		if (isset($data['errors'])) {
-			$error = reset($data['errors']);
-			$this->set_error($error['code'], $error['message']);
-		}
 	}
 }

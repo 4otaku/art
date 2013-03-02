@@ -98,14 +98,7 @@ OBJECT.comment_form = function(id, values, events) {
 
 	OBJECT.form.call(this, id, values, events);
 
-	this.child.text.wysibb({
-		debug: false,
-		smileAutoDetect: false,
-		themeName: false,
-		validTags: ['a','b','i','s','img','strike'],
-		buttons: 'bold,italic,strike,|,fontsizeselect,fontcolor,|,link,img,|,spoiler',
-		smileList: []
-	});
+	this.child.text.wysibb(wbbconfig);
 }
 
 extend(OBJECT.comment_form, OBJECT.form, {

@@ -171,9 +171,9 @@ mixin(OBJECT.base.prototype, {
 	},
 
 	init_elements: function(id) {
-		if (this.class_name && id) {
-
-			this.el = $('#' + this.class_name + '_' + id).first();
+		if (this.class_name) {
+			var postfix = id ? '_' + id : '';
+			this.el = $('#' + this.class_name + postfix).first();
 
 			$.each(this.child_config, $.proxy(function(key, value) {
 				this.child[key] = this.el.find(value);
@@ -184,8 +184,8 @@ mixin(OBJECT.base.prototype, {
 					value = {type: value};
 				}
 
-				this.submodule[key] = init(value.type, id + (value.postfix || ''),
-					value.events || {}, value.values || {});
+				this.submodule[key] = init(value.type, (id ? id : '') +
+					(value.postfix || ''), value.events || {}, value.values || {});
 			}, this));
 		}
 	},
@@ -287,13 +287,17 @@ extend(OBJECT.clickable, OBJECT.base, {
 OBJECT.bb = function(id, values) {
 	OBJECT.base.call(this, id, values);
 
-	var text = this.el.html();
-
-	text = $('<textarea/>').val(text).wysibb().getHTML();
-
-	this.el.html(text);
+	var text = this.el.html() || '';
+	this.el.html(this.get_worker().parseHTML(text));
 }
 
 extend(OBJECT.bb, OBJECT.base, {
-	class_name: 'bb'
+	class_name: 'bb',
+	get_worker: function() {
+		var stc = this.get_static();
+		if (!stc.worker) {
+			stc.worker = $('<textarea/>').wysibb(wbbparseconfig);
+		}
+		return stc.worker;
+	}
 });
