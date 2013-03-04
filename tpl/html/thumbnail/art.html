@@ -1,6 +1,10 @@
 <div class="image_thumbnail small_thumbnail">
 	<a href="/{$id}{if condition="$query"}?{$query}{/if}" title="{$tip}">
-		<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg" />
+		{if condition="Config::get('art', 'largethumbs')"}
+			<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_largethumb.jpg" />
+		{else}
+			<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg" />
+		{/if}
 	</a>
 	{if condition="$animated || $similar_count > 1"}
 		<span class="info_tip">

@@ -1,5 +1,17 @@
 <div class="image_thumbnail small_thumbnail">
 	<a href="/?pack={$id}" title="{$tip}">
-		<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg" />
+		{if condition="$md5"}
+			{if condition="Config::get('art', 'largethumbs')"}
+				<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_largethumb.jpg" />
+			{else}
+				<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg" />
+			{/if}
+		{else}
+			{if condition="Config::get('art', 'largethumbs')"}
+				<img src="/images/empty_largepool.jpg" />
+			{else}
+				<img src="/images/empty_pool.jpg" />
+			{/if}
+		{/if}
 	</a>
 </div>

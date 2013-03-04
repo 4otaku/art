@@ -1,5 +1,18 @@
 {if condition="count($data) > 0"}
 	<div class="sidebar_part">
+		{if condition="$mode"}
+			<div class="sidebar_row">
+				{if condition="$mode == 'group'"}
+					Теги группы:
+				{elseif condition="$mode == 'pack'"}
+					Теги CG-пака:
+				{elseif condition="$mode == 'manga'"}
+					Теги манги:
+				{else}
+					Теги галереи:
+				{/if}
+			</div>
+		{/if}
 		{loop="data"}
 			<div class="sidebar_row">
 				{if condition="$value.have_description"}
@@ -13,11 +26,11 @@
 				{/if}
 				<span class="count">{$value.count}</span>
 				{if condition="$value.color"}
-					<a href="/?tag={$value.name}" class="tag" style="color:#{$value.color};">
+					<a href="/?{$prefix}tag={$value.name}" class="tag" style="color:#{$value.color};">
 						{$value.name}
 					</a>
 				{else}
-					<a href="/?tag={$value.name}"  class="tag">
+					<a href="/?{$prefix}tag={$value.name}"  class="tag">
 						{$value.name}
 					</a>
 				{/if}

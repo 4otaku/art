@@ -105,6 +105,11 @@ class Query_Art extends Query
 			reset($this->possible_modes);
 	}
 
+	public function is_pool_list() {
+		return isset($this->other['mode']) ?
+			in_array($this->other['mode'], $this->pool_keys) : false;
+	}
+
 	public function page() {
 		return isset($this->other['page']) ? $this->other['page'] : 1;
 	}
