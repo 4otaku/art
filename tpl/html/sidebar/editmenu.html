@@ -14,6 +14,13 @@
 				<a href="#" id="edit_order_{$id}">Сортировать</a>
 			</div>
 		{/if}
+		{if condition="$mode != 'author'"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_add_{$id}">
+					Добавить изображение
+				</a>
+			</div>
+		{/if}
 		{if condition="$moderator and $mode != 'author'"}
 			<div class="sidebar_row">
 				<a href="#" id="edit_remove_{$id}">
