@@ -20,6 +20,19 @@
 	word-wrap: break-word;
 }
 
+.sidebar_row .vote {
+	margin-left: 5px;
+}
+
+.rating_row .voted {
+	opacity: 0;
+	float: right;
+}
+
+.rating_row:hover .voted {
+	opacity: 0.5;
+}
+
 .tag {
 	width: 170px;
 	display: block;

@@ -1,0 +1,74 @@
+<div class="sidebar_part">
+	<div class="sidebar_row">
+		<a href="#" id="edit_tag_{$id}">Редактировать теги</a>
+	</div>
+	{if condition="$mode"}
+		<div class="sidebar_row">
+			<a href="#" id="edit_title_{$id}">Редактировать заголовок</a>
+		</div>
+		<div class="sidebar_row">
+			<a href="#" id="edit_text_{$id}">Редактировать описание</a>
+		</div>
+		{if condition="$mode == 'pack' or $mode == 'manga'"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_order_{$id}">Сортировать</a>
+			</div>
+		{/if}
+		{if condition="$moderator and $mode != 'author'"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_remove_{$id}">
+					Удалить изображения
+				</a>
+			</div>
+		{/if}
+	{else}
+		<div class="sidebar_row">
+			<a href="#" id="edit_translation_{$id}">
+				{if condition="$have_translation"}
+					Редактировать перевод
+				{else}
+					Наложить перевод
+				{/if}
+			</a>
+		</div>
+		<div class="sidebar_row">
+			<a href="#" id="edit_source_{$id}">
+				{if condition="$have_source"}
+					Редактировать источник
+				{else}
+					Указать источник
+				{/if}
+			</a>
+		</div>
+		{if condition="!$voted"}
+			<div class="sidebar_row">
+				Голосовать:
+					<a href="#" id="edit_vote_down_{$id}" title="Не понравилось">
+						<img src="/images/minus.gif" class="vote">
+					</a>
+					<a href="#" id="edit_vote_up_{$id}" title="Понравилось">
+						<img src="/images/plus.gif" class="vote">
+					</a>
+			</div>
+		{/if}
+		{if condition="$moderator"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_image_{$id}">
+					Редактировать картинку
+				</a>
+			</div>
+			{if condition="$have_translation"}
+				<div class="sidebar_row">
+					<a href="#" id="edit_translator_{$id}">
+						Редактировать список переводчиков
+					</a>
+				</div>
+			{/if}
+			<div class="sidebar_row">
+				<a href="#" id="edit_similar_{$id}">
+					Редактировать список вариаций
+				</a>
+			</div>
+		{/if}
+	{/if}
+</div>

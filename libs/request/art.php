@@ -12,6 +12,7 @@ class Request_Art extends Request_Item
 			'add_manga' => true,
 			'add_packs' => true,
 			'add_artist' => true,
+			'add_voted' => true,
 			'id' => $id,
 		);
 		parent::__construct('art', $object, $params, $method);

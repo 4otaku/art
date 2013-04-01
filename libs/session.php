@@ -13,6 +13,7 @@ class Session
 
 	// Настройки пользователя
 	protected $data = [];
+	protected $api_loaded = false;
 
 	protected $moderator = false;
 
@@ -58,10 +59,6 @@ class Session
 			$this->create_session();
 		}
 
-		// Пробуем считаем пользователя из api
-		$request = new Request('user', $this, ['cookie' => $this->hash]);
-		$request->perform();
-
 		register_shutdown_function([$this, 'write_changes']);
 	}
 
@@ -76,7 +73,7 @@ class Session
 
 	public static function is_moderator()
 	{
-		return self::get_instance()->moderator;
+		return self::get_instance()->load_api()->moderator;
 	}
 
 	protected function update_lifetime()
@@ -149,11 +146,28 @@ class Session
 		return $this->hash;
 	}
 
+	public function get_ip()
+	{
+		return $_SERVER['REMOTE_ADDR'];
+	}
+
 	public function get_data()
 	{
+		$this->load_api();
+
 		$data = $this->data;
 		$data['cookie']['hash'] = $this->hash;
 
 		return $data;
+	}
+
+	protected function load_api() {
+		if (!$this->api_loaded) {
+			// Пробуем считаем пользователя из api
+			$request = new Request('user', $this, ['cookie' => $this->hash]);
+			$request->perform();
+			$this->api_loaded = true;
+		}
+		return $this;
 	}
 }

@@ -4,7 +4,7 @@ class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 {
 	use Trait_Tag;
 
-	protected $css = array('sidebar');
+	protected $css = ['sidebar'];
 
 	protected function get_params(Query $query)
 	{
@@ -19,7 +19,7 @@ class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 	}
 
 	public function recieve_data($data) {
-		usort($data, array($this, 'sort_tag'));
+		usort($data, [$this, 'sort_tag']);
 		$this->set_param('data', $data);
 	}
 }

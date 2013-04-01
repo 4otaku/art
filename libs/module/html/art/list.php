@@ -17,6 +17,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			'list' => new Module_Container('html_thumbnail_' . $query->mode()),
 			'tags' => new Module_Html_Sidebar_Tag($query),
 			'tags_pool' => new Module_Html_Sidebar_Tag($query),
+			'editmenu' => new Module_Html_Sidebar_Editmenu($query),
 			'tools' => new Module_Html_Sidebar_Tool($query),
 			'recent_comments' => new Module_Html_Sidebar_Comment($query),
 			'paginator' => new Module_Html_Art_Paginator($query),
@@ -25,12 +26,14 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 		if ($query->is_pool_list()) {
 			$return['tags']->set_pool_mode($query->mode());
 			$return['tags_pool']->disable();
+			$return['editmenu']->disable();
 		} elseif ($query->get_pool_mode()) {
 			$return['tags_pool']->set_pool_mode($query->get_pool_mode());
 			$this->pool_tag_request = ['api' => 'art_' . $query->get_pool_mode(),
 				'id' => $query->get_pool_value()];
 		} else {
 			$return['tags_pool']->disable();
+			$return['editmenu']->disable();
 		}
 
 		return $return;

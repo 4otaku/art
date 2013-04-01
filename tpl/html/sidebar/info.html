@@ -2,8 +2,13 @@
 	<div class="sidebar_row">
 		Загрузил: <a href="/?user={$user}">{$user}</a>.
 	</div>
-	<div class="sidebar_row">
+	<div class="sidebar_row rating_row">
 		Рейтинг: {$rating}.
+		{if condition="$voted > 0"}
+			<img src="/images/plus.gif" class="voted" title="Вам понравилось">
+		{elseif condition="$voted < 0"}
+			<img src="/images/minus.gif" class="voted" title="Вам не понравилось">
+		{/if}
 	</div>
 	{if condition="!empty($resized)"}
 		<div class="sidebar_row">
