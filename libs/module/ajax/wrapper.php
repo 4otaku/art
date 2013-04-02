@@ -20,7 +20,7 @@ class Module_Ajax extends Module_Abstract
 			if ($query->get('format') == 'json') {
 				return new Module_Ajax_Json_Error($query);
 			} else {
-				return array();
+				return new Module_Ajax_Error($query);
 			}
 		}
 

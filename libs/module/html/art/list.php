@@ -18,6 +18,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			'tags' => new Module_Html_Sidebar_Tag($query),
 			'tags_pool' => new Module_Html_Sidebar_Tag($query),
 			'editmenu' => new Module_Html_Sidebar_Editmenu($query),
+			'editfield' => new Module_Html_Art_Editfield($query),
 			'tools' => new Module_Html_Sidebar_Tool($query),
 			'recent_comments' => new Module_Html_Sidebar_Comment($query),
 			'paginator' => new Module_Html_Art_Paginator($query),
@@ -93,6 +94,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			$this->modules['error']->recieve_data($errors);
 		}
 
+		$this->modules['editmenu']->disable();
+		$this->modules['editfield']->disable();
 		$this->modules['list']->disable();
 		$this->modules['tags']->disable();
 		$this->modules['paginator']->disable();

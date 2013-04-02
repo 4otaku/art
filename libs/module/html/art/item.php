@@ -13,6 +13,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 			'info' => new Module_Html_Sidebar_Info($query),
 			'tags' => new Module_Html_Sidebar_Tag($query),
 			'editmenu' => new Module_Html_Sidebar_Editmenu($query),
+			'editfield' => new Module_Html_Art_Editfield($query),
 			'recent_comments' => new Module_Html_Sidebar_Comment($query),
 			'comment' => new Module_Html_Comment($query)
 		);
@@ -51,6 +52,8 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	}
 
 	protected function recieve_error($is_critical, $errors) {
+		$this->modules['editmenu']->disable();
+		$this->modules['editfield']->disable();
 		$this->modules['image']->disable();
 		$this->modules['tags']->disable();
 		$this->modules['info']->disable();

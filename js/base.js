@@ -11,13 +11,15 @@ var Ajax = {
 		if (typeof failure == 'object') {
 			scope = failure;
 		}
-		data.format = 'json';
+		if (json) {
+			data.format = 'json';
+		}
 		$.ajax({
 			url: url,
 			data: data ? data: {},
 			type: is_get ? 'GET' : 'POST',
 			success: success ? success : false,
-			failure: failure ? failure : false,
+			error: failure ? failure : false,
 			context: scope ? scope : this,
 			dataType: json ? 'json' : 'html'
 		});

@@ -1,36 +1,62 @@
 <div class="sidebar_part">
 	<div class="sidebar_row">
-		<a href="#" id="edit_tag_{$id}">Редактировать теги</a>
+		<a href="#" id="edit_start_tag_{$id}">Редактировать теги</a>
 	</div>
+	<script type="text/javascript">
+		add('edit_start', 'tag_{$id}', {mode: '{$mode}'});
+	</script>
 	{if condition="$mode"}
 		<div class="sidebar_row">
-			<a href="#" id="edit_title_{$id}">Редактировать заголовок</a>
+			<a href="#" id="edit_start_title_{$id}">Редактировать заголовок</a>
 		</div>
+		<script type="text/javascript">
+			add('edit_start', 'title_{$id}', {mode: '{$mode}'});
+		</script>
 		<div class="sidebar_row">
-			<a href="#" id="edit_text_{$id}">Редактировать описание</a>
+			<a href="#" id="edit_start_text_{$id}">Редактировать описание</a>
 		</div>
+		<script type="text/javascript">
+			add('edit_start', 'text_{$id}', {mode: '{$mode}'});
+		</script>
+		{if condition="$mode == 'pack'"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_start_cover_{$id}">Выбрать обложку</a>
+			</div>
+			<script type="text/javascript">
+				add('edit_start', 'cover_{$id}', {mode: '{$mode}'});
+			</script>
+		{/if}
 		{if condition="$mode == 'pack' or $mode == 'manga'"}
 			<div class="sidebar_row">
 				<a href="#" id="edit_order_{$id}">Сортировать</a>
 			</div>
+			<script type="text/javascript">
+				add('edit_start', 'order_{$id}', {mode: '{$mode}'});
+			</script>
 		{/if}
 		{if condition="$mode != 'author'"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_add_{$id}">
-					Добавить изображение
+				<a href="#" id="edit_start_add_{$id}">
+					Добавить изображения
 				</a>
 			</div>
+			<script type="text/javascript">
+				add('edit_start', 'add_{$id}', {mode: '{$mode}'});
+			</script>
 		{/if}
 		{if condition="$moderator and $mode != 'author'"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_remove_{$id}">
+				<a href="#" id="edit_start_remove_{$id}">
 					Удалить изображения
 				</a>
 			</div>
+			<script type="text/javascript">
+				add('edit_start', 'remove_{$id}', {mode: '{$mode}'});
+			</script>
 		{/if}
 	{else}
 		<div class="sidebar_row">
-			<a href="#" id="edit_translation_{$id}">
+			<a href="#" id="edit_start_translation_{$id}">
 				{if condition="$have_translation"}
 					Редактировать перевод
 				{else}
@@ -38,8 +64,11 @@
 				{/if}
 			</a>
 		</div>
+		<script type="text/javascript">
+			add('edit_start', 'translation_{$id}');
+		</script>
 		<div class="sidebar_row">
-			<a href="#" id="edit_source_{$id}">
+			<a href="#" id="edit_start_source_{$id}">
 				{if condition="$have_source"}
 					Редактировать источник
 				{else}
@@ -47,35 +76,51 @@
 				{/if}
 			</a>
 		</div>
+		<script type="text/javascript">
+			add('edit_start', 'source_{$id}');
+		</script>
 		{if condition="!$voted"}
 			<div class="sidebar_row">
 				Голосовать:
-					<a href="#" id="edit_vote_down_{$id}" title="Не понравилось">
+					<a href="#" id="vote_down_{$id}" title="Не понравилось">
 						<img src="/images/minus.gif" class="vote">
 					</a>
-					<a href="#" id="edit_vote_up_{$id}" title="Понравилось">
+					<a href="#" id="vote_up_{$id}" title="Понравилось">
 						<img src="/images/plus.gif" class="vote">
 					</a>
 			</div>
+			<script type="text/javascript">
+				add('vote_down', '{$id}');
+				add('vote_up', '{$id}');
+			</script>
 		{/if}
 		{if condition="$moderator"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_image_{$id}">
+				<a href="#" id="edit_start_image_{$id}">
 					Редактировать картинку
 				</a>
 			</div>
+			<script type="text/javascript">
+				add('edit_start', 'image_{$id}');
+			</script>
 			{if condition="$have_translation"}
 				<div class="sidebar_row">
-					<a href="#" id="edit_translator_{$id}">
+					<a href="#" id="edit_start_translator_{$id}">
 						Редактировать список переводчиков
 					</a>
 				</div>
+				<script type="text/javascript">
+					add('edit_start', 'translator_{$id}');
+				</script>
 			{/if}
 			<div class="sidebar_row">
-				<a href="#" id="edit_similar_{$id}">
+				<a href="#" id="edit_start_similar_{$id}">
 					Редактировать список вариаций
 				</a>
 			</div>
+			<script type="text/javascript">
+				add('edit_start', 'similar_{$id}');
+			</script>
 		{/if}
 	{/if}
 </div>
