@@ -7,7 +7,8 @@ extend(OBJECT.editfield, OBJECT.base, {
 	child_config: {
 		cancel: '.cancel',
 		form: '.form',
-		save: '.save',
+		save_wrapper: '.save',
+		save: '.save button',
 		loader: '.loader',
 		error: '.error',
 		success: '.success'
@@ -17,8 +18,8 @@ extend(OBJECT.editfield, OBJECT.base, {
 	},
 	on_load: function(data) {
 		this.child.loader.hide();
-		this.child.form.html(data).show();
-		this.child.save.show();
+		this.child.form.html('').show().html(data);
+		this.child.save_wrapper.show();
 	},
 	on_load_failure: function() {
 		this.child.loader.hide();
@@ -28,7 +29,7 @@ extend(OBJECT.editfield, OBJECT.base, {
 		edit_load: function(type, mode, id) {
 			this.el.show();
 			this.child.form.hide();
-			this.child.save.hide();
+			this.child.save_wrapper.hide();
 			this.child.loader.show();
 			this.child.error.hide();
 			this.child.success.hide();
@@ -53,7 +54,7 @@ extend(OBJECT.edit_start, OBJECT.base, {
 	events: {
 		click: function() {
 			this.message('edit_load', this.type,
-				this.mode ? this.mode : 'art', this.id_item);
+				this.mode ? 'art_' + this.mode : 'art', this.id_item);
 		}
 	}
 });

@@ -18,7 +18,6 @@ extend(OBJECT.image, OBJECT.base, {
 				this.is_resized = 1;
 				this.el.attr('src', this.resized);
 			}
-			this.el.imagesLoaded($.proxy(this.on_load, this));
 		}
 	},
 	message_width: function() {

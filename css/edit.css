@@ -1,0 +1,58 @@
+#editfield_main {
+	margin: 0 10px 10px 250px;
+	padding: 15px 10px 10px 10px;
+	text-align: left;
+	border: 1px dashed #008b8b;
+	border-radius: 5px;
+	position: relative;
+}
+
+#editfield_main .cancel {
+	background-image: url('/images/close_overlay.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 31px;
+	width: 31px;
+	position: absolute;
+	top: -15px;
+	right: -15px;
+}
+
+#editfield_main .save {
+	margin: 0 -5px;
+}
+
+#editfield_main .form {
+	margin-bottom: 5px;
+}
+
+#editfield_main .form input, #editfield_main .form textarea {
+	width: 100%;
+	margin: 0 -5px;
+	padding: 10px;
+}
+
+#editfield_main .form textarea {
+	resize: none;
+}
+
+#editfield_main .form .comment_text {
+	height: 100px;
+}
+
+#editfield_main .form textarea.autogrow-short {
+	resize: none;
+	height: 20px;
+}
+
+#editfield_main .form .tips_container {
+	position: relative;
+	width: 100%;
+	margin: 0 10px 0 10px;
+}
+
+#editfield_main .form .tips_container .tips {
+	width: 70%;
+	top: 2px;
+	right: 6px;
+}
