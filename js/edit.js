@@ -32,7 +32,7 @@ extend(OBJECT.editfield, OBJECT.base, {
 			this.child.loader.show();
 			this.child.error.hide();
 			this.child.success.hide();
-			Ajax.load('/ajax/edit', {type: type, mode: mode, id: id},
+			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
 		}
 	}
