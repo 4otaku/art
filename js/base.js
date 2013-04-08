@@ -130,8 +130,9 @@ var OBJECT = {
 		this.init_listeners(this.listen);
 
 		this.id = id;
+		this.el.trigger('init');
 	}
-}
+};
 var LISTENERS = {};
 
 mixin(OBJECT.base.prototype, {

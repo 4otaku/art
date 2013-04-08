@@ -17,10 +17,11 @@ class Request
 			$this->api = (string) $api;
 		}
 
+		$this->data = (array) $data;
+		$this->data['cookie'] = Session::get_instance()->get_hash();
+		$this->data['ip'] = Session::get_instance()->get_ip();
+
 		if ($object && is_callable(array($object, $method))) {
-			$this->data = (array) $data;
-			$this->data['cookie'] = Session::get_instance()->get_hash();
-			$this->data['ip'] = Session::get_instance()->get_ip();
 			$this->hash = md5($this->api . serialize($this->data));
 
 			$this->bind(array($object, $method));

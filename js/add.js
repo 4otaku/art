@@ -419,7 +419,7 @@ OBJECT.add_pools = function(id, values, events) {
 	this.child.selected.find('.pool button').click(function(){
 		$(this).parents('.pool').remove();
 	});
-}
+};
 
 extend(OBJECT.add_pools, OBJECT.pool_tip, {
 	class_name: 'add_pool',
@@ -438,7 +438,7 @@ extend(OBJECT.add_pools, OBJECT.pool_tip, {
 
 OBJECT.add_groups = function(id, values, events) {
 	OBJECT.add_pools.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.add_groups, OBJECT.add_pools, {
 	class_name: 'add_groups',
@@ -447,7 +447,7 @@ extend(OBJECT.add_groups, OBJECT.add_pools, {
 
 OBJECT.add_packs = function(id, values, events) {
 	OBJECT.add_pools.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.add_packs, OBJECT.add_pools, {
 	class_name: 'add_packs',
@@ -489,7 +489,7 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 
 OBJECT.add_manga = function(id, values, events) {
 	OBJECT.add_pools.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.add_manga, OBJECT.add_pools, {
 	class_name: 'add_manga',
@@ -501,7 +501,7 @@ OBJECT.add_comment = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.child.text.wysibb(wbbconfig);
-}
+};
 
 extend(OBJECT.add_comment, OBJECT.base, {
 	class_name: 'add_comment',

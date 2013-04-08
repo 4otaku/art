@@ -1,6 +1,6 @@
 <?php
 
-abstract class Module_Ajax_Create_Abstract extends Module_Ajax_Json
+abstract class Module_Ajax_Create_Abstract extends Module_Ajax_Api
 {
 	protected $data = [];
 	protected $request_type = '';
@@ -15,10 +15,8 @@ abstract class Module_Ajax_Create_Abstract extends Module_Ajax_Json
 		if (isset($data['id'])) {
 			$this->set_param('id', $data['id']);
 			$this->set_success(true);
-		}
-		if (isset($data['errors'])) {
-			$error = reset($data['errors']);
-			$this->set_error($error['code'], $error['message']);
+		} else {
+			parent::recieve_data($data);
 		}
 	}
 }
