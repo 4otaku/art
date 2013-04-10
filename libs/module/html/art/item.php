@@ -3,6 +3,7 @@
 class Module_Html_Art_Item extends Module_Html_Art_Abstract
 {
 	protected $css = array('item', 'sidebar');
+	protected $js = array('item');
 
 	protected function get_modules(Query $query) {
 		return array(
@@ -21,6 +22,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());
+		$this->set_param('id', $query->url(0));
 	}
 
 	protected function make_request() {

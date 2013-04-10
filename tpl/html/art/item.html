@@ -3,11 +3,17 @@
 </div>
 {$module_title}
 <div class="clear"></div>
-<div class="art_wrapper">
+<div class="art_wrapper" id="art_item_{$id}">
 	<div class="sidebar">
-		{$module_editmenu}
-		{$module_info}
-		{$module_tags}
+		<div id="reloadable_editmenu">
+			{$module_editmenu}
+		</div>
+		<div id="reloadable_info">
+			{$module_info}
+		</div>
+		<div id="reloadable_tags">
+			{$module_tags}
+		</div>
 		{$module_recent_comments}
 	</div>
 	{$module_editfield}
@@ -23,8 +29,14 @@
 			</a>
 		{/if}
 		{$module_error}
-		{$module_image}
+		<div id="reloadable_image">
+			{$module_image}
+		</div>
 		{$module_comment}
 	</div>
 	<div class="clear"></div>
 </div>
+
+<script type="text/javascript">
+	add('art_item', '{$id}');
+</script>

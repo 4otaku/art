@@ -61,3 +61,9 @@
 	text-align: left;
 	margin: 20px 40px;
 }
+
+.reloading {
+	text-align: center;
+	border: 1px dashed #008b8b !important;
+	border-radius: 3px !important;
+}

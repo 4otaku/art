@@ -29,7 +29,12 @@ extend(OBJECT.editfield, OBJECT.base, {
 			this.on_save_failure(data);
 			return;
 		}
+		this.child.form.hide();
 		this.child.loader.hide();
+		this.child.success.show();
+		this.message('art_reload', function(){
+			this.el.hide();
+		}, this);
 	},
 	on_load_failure: function() {
 		this.child.loader.hide();
