@@ -99,7 +99,7 @@ function init_objects() {
 				var id = object[0];
 				var values = object[1] || {};
 				var events = object[2] || {};
-				new OBJECT[type](id, values, events);
+				console.log(new OBJECT[type](id, values, events));
 			}
 		});
 	});
@@ -127,9 +127,9 @@ var OBJECT = {
 		this.init_elements(id);
 		this.init_values(values);
 		this.init_events(events);
-		this.init_listeners(this.listen);
 
 		this.id = id;
+		this.init_listeners(this.listen);
 		this.el.trigger('init');
 	}
 };
@@ -208,7 +208,7 @@ mixin(OBJECT.base.prototype, {
 					}
 
 					$.each(event2, $.proxy(function(dev_null, bind) {
-						this.child[key].on(key2, $.proxy(function(e){
+						this.child[key].bind(key2, $.proxy(function(e){
 							bind.call(this, e);
 						}, this));
 					}, this));
@@ -218,7 +218,7 @@ mixin(OBJECT.base.prototype, {
 					event = [event];
 				}
 				$.each(event, $.proxy(function(dev_null, bind) {
-					this.el.on(key, $.proxy(function(e){
+					this.el.bind(key, $.proxy(function(e){
 						bind.call(this, e);
 					}, this));
 				}, this));
@@ -231,7 +231,20 @@ mixin(OBJECT.base.prototype, {
 			if (!LISTENERS[type]) {
 				LISTENERS[type] = [];
 			}
-			LISTENERS[type].push({obj: this, func: listener});
+			var add = true;
+			$.each(LISTENERS[type], $.proxy(function(key, listener){
+				if (
+					listener.obj.class_name == this.class_name &&
+					listener.obj.id == this.id
+				) {
+					add = false;
+					return false;
+				}
+			}, this));
+
+			if (add) {
+				LISTENERS[type].push({obj: this, func: listener});
+			}
 		}, this));
 	},
 

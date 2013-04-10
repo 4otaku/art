@@ -10,7 +10,16 @@ extend(OBJECT.art_item, OBJECT.base, {
 		tags: '#reloadable_tags .sidebar_part',
 		image: '#reloadable_image'
 	},
+	add_scripts: null,
 	do_reload: function(callback) {
+		var me = this;
+		if (this.add_scripts === null) {
+			this.add_scripts = '';
+			this.el.find('script').each(function(){
+				me.add_scripts += $(this).html();
+			});
+		}
+
 		$.each(this.child, function(name, el){
 			var height = Math.round(el.height() / 2);
 			var width = el.width();
@@ -19,14 +28,14 @@ extend(OBJECT.art_item, OBJECT.base, {
 				.css('padding-top', (height - 15) + 'px')
 				.css('width', width + 'px').show();
 		});
-		var me = this;
 		Ajax.load(document.location.href, function(data){
 			data = $(data);
-			console.log(data.find('script'));
 			$.each(me.child, function(name, el){
 				var selector = me.child_config[name];
 				el.replaceWith(data.find(selector));
 			});
+			eval(me.add_scripts);
+			init_objects();
 			callback.call();
 		}, function(data){
 			document.location.reload();
