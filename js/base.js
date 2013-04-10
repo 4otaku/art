@@ -99,7 +99,7 @@ function init_objects() {
 				var id = object[0];
 				var values = object[1] || {};
 				var events = object[2] || {};
-				console.log(new OBJECT[type](id, values, events));
+				new OBJECT[type](id, values, events);
 			}
 		});
 	});

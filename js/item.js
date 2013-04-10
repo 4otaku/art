@@ -15,8 +15,10 @@ extend(OBJECT.art_item, OBJECT.base, {
 		var me = this;
 		if (this.add_scripts === null) {
 			this.add_scripts = '';
-			this.el.find('script').each(function(){
-				me.add_scripts += $(this).html();
+			$.each(this.child, function(name, el){
+				el.find('script').each(function(){
+					me.add_scripts += $(this).html();
+				});
 			});
 		}
 
@@ -36,6 +38,7 @@ extend(OBJECT.art_item, OBJECT.base, {
 			});
 			eval(me.add_scripts);
 			init_objects();
+			me.init_elements(me.id);
 			callback.call();
 		}, function(data){
 			document.location.reload();
