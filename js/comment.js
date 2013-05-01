@@ -99,7 +99,7 @@ OBJECT.comment_form = function(id, values, events) {
 	OBJECT.form.call(this, id, values, events);
 
 	this.child.text.wysibb(wbbconfig);
-}
+};
 
 extend(OBJECT.comment_form, OBJECT.form, {
 	class_name: 'comment_form',

@@ -1,9 +1,11 @@
 OBJECT.translation = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.translation, OBJECT.base, {
 	class_name: 'translation',
+	state: 'view',
+	edit_inited: false,
 	id_image: 0,
 	resize_factor: 1,
 	current_width: 750,
@@ -13,7 +15,35 @@ extend(OBJECT.translation, OBJECT.base, {
 	y1: 0,
 	y2: 0,
 	child_config: {
-		box: '.box'
+		box: '.box',
+		edit: 'textarea'
+	},
+	get_val: function(val) {
+		return Math.round(val * this.resize_factor);
+	},
+	start_edit: function() {
+		this.child.box.hide();
+		this.child.edit.show();
+		if (!this.edit_inited) {
+			this.edit_inited = true;
+			this.child.edit.wysibb(wbbconfig);
+		}
+	},
+	on_move_stop: function() {
+
+	},
+	events: {
+		mouseenter: function(e) {
+			if (this.state != 'move') {
+				this.child.box.show();
+			}
+		},
+		mouseleave: function(e) {
+			this.child.box.hide();
+		},
+		click: function(e) {
+
+		}
 	},
 	listen: {
 		image_clicked: function() {
@@ -32,17 +62,25 @@ extend(OBJECT.translation, OBJECT.base, {
 			this.el.css('left', this.get_val(this.x1));
 			this.el.css('width', this.get_val(this.x2));
 			this.el.show();
-		}
-	},
-	get_val: function(val) {
-		return Math.round(val * this.resize_factor);
-	},
-	events: {
-		mouseenter: function(e) {
-			this.child.box.show();
 		},
-		mouseleave: function(e) {
-			this.child.box.hide();
+		change_translation_state: function(state) {
+			this.state = state;
+
+			if (state == 'move') {
+				this.el.unbind('draggable').draggable({
+					containment: 'parent',
+					stop: this.on_move_stop
+				});
+				this.el.unbind('resizable').resizable({
+					containment: 'parent',
+					minHeight: 20,
+					minWidth: 20,
+					stop: this.on_move_stop
+				});
+			} else {
+				this.el.unbind('draggable');
+				this.el.unbind('resizable');
+			}
 		}
 	}
 });

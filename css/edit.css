@@ -1,4 +1,4 @@
-#editfield_main {
+#edit_form_main {
 	margin: 0 10px 10px 250px;
 	padding: 15px 10px 10px 10px;
 	text-align: left;
@@ -7,7 +7,7 @@
 	position: relative;
 }
 
-#editfield_main .cancel {
+#edit_form_main .cancel {
 	background-image: url('/images/close_overlay.png');
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -18,40 +18,39 @@
 	right: -15px;
 }
 
-#editfield_main .save {
-	margin: 0 -5px;
+#edit_form_main .save {
+	margin: 3px;
 }
 
-#editfield_main .form {
+#edit_form_main .form {
 	margin-bottom: 5px;
+	padding: 0 10px 0 4px;
 }
 
-#editfield_main .form input, #editfield_main .form textarea {
+#edit_form_main .form input, #edit_form_main .form textarea {
 	width: 100%;
-	margin: 0 -5px;
-	padding: 10px;
 }
 
-#editfield_main .form textarea {
+#edit_form_main .form textarea {
 	resize: none;
 }
 
-#editfield_main .form .comment_text {
+#edit_form_main .form .comment_text {
 	height: 100px;
 }
 
-#editfield_main .form textarea.autogrow-short {
+#edit_form_main .form textarea.autogrow-short {
 	resize: none;
 	height: 20px;
 }
 
-#editfield_main .form .tips_container {
+#edit_form_main .form .tips_container {
 	position: relative;
 	width: 100%;
 	margin: 0 10px 0 10px;
 }
 
-#editfield_main .form .tips_container .tips {
+#edit_form_main .form .tips_container .tips {
 	width: 70%;
 	top: 2px;
 	right: 6px;

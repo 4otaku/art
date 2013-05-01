@@ -6,7 +6,8 @@
 	{/if}
 	{loop="translation"}
 		<div class="art_translation" id="translation_{$value.id}">
-			<div class="box">{$value.text}</div>
+			<div class="box" id="bb_translation_{$value.id}">{$value.text}</div>
+			<div class="edit_translation"><textarea>{$value.text}</textarea></div>
 		</div>
 	{/loop}
 </div>
@@ -33,6 +34,7 @@
 			x2: {$value.x2},
 			y2: {$value.y2}
 		});
+		add('bb', 'translation_{$value.id}');
 	{/loop}
 	{if condition="$comment"}
 		add('bb', 'image_comment');

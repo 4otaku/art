@@ -67,3 +67,7 @@
 	border: 1px dashed #008b8b !important;
 	border-radius: 3px !important;
 }
+
+.edit_translation {
+	display: none;
+}

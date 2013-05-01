@@ -71,12 +71,11 @@ extend(OBJECT.form, OBJECT.base, {
 							return;
 						}
 
+						var params = {},
+							fn = validate;
 						if (typeof validate == 'object') {
-							var params = validate;
-							var fn = validate.fn;
-						} else {
-							var params = {};
-							var fn = validate;
+							params = validate;
+							fn = validate.fn;
 						}
 
 						errorText = fn.call(me, val, params);

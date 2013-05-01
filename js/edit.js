@@ -1,9 +1,9 @@
-OBJECT.editfield = function(id, values, events) {
+OBJECT.edit_form = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 };
 
-extend(OBJECT.editfield, OBJECT.base, {
-	class_name: 'editfield',
+extend(OBJECT.edit_form, OBJECT.base, {
+	class_name: 'edit_form',
 	child_config: {
 		cancel: '.cancel',
 		form: '.form',
@@ -14,6 +14,7 @@ extend(OBJECT.editfield, OBJECT.base, {
 		success: '.success'
 	},
 	data: {},
+	data_id: 0,
 	api: '',
 	errors: {
 		420: 'Не произведено никаких изменений',
@@ -62,7 +63,9 @@ extend(OBJECT.editfield, OBJECT.base, {
 				this.child.loader.hide();
 				this.child.error.hide();
 				this.child.save_wrapper.hide();
-				Ajax.perform('/ajax/save/', {data: this.data, api: this.api},
+				var send = $.extend({}, this.data);
+				send.id = this.data_id;
+				Ajax.perform('/ajax/save/', {data: send, api: this.api},
 					this.on_save, this.on_save_failure, this);
 			}
 		}
@@ -75,14 +78,15 @@ extend(OBJECT.editfield, OBJECT.base, {
 			this.child.loader.show();
 			this.child.error.hide();
 			this.child.success.hide();
-			this.data.id = id;
+			this.data_id = id;
 			this.api = mode == 'art' ? type : mode + '_' + type;
 			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
 		},
-		edit_data_change: function(data) {
-			this.data = $.extend(this.data, data);
-			if (this.data.add.length || this.data.remove.length) {
+		edit_data_change: function(data, have_changes) {
+			this.data = data;
+
+			if (have_changes) {
 				this.child.save.removeClass('disabled');
 			} else {
 				this.child.save.addClass('disabled');
@@ -111,6 +115,46 @@ extend(OBJECT.edit_start, OBJECT.base, {
 	}
 });
 
+OBJECT.edit_simple = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_simple, OBJECT.base, {
+	class_name: 'edit_simple',
+	start_data: {},
+	child_config: {
+		fields: 'input, select, textarea'
+	},
+	gather_data: function() {
+		var data = {};
+		this.child.fields.each(function(){
+			if (this.name) {
+				data[this.name] = $(this).val();
+			}
+		});
+		return data;
+	},
+	events: {
+		init: function() {
+			this.start_data = this.gather_data();
+		},
+		fields: {
+			keyup: function() {
+				var data = this.gather_data(),
+					send_data = {},
+					have_changes = false;
+				$.each(data, $.proxy(function(name, value){
+					if (this.start_data[name] != value) {
+						send_data[name] = value;
+						have_changes = true;
+					}
+				}, this));
+				this.message('edit_data_change', send_data, have_changes);
+			}
+		}
+	}
+});
+
 OBJECT.edit_tags = function(id, values, events) {
 	OBJECT.ajax_tip.call(this, id, values, events);
 
@@ -133,12 +177,66 @@ extend(OBJECT.edit_tags, OBJECT.ajax_tip, {
 		},
 		field: {
 			keyup: function() {
-				var terms = this.get_terms();
-				this.message('edit_data_change', {
-					add: $(terms).not(this.start_terms).toArray(),
-					remove: $(this.start_terms).not(terms).toArray()
-				});
+				var terms = this.get_terms(),
+					add = $(terms).not(this.start_terms).toArray(),
+					remove = $(this.start_terms).not(terms).toArray(),
+					have_changes = add.length || remove.length;
+				this.message('edit_data_change', {add: add, remove: remove},
+					have_changes);
 			}
 		}
 	}
 });
+
+OBJECT.edit_translation = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_translation, OBJECT.base, {
+	class_name: 'edit_translation',
+	child_config: {
+		add: '.add',
+		edit: '.edit',
+		move: '.move',
+		delete: '.delete'
+	},
+	set_state: function(state) {
+		this.message('change_translation_state', state);
+		this.child.add.removeClass('active');
+		this.child.edit.removeClass('active');
+		this.child.move.removeClass('active');
+		this.child.delete.removeClass('active');
+		this.child[state].addClass('active');
+	},
+	events: {
+		add: {
+			click: function() {
+				this.set_state('add');
+			}
+		},
+		edit: {
+			click: function() {
+				this.set_state('edit');
+			}
+		},
+		move: {
+			click: function() {
+				this.set_state('move');
+			}
+		},
+		delete: {
+			click: function() {
+				this.set_state('delete');
+			}
+		}
+	}
+});
+
+OBJECT.edit_source = function(id, values, events) {
+	OBJECT.edit_simple.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_source, OBJECT.edit_simple, {
+	class_name: 'edit_source'
+});
+
