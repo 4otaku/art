@@ -29,8 +29,9 @@ extend(OBJECT.translation, OBJECT.base, {
 			this.child.edit.wysibb(wbbconfig);
 		}
 	},
-	on_move_stop: function() {
-
+	on_move_stop: function(e, ui) {
+		console.log(ui);
+		console.log(this);
 	},
 	events: {
 		mouseenter: function(e) {
@@ -42,7 +43,9 @@ extend(OBJECT.translation, OBJECT.base, {
 			this.child.box.hide();
 		},
 		click: function(e) {
-
+			if (this.state == 'delete') {
+				this.el.hide();
+			}
 		}
 	},
 	listen: {
@@ -66,20 +69,22 @@ extend(OBJECT.translation, OBJECT.base, {
 		change_translation_state: function(state) {
 			this.state = state;
 
+			if (this.el.is('.ui-draggable')) {
+				this.el.draggable('destroy');
+				this.el.resizable('destroy');
+			}
+
 			if (state == 'move') {
-				this.el.unbind('draggable').draggable({
+				this.el.draggable({
 					containment: 'parent',
-					stop: this.on_move_stop
+					stop: $.proxy(this.on_move_stop, this)
 				});
-				this.el.unbind('resizable').resizable({
+				this.el.resizable({
 					containment: 'parent',
 					minHeight: 20,
 					minWidth: 20,
-					stop: this.on_move_stop
+					stop: $.proxy(this.on_move_stop, this)
 				});
-			} else {
-				this.el.unbind('draggable');
-				this.el.unbind('resizable');
 			}
 		}
 	}
