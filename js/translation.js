@@ -16,7 +16,8 @@ extend(OBJECT.translation, OBJECT.base, {
 	y2: 0,
 	child_config: {
 		box: '.box',
-		edit: 'textarea'
+		edit: '.edit_translation',
+		editfield: '.edit_translation textarea'
 	},
 	get_val: function(val) {
 		return Math.round(val * this.resize_factor);
@@ -26,7 +27,13 @@ extend(OBJECT.translation, OBJECT.base, {
 		this.child.edit.show();
 		if (!this.edit_inited) {
 			this.edit_inited = true;
-			this.child.edit.wysibb(wbbconfig);
+			var left = this.el.offset().left,
+				right = left + this.el.outerWidth(),
+				view_width = $(window).width() + $(window).scrollLeft();
+			if (view_width - right < 300) {
+				this.child.edit.css('right', '-' + (view_width - right - 10) + 'px');
+			}
+			this.child.editfield.wysibb(wbbtranslationconfig);
 		}
 	},
 	on_move_stop: function(e, ui) {
@@ -45,6 +52,8 @@ extend(OBJECT.translation, OBJECT.base, {
 		click: function(e) {
 			if (this.state == 'delete') {
 				this.el.hide();
+			} else if (this.state == 'edit') {
+				this.start_edit(this.child.box.html());
 			}
 		}
 	},

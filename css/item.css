@@ -53,6 +53,27 @@
 	z-index: 15;
 }
 
+.art_translation .edit_translation {
+	text-align: left;
+	display: none;
+	width: 600px;
+	position: absolute;
+	top: 100%;
+	right: -300px;
+	overflow: auto;
+	z-index: 25;
+}
+
+.art_translation .edit_translation textarea {
+	min-height: 200px;
+}
+
+.art_translation .edit_translation .wysibb {
+	-moz-box-shadow: 0px 4px 4px #999;
+	-webkit-box-shadow: 0px 4px 4px #999;
+	box-shadow: 0px 4px 4px #999;
+}
+
 .image_comment_block {
 	border-top: 1px solid #DCDCDC;
 }
@@ -66,8 +87,4 @@
 	text-align: center;
 	border: 1px dashed #008b8b !important;
 	border-radius: 3px !important;
-}
-
-.edit_translation {
-	display: none;
 }
