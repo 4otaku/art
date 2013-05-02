@@ -5,19 +5,15 @@ wbbconfig = {
 };
 
 wbbtranslationconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,cancel,',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,',
 	allButtons: {
 		save: {
 			cmd: function() {
 				console.log(arguments);
+				console.log(this);
 			},
-			buttonText: 'Сохранить'
-		},
-		cancel: {
-			cmd: function() {
-				console.log(arguments);
-			},
-			buttonText: 'Отменить'
+			buttonHTML: '<img src="/images/wysibb/save.png" title="Сохранить" />',
+			rootSelector: []
 		}
 	}
 };

@@ -209,6 +209,9 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		this.child[state].addClass('active');
 	},
 	events: {
+		init: function() {
+			this.child.edit.click();
+		},
 		add: {
 			click: function() {
 				this.set_state('add');

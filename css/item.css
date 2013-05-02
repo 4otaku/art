@@ -74,6 +74,10 @@
 	box-shadow: 0px 4px 4px #999;
 }
 
+.wbb-save img {
+	margin: 2px;
+}
+
 .image_comment_block {
 	border-top: 1px solid #DCDCDC;
 }

@@ -287,7 +287,7 @@ OBJECT.clickable = function(id, values) {
 	}
 
 	OBJECT.base.call(this, id, values);
-}
+};
 
 extend(OBJECT.clickable, OBJECT.base, {
 	class_name: 'clickable',
@@ -304,11 +304,19 @@ OBJECT.bb = function(id, values) {
 	OBJECT.base.call(this, id, values);
 
 	var text = this.el.html() || '';
-	this.el.html(this.get_worker().parseHTML(text));
-}
+	this.el.html(this.translate(text));
+	this.original = text;
+};
 
 extend(OBJECT.bb, OBJECT.base, {
 	class_name: 'bb',
+	original: '',
+	translate: function(text) {
+		return this.get_worker().parseHTML(text);
+	},
+	get_original: function() {
+		return this.original;
+	},
 	get_worker: function() {
 		var stc = this.get_static();
 		if (!stc.worker) {

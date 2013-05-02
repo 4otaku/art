@@ -1,11 +1,15 @@
 OBJECT.translation = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
+
+	this.bbcode = this.submodule.box.get_original();
 };
 
 extend(OBJECT.translation, OBJECT.base, {
 	class_name: 'translation',
 	state: 'view',
 	edit_inited: false,
+	editing: false,
+	bbcode: false,
 	id_image: 0,
 	resize_factor: 1,
 	current_width: 750,
@@ -14,8 +18,13 @@ extend(OBJECT.translation, OBJECT.base, {
 	x2: 0,
 	y1: 0,
 	y2: 0,
+	submodule_config: {
+		box: {
+			type: 'bb',
+			postfix: '_tr'
+		}
+	},
 	child_config: {
-		box: '.box',
 		edit: '.edit_translation',
 		editfield: '.edit_translation textarea'
 	},
@@ -23,7 +32,15 @@ extend(OBJECT.translation, OBJECT.base, {
 		return Math.round(val * this.resize_factor);
 	},
 	start_edit: function() {
-		this.child.box.hide();
+		this.message('translation_edit_start', this.id);
+		if (this.editing) {
+			this.child.edit.show();
+			return;
+		}
+
+		this.editing = true;
+
+		this.submodule.box.el.hide();
 		this.child.edit.show();
 		if (!this.edit_inited) {
 			this.edit_inited = true;
@@ -35,6 +52,9 @@ extend(OBJECT.translation, OBJECT.base, {
 			}
 			this.child.editfield.wysibb(wbbtranslationconfig);
 		}
+		var html = this.submodule.box.translate(this.bbcode);
+		this.child.editfield.bbcode(this.bbcode);
+		this.child.editfield.htmlcode(html);
 	},
 	on_move_stop: function(e, ui) {
 		console.log(ui);
@@ -43,17 +63,17 @@ extend(OBJECT.translation, OBJECT.base, {
 	events: {
 		mouseenter: function(e) {
 			if (this.state != 'move') {
-				this.child.box.show();
+				this.submodule.box.el.show();
 			}
 		},
 		mouseleave: function(e) {
-			this.child.box.hide();
+			this.submodule.box.el.hide();
 		},
 		click: function(e) {
 			if (this.state == 'delete') {
 				this.el.hide();
 			} else if (this.state == 'edit') {
-				this.start_edit(this.child.box.html());
+				this.start_edit();
 			}
 		}
 	},
@@ -94,6 +114,12 @@ extend(OBJECT.translation, OBJECT.base, {
 					minWidth: 20,
 					stop: $.proxy(this.on_move_stop, this)
 				});
+			}
+		},
+		translation_edit_start: function(id) {
+			if (this.id != id) {
+				this.child.edit.hide();
+				this.editing = false;
 			}
 		}
 	}
