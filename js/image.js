@@ -2,7 +2,7 @@ OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.el.imagesLoaded($.proxy(this.message_width, this));
-}
+};
 
 extend(OBJECT.image, OBJECT.base, {
 	class_name: 'image',

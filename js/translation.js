@@ -79,7 +79,9 @@ extend(OBJECT.translation, OBJECT.base, {
 	},
 	listen: {
 		image_clicked: function() {
-			this.el.toggle();
+			if (this.state == 'view') {
+				this.el.toggle();
+			}
 		},
 		image_resized: function(id, width) {
 			if (this.id_image != id) {
@@ -96,6 +98,8 @@ extend(OBJECT.translation, OBJECT.base, {
 			this.el.show();
 		},
 		change_translation_state: function(state) {
+			this.el.show();
+
 			this.state = state;
 
 			if (this.el.is('.ui-draggable')) {

@@ -52,6 +52,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		cancel: {
 			click: function() {
 				this.el.hide();
+				this.message('edit_cancel');
 			}
 		},
 		save: {
@@ -206,7 +207,9 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		this.child.edit.removeClass('active');
 		this.child.move.removeClass('active');
 		this.child.delete.removeClass('active');
-		this.child[state].addClass('active');
+		if (this.child[state]) {
+			this.child[state].addClass('active');
+		}
 	},
 	events: {
 		init: function() {
@@ -231,6 +234,11 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 			click: function() {
 				this.set_state('delete');
 			}
+		}
+	},
+	listen: {
+		edit_cancel: function(){
+			this.set_state('view');
 		}
 	}
 });
