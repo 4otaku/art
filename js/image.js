@@ -25,7 +25,7 @@ extend(OBJECT.image, OBJECT.base, {
 	},
 	events: {
 		click: function(e) {
-			this.message('image_clicked');
+			this.message('image_clicked', this.id);
 		},
 		resize: function() {
 			this.message_width();

@@ -195,50 +195,82 @@ OBJECT.edit_translation = function(id, values, events) {
 
 extend(OBJECT.edit_translation, OBJECT.base, {
 	class_name: 'edit_translation',
+	state_pointer: 0,
+	in_active_change: false,
+	state: [],
 	child_config: {
 		add: '.add',
 		edit: '.edit',
 		move: '.move',
 		delete: '.delete'
 	},
-	set_state: function(state) {
-		this.message('change_translation_state', state);
+	set_mode: function(mode) {
+		this.message('change_translation_mode', mode);
 		this.child.add.removeClass('active');
 		this.child.edit.removeClass('active');
 		this.child.move.removeClass('active');
 		this.child.delete.removeClass('active');
-		if (this.child[state]) {
-			this.child[state].addClass('active');
+		if (this.child[mode]) {
+			this.child[mode].addClass('active');
 		}
+	},
+	write_state: function(initial) {
+		if (initial) {
+			this.state_pointer = 0;
+			this.state = [];
+		} else {
+			this.state_pointer = this.state_pointer + 1;
+			// Deleting obsolete redo history
+			this.state = this.state.slice(0, this.state_pointer);
+		}
+		this.state.push({});
+
+		this.message('translation_state_report');
+
+		return (initial && this.state[0].length);
 	},
 	events: {
 		init: function() {
-			this.child.edit.click();
+			if (this.write_state(true)) {
+				this.child.edit.click();
+			} else {
+				this.child.add.click();
+			}
 		},
 		add: {
 			click: function() {
-				this.set_state('add');
+				this.set_mode('add');
 			}
 		},
 		edit: {
 			click: function() {
-				this.set_state('edit');
+				this.set_mode('edit');
 			}
 		},
 		move: {
 			click: function() {
-				this.set_state('move');
+				this.set_mode('move');
 			}
 		},
 		delete: {
 			click: function() {
-				this.set_state('delete');
+				this.set_mode('delete');
 			}
 		}
 	},
 	listen: {
 		edit_cancel: function(){
-			this.set_state('view');
+			this.set_mode('view');
+		},
+		translation_state: function(id, state) {
+			this.state[this.state_pointer][id] = state;
+		},
+		translation_change_start: function() {
+			this.in_active_change = true;
+		},
+		translation_change_end: function() {
+			this.in_active_change = false;
+			this.write_state();
 		}
 	}
 });
