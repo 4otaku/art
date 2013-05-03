@@ -149,6 +149,15 @@ extend(OBJECT.translation, OBJECT.base, {
 				this.editing = false;
 			}
 		},
+		translation_edit_save: function(editfield) {
+			if (this.child.editfield.is(editfield)) {
+				this.bbcode = this.child.editfield.bbcode();
+				this.submodule.box.el.html(this.child.editfield.htmlcode());
+				this.child.edit.hide();
+				this.editing = false;
+				this.message('translation_change_end');
+			}
+		},
 		translation_state_report: function() {
 			this.message('translation_state', this.id, [
 				this.x1, this.x2, this.y1, this.y2, this.bbcode, this.deleted

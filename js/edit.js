@@ -227,7 +227,7 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 
 		this.message('translation_state_report');
 
-		return (initial && this.state[0].length);
+		return (initial && !$.isEmptyObject(this.state[0]));
 	},
 	events: {
 		init: function() {

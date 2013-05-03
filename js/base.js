@@ -278,6 +278,8 @@ mixin(OBJECT.base.prototype, {
 	}
 });
 
+var message = OBJECT.base.prototype.message;
+
 
 // Common objects
 

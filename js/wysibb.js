@@ -9,8 +9,7 @@ wbbtranslationconfig = {
 	allButtons: {
 		save: {
 			cmd: function() {
-				console.log(arguments);
-				console.log(this);
+				message('translation_edit_save', this.txtArea);
 			},
 			buttonHTML: '<img src="/images/wysibb/save.png" title="Сохранить" />',
 			rootSelector: []
