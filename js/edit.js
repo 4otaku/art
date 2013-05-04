@@ -79,6 +79,10 @@ extend(OBJECT.edit_form, OBJECT.base, {
 	},
 	listen: {
 		edit_load: function(type, mode, id) {
+			if (this.api) {
+				this.message('edit_cancel');
+			}
+
 			this.el.show();
 			this.child.form.hide();
 			this.child.save_wrapper.hide();
@@ -87,6 +91,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			this.child.error.hide();
 			this.child.success.hide();
 
+			this.data = {};
 			this.data_id = id;
 			this.api = (mode != 'art') && (type != 'tag') ? mode :
 				mode + '_' + type;
