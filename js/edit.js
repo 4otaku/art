@@ -258,47 +258,51 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 	prepare_data: function() {
 		var data = this.state[this.state_pointer],
 			initial = this.state[0],
-			send = [];
+			send = {change: [], add: [], remove: []};
 		$.each(data, function(id, data){
-			var before = initial[id],
-				changed = false,
-				add = {};
+			var before = initial[id];
 
-			if (!data[6]) {
-				add.id = id;
-				if (data[5] && before) {
-					add.delete = 1;
-					send.push(add);
-					return;
-				}
+			if (data[5] && !data[6] && before) {
+				send.remove.push(id);
+				return;
 			}
 
+			if (data[6]) {
+				send.add.push({x1: data[0], x2: data[1], y1: data[2],
+					y2: data[3], text: data[4]});
+				return;
+			}
+
+			var changed = false,
+				item = {id: id};
+
 			if (!before || before[0] != data[0]) {
-				add.x1 = data[0];
+				item.x1 = data[0];
 				changed = true;
 			}
 			if (!before || before[1] != data[1]) {
-				add.x2 = data[1];
+				item.x2 = data[1];
 				changed = true;
 			}
 			if (!before || before[2] != data[2]) {
-				add.y1 = data[2];
+				item.y1 = data[2];
 				changed = true;
 			}
 			if (!before || before[3] != data[3]) {
-				add.y2 = data[3];
+				item.y2 = data[3];
 				changed = true;
 			}
 			if (!before || before[4] != data[4]) {
-				add.text = data[4];
+				item.text = data[4];
 				changed = true;
 			}
 			if (changed) {
-				send.push(add);
+				send.change.push(item);
 			}
 		});
 
-		this.message('edit_data_change', {change: send}, send.length);
+		this.message('edit_data_change', send, send.change.length ||
+			send.add.length || send.remove.length);
 	},
 	events: {
 		init: function() {
