@@ -85,8 +85,6 @@ extend(OBJECT.translation, OBJECT.base, {
 	finish_edit: function(discard) {
 		if (!discard && this.edit_inited) {
 			var bbcode = this.child.editfield.bbcode();
-			console.log(bbcode);
-			console.log(this.bbcode);
 			if (bbcode != this.bbcode) {
 				this.bbcode = bbcode;
 				this.submodule.box.el.html(this.child.editfield.htmlcode());
@@ -143,8 +141,10 @@ extend(OBJECT.translation, OBJECT.base, {
 			this.display(width);
 		},
 		change_translation_mode: function(mode) {
-			this.el.show();
-			this.finish_edit();
+			if (!this.deleted) {
+				this.el.show();
+				this.finish_edit();
+			}
 
 			this.mode = mode;
 
