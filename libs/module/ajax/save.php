@@ -11,7 +11,7 @@ class Module_Ajax_Save extends Module_Ajax_Api
 	}
 
 	protected function make_request() {
-		return new Request_Change('update_art_' . $this->api,
+		return new Request_Change('update_' . $this->api,
 			$this, $this->data);
 	}
 }

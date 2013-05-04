@@ -13,6 +13,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		error: '.error',
 		success: '.success'
 	},
+	need_full_reload: true,
 	data: {},
 	data_id: 0,
 	api: '',
@@ -26,7 +27,6 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.save_wrapper.show();
 	},
 	on_save: function(data) {
-		this.message('edit_save_success');
 		if (!data.success) {
 			this.on_save_failure(data);
 			return;
@@ -34,9 +34,13 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.form.hide();
 		this.child.loader.hide();
 		this.child.success.show();
-		this.message('art_reload', function(){
-			this.el.hide();
-		}, this);
+		if (this.need_full_reload) {
+			document.location.reload();
+		} else {
+			this.message('art_reload', function(){
+				this.el.hide();
+			}, this);
+		}
 	},
 	on_load_failure: function() {
 		this.child.loader.hide();
@@ -78,11 +82,16 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			this.el.show();
 			this.child.form.hide();
 			this.child.save_wrapper.hide();
+			this.child.save.addClass('disabled');
 			this.child.loader.show();
 			this.child.error.hide();
 			this.child.success.hide();
+
 			this.data_id = id;
-			this.api = mode == 'art' ? type : mode + '_' + type;
+			this.api = (mode != 'art') && (type != 'tag') ? mode :
+				mode + '_' + type;
+			this.need_full_reload = (mode != 'art') || (type == 'translation');
+
 			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
 		},
@@ -137,22 +146,25 @@ extend(OBJECT.edit_simple, OBJECT.base, {
 		});
 		return data;
 	},
+	send_data: function() {
+		var data = this.gather_data(),
+			send_data = {},
+			have_changes = false;
+		$.each(data, $.proxy(function(name, value){
+			if (this.start_data[name] != value) {
+				send_data[name] = value;
+				have_changes = true;
+			}
+		}, this));
+		this.message('edit_data_change', send_data, have_changes);
+	},
 	events: {
 		init: function() {
 			this.start_data = this.gather_data();
 		},
 		fields: {
-			keyup: function() {
-				var data = this.gather_data(),
-					send_data = {},
-					have_changes = false;
-				$.each(data, $.proxy(function(name, value){
-					if (this.start_data[name] != value) {
-						send_data[name] = value;
-						have_changes = true;
-					}
-				}, this));
-				this.message('edit_data_change', send_data, have_changes);
+			change: function() {
+				this.send_data()
 			}
 		}
 	}
@@ -351,9 +363,6 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		edit_save: function(){
 			this.message('translation_edit_save');
 		},
-		edit_save_success: function() {
-			document.location.reload();
-		},
 		translation_state: function(id, state) {
 			this.state[this.state_pointer][id] = state;
 		},
@@ -370,11 +379,29 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 	}
 });
 
-OBJECT.edit_source = function(id, values, events) {
+OBJECT.edit_text = function(id, values, events) {
 	OBJECT.edit_simple.call(this, id, values, events);
+
+	this.child.field.wysibb(wbbconfig);
+	this.inited = true;
+	this.el.find('.wysibb').on('click keyup', $.proxy(this.send_data, this));
 };
 
-extend(OBJECT.edit_source, OBJECT.edit_simple, {
-	class_name: 'edit_source'
+extend(OBJECT.edit_text, OBJECT.edit_simple, {
+	class_name: 'edit_text',
+	inited: false,
+	child_config: {
+		field: 'textarea'
+	},
+	gather_data: function() {
+		if (this.inited) {
+			this.child.field.sync();
+		}
+		return this.get_super().gather_data.call(this);
+	},
+	listen: {
+		wysibb_change: function() {
+			this.send_data();
+		}
+	}
 });
-

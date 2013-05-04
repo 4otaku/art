@@ -6,12 +6,14 @@
 		add('edit_start', 'tag_{$id}', {mode: '{$mode}'});
 	</script>
 	{if condition="$mode"}
-		<div class="sidebar_row">
-			<a href="#" id="edit_start_title_{$id}">Редактировать заголовок</a>
-		</div>
-		<script type="text/javascript">
-			add('edit_start', 'title_{$id}', {mode: '{$mode}'});
-		</script>
+		{if condition="$mode != 'artist'"}
+			<div class="sidebar_row">
+				<a href="#" id="edit_start_title_{$id}">Редактировать заголовок</a>
+			</div>
+			<script type="text/javascript">
+				add('edit_start', 'title_{$id}', {mode: '{$mode}'});
+			</script>
+		{/if}
 		<div class="sidebar_row">
 			<a href="#" id="edit_start_text_{$id}">Редактировать описание</a>
 		</div>
@@ -34,17 +36,15 @@
 				add('edit_start', 'order_{$id}', {mode: '{$mode}'});
 			</script>
 		{/if}
-		{if condition="$mode != 'author'"}
-			<div class="sidebar_row">
-				<a href="#" id="edit_start_add_{$id}">
-					Добавить изображения
-				</a>
-			</div>
-			<script type="text/javascript">
-				add('edit_start', 'add_{$id}', {mode: '{$mode}'});
-			</script>
-		{/if}
-		{if condition="$moderator and $mode != 'author'"}
+		<div class="sidebar_row">
+			<a href="#" id="edit_start_add_{$id}">
+				Добавить изображения
+			</a>
+		</div>
+		<script type="text/javascript">
+			add('edit_start', 'add_{$id}', {mode: '{$mode}'});
+		</script>
+		{if condition="($moderator and $mode != 'artist') or $is_author"}
 			<div class="sidebar_row">
 				<a href="#" id="edit_start_remove_{$id}">
 					Удалить изображения

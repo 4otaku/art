@@ -2110,9 +2110,10 @@ var wbbdebug=true;
 		},
 		isContain: function(node,sel) {
 			while (node && !$(node).hasClass("wysibb")) {
+				// node.nodeType != Node.TEXT_NODE
 				if ($(node).is(sel)) {return node};
 				if (node) {node = node.parentNode;}
-				else{return null;}
+				else {return null;}
 			}
 		},
 		isBBContain: function(bbcode) {
@@ -2247,6 +2248,8 @@ var wbbdebug=true;
 			}
 			$btn.find(tsel).toggle();
 			$btn.toggleClass("on");
+
+			message('wysibb_change');
 		},
 		dropdownhandler: function($btn,bsel,tsel,e) {
 			if ($(e.target).parents(bsel).size()==0) {
@@ -2546,6 +2549,7 @@ var wbbdebug=true;
 					this.closeModal();
 					this.updateUI();
 				}
+				message('wysibb_change');
 			},this));
 			$wbbm.find('#wbbm-remove').click($.proxy(function() {
 				//clbk.remove();
@@ -2553,6 +2557,7 @@ var wbbdebug=true;
 				this.wbbRemoveCallback(cmd); //remove callback
 				this.closeModal();
 				this.updateUI();
+				message('wysibb_change');
 			},this));
 
 			$(document.body).css("overflow","hidden"); //lock the screen, remove scroll on body
