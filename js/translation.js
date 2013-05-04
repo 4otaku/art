@@ -2,6 +2,7 @@ OBJECT.translation = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.bbcode = this.submodule.box.get_original();
+	console.log(this);
 };
 
 extend(OBJECT.translation, OBJECT.base, {
@@ -34,6 +35,16 @@ extend(OBJECT.translation, OBJECT.base, {
 		return reverse ? Math.round(val / this.resize_factor) :
 			Math.round(val * this.resize_factor);
 	},
+	display: function(width) {
+		this.current_width = width;
+		this.resize_factor = this.current_width / this.full_width;
+
+		this.el.css('top', this.get_val(this.y1));
+		this.el.css('height', this.get_val(this.y2));
+		this.el.css('left', this.get_val(this.x1));
+		this.el.css('width', this.get_val(this.x2));
+		this.el.show();
+	},
 	start_edit: function() {
 		this.message('translation_edit_start', this.id);
 		this.message('translation_change_start');
@@ -64,18 +75,13 @@ extend(OBJECT.translation, OBJECT.base, {
 		this.message('translation_change_start');
 	},
 	on_move_stop: function(e, ui) {
-		var x1 = this.get_val(ui.position.left, true),
-			y1 = this.get_val(ui.position.top, true),
-			x2 = x1 + this.x2 - this.x1,
-			y2 = y1 + this.y2 - this.y1;
+		this.x1 = this.get_val(ui.position.left, true);
+		this.y1 = this.get_val(ui.position.top, true);
+
 		if (ui.size) {
-			x2 = x1 + this.get_val(ui.size.width, true);
-			y2 = y1 + this.get_val(ui.size.height, true);
+			this.x2 = this.get_val(ui.size.width, true);
+			this.y2 = this.get_val(ui.size.height, true);
 		}
-		this.x1 = x1;
-		this.x2 = x2;
-		this.y1 = y1;
-		this.y2 = y2;
 
 		this.message('translation_change_end');
 	},
@@ -99,7 +105,7 @@ extend(OBJECT.translation, OBJECT.base, {
 		}
 	},
 	listen: {
-		image_clicked: function() {
+		image_clicked: function(id) {
 			if (this.id_image == id && this.mode == 'view') {
 				this.el.toggle();
 			}
@@ -109,14 +115,7 @@ extend(OBJECT.translation, OBJECT.base, {
 				return;
 			}
 
-			this.current_width = width;
-			this.resize_factor = this.current_width / this.full_width;
-
-			this.el.css('top', this.get_val(this.y1));
-			this.el.css('height', this.get_val(this.y2));
-			this.el.css('left', this.get_val(this.x1));
-			this.el.css('width', this.get_val(this.x2));
-			this.el.show();
+			this.display(width);
 		},
 		change_translation_mode: function(mode) {
 			this.el.show();

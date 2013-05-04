@@ -24,6 +24,7 @@
 		is_resized: {$resized},
 		resized: '{function="Config::get('api', 'image_url')"}art/{$md5}_resize.jpg',
 		full: '{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}',
+		full_width: {$width}
 	});
 	{loop="translation"}
 		add('translation', '{$value.id}', {
