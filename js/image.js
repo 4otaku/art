@@ -41,7 +41,6 @@ extend(OBJECT.image, OBJECT.base, {
 			y2: size * 2
 		});
 		tr.display(this.el.width());
-		tr.start_edit();
 	},
 	events: {
 		click: function(e) {

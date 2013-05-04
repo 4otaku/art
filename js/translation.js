@@ -2,7 +2,11 @@ OBJECT.translation = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.bbcode = this.submodule.box.get_original();
-	console.log(this);
+
+	if (this.is_new) {
+		this.message('translation_change_end');
+		this.start_edit();
+	}
 };
 
 extend(OBJECT.translation, OBJECT.base, {
@@ -36,7 +40,14 @@ extend(OBJECT.translation, OBJECT.base, {
 			Math.round(val * this.resize_factor);
 	},
 	display: function(width) {
-		this.current_width = width;
+		if (this.deleted) {
+			this.el.hide();
+			return;
+		}
+
+		if (width) {
+			this.current_width = width;
+		}
 		this.resize_factor = this.current_width / this.full_width;
 
 		this.el.css('top', this.get_val(this.y1));
@@ -71,6 +82,20 @@ extend(OBJECT.translation, OBJECT.base, {
 		this.child.editfield.bbcode(this.bbcode);
 		this.child.editfield.htmlcode(html);
 	},
+	finish_edit: function(discard) {
+		if (!discard && this.edit_inited) {
+			var bbcode = this.child.editfield.bbcode();
+			console.log(bbcode);
+			console.log(this.bbcode);
+			if (bbcode != this.bbcode) {
+				this.bbcode = bbcode;
+				this.submodule.box.el.html(this.child.editfield.htmlcode());
+				this.message('translation_change_end');
+			}
+		}
+		this.child.edit.hide();
+		this.editing = false;
+	},
 	on_move_start: function() {
 		this.message('translation_change_start');
 	},
@@ -97,7 +122,7 @@ extend(OBJECT.translation, OBJECT.base, {
 		click: function(e) {
 			if (this.mode == 'delete') {
 				this.deleted = true;
-				this.el.hide();
+				this.display();
 				this.message('translation_change_end');
 			} else if (this.mode == 'edit') {
 				this.start_edit();
@@ -119,6 +144,7 @@ extend(OBJECT.translation, OBJECT.base, {
 		},
 		change_translation_mode: function(mode) {
 			this.el.show();
+			this.finish_edit();
 
 			this.mode = mode;
 
@@ -143,24 +169,38 @@ extend(OBJECT.translation, OBJECT.base, {
 			}
 		},
 		translation_edit_start: function(id) {
-			if (this.id != id) {
-				this.child.edit.hide();
-				this.editing = false;
+			if (this.editing && this.id != id) {
+				this.finish_edit();
 			}
 		},
 		translation_edit_save: function(editfield) {
-			if (this.child.editfield.is(editfield)) {
-				this.bbcode = this.child.editfield.bbcode();
-				this.submodule.box.el.html(this.child.editfield.htmlcode());
-				this.child.edit.hide();
-				this.editing = false;
-				this.message('translation_change_end');
+			if (!editfield || this.child.editfield.is(editfield)) {
+				this.finish_edit();
 			}
 		},
 		translation_state_report: function() {
-			this.message('translation_state', this.id, [
-				this.x1, this.x2, this.y1, this.y2, this.bbcode, this.deleted
+			this.message('translation_state', this.id, [this.x1, this.x2,
+				this.y1, this.y2, this.bbcode, this.deleted, this.is_new
 			]);
+		},
+		translation_state_set: function(state) {
+			if (!state[this.id]) {
+				this.deleted = true;
+			} else {
+				state = state[this.id];
+				this.x1 = state[0];
+				this.x2 = state[1];
+				this.y1 = state[2];
+				this.y2 = state[3];
+				this.bbcode = state[4];
+				this.deleted = state[5];
+
+				this.submodule.box.el.html(
+					this.submodule.box.translate(this.bbcode));
+			}
+
+			this.display();
+			this.finish_edit(true);
 		}
 	}
 });

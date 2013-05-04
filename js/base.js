@@ -306,6 +306,8 @@ OBJECT.bb = function(id, values) {
 	OBJECT.base.call(this, id, values);
 
 	var text = this.el.html() || '';
+	// Decode html entities
+	text = $('<div/>').html(text).text();
 	this.el.html(this.translate(text));
 	this.original = text;
 };

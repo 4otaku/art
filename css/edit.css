@@ -55,3 +55,12 @@
 	top: 2px;
 	right: 6px;
 }
+
+#edit_form_main .undo, #edit_form_main .redo {
+	font-size: 200%;
+	padding-left: 6px !important;
+	padding-right: 6px !important;
+	float: right;
+	margin-right: 10px;
+	visibility: hidden;
+}

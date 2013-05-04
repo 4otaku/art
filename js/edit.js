@@ -60,6 +60,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 				if (this.child.save.is('.disabled')) {
 					return;
 				}
+				this.message('edit_save');
 
 				this.child.loader.hide();
 				this.child.error.hide();
@@ -202,7 +203,9 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		add: '.add',
 		edit: '.edit',
 		move: '.move',
-		delete: '.delete'
+		delete: '.delete',
+		undo: '.undo',
+		redo: '.redo'
 	},
 	set_mode: function(mode) {
 		this.message('change_translation_mode', mode);
@@ -228,6 +231,74 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		this.message('translation_state_report');
 
 		return (initial && !$.isEmptyObject(this.state[0]));
+	},
+	display_state: function(index) {
+		if (!this.state[index]) {
+			return;
+		}
+
+		this.state_pointer = index;
+		this.message('translation_state_set', this.state[index]);
+		this.display_arrows();
+		this.prepare_data();
+	},
+	display_arrows: function() {
+		if (this.state_pointer > 0 || this.in_active_change) {
+			this.child.undo.css('visibility', 'inherit');
+		} else {
+			this.child.undo.css('visibility', 'hidden');
+		}
+
+		if (this.state.length > (this.state_pointer + 1)) {
+			this.child.redo.css('visibility', 'inherit');
+		} else {
+			this.child.redo.css('visibility', 'hidden');
+		}
+	},
+	prepare_data: function() {
+		var data = this.state[this.state_pointer],
+			initial = this.state[0],
+			send = [];
+		$.each(data, function(id, data){
+			var before = initial[id],
+				changed = false,
+				add = {};
+
+			if (!data[6]) {
+				add.id = id;
+				if (data[5] && before) {
+					add.delete = 1;
+					send.push(add);
+					return;
+				}
+			}
+
+			if (!before || before[0] != data[0]) {
+				add.x1 = data[0];
+				changed = true;
+			}
+			if (!before || before[1] != data[1]) {
+				add.x2 = data[1];
+				changed = true;
+			}
+			if (!before || before[2] != data[2]) {
+				add.y1 = data[2];
+				changed = true;
+			}
+			if (!before || before[3] != data[3]) {
+				add.y2 = data[3];
+				changed = true;
+			}
+			if (!before || before[4] != data[4]) {
+				add.text = data[4];
+				changed = true;
+			}
+			if (changed) {
+				send.push(add);
+			}
+		});
+
+		this.message('edit_data_change', {change: send}, send.length);
 	},
 	events: {
 		init: function() {
@@ -256,21 +327,43 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 			click: function() {
 				this.set_mode('delete');
 			}
+		},
+		undo: {
+			click: function() {
+				if (this.in_active_change) {
+					this.display_state(this.state_pointer);
+					this.in_active_change = false;
+				} else {
+					this.display_state(this.state_pointer - 1);
+				}
+			}
+		},
+		redo: {
+			click: function() {
+				this.display_state(this.state_pointer + 1);
+				this.in_active_change = false;
+			}
 		}
 	},
 	listen: {
 		edit_cancel: function(){
 			this.set_mode('view');
 		},
+		edit_save: function(){
+			this.message('translation_edit_save');
+		},
 		translation_state: function(id, state) {
 			this.state[this.state_pointer][id] = state;
 		},
 		translation_change_start: function() {
 			this.in_active_change = true;
+			this.display_arrows();
 		},
 		translation_change_end: function() {
 			this.in_active_change = false;
 			this.write_state();
+			this.display_arrows();
+			this.prepare_data();
 		}
 	}
 });
