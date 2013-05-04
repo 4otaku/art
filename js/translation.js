@@ -5,7 +5,6 @@ OBJECT.translation = function(id, values, events) {
 
 	if (this.is_new) {
 		this.message('translation_change_end');
-		this.start_edit();
 	}
 };
 
@@ -108,16 +107,30 @@ extend(OBJECT.translation, OBJECT.base, {
 
 		this.message('translation_change_end');
 	},
+	start_drag: function() {
+		this.el.draggable({
+			containment: 'parent',
+			handle: '.handle',
+			start: $.proxy(this.on_move_start, this),
+			stop: $.proxy(this.on_move_stop, this)
+		});
+		this.el.resizable({
+			containment: 'parent',
+			handle: '.handle',
+			minHeight: 20,
+			minWidth: 20,
+			start: $.proxy(this.on_move_start, this),
+			stop: $.proxy(this.on_move_stop, this)
+		});
+	},
 	events: {
 		mouseenter: function(e) {
-			if (this.mode != 'move') {
-				this.submodule.box.el.show();
-			}
+			this.submodule.box.el.show();
 		},
 		mouseleave: function(e) {
 			this.submodule.box.el.hide();
 		},
-		click: function(e) {
+		dblclick: function(e) {
 			if (this.mode == 'delete') {
 				this.deleted = true;
 				this.display();
@@ -153,19 +166,8 @@ extend(OBJECT.translation, OBJECT.base, {
 				this.el.resizable('destroy');
 			}
 
-			if (mode == 'move') {
-				this.el.draggable({
-					containment: 'parent',
-					start: $.proxy(this.on_move_start, this),
-					stop: $.proxy(this.on_move_stop, this)
-				});
-				this.el.resizable({
-					containment: 'parent',
-					minHeight: 20,
-					minWidth: 20,
-					start: $.proxy(this.on_move_start, this),
-					stop: $.proxy(this.on_move_stop, this)
-				});
+			if (mode == 'edit') {
+				this.start_drag();
 			}
 		},
 		translation_edit_start: function(id) {

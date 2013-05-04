@@ -24,12 +24,13 @@ extend(OBJECT.image, OBJECT.base, {
 
 		var insert = $('<div/>').addClass('art_translation').
 			attr('id', 'translation_new_' + this.last_translation_id),
+			handle = $('<div/>').addClass('handle'),
 			box = $('<div/>').addClass('box').attr('id',
 				'bb_new_' + this.last_translation_id + '_tr'),
 			edit = $('<div/>').addClass('edit_translation')
 				.append('<textarea/>');
 
-		insert.append(box).append(edit).insertAfter(this.el);
+		insert.append(handle).append(box).append(edit).insertAfter(this.el);
 		var tr = init('translation', 'new_' + this.last_translation_id, {
 			full_width: this.full_width,
 			is_new: true,
@@ -41,6 +42,7 @@ extend(OBJECT.image, OBJECT.base, {
 			y2: size * 2
 		});
 		tr.display(this.el.width());
+		tr.start_drag();
 	},
 	events: {
 		click: function(e) {
@@ -66,7 +68,7 @@ extend(OBJECT.image, OBJECT.base, {
 			}
 		},
 		change_translation_mode: function(mode) {
-			this.adding_translation = (mode == 'add');
+			this.adding_translation = (mode == 'edit');
 		}
 	}
 });

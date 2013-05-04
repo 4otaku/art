@@ -26,6 +26,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.save_wrapper.show();
 	},
 	on_save: function(data) {
+		this.message('edit_save_success');
 		if (!data.success) {
 			this.on_save_failure(data);
 			return;
@@ -200,18 +201,16 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 	in_active_change: false,
 	state: [],
 	child_config: {
-		add: '.add',
 		edit: '.edit',
-		move: '.move',
 		delete: '.delete',
+		help: '.help',
+		info: '.info',
 		undo: '.undo',
 		redo: '.redo'
 	},
 	set_mode: function(mode) {
 		this.message('change_translation_mode', mode);
-		this.child.add.removeClass('active');
 		this.child.edit.removeClass('active');
-		this.child.move.removeClass('active');
 		this.child.delete.removeClass('active');
 		if (this.child[mode]) {
 			this.child[mode].addClass('active');
@@ -229,8 +228,6 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		this.state.push({});
 
 		this.message('translation_state_report');
-
-		return (initial && !$.isEmptyObject(this.state[0]));
 	},
 	display_state: function(index) {
 		if (!this.state[index]) {
@@ -306,30 +303,28 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 	},
 	events: {
 		init: function() {
-			if (this.write_state(true)) {
-				this.child.edit.click();
-			} else {
-				this.child.add.click();
-			}
-		},
-		add: {
-			click: function() {
-				this.set_mode('add');
-			}
+			this.write_state(true);
+			this.set_mode('edit');
 		},
 		edit: {
 			click: function() {
 				this.set_mode('edit');
 			}
 		},
-		move: {
-			click: function() {
-				this.set_mode('move');
-			}
-		},
 		delete: {
 			click: function() {
 				this.set_mode('delete');
+			}
+		},
+		help: {
+			click: function() {
+				if (this.child.help.is('.active')) {
+					this.child.help.removeClass('active');
+					this.child.info.hide();
+				} else {
+					this.child.help.addClass('active');
+					this.child.info.show();
+				}
 			}
 		},
 		undo: {
@@ -355,6 +350,9 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 		},
 		edit_save: function(){
 			this.message('translation_edit_save');
+		},
+		edit_save_success: function() {
+			document.location.reload();
 		},
 		translation_state: function(id, state) {
 			this.state[this.state_pointer][id] = state;

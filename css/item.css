@@ -74,6 +74,10 @@
 	box-shadow: 0px 4px 4px #999;
 }
 
+.art_translation .handle {
+	height: 100%;
+}
+
 .wbb-save img {
 	margin: 2px;
 }
