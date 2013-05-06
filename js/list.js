@@ -16,11 +16,25 @@ extend(OBJECT.thumb, OBJECT.base, {
 		}
 	},
 	listen: {
+		edit_cancel: function() {
+			this.el.removeClass('thumbnail_chosen_cover');
+			this.el.removeClass('thumbnail_removed');
+		},
 		mark_cover: function(id) {
 			if (this.id == id) {
 				this.el.addClass('thumbnail_chosen_cover');
 			} else {
 				this.el.removeClass('thumbnail_chosen_cover');
+			}
+		},
+		thumbnail_remove: function(id) {
+			if (this.id == id) {
+				this.el.addClass('thumbnail_removed');
+			}
+		},
+		thumbnail_unremove: function(id) {
+			if (this.id == id) {
+				this.el.removeClass('thumbnail_removed');
 			}
 		}
 	}

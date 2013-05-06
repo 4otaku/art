@@ -18,3 +18,9 @@
 	padding: 3px;
 	border-radius: 4px;
 }
+
+.thumbnail_removed img {
+	border: 2px solid #e3012b;
+	padding: 3px;
+	border-radius: 4px;
+}

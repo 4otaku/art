@@ -442,3 +442,30 @@ extend(OBJECT.edit_cover, OBJECT.edit_simple, {
 		}
 	}
 });
+
+OBJECT.edit_remove = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_remove, OBJECT.base, {
+	class_name: 'edit_remove',
+	remove: [],
+	send_data: function() {
+		this.message('edit_data_change', {remove: this.remove},
+			this.remove.length);
+	},
+	listen: {
+		thumbnail_clicked: function(id) {
+			if (this.remove.indexOf(id) !== -1) {
+				this.remove = $.grep(this.remove, function(value) {
+					return value != id;
+				});
+				this.message('thumbnail_unremove', id);
+			} else {
+				this.remove.push(id);
+				this.message('thumbnail_remove', id);
+			}
+			this.send_data();
+		}
+	}
+});
