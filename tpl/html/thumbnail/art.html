@@ -1,4 +1,4 @@
-<div class="image_thumbnail small_thumbnail">
+<div class="image_thumbnail small_thumbnail" id="thumb_{$id}">
 	<a href="/{$id}{if condition="$query"}?{$query}{/if}" title="{$tip}">
 		{if condition="Config::get('art', 'largethumbs')"}
 			<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_largethumb.jpg" />
@@ -20,3 +20,7 @@
 		</span>
 	{/if}
 </div>
+
+<script type="text/javascript">
+	add('thumb', '{$id}');
+</script>

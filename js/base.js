@@ -93,15 +93,19 @@ function extend(Child, Parent, mixinData) {
 // Object adding functions
 
 function init_objects() {
+	var inited = [];
 	$.each(INIT, function(type, objects) {
 		$.each(objects, function(dev_null, object) {
 			if (OBJECT[type]) {
 				var id = object[0];
 				var values = object[1] || {};
 				var events = object[2] || {};
-				new OBJECT[type](id, values, events);
+				inited.push(new OBJECT[type](id, values, events));
 			}
 		});
+	});
+	$.each(inited, function(key, object) {
+		object.el.trigger('init');
 	});
 	INIT = {};
 }
@@ -109,7 +113,9 @@ function init_objects() {
 function init(type, id, values, events) {
 	events = events || {};
 	values = values || {};
-	return new OBJECT[type](id, values, events);
+	var object = new OBJECT[type](id, values, events);
+	object.el.trigger('init');
+	return object;
 }
 
 // Base object
@@ -130,7 +136,6 @@ var OBJECT = {
 
 		this.id = id;
 		this.init_listeners(this.listen);
-		this.el.trigger('init');
 	}
 };
 var LISTENERS = {};

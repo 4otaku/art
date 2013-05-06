@@ -5,6 +5,7 @@ class Query_Art extends Query
 	protected $parsed = [];
 	protected $other = [];
 	protected $forced_per_page = true;
+	protected $per_page_all = false;
 	protected $pool_mode = false;
 	protected $comparable_keys = [
 		'rating', 'width', 'height', 'weight', 'date', 'translation_date',
@@ -67,8 +68,21 @@ class Query_Art extends Query
 			}
 		}
 
-		if ($pool_count !== 1) {
+		if ($pool_count !== 1 || $this->is_pool_list()) {
 			$this->pool_mode = false;
+		}
+
+		if (isset($this->other['per_page']) && $this->other['per_page'] == 'all') {
+			if ($this->get_pool_mode()) {
+				$this->other['per_page'] = 999999;
+				$this->per_page_all = true;
+			} else {
+				unset($this->other['per_page']);
+			}
+		}
+
+		if (isset($this->other['per_page'])) {
+			$this->other['per_page'] = (int) $this->other['per_page'];
 		}
 
 		if (empty($this->other['per_page'])) {
@@ -130,7 +144,7 @@ class Query_Art extends Query
 		return reset($this->parsed[$this->pool_mode]['is']);
 	}
 
-	public function to_url_string() {
+	protected function to_url_array() {
 		$parts = [];
 		$params = $this->parsed();
 
@@ -157,11 +171,22 @@ class Query_Art extends Query
 			$parts[] = $key . '=' . $param;
 		}
 
-		return implode('&', $parts);
+		return $parts;
+	}
+
+	public function to_url_string() {
+		return implode('&', $this->to_url_array());
 	}
 
 	public function all() {
 		return array_merge($this->parsed, $this->other);
+	}
+
+	public function is_pool_full_view() {
+		$parts = $this->to_url_array();
+		return count($parts) == 2 && $this->get_pool_mode() &&
+			empty($this->other['sort']) && $this->page() == 1 &&
+			$this->per_page_all;
 	}
 
 	protected function parse($items, $is_comparable) {

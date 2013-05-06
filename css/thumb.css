@@ -8,3 +8,13 @@
 	width: 160px;
 	height: 160px;
 }
+
+.small_thumbnail img {
+	padding: 5px;
+}
+
+.thumbnail_chosen_cover img {
+	border: 2px solid #8b1a5c;
+	padding: 3px;
+	border-radius: 4px;
+}

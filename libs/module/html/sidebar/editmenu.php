@@ -18,6 +18,13 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 			if ($query->get_pool_mode() == 'artist') {
 				$this->id_artist = $query->get_pool_value();
 			}
+			if ($query->is_pool_full_view()) {
+				$this->set_param('is_list', true);
+			} else {
+				$this->set_param('is_list', false);
+				$this->set_param('list_link', $query->get_pool_mode() . '=' .
+					$query->get_pool_value() . '&per_page=all');
+			}
 		}
 
 		$this->set_param('moderator', Session::is_moderator());
@@ -35,9 +42,6 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	}
 
 	public function recieve_data($data) {
-		if (!$data['data']['is_author'] && !Session::is_moderator()) {
-			$this->disable();
-		}
 		$this->set_param('is_author', $data['data']['is_author']);
 	}
 

@@ -124,10 +124,21 @@ extend(OBJECT.edit_start, OBJECT.base, {
 	mode: '',
 	type: '',
 	id_item: '',
+	do_start: function() {
+		this.message('edit_load', this.type,
+			this.mode ? 'art_' + this.mode : 'art', this.id_item);
+	},
 	events: {
+		init: function() {
+			if (document.location.hash) {
+				var target = document.location.hash.match(/^#do\-edit\-(.*)/)[1];
+				if (target == this.type) {
+					this.do_start();
+				}
+			}
+		},
 		click: function() {
-			this.message('edit_load', this.type,
-				this.mode ? 'art_' + this.mode : 'art', this.id_item);
+			this.do_start();
 		}
 	}
 });
@@ -406,6 +417,27 @@ extend(OBJECT.edit_text, OBJECT.edit_simple, {
 	},
 	listen: {
 		wysibb_change: function() {
+			this.send_data();
+		}
+	}
+});
+
+OBJECT.edit_cover = function(id, values, events) {
+	OBJECT.edit_simple.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_cover, OBJECT.edit_simple, {
+	class_name: 'edit_cover',
+	events: {
+		init: function() {
+			this.get_super().events.init.call(this);
+			this.message('mark_cover', this.child.fields.val());
+		}
+	},
+	listen: {
+		thumbnail_clicked: function(id) {
+			this.child.fields.val(id);
+			this.message('mark_cover', id);
 			this.send_data();
 		}
 	}

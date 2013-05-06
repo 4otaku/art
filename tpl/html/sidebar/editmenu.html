@@ -1,62 +1,86 @@
 <div class="sidebar_part">
-	<div class="sidebar_row">
-		<a href="#" id="edit_start_tag_{$id}">Редактировать теги</a>
-	</div>
-	<script type="text/javascript">
-		add('edit_start', 'tag_{$id}', {mode: '{$mode}'});
-	</script>
+	{if condition="!$mode or $mode != 'artist' or $is_author or $moderator"}
+		<div class="sidebar_row">
+			<a href="#do-edit-tag" id="edit_start_tag_{$id}">Редактировать теги</a>
+		</div>
+		<script type="text/javascript">
+			add('edit_start', 'tag_{$id}', {mode: '{$mode}'});
+		</script>
+	{/if}
 	{if condition="$mode"}
 		{if condition="$mode != 'artist'"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_start_title_{$id}">Редактировать заголовок</a>
+				<a href="#do-edit-title" id="edit_start_title_{$id}">Редактировать заголовок</a>
 			</div>
 			<script type="text/javascript">
 				add('edit_start', 'title_{$id}', {mode: '{$mode}'});
 			</script>
 		{/if}
-		<div class="sidebar_row">
-			<a href="#" id="edit_start_text_{$id}">Редактировать описание</a>
-		</div>
-		<script type="text/javascript">
-			add('edit_start', 'text_{$id}', {mode: '{$mode}'});
-		</script>
-		{if condition="$mode == 'pack'"}
+		{if condition="$mode != 'artist' or $is_author or $moderator"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_start_cover_{$id}">Выбрать обложку</a>
+				<a href="#do-edit-text" id="edit_start_text_{$id}">Редактировать описание</a>
 			</div>
 			<script type="text/javascript">
-				add('edit_start', 'cover_{$id}', {mode: '{$mode}'});
+				add('edit_start', 'text_{$id}', {mode: '{$mode}'});
 			</script>
+		{/if}
+		{if condition="$mode == 'pack'"}
+			{if condition="$is_list"}
+				<div class="sidebar_row">
+					<a href="#do-edit-cover" id="edit_start_cover_{$id}">Выбрать обложку</a>
+				</div>
+				<script type="text/javascript">
+					add('edit_start', 'cover_{$id}', {mode: '{$mode}'});
+				</script>
+			{else}
+				<div class="sidebar_row">
+					<a href="/?{$list_link}#do-edit-cover">Выбрать обложку</a>
+				</div>
+			{/if}
 		{/if}
 		{if condition="$mode == 'pack' or $mode == 'manga'"}
-			<div class="sidebar_row">
-				<a href="#" id="edit_order_{$id}">Сортировать</a>
-			</div>
-			<script type="text/javascript">
-				add('edit_start', 'order_{$id}', {mode: '{$mode}'});
-			</script>
+			{if condition="$is_list"}
+				<div class="sidebar_row">
+					<a href="#do-edit-order" id="edit_order_{$id}">Сортировать</a>
+				</div>
+				<script type="text/javascript">
+					add('edit_start', 'order_{$id}', {mode: '{$mode}'});
+				</script>
+			{else}
+				<div class="sidebar_row">
+					<a href="/?{$list_link}#do-edit-order">Сортировать</a>
+				</div>
+			{/if}
 		{/if}
-		<div class="sidebar_row">
-			<a href="#" id="edit_start_add_{$id}">
-				Добавить изображения
-			</a>
-		</div>
-		<script type="text/javascript">
-			add('edit_start', 'add_{$id}', {mode: '{$mode}'});
-		</script>
-		{if condition="($moderator and $mode != 'artist') or $is_author"}
+		{if condition="$mode != 'artist' or $is_author or $moderator"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_start_remove_{$id}">
-					Удалить изображения
+				<a href="#do-edit-add" id="edit_start_add_{$id}">
+					Добавить изображения
 				</a>
 			</div>
 			<script type="text/javascript">
-				add('edit_start', 'remove_{$id}', {mode: '{$mode}'});
+				add('edit_start', 'add_{$id}', {mode: '{$mode}'});
 			</script>
+		{/if}
+		{if condition="$moderator or $is_author"}
+			{if condition="$is_list"}
+				<div class="sidebar_row">
+					<a href="#do-edit-remove" id="edit_start_remove_{$id}">
+						Удалить изображения
+					</a>
+				</div>
+				<script type="text/javascript">
+					add('edit_start', 'remove_{$id}', {mode: '{$mode}'});
+				</script>
+			{else}
+				<div class="sidebar_row">
+					<a href="/?{$list_link}#do-edit-remove">Удалить изображения</a>
+				</div>
+			{/if}
 		{/if}
 	{else}
 		<div class="sidebar_row">
-			<a href="#" id="edit_start_translation_{$id}">
+			<a href="#do-edit-translation" id="edit_start_translation_{$id}">
 				{if condition="$have_translation"}
 					Редактировать перевод
 				{else}
@@ -68,7 +92,7 @@
 			add('edit_start', 'translation_{$id}');
 		</script>
 		<div class="sidebar_row">
-			<a href="#" id="edit_start_source_{$id}">
+			<a href="#do-edit-source" id="edit_start_source_{$id}">
 				{if condition="$have_source"}
 					Редактировать источник
 				{else}
@@ -96,7 +120,7 @@
 		{/if}
 		{if condition="$moderator"}
 			<div class="sidebar_row">
-				<a href="#" id="edit_start_image_{$id}">
+				<a href="#do-edit-image" id="edit_start_image_{$id}">
 					Редактировать картинку
 				</a>
 			</div>
@@ -105,7 +129,7 @@
 			</script>
 			{if condition="$have_translation"}
 				<div class="sidebar_row">
-					<a href="#" id="edit_start_translator_{$id}">
+					<a href="#do-edit-translator" id="edit_start_translator_{$id}">
 						Редактировать список переводчиков
 					</a>
 				</div>
@@ -114,7 +138,7 @@
 				</script>
 			{/if}
 			<div class="sidebar_row">
-				<a href="#" id="edit_start_similar_{$id}">
+				<a href="#do-edit-similar" id="edit_start_similar_{$id}">
 					Редактировать список вариаций
 				</a>
 			</div>

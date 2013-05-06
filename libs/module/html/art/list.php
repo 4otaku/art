@@ -4,8 +4,8 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
 	use Trait_Module_Art_List;
 
-	protected $css = array('list', 'sidebar');
-	protected $js = array();
+	protected $css = ['list', 'sidebar'];
+	protected $js = ['list'];
 
 	protected $pool_tag_request = false;
 
