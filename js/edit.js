@@ -443,6 +443,37 @@ extend(OBJECT.edit_cover, OBJECT.edit_simple, {
 	}
 });
 
+OBJECT.edit_sort = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_sort, OBJECT.base, {
+	class_name: 'edit_sort',
+	initial_order: [],
+	order: [],
+	gather_data: function() {
+		return [];
+	},
+	send_data: function() {
+		this.message('edit_data_change', {order: this.order},
+			this.initial_order.toString() != this.order.toString());
+	},
+	events: {
+		init: function() {
+			this.message('thumbnail_sort');
+		}
+	},
+	listen: {
+		thumbnail_sort_init: function(data) {
+			this.initial_order = data;
+		},
+		thumbnail_sort_stop: function(data) {
+			this.order = data;
+			this.send_data();
+		}
+	}
+});
+
 OBJECT.edit_remove = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 };

@@ -27,3 +27,7 @@
 	font-weight: bold;
 	font-size: 120%;
 }
+
+.images .ui-sortable-placeholder {
+	height: 60px;
+}

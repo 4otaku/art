@@ -41,14 +41,14 @@
 		{if condition="$mode == 'pack' or $mode == 'manga'"}
 			{if condition="$is_list"}
 				<div class="sidebar_row">
-					<a href="#do-edit-order" id="edit_order_{$id}">Сортировать</a>
+					<a href="#do-edit-sort" id="edit_start_sort_{$id}">Сортировать</a>
 				</div>
 				<script type="text/javascript">
-					add('edit_start', 'order_{$id}', {mode: '{$mode}'});
+					add('edit_start', 'sort_{$id}', {mode: '{$mode}'});
 				</script>
 			{else}
 				<div class="sidebar_row">
-					<a href="/?{$list_link}#do-edit-order">Сортировать</a>
+					<a href="/?{$list_link}#do-edit-sort">Сортировать</a>
 				</div>
 			{/if}
 		{/if}
