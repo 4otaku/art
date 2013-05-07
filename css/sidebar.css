@@ -51,3 +51,7 @@
 .inactive_question a {
 	color: #999999;
 }
+
+.vote_disabled {
+	opacity: 0.5;
+}

@@ -55,18 +55,28 @@ extend(OBJECT.thumb, OBJECT.base, {
 	child_config: {
 		image: 'img'
 	},
+	in_edit: false,
 	events: {
 		image: {
 			click: function(e) {
-				e.preventDefault();
-				this.message('thumbnail_clicked', this.id);
+				if (this.in_edit) {
+					e.preventDefault();
+					this.message('thumbnail_clicked', this.id);
+				}
 			}
 		}
 	},
 	listen: {
+		edit_load: function() {
+			this.in_edit = true;
+		},
+		edit_save: function() {
+			this.in_edit = false;
+		},
 		edit_cancel: function() {
 			this.el.removeClass('thumbnail_chosen_cover');
 			this.el.removeClass('thumbnail_removed');
+			this.in_edit = false;
 		},
 		mark_cover: function(id) {
 			if (this.id == id) {

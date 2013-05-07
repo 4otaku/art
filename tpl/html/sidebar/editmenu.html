@@ -106,16 +106,16 @@
 		{if condition="!$voted"}
 			<div class="sidebar_row">
 				Голосовать:
-					<a href="#" id="vote_down_{$id}" title="Не понравилось">
+					<a href="#" id="vote_down" title="Не понравилось">
 						<img src="/images/minus.gif" class="vote">
 					</a>
-					<a href="#" id="vote_up_{$id}" title="Понравилось">
+					<a href="#" id="vote_up" title="Понравилось">
 						<img src="/images/plus.gif" class="vote">
 					</a>
 			</div>
 			<script type="text/javascript">
-				add('vote_down', '{$id}');
-				add('vote_up', '{$id}');
+				add('vote', 'down', {item: '{$id}', approve: 0});
+				add('vote', 'up', {item: '{$id}', approve: 1});
 			</script>
 		{/if}
 		{if condition="$moderator"}

@@ -2,8 +2,8 @@
 	<div class="sidebar_row">
 		Загрузил: <a href="/?user={$user}">{$user}</a>.
 	</div>
-	<div class="sidebar_row rating_row">
-		Рейтинг: {$rating}.
+	<div class="sidebar_row rating_row" id="rating_main">
+		Рейтинг: <span class="rating_number">{$rating}</span>.
 		{if condition="$voted > 0"}
 			<img src="/images/plus.gif" class="voted" title="Вам понравилось">
 		{elseif condition="$voted < 0"}
@@ -121,4 +121,5 @@
 			this.message('fullsize_clicked');
 		}
 	});
+	add('rating', 'main');
 </script>

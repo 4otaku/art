@@ -52,3 +52,20 @@ extend(OBJECT.art_item, OBJECT.base, {
 		}
 	}
 });
+
+OBJECT.rating = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.rating, OBJECT.base, {
+	class_name: 'rating',
+	child_config: {
+		number: '.rating_number'
+	},
+	listen: {
+		vote_clicked: function(approve) {
+			var val = parseInt(this.child.number.html()) + (approve ? 1 : -1);
+			this.child.number.html(val);
+		}
+	}
+});
