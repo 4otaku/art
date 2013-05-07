@@ -127,16 +127,6 @@
 			<script type="text/javascript">
 				add('edit_start', 'image_{$id}');
 			</script>
-			{if condition="$have_translation"}
-				<div class="sidebar_row">
-					<a href="#do-edit-translator" id="edit_start_translator_{$id}">
-						Редактировать список переводчиков
-					</a>
-				</div>
-				<script type="text/javascript">
-					add('edit_start', 'translator_{$id}');
-				</script>
-			{/if}
 			<div class="sidebar_row">
 				<a href="#do-edit-similar" id="edit_start_similar_{$id}">
 					Редактировать список вариаций
