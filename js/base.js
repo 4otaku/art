@@ -38,10 +38,17 @@ var Ajax = {
 	},
 
 	error: {
+		10: 'Слишком большой файл.',
+		20: 'Файл не является корректным изображением gif/jpg/png.',
+		30: 'Уже есть такое изображение.',
+		260: 'Файл не является корректным изображением gif/jpg/png.',
 		410: 'Указан неправильный адрес в запросе.',
-		420: 'Не все обязательные поля заполнены',
-		430: 'Поля заполнены неправильно'
+		420: 'Не все обязательные поля заполнены.',
+		430: 'Поля заполнены неправильно.',
+		540: 'Сбой сервера.'
 	},
+
+	unknown_error: 'Неизвестная ошибка.',
 
 	translate_error: function(error) {
 		if (this.error[error.code]) {
@@ -52,9 +59,17 @@ var Ajax = {
 			return error.message;
 		}
 
-		return 'Код ошибки: ' + error.code;
+		return this.unknown_error + ' Код ошибки: ' + error.code;
+	},
+
+	is_duplicate_error: function(error) {
+		return error.code == 30;
+	},
+
+	get_duplicate_link: function(data) {
+		return '<a href="/'+data.error+'" target="_blank">Посмотреть</a>';
 	}
-}
+};
 
 // Base OOP functions
 

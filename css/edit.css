@@ -31,6 +31,11 @@
 	width: 100%;
 }
 
+#edit_form_main .form input.fileupload {
+	width: auto !important;
+	margin-right: 20px;
+}
+
 #edit_form_main .form textarea {
 	resize: none;
 }
@@ -71,4 +76,8 @@
 	background-color: #ffffe0;
 	padding: 5px;
 	margin: 5px;
+}
+
+#edit_image_main {
+	height: 120px;
 }

@@ -501,6 +501,75 @@ extend(OBJECT.edit_remove, OBJECT.base, {
 	}
 });
 
+OBJECT.edit_image = function(id, values, events) {
+	OBJECT.edit_simple.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_image, OBJECT.edit_simple, {
+	class_name: 'edit_image',
+	child_config: {
+		fields: '.value',
+		start: '.start',
+		error: '.error',
+		loader: '.start img',
+		upload: '.fileupload',
+		thumb: '.image_thumbnail img'
+	},
+	events: {
+		init: function() {
+			var child = this.child;
+			this.child.upload.fileupload({
+				dataType: 'json',
+				replaceFileInput: false,
+				add: function (e, data) {
+					data.context = child.start;
+					child.error.hide();
+					child.start.removeClass('disabled');
+					child.start.unbind('click').click(function () {
+						child.start.addClass('disabled');
+						child.start.unbind('click');
+						child.loader.show();
+						data.submit();
+					});
+				},
+				done: function (e, data) {
+					var result = data.result[0];
+
+					if (!result.upload_key) {
+						child.error.html(Ajax.translate_error(result));
+						if (Ajax.is_duplicate_error(result)) {
+							child.error.append(' ' + Ajax.get_duplicate_link(result));
+						}
+						child.error.show();
+					} else {
+						child.thumb.show();
+						child.thumb.attr('src', result.thumbnail_url);
+						child.fields.val(result.upload_key);
+						child.fields.change();
+					}
+
+					child.loader.hide();
+					child.upload.val('');
+				}
+			});
+		},
+		upload: {/*
+			click: function(e) {
+				var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"),
+					value = this.child.file.val();
+
+				if (regex.test(this.child.link.val())) {
+					value = this.child.link.val();
+				}
+
+				if (!value) {
+					return;
+				}
+			}*/
+		}
+	}
+});
+
 OBJECT.vote = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 };

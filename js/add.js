@@ -1,11 +1,11 @@
 window.locale = {
 	fileupload: {
 		errors: {
-			maxFileSize: "Слишком большой файл",
-			acceptFileTypes: "Файл не является корректным изображением gif/jpg/png",
+			maxFileSize: Ajax.error[10],
+			acceptFileTypes: Ajax.error[20],
 			uploadedBytes: "Ошибка загрузки",
 			emptyResult: "Сервер не отвечает",
-			serverError: "Сбой сервера"
+			serverError: Ajax.error[540]
 		}
 	}
 };
@@ -38,7 +38,7 @@ OBJECT.upload = function(id, values, events) {
 	});
 
 	this.el.data('object', this);
-}
+};
 
 extend(OBJECT.upload, OBJECT.base, {
 	class_name: 'upload',
@@ -186,7 +186,7 @@ OBJECT.add = function(id, values, events) {
 			e.preventDefault();
 		}).addClass('disabled');
 	}
-}
+};
 
 extend(OBJECT.add, OBJECT.base, {
 	class_name: 'add',
@@ -242,17 +242,9 @@ extend(OBJECT.add, OBJECT.base, {
 		}
 	},
 	process_error: function(data) {
-		if (data.code == 30) {
-			this.child.error.html('Уже добавлено');
-			this.child.error_wrapper.append('<a href="/'+data.error+'" target="_blank">Посмотреть</a>');
-		} else if (data.code == 10) {
-			this.child.error.html(locale.fileupload.errors.maxFileSize);
-		} else if (data.code == 20 || data.code == 260) {
-			this.child.error.html(locale.fileupload.errors.acceptFileTypes);
-		} else if (data.code == 540) {
-			this.child.error.html(locale.fileupload.errors.serverError);
-		} else {
-			this.child.error.html('Неизвестная ошибка');
+		this.child.error.html(Ajax.translate_error(data));
+		if (Ajax.is_duplicate_error(data)) {
+			this.child.error_wrapper.append(Ajax.get_duplicate_link(data));
 		}
 
 		this.child.add_wrapper.html('&nbsp;');
