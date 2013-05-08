@@ -72,8 +72,17 @@ class Query_Art extends Query
 			$this->pool_mode = false;
 		}
 
+		if (!empty($this->other['sort']) && !in_array($this->other['sort'], $this->legal_sort)) {
+			unset($this->other['sort']);
+		}
+
+		ksort($this->other);
+		foreach ($search as $item) {
+			$this->parsed[$item['type']] = $item['data'];
+		}
+
 		if (isset($this->other['per_page']) && $this->other['per_page'] == 'all') {
-			if ($this->get_pool_mode()) {
+			if ($this->get_pool_mode() || !empty($this->parsed['parent']['is'])) {
 				$this->other['per_page'] = 999999;
 				$this->per_page_all = true;
 			} else {
@@ -88,15 +97,6 @@ class Query_Art extends Query
 		if (empty($this->other['per_page'])) {
 			$this->other['per_page'] = Config::get('pp', 'art');
 			$this->forced_per_page = false;
-		}
-
-		if (!empty($this->other['sort']) && !in_array($this->other['sort'], $this->legal_sort)) {
-			unset($this->other['sort']);
-		}
-
-		ksort($this->other);
-		foreach ($search as $item) {
-			$this->parsed[$item['type']] = $item['data'];
 		}
 	}
 
@@ -187,6 +187,17 @@ class Query_Art extends Query
 		return count($parts) == 2 && $this->get_pool_mode() &&
 			empty($this->other['sort']) && $this->page() == 1 &&
 			$this->per_page_all;
+	}
+
+	public function is_variation_list() {
+		$parts = $this->to_url_array();
+		return count($parts) == 4 && !$this->get_pool_mode() &&
+			$this->other['sort'] == 'parent_order' &&
+			$this->other['order'] == 'asc' &&
+			!empty($this->parsed['parent']) &&
+			count($this->parsed['parent']['is']) == 1 &&
+			count($this->parsed['parent']['not']) == 0 &&
+			$this->page() == 1 && $this->per_page_all;
 	}
 
 	protected function parse($items, $is_comparable) {

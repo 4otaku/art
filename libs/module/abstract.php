@@ -28,6 +28,8 @@ abstract class Module_Abstract
 	protected $disabled = false;
 
 	public function __construct(Query $query, $disabled = false) {
+		$this->disabled = (bool) $disabled;
+
 		$query = $this->preprocess_query($query);
 		$this->get_params($query);
 		$modules = $this->get_modules($query);
@@ -35,8 +37,6 @@ abstract class Module_Abstract
 			$modules = [$modules];
 		}
 		$this->modules = $modules;
-
-		$this->disabled = (bool) $disabled;
 	}
 
 	protected function preprocess_query(Query $query)

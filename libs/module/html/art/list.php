@@ -34,7 +34,6 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 				'id' => $query->get_pool_value()];
 		} else {
 			$return['tags_pool']->disable();
-			$return['editmenu']->disable();
 		}
 
 		return $return;
