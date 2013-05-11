@@ -35,7 +35,13 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.loader.hide();
 		this.child.success.show();
 		if (this.need_full_reload) {
-			document.location.reload();
+			if (data.parent) {
+				var href = document.location.href;
+				href = href.replace(/\bparent=\d+\b/, 'parent=' + data.parent);
+				document.location.assign(href);
+			} else {
+				document.location.reload();
+			}
 		} else {
 			this.message('art_reload', function(){
 				this.el.hide();
@@ -95,7 +101,8 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			this.data_id = id;
 			this.api = (mode != 'art') && (type != 'tag') ? mode :
 				mode + '_' + type;
-			this.need_full_reload = (mode != 'art') || (type == 'translation');
+			this.need_full_reload = (mode != 'art') ||
+				(type == 'translation') || (type == 'variation');
 
 			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
@@ -451,9 +458,6 @@ extend(OBJECT.edit_sort, OBJECT.base, {
 	class_name: 'edit_sort',
 	initial_order: [],
 	order: [],
-	gather_data: function() {
-		return [];
-	},
 	send_data: function() {
 		this.message('edit_data_change', {order: this.order},
 			this.initial_order.toString() != this.order.toString());
@@ -498,6 +502,21 @@ extend(OBJECT.edit_remove, OBJECT.base, {
 			}
 			this.send_data();
 		}
+	}
+});
+
+OBJECT.edit_similar = function(id, values, events) {
+	OBJECT.edit_sort.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_similar, OBJECT.edit_remove, OBJECT.edit_sort.prototype);
+mixin(OBJECT.edit_similar.prototype, {
+	class_name: 'edit_similar',
+	send_data: function() {
+		var sorted = this.initial_order.toString() != this.order.toString();
+		this.message('edit_data_change',
+			{order: this.order, remove: this.remove},
+			sorted || this.remove.length);
 	}
 });
 
@@ -590,3 +609,4 @@ extend(OBJECT.vote, OBJECT.base, {
 		}
 	}
 });
+

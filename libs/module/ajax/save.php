@@ -4,6 +4,7 @@ class Module_Ajax_Save extends Module_Ajax_Api
 {
 	protected $data;
 	protected $api;
+	protected $is_read = true;
 
 	protected function get_params(Query $query) {
 		$this->data = $query->get('data');

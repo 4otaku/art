@@ -1,4 +1,305 @@
 /*
+ * JavaScript Templates 2.1.0
+ * https://github.com/blueimp/JavaScript-Templates
+ *
+ * Copyright 2011, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ *
+ * Inspired by John Resig's JavaScript Micro-Templating:
+ * http://ejohn.org/blog/javascript-micro-templating/
+ */
+
+/*jslint evil: true, regexp: true */
+/*global document, define */
+
+(function ($) {
+	"use strict";
+	var tmpl = function (str, data) {
+		var f = !/[^\w\-\.:]/.test(str) ? tmpl.cache[str] = tmpl.cache[str] ||
+			tmpl(tmpl.load(str)) :
+			new Function(
+				tmpl.arg + ',tmpl',
+				"var _e=tmpl.encode" + tmpl.helper + ",_s='" +
+					str.replace(tmpl.regexp, tmpl.func) +
+					"';return _s;"
+			);
+		return data ? f(data, tmpl) : function (data) {
+			return f(data, tmpl);
+		};
+	};
+	tmpl.cache = {};
+	tmpl.load = function (id) {
+		return document.getElementById(id).innerHTML;
+	};
+	tmpl.regexp = /([\s'\\])(?![^%]*%\})|(?:\{%(=|#)([\s\S]+?)%\})|(\{%)|(%\})/g;
+	tmpl.func = function (s, p1, p2, p3, p4, p5) {
+		if (p1) { // whitespace, quote and backspace in interpolation context
+			return {
+				"\n": "\\n",
+				"\r": "\\r",
+				"\t": "\\t",
+				" " : " "
+			}[s] || "\\" + s;
+		}
+		if (p2) { // interpolation: {%=prop%}, or unescaped: {%#prop%}
+			if (p2 === "=") {
+				return "'+_e(" + p3 + ")+'";
+			}
+			return "'+(" + p3 + "||'')+'";
+		}
+		if (p4) { // evaluation start tag: {%
+			return "';";
+		}
+		if (p5) { // evaluation end tag: %}
+			return "_s+='";
+		}
+	};
+	tmpl.encReg = /[<>&"'\x00]/g;
+	tmpl.encMap = {
+		"<"   : "&lt;",
+		">"   : "&gt;",
+		"&"   : "&amp;",
+		"\""  : "&quot;",
+		"'"   : "&#39;"
+	};
+	tmpl.encode = function (s) {
+		return String(s || "").replace(
+			tmpl.encReg,
+			function (c) {
+				return tmpl.encMap[c] || "";
+			}
+		);
+	};
+	tmpl.arg = "o";
+	tmpl.helper = ",print=function(s,e){_s+=e&&(s||'')||_e(s);}" +
+		",include=function(s,d){_s+=tmpl(s,d);}";
+	if (typeof define === "function" && define.amd) {
+		define(function () {
+			return tmpl;
+		});
+	} else {
+		$.tmpl = tmpl;
+	}
+}(this));
+
+/*
+ * JavaScript Load Image 1.2.1
+ * https://github.com/blueimp/JavaScript-Load-Image
+ *
+ * Copyright 2011, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+
+/*jslint nomen: true */
+/*global window, document, URL, webkitURL, Blob, File, FileReader, define */
+
+(function ($) {
+	'use strict';
+
+	// Loads an image for a given File object.
+	// Invokes the callback with an img or optional canvas
+	// element (if supported by the browser) as parameter:
+	var loadImage = function (file, callback, options) {
+			var img = document.createElement('img'),
+				url,
+				oUrl;
+			img.onerror = callback;
+			img.onload = function () {
+				if (oUrl && !(options && options.noRevoke)) {
+					loadImage.revokeObjectURL(oUrl);
+				}
+				callback(loadImage.scale(img, options));
+			};
+			if ((window.Blob && file instanceof Blob) ||
+				// Files are also Blob instances, but some browsers
+				// (Firefox 3.6) support the File API but not Blobs:
+				(window.File && file instanceof File)) {
+				url = oUrl = loadImage.createObjectURL(file);
+			} else {
+				url = file;
+			}
+			if (url) {
+				img.src = url;
+				return img;
+			}
+			return loadImage.readFile(file, function (url) {
+				img.src = url;
+			});
+		},
+	// The check for URL.revokeObjectURL fixes an issue with Opera 12,
+	// which provides URL.createObjectURL but doesn't properly implement it:
+		urlAPI = (window.createObjectURL && window) ||
+			(window.URL && URL.revokeObjectURL && URL) ||
+			(window.webkitURL && webkitURL);
+
+	// Scales the given image (img or canvas HTML element)
+	// using the given options.
+	// Returns a canvas object if the browser supports canvas
+	// and the canvas option is true or a canvas object is passed
+	// as image, else the scaled image:
+	loadImage.scale = function (img, options) {
+		options = options || {};
+		var canvas = document.createElement('canvas'),
+			width = img.width,
+			height = img.height,
+			scale = Math.max(
+				(options.minWidth || width) / width,
+				(options.minHeight || height) / height
+			);
+		if (scale > 1) {
+			width = parseInt(width * scale, 10);
+			height = parseInt(height * scale, 10);
+		}
+		scale = Math.min(
+			(options.maxWidth || width) / width,
+			(options.maxHeight || height) / height
+		);
+		if (scale < 1) {
+			width = parseInt(width * scale, 10);
+			height = parseInt(height * scale, 10);
+		}
+		if (img.getContext || (options.canvas && canvas.getContext)) {
+			canvas.width = width;
+			canvas.height = height;
+			canvas.getContext('2d')
+				.drawImage(img, 0, 0, width, height);
+			return canvas;
+		}
+		img.width = width;
+		img.height = height;
+		return img;
+	};
+
+	loadImage.createObjectURL = function (file) {
+		return urlAPI ? urlAPI.createObjectURL(file) : false;
+	};
+
+	loadImage.revokeObjectURL = function (url) {
+		return urlAPI ? urlAPI.revokeObjectURL(url) : false;
+	};
+
+	// Loads a given File object via FileReader interface,
+	// invokes the callback with a data url:
+	loadImage.readFile = function (file, callback) {
+		if (window.FileReader && FileReader.prototype.readAsDataURL) {
+			var fileReader = new FileReader();
+			fileReader.onload = function (e) {
+				callback(e.target.result);
+			};
+			fileReader.readAsDataURL(file);
+			return fileReader;
+		}
+		return false;
+	};
+
+	if (typeof define === 'function' && define.amd) {
+		define(function () {
+			return loadImage;
+		});
+	} else {
+		$.loadImage = loadImage;
+	}
+}(this));
+
+/*
+ * JavaScript Canvas to Blob 2.0.3
+ * https://github.com/blueimp/JavaScript-Canvas-to-Blob
+ *
+ * Copyright 2012, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ *
+ * Based on stackoverflow user Stoive's code snippet:
+ * http://stackoverflow.com/q/4998908
+ */
+
+/*jslint nomen: true, regexp: true */
+/*global window, atob, Blob, ArrayBuffer, Uint8Array, define */
+
+(function (window) {
+	'use strict';
+	var CanvasPrototype = window.HTMLCanvasElement &&
+			window.HTMLCanvasElement.prototype,
+		hasBlobConstructor = window.Blob && (function () {
+			try {
+				return Boolean(new Blob());
+			} catch (e) {
+				return false;
+			}
+		}()),
+		hasArrayBufferViewSupport = hasBlobConstructor && window.Uint8Array &&
+			(function () {
+				try {
+					return new Blob([new Uint8Array(100)]).size === 100;
+				} catch (e) {
+					return false;
+				}
+			}()),
+		BlobBuilder = window.BlobBuilder || window.WebKitBlobBuilder ||
+			window.MozBlobBuilder || window.MSBlobBuilder,
+		dataURLtoBlob = (hasBlobConstructor || BlobBuilder) && window.atob &&
+			window.ArrayBuffer && window.Uint8Array && function (dataURI) {
+			var byteString,
+				arrayBuffer,
+				intArray,
+				i,
+				mimeString,
+				bb;
+			if (dataURI.split(',')[0].indexOf('base64') >= 0) {
+				// Convert base64 to raw binary data held in a string:
+				byteString = atob(dataURI.split(',')[1]);
+			} else {
+				// Convert base64/URLEncoded data component to raw binary data:
+				byteString = decodeURIComponent(dataURI.split(',')[1]);
+			}
+			// Write the bytes of the string to an ArrayBuffer:
+			arrayBuffer = new ArrayBuffer(byteString.length);
+			intArray = new Uint8Array(arrayBuffer);
+			for (i = 0; i < byteString.length; i += 1) {
+				intArray[i] = byteString.charCodeAt(i);
+			}
+			// Separate out the mime component:
+			mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+			// Write the ArrayBuffer (or ArrayBufferView) to a blob:
+			if (hasBlobConstructor) {
+				return new Blob(
+					[hasArrayBufferViewSupport ? intArray : arrayBuffer],
+					{type: mimeString}
+				);
+			}
+			bb = new BlobBuilder();
+			bb.append(arrayBuffer);
+			return bb.getBlob(mimeString);
+		};
+	if (window.HTMLCanvasElement && !CanvasPrototype.toBlob) {
+		if (CanvasPrototype.mozGetAsFile) {
+			CanvasPrototype.toBlob = function (callback, type) {
+				callback(this.mozGetAsFile('blob', type));
+			};
+		} else if (CanvasPrototype.toDataURL && dataURLtoBlob) {
+			CanvasPrototype.toBlob = function (callback, type) {
+				callback(dataURLtoBlob(this.toDataURL(type)));
+			};
+		}
+	}
+	if (typeof define === 'function' && define.amd) {
+		define(function () {
+			return dataURLtoBlob;
+		});
+	} else {
+		window.dataURLtoBlob = dataURLtoBlob;
+	}
+}(this));
+
+/*
  * jQuery File Upload File Processing Plugin 1.0
  * https://github.com/blueimp/jQuery-File-Upload
  *

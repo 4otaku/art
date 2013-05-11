@@ -61,6 +61,11 @@ extend(OBJECT.thumb, OBJECT.base, {
 			click: function(e) {
 				if (this.in_edit) {
 					e.preventDefault();
+				}
+			},
+			dblclick: function(e) {
+				if (this.in_edit) {
+					e.preventDefault();
 					this.message('thumbnail_clicked', this.id);
 				}
 			}

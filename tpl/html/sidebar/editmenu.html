@@ -126,7 +126,7 @@
 					add('edit_start', 'image_{$id}');
 				</script>
 				<div class="sidebar_row">
-					<a href="/?{$variation_link}#do-edit-similar">
+					<a href="/?{$variation_link}#do-edit-variation">
 						Редактировать список вариаций
 					</a>
 				</div>
@@ -140,12 +140,12 @@
 	{else}
 		{if condition="$moderator"}
 			<div class="sidebar_row">
-				<a href="#do-edit-similar" id="edit_start_similar_{$id}">
+				<a href="#do-edit-variation" id="edit_start_variation_{$id}">
 					Редактировать список вариаций
 				</a>
 			</div>
 			<script type="text/javascript">
-				add('edit_start', 'similar_{$id}');
+				add('edit_start', 'variation_{$id}');
 			</script>
 			<div class="sidebar_row">
 				<a href="/add_to?parent={$id}">
