@@ -18,7 +18,15 @@ var Ajax = {
 			url: url,
 			data: data ? data: {},
 			type: is_get ? 'GET' : 'POST',
-			success: success ? success : false,
+			success: success ? function(data) {
+				if (data && typeof data.success != 'undefined' && !data.success) {
+					if (failure) {
+						failure.apply(this, arguments);
+					}
+				} else {
+					success.apply(this, arguments);
+				}
+			} : false,
 			error: failure ? failure : false,
 			context: scope ? scope : this,
 			dataType: json ? 'json' : 'html'
@@ -320,6 +328,23 @@ extend(OBJECT.clickable, OBJECT.base, {
 			}
 		}
 	}
+});
+
+OBJECT.listener = function(id, values) {
+	if (typeof values == 'function') {
+		var listener = values;
+		this.listen = {};
+		this.listen[id] = function() {
+			listener.apply(this, arguments);
+		};
+		values = {};
+	}
+
+	OBJECT.base.call(this, id, values);
+};
+
+extend(OBJECT.listener, OBJECT.base, {
+	class_name: 'listener'
 });
 
 OBJECT.bb = function(id, values) {

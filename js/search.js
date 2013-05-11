@@ -22,6 +22,7 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 		artist: [],
 		manga: [],
 		md5: [],
+		id: [],
 		parent: [],
 		sort: ['none', 'random', 'date', 'width', 'height', 'weight', 'size',
 			'rating', 'parent_order', 'comment_count', 'comment_date',
@@ -53,19 +54,18 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 		}
 		return {type: type, name: term};
 	},
-	perform_search: function(terms) {
-		var me = this;
+	build_uri: function(terms) {
 		var items = {};
 
-		$.each(terms, function(key, term){
+		$.each(terms, $.proxy(function(key, term){
 			if (term.length) {
-				var data = me.parse_term(term);
+				var data = this.parse_term(term);
 				if (!items[data.type]) {
 					items[data.type] = [];
 				}
 				items[data.type].push(data.name);
 			}
-		});
+		}, this));
 		var parts = [];
 		$.each(items, function(type, item){
 			$.each(item, function(key, part){
@@ -76,8 +76,10 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 				}
 			});
 		});
-		var uri = parts.join('&');
-		document.location.href = '/?' + uri;
+		return parts.join('&');
+	},
+	perform_search: function(terms) {
+		document.location.href = '/?' + this.build_uri(terms);
 	},
 	get_base_data: function(term) {
 		var data = [];
@@ -87,6 +89,11 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 			}
 		});
 		return data;
+	},
+	get_term: function(term) {
+		var match = this.child.field.val().match(
+			new RegExp('\\b'+term+':(\\d+)'));
+		return match ? match[1] : false;
 	},
 	on_enter: function(selected) {
 		if (selected.length) {

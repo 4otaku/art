@@ -14,6 +14,10 @@ class Module_Html_Body extends Module_Html_Abstract
 			return new Module_Html_Add($query);
 		}
 
+		if ($query->url(0) == 'add_to') {
+			return new Module_Html_Collect($query);
+		}
+
 		if ($query->url(0) == 'settings') {
 			return new Module_Html_Settings($query);
 		}

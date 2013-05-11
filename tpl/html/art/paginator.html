@@ -49,7 +49,7 @@
 				</li>
 			{/if}
 		{/loop}
-	{if condition="$end < $last - 1"}
+		{if condition="$end < $last - 1"}
 			<li class="space">
 				<span>...</span>
 			</li>
@@ -68,7 +68,7 @@
 					</a>
 				</li>
 				<li>
-					<a rel="next" href="/?{$base}page={$curr+1}">
+					<a href="/?{$base}page={$curr+1}">
 						&gt;
 					</a>
 				</li>

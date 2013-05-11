@@ -1,0 +1,29 @@
+.search_link_parser {
+	margin-right: 30px;
+}
+
+.search_link_parser input[type="text"] {
+	width: 280px;
+}
+
+.collect_info {
+	border: 1px dashed #008b8b;
+	border-radius: 10px;
+	background-color: #ffffe0;
+	padding: 5px;
+	margin: 0 5px;
+}
+
+.collect_add {
+	border: 1px dashed #008b8b;
+	border-radius: 5px;
+	display: block !important;
+	padding: 5px;
+	margin: 5px;
+	min-height: 176px;
+}
+
+#art_list_main {
+	display: block !important;
+	min-height: 200px !important;
+}

@@ -58,7 +58,7 @@ abstract class Module_Abstract
 	}
 
 	protected function get_modules(Query $query) {
-		return array();
+		return [];
 	}
 
 	public function disable() {

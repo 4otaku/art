@@ -552,20 +552,6 @@ extend(OBJECT.edit_image, OBJECT.edit_simple, {
 					child.upload.val('');
 				}
 			});
-		},
-		upload: {/*
-			click: function(e) {
-				var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?"),
-					value = this.child.file.val();
-
-				if (regex.test(this.child.link.val())) {
-					value = this.child.link.val();
-				}
-
-				if (!value) {
-					return;
-				}
-			}*/
 		}
 	}
 });

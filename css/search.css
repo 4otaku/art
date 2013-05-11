@@ -1,12 +1,12 @@
-#search_main {
+.search_form {
 	position: relative;
 }
 
-#search_main input[type="text"] {
+.search_form input[type="text"] {
 	width: 300px;
 }
 
-#search_main .tips {
+.search_form .tips {
 	width: 358px;
 	right: 1px;
 	top: 30px;

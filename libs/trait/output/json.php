@@ -18,6 +18,10 @@ trait Trait_Output_Json
 		return json_encode($data);
 	}
 
+	protected function set_data($data) {
+		$this->params = $data;
+	}
+
 	protected function set_success($success) {
 		$this->success = (bool) $success;
 	}

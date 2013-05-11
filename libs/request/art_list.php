@@ -34,6 +34,7 @@ class Request_Art_List extends Request
 		'artist' => 'art_artist',
 		'manga' => 'art_manga',
 		'md5' => 'md5',
+		'id' => 'id',
 		'parent' => 'id_parent',
 		'state' => 'state',
 	);

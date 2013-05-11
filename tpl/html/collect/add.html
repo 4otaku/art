@@ -1,0 +1,17 @@
+<div id="collect_add_main">
+	<div class="success hidden">Изображения успешно добавлены.</div>
+	<div class="error hidden">
+		Произошла ошибка при сохранении, пожалуйста попробуйте еще раз.
+	</div>
+	<div class="collect_add"></div>
+	<div class="clear"></div>
+	<button class="btn btn-success save">
+		Сохранить
+	</button>
+</div>
+<script type="text/javascript">
+	add('collect_add', 'main', {
+		type: "{$type}",
+		item: "{$value}"
+	});
+</script>

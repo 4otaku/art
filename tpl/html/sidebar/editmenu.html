@@ -55,13 +55,10 @@
 			{/if}
 			{if condition="$mode != 'artist' or $is_author or $moderator"}
 				<div class="sidebar_row">
-					<a href="#do-edit-add" id="edit_start_add_{$id}">
+					<a href="/add_to?{$mode}={$id}">
 						Добавить изображения
 					</a>
 				</div>
-				<script type="text/javascript">
-					add('edit_start', 'add_{$id}', {mode: '{$mode}'});
-				</script>
 			{/if}
 			{if condition="$moderator or $is_author"}
 				{if condition="$is_list"}
@@ -133,6 +130,11 @@
 						Редактировать список вариаций
 					</a>
 				</div>
+				<div class="sidebar_row">
+					<a href="/add_to?parent={$id}">
+						Добавить вариации
+					</a>
+				</div>
 			{/if}
 		{/if}
 	{else}
@@ -145,6 +147,11 @@
 			<script type="text/javascript">
 				add('edit_start', 'similar_{$id}');
 			</script>
+			<div class="sidebar_row">
+				<a href="/add_to?parent={$id}">
+					Добавить вариации
+				</a>
+			</div>
 		{/if}
 	{/if}
 </div>

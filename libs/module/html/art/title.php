@@ -97,7 +97,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 			if (is_callable(array($this, $function))) {
 				$part = $this->$function($value, $primary);
 				if ($primary) {
-					$part = preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $part);
+					$part = $this->primary_transform($part);
 				}
 				$primary = false;
 			} else {
@@ -141,6 +141,10 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		}
 
 		$this->set_param('query', implode(', ', $this->search));
+	}
+
+	protected function primary_transform($part) {
+		return preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $part);
 	}
 
 	protected function word_group($data, $primary = false) {
@@ -189,6 +193,10 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 
 	protected function word_user_is($data, $primary = false) {
 		return 'загружено ' . implode(', ', $data);
+	}
+
+	protected function word_parent_is($data, $primary = false) {
+		return 'вариации на арт №' . reset($data);
 	}
 
 	protected function word_user_not($data, $primary = false) {

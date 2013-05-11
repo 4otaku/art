@@ -153,7 +153,7 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 
 OBJECT.pool_tip = function(id, values, events) {
 	OBJECT.ajax_tip.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.pool_tip, OBJECT.ajax_tip, {
 	class_name: 'pool_tip',

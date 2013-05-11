@@ -8,8 +8,8 @@ class Query_Art extends Query
 	protected $per_page_all = false;
 	protected $pool_mode = false;
 	protected $comparable_keys = [
-		'rating', 'width', 'height', 'weight', 'date', 'translation_date',
-		'tag_count', 'comment_count', 'comment_date'
+		'id', 'rating', 'width', 'height', 'weight', 'date',
+		'translation_date', 'tag_count', 'comment_count', 'comment_date'
 	];
 	protected $equal_keys = [
 		'tag', 'user', 'pack', 'group', 'artist',
