@@ -1,8 +1,42 @@
 wbbdebug = false;
 
+// Common config
+
+var spoiler_html = '<div class="mini-shell">' + '' +
+	'<div class="handler" width="100%">' +
+		'<span class="sign">↓</span> ' +
+		'<a href="#" class="disabled">{TITLE}</a>' +
+	'</div>' +
+	'<div class="text hidden">{SELTEXT}</div>' +
+'</div>';
+
 wbbconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,link'
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,',
+	img_uploadurl: '/external/wysibb_upload.php',
+	allButtons: {
+		spoiler: {
+			title: 'Свернутый спойлер',
+			buttonText: 'Спойлер',
+			modal: {
+				title: 'Введите заголовок спойлера',
+				width: '600px',
+				tabs: [{
+					input: [{
+						param: 'TITLE',
+						title: 'Введите заголовок',
+						type: 'div'
+					}]
+				}]
+			},
+			transform: {}
+		}
+	}
 };
+
+wbbconfig.allButtons.spoiler.transform[spoiler_html] =
+	'[spoiler={TITLE}]\n{SELTEXT}[/spoiler]';
+
+// Translation config
 
 wbbtranslationconfig = {
 	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,',
@@ -17,6 +51,15 @@ wbbtranslationconfig = {
 	}
 };
 
+// Parser config
+
 wbbparseconfig = $.extend({}, wbbconfig, {
 	bbmode: true
+});
+
+// Spoiler function
+
+$('.handler a').live('click', function(e){
+	$(this).parent().parent().children('.text').toggle();
+	e.preventDefault();
 });

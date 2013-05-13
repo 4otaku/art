@@ -13,9 +13,6 @@ class Module_Html_Comment_Item extends Module_Html_Abstract
 			$data['editdate'] = $this->format_time($data['editdate']);
 		}
 
-		$data['text'] = new Text($data['text']);
-		$data['text']->format();
-
 		$data['uid'] = md5(rand());
 
 		parent::recieve_data($data);

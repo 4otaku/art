@@ -132,8 +132,8 @@ extend(OBJECT.edit_start, OBJECT.base, {
 	events: {
 		init: function() {
 			if (document.location.hash) {
-				var target = document.location.hash.match(/^#do\-edit\-(.*)/)[1];
-				if (target == this.type) {
+				var target = document.location.hash.match(/^#do\-edit\-(.*)/);
+				if (target && target[1] == this.type) {
 					this.do_start();
 				}
 			}

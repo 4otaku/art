@@ -16,9 +16,7 @@
 			<img src="http://www.gravatar.com/avatar/{$avatar}?s=50&d=identicon&r=G" />
 		</div>
 		<div class="comment-block">
-			<div class="comment-text">
-				{$text}
-			</div>
+			<div class="comment-text" id="bb_{$uid}">{$text}</div>
 			<div class="comment-bottom">
 				{if condition="$depth < 16"}
 					<span class="comment-reply">
@@ -45,4 +43,5 @@
 		id_parent: {$parent},
 		preload_order: {$order}
 	});
+	add('bb', '{$uid}');
 </script>
