@@ -56,6 +56,12 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 
 	public function recieve_data($data) {
 		$this->set_param('is_author', $data['data']['is_author']);
+		if ($this->id_artist &&
+			!$data['data']['is_author'] &&
+			!Session::is_moderator()) {
+
+			$this->disable();
+		}
 	}
 
 	public function recieve_additional($data) {

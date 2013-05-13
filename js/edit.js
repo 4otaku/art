@@ -17,10 +17,6 @@ extend(OBJECT.edit_form, OBJECT.base, {
 	data: {},
 	data_id: 0,
 	api: '',
-	errors: {
-		420: 'Не произведено никаких изменений',
-		unexpected: 'Непредвиденная ошибка. Сообщите о ней администратору, пожалуйста.'
-	},
 	on_load: function(data) {
 		this.child.loader.hide();
 		this.child.form.html('').show().html(data);
@@ -53,11 +49,9 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.error.html(this.errors.unexpected).show();
 	},
 	on_save_failure: function(data) {
-		var error = data.errors[0].code;
 		this.child.loader.hide();
 		this.child.save_wrapper.show();
-		this.child.error.html(this.errors[error] ? this.errors[error] :
-			this.errors.unexpected).show();
+		this.child.error.html(Ajax.translate_error(data.errors[0])).show();
 	},
 	events: {
 		cancel: {
