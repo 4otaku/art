@@ -164,7 +164,7 @@ class Query_Art extends Query
 
 		$params = $this->other();
 		unset($params['page']);
-		if (!$this->forced_per_page) {
+		if (!$this->forced_per_page || $this->per_page_all) {
 			unset($params['per_page']);
 		}
 		foreach ($params as $key => $param) {
