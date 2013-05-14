@@ -15,8 +15,8 @@ wbbconfig = {
 	img_uploadurl: '/external/wysibb_upload.php',
 	allButtons: {
 		spoiler: {
-			title: 'Свернутый спойлер',
-			buttonText: 'Спойлер',
+			title: 'Спойлер',
+			buttonHTML: '<center><img src="/images/wysibb/spoiler.png" title="Спойлер" /></center>',
 			modal: {
 				title: 'Введите заголовок спойлера',
 				width: '600px',

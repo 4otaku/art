@@ -111,6 +111,8 @@ class Session
 			'' : (string) $data['login'];
 		$this->data['user']['gallery'] = empty($data['gallery']) ?
 			false : (int) $data['gallery'];
+		$this->data['user']['email'] = empty($data['email']) ?
+			'' : (string) $data['email'];
 
 		$this->moderator = empty($data['moderator']) ?
 			false : (bool) $data['moderator'];

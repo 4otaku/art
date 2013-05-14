@@ -95,10 +95,7 @@ extend(OBJECT.comment, OBJECT.base, {
 });
 
 OBJECT.comment_form = function(id, values, events) {
-
 	OBJECT.form.call(this, id, values, events);
-
-	this.child.text.wysibb(wbbconfig);
 };
 
 extend(OBJECT.comment_form, OBJECT.form, {
@@ -106,9 +103,22 @@ extend(OBJECT.comment_form, OBJECT.form, {
 	child_config: {
 		text: '.comment_text',
 		field: '.comment_field',
+		name: '.comment_name',
+		mail: '.comment_mail',
 		noreply_link: '.comment_noreply'
 	},
+	url: '/ajax/save/',
+	add_data: {
+		api: 'comment',
+		create: true
+	},
+	validate: {
+		mail: Validate.email
+	},
 	events: {
+		init: function() {
+			this.child.text.wysibb(wbbconfig);
+		},
 		noreply_link: {
 			click: function(e) {
 				e.preventDefault();
@@ -132,7 +142,7 @@ extend(OBJECT.comment_form, OBJECT.form, {
 OBJECT.comment_navi = function(id, values, events) {
 
 	OBJECT.base.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.comment_navi, OBJECT.base, {
 	class_name: 'comment_navi',

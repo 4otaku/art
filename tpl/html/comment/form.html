@@ -2,13 +2,18 @@
 	<div class="comment_field">
 		<h4>Написать комментарий:</h4>
 		<br />
-		<input name="name" value="" size="22" type="text">
+		<input name="name" value="" size="22" type="text" class="comment_name"
+			placeholder="Анонимно" />
 		<span class="label">Имя</span>
 		<br />
-		<input name="mail" value="" size="22" type="text">
+		<input name="mail" value="" size="22" type="text" class="comment_mail"
+			placeholder="default@avatar.mail" />
 		<span class="label">E-mail (не публикуется)</span>
 		<br />
 		<textarea class="comment_text" cols="70" rows="10"></textarea>
+		<button type="button" class="btn submit">
+			Отправить
+		</button>
 	</div>
 	<div class="comment_noreply hidden">
 		<a href="#" class="disabled">Комментировать изображение.</a>
@@ -16,5 +21,8 @@
 </div>
 
 <script type="text/javascript">
-	add('comment_form', 'main');
+	add('comment_form', 'main', {
+		name: "{$name}",
+		mail: "{$mail}"
+	});
 </script>
