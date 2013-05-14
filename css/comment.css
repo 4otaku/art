@@ -1,3 +1,8 @@
+.comment_form .loader {
+	width: 80px;
+	margin: 0;
+}
+
 .comment-display {
 	text-align: left;
 }

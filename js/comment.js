@@ -109,11 +109,15 @@ extend(OBJECT.comment_form, OBJECT.form, {
 	},
 	url: '/ajax/save/',
 	add_data: {
-		api: 'comment',
+		api: 'comment_art',
 		create: true
 	},
-	validate: {
-		mail: Validate.email
+	success: function() {
+		document.location.reload();
+	},
+	get_data: function() {
+		this.child.text.sync();
+		return this.get_super().get_data.call(this);
 	},
 	events: {
 		init: function() {

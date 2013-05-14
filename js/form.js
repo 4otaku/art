@@ -36,21 +36,18 @@ extend(OBJECT.form, OBJECT.base, {
 		fn.call(Ajax, this.url, data, $.proxy(function(response) {
 			this.child.submit.show();
 			this.child.loader.hide();
-			if (response.success == false) {
-				var message = '';
-				$.each(response.errors, function(dev_null, error) {
-					error = Ajax.translate_error(error);
-					if (error) {
-						message += error + '<br />';
-					}
-				});
-				this.child.error.html(message).show();
-			} else {
-				this.success.call(this, response);
-			}
+			this.success.call(this, response);
 		}, this), $.proxy(function(response) {
+			var message = '';
+			$.each(response.errors || [{code: 0}], function(dev_null, error) {
+				error = Ajax.translate_error(error);
+				if (error) {
+					message += error + '<br />';
+				}
+			});
 			this.child.submit.show();
 			this.child.loader.hide();
+			this.child.error.html(message).show();
 		}, this));
 	},
 	get_data: function() {

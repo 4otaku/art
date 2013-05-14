@@ -1,7 +1,6 @@
 <div id="comment_form_main" class="comment_form">
 	<div class="comment_field">
 		<h4>Написать комментарий:</h4>
-		<br />
 		<input name="name" value="" size="22" type="text" class="comment_name"
 			placeholder="Анонимно" />
 		<span class="label">Имя</span>
@@ -10,10 +9,12 @@
 			placeholder="default@avatar.mail" />
 		<span class="label">E-mail (не публикуется)</span>
 		<br />
-		<textarea class="comment_text" cols="70" rows="10"></textarea>
+		<textarea name="text" class="comment_text" cols="70" rows="10"></textarea>
+		<div class="error hidden"></div>
 		<button type="button" class="btn submit">
 			Отправить
 		</button>
+		<div class="loader"></div>
 	</div>
 	<div class="comment_noreply hidden">
 		<a href="#" class="disabled">Комментировать изображение.</a>
