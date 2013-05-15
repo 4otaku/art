@@ -96,6 +96,16 @@
 	padding-left: 15px;
 }
 
+.form_edit_comment {
+	margin-top: 25px;
+	width: 800px;
+}
+
+.form_edit_comment textarea {
+	min-height: 200px;
+	width: 100%;
+}
+
 .comment_field .label {
 	font-size: 110%;
 	position: relative;
