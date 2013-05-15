@@ -9,7 +9,7 @@ OBJECT.comment = function(id, values, events) {
 			this.load_parent();
 		}, this), this.preload_order * 10000 + Math.random(0, 10000));
 	}
-}
+};
 
 extend(OBJECT.comment, OBJECT.base, {
 	class_name: 'comment',
@@ -21,6 +21,9 @@ extend(OBJECT.comment, OBJECT.base, {
 	parent_obj: null,
 	preload_order: 1,
 	child_config: {
+		del: '.comment-delete',
+		edit: '.comment-edit',
+		error: '.error',
 		bottom: '.comment-bottom',
 		bottom_items: '.comment-bottom > *',
 		reply_link: '.comment-reply a',
@@ -54,16 +57,38 @@ extend(OBJECT.comment, OBJECT.base, {
 		this.margin = this.margin + 30;
 		this.el.css('margin-left', this.margin);
 		var next_id = this.el.nextAll('.comment').first().attr('id');
-		console.log(next_id);
-		console.log(this.id_comment);
 		this.message('comment_moved', next_id, this.id_comment);
 	},
 	events: {
+		del: {
+			click: function() {
+				if (confirm('Вы уверены что хотите удалить комментарий?')) {
+					this.el.children().hide();
+					this.el.addClass('loader').show();
+					Ajax.perform('/ajax/delete', {
+						api: 'comment',
+						id: this.id_comment
+					}, function() {
+						document.location.reload();
+					}, function(data) {
+						alert(Ajax.translate_error(data.errors[0]));
+						this.el.removeClass('loader');
+						this.el.children().show();
+					}, this);
+				}
+			}
+		},
+		edit: {
+			click: function() {
+				Overlay.ajax('/ajax/comment_edit?id=' + this.id_comment);
+			}
+		},
 		reply_link: {
 			click: function(e) {
 				e.preventDefault();
 				this.child.bottom_items.hide();
-				this.message('reply_clicked', this.child.bottom);
+				this.message('reply_clicked', this.child.bottom,
+					this.id_comment);
 			}
 		},
 		load_link: {
@@ -105,6 +130,7 @@ extend(OBJECT.comment_form, OBJECT.form, {
 		field: '.comment_field',
 		name: '.comment_name',
 		mail: '.comment_mail',
+		parent: '.comment_parent',
 		noreply_link: '.comment_noreply'
 	},
 	url: '/ajax/save/',
@@ -115,6 +141,20 @@ extend(OBJECT.comment_form, OBJECT.form, {
 	success: function() {
 		document.location.reload();
 	},
+	prepare_data: function(data) {
+		return $.extend({data: data.data}, this.add_data);
+	},
+	submit: function(e) {
+		Ajax.get('/ajax/setting', {
+			section: 'default',
+			values: {
+				name: this.child.name.val(),
+				mail: this.child.mail.val()
+			}
+		});
+
+		this.get_super().submit.call(this, e);
+	},
 	get_data: function() {
 		this.child.text.sync();
 		return this.get_super().get_data.call(this);
@@ -122,18 +162,27 @@ extend(OBJECT.comment_form, OBJECT.form, {
 	events: {
 		init: function() {
 			this.child.text.wysibb(wbbconfig);
+			if (this.name.length) {
+				this.child.name.val(this.name);
+			}
+			if (this.mail.length) {
+				this.child.mail.val(this.mail);
+			}
+			this.child.parent.val(0);
 		},
 		noreply_link: {
 			click: function(e) {
 				e.preventDefault();
 				this.child.noreply_link.hide();
 				this.child.field.prependTo(this.el);
+				this.child.parent.val(0);
 				this.message('noreply_clicked');
 			}
 		}
 	},
 	listen: {
-		reply_clicked: function(object) {
+		reply_clicked: function(object, id) {
+			this.child.parent.val(id);
 			this.child.noreply_link.show();
 			this.child.field.prependTo(object);
 		},

@@ -19,10 +19,11 @@ extend(OBJECT.settings, OBJECT.base, {
 	class_name: 'settings',
 	events: {
 		change: function() {
-			var url = '/ajax/setting?section=' + this.section + '&key=' +
-				this.key + '&value=' + this.get_value();
-
-			$.get(url);
+			Ajax.get('/ajax/setting', {
+				section: this.section,
+				key: this.key,
+				value: this.get_value()
+			});
 		}
 	},
 	get_value: function() {

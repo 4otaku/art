@@ -9,7 +9,18 @@ class Module_Html_Comment_Form extends Module_Html_Abstract
 	{
 		$data = Session::get_instance()->get_data();
 
-		$this->set_param('name', $data['user']['login']);
-		$this->set_param('mail', $data['user']['email']);
+		if (isset($data['default']['name'])) {
+			$this->set_param('name', $data['default']['name']);
+		} else {
+			$this->set_param('name', $data['user']['login']);
+		}
+
+		if (isset($data['default']['mail'])) {
+			$this->set_param('mail', $data['default']['mail']);
+		} else {
+			$this->set_param('mail', $data['user']['email']);
+		}
+
+		$this->set_param('id_item', (int) $query->url(0));
 	}
 }

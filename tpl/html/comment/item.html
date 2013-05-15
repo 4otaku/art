@@ -4,6 +4,12 @@
 		<span class="comment-datetime">
 			{$date}
 		</span>
+		{if condition="Session::is_moderator()"}
+			<span class="right">
+				<img src="/images/comment_edit.png" class="comment-edit" />
+				<img src="/images/comment_delete.png" class="comment-delete" />
+			</span>
+		{/if}
 		{if condition="$editdate"}
 			<span class="comment-datetime">
 				(Отредактировано: {$editdate})
@@ -11,6 +17,7 @@
 		{/if}
 		<a href="#comment-{$id}" class="comment-metadata">#</a>
 	</div>
+	<div class="error hidden"></div>
 	<div class="comment-content">
 		<div class="comment-avatar">
 			<img src="http://www.gravatar.com/avatar/{$avatar}?s=50&d=identicon&r=G" />

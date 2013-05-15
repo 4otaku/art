@@ -1,21 +1,20 @@
 OBJECT.form = function(id, values, events) {
-
-	values.validate = values.validate ? values.validate : {};
-
 	OBJECT.base.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.form, OBJECT.base, {
 	class_name: 'form',
-	add_data: {},
-	get: false,
 	child_config: {
+		datafields: 'input,select,textarea',
 		on_enter: 'input[type=text],input[type=password]',
 		submit: '.submit',
 		success: 'div.success',
 		loader: 'div.loader',
 		error: 'div.error'
 	},
+	add_data: {},
+	validate: {},
+	get: false,
 	submit: function(e) {
 		e.preventDefault();
 		var data = this.get_data();
@@ -29,7 +28,7 @@ extend(OBJECT.form, OBJECT.base, {
 		this.child.submit.hide();
 		this.child.loader.show();
 
-		data = $.extend(data.data, this.add_data);
+		data = this.prepare_data(data);
 
 		var fn = this.get ? Ajax.get : Ajax.perform;
 
@@ -50,11 +49,14 @@ extend(OBJECT.form, OBJECT.base, {
 			this.child.error.html(message).show();
 		}, this));
 	},
+	prepare_data: function(data) {
+		return $.extend(data.data, this.add_data);
+	},
 	get_data: function() {
 		var data = {};
 		var error = [];
 		var me = this;
-		this.el.find('input, select, textarea').each(function() {
+		this.child.datafields.each(function() {
 			if (this.name) {
 				var val = $(this).val();
 				if (me.validate[this.name]) {
