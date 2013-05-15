@@ -31,7 +31,7 @@ Overlay = {
 				overlay.css('width', $(overlay).width() + 20);
 			}
 
-			overlay.css('left', $(window).width()/2 - $(overlay).width()/2);
+			this.normalize_left();
 
 		}, this));
 	},
@@ -63,6 +63,13 @@ Overlay = {
 				this.loading = false;
 			}, this)
 		});
+
+		this.normalize_left();
+	},
+
+	normalize_left: function() {
+		var overlay = $(".overlay");
+		overlay.css('left', $(window).width()/2 - overlay.width()/2);
 	},
 
 	close: function() {
