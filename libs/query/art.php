@@ -144,7 +144,7 @@ class Query_Art extends Query
 		return reset($this->parsed[$this->pool_mode]['is']);
 	}
 
-	protected function to_url_array() {
+	public function to_url_array() {
 		$parts = [];
 		$params = $this->parsed();
 

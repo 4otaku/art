@@ -62,9 +62,12 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 	}
 
 	protected function recieve_succesful($data) {
-		$query = $this->get_query()->to_url_string();
+		$query = $this->get_query()->to_url_array();
+		$pos = ($this->get_query()->page() - 1) * $this->get_query()->per_page();
 		foreach ($data as &$item) {
-			$item['query'] = $query;
+			$pos++;
+			$item['query'] = implode('&',
+				array_merge(array('pos=' . $pos), $query));
 		}
 		unset($item);
 

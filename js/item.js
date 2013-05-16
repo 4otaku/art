@@ -44,6 +44,17 @@ extend(OBJECT.art_item, OBJECT.base, {
 			document.location.reload();
 		}, this);
 	},
+	events: {
+		init: function() {
+			// Hide art query if working with item
+			if (!window.history || !document.location.search) {
+				return;
+			}
+
+			history.pushState(false, false, document.location.pathname
+				+ document.location.hash);
+		}
+	},
 	listen: {
 		art_reload: function(callback, scope) {
 			this.do_reload(function(){

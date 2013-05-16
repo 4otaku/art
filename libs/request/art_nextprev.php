@@ -2,14 +2,38 @@
 
 class Request_Art_Nextprev extends Request_Art_List
 {
-	public function __construct($id, $object = false, $data = array(), $method = 'recieve_data') {
+	protected $pos = false;
+
+	public function __construct($pos, $object = false, $data = array(), $method = 'recieve_data') {
 		unset($data['page']);
-		unset($data['per_page']);
-		$data['id'] = $id;
+		$this->pos = $pos;
+
+		if ($pos > 1) {
+			$data['offset'] = $pos - 2;
+			$data['per_page'] = 3;
+		} else {
+			$data['offset'] = 0;
+			$data['per_page'] = 2;
+		}
+
 		parent::__construct($object, $data, $method);
 	}
 
-	protected function fetch_api($data) {
-		return 'art_nextprev';
+	public function pass_data($data) {
+		$return = array();
+		if ($this->pos > 1) {
+			$return['prev'] = array_shift($data['data']);
+			if ($return['prev']) {
+				$return['prev']['pos'] = $this->pos - 1;
+			}
+		}
+
+		$return['current'] = array_shift($data['data']);
+		$return['next'] = array_shift($data['data']);
+		if ($return['next']) {
+			$return['next']['pos'] = $this->pos + 1;
+		}
+
+		parent::pass_data($return);
 	}
 }

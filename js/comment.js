@@ -193,7 +193,6 @@ extend(OBJECT.comment_form, OBJECT.form, {
 });
 
 OBJECT.comment_navi = function(id, values, events) {
-
 	OBJECT.base.call(this, id, values, events);
 };
 

@@ -23,6 +23,8 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());
 		$this->set_param('id', $query->url(0));
+		$this->set_param('next', false);
+		$this->set_param('prev', false);
 	}
 
 	protected function make_request() {
@@ -32,10 +34,14 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 		$params['pool_mode'] = $query->get_pool_mode();
 		$params['pool_value'] = $query->get_pool_value();
 
-		return new Request_Multi(
-			new Request_Art($query->url(0), $this),
-			new Request_Art_Nextprev($query->url(0),
-				$this, $params, 'recieve_nextprev')
+		$request = new Request_Art($query->url(0), $this);
+		$pos = (int) $query->get('pos');
+		if ($pos <= 0) {
+			return $request;
+		}
+
+		return new Request_Multi($request,
+			new Request_Art_Nextprev($pos, $this, $params, 'recieve_nextprev')
 		);
 	}
 
@@ -64,7 +70,18 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	}
 
 	public function recieve_nextprev($data) {
-		$this->set_param('next', empty($data['next']) ? false : $data['next']);
-		$this->set_param('prev', empty($data['prev']) ? false : $data['prev']);
+		$query = $this->get_query();
+		if (empty($data['current']) || $query->url(0) != $data['current']['id']) {
+			return;
+		}
+
+		if (!empty($data['next'])) {
+			$this->set_param('next', $data['next']['id']);
+			$this->set_param('next_pos', $data['next']['pos']);
+		}
+		if (!empty($data['prev'])) {
+			$this->set_param('prev', $data['prev']['id']);
+			$this->set_param('prev_pos', $data['prev']['pos']);
+		}
 	}
 }
