@@ -16,6 +16,8 @@ class Request_Art_Nextprev extends Request_Art_List
 			$data['per_page'] = 2;
 		}
 
+		$data['skip_meta'] = true;
+
 		parent::__construct($object, $data, $method);
 	}
 
