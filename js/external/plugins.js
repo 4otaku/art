@@ -522,8 +522,11 @@ $.fn.imagesLoaded = function(callback){
 	var elems = this.filter('img'),
 		len = elems.length;
 
-	elems.bind('load', function(){
-		if (--len <= 0){ callback.call(elems,this); }
+	elems.on('load.imagesload', function(){
+		$(this).off('load.imagesload');
+		if (--len <= 0){
+			callback.call(elems,this);
+		}
 	}).each(function(){
 		// cached images don't fire load sometimes, so we reset src.
 		if (this.complete || this.complete === undefined){

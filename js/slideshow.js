@@ -61,13 +61,15 @@ extend(OBJECT.slideshow, OBJECT.base, {
 
 		Ajax.load('/ajax/art_list' + query, function(result){
 			result = $(result);
-			this.child.images.append(result);
-			this.add_images(result, page);
-			callback.call(this, page);
+			result.find('img').imagesLoaded($.proxy(function(){
+				this.add_images(result, page);
+				callback.call(this, page);
 
-			setTimeout($.proxy(function() {
-				this.load_images();
-			}, this), 1000);
+				setTimeout($.proxy(function() {
+					this.load_images();
+				}, this), 1000);
+			}, this));
+			this.child.images.append(result);
 		}, this);
 	},
 	get_curr_page: function() {
@@ -78,14 +80,10 @@ extend(OBJECT.slideshow, OBJECT.base, {
 		var position = (page - 1) * this.per_page + 1;
 		var count = 0;
 		result.filter('div.image').each(function() {
-			var loader = $('<div>').addClass('loading_image');
-			$(this).prepend(loader);
-			$(this).children('img').hide();
-			$(this).children('img').imagesLoaded(function(){
-				loader.hide();
-				$(this).height(Math.min($(this).naturalHeight(),
-					$(window).height())).show();
-			});
+
+			$(this).height(Math.min($(this).naturalHeight(),
+				$(window).height()));
+
 			images[position] = $(this);
 			position++;
 			count++;
