@@ -1,0 +1,22 @@
+<div id="form_edit_help">
+	<textarea name="text" style="height:400px; width: 100%;">{$text}</textarea>
+	<button class="btn submit">Сохранить</button>
+</div>
+<script type="text/javascript">
+	add('form', 'edit_help', {
+		url: '/ajax/save_help',
+		get_data: function() {
+			return {
+				data: {
+					text: this.child.datafields.bbcode()
+				},
+				error: []
+			}
+		},
+		success: function(){}
+	}, {
+		init: function() {
+			this.child.datafields.wysibb(wbbconfig);
+		}
+	});
+</script>

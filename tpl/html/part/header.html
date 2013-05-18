@@ -36,7 +36,7 @@
 			</ul>
 		</li>
 		<li class="header_menu_item">
-			{if="Config::get('user', 'rights')"}
+			{if="Session::is_moderator()"}
 				<a href="/admin/">
 					Админка
 				</a>

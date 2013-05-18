@@ -1,0 +1,24 @@
+<ul>
+	<li>
+		{if condition="$section != 'tag'"}
+			<a href="/admin/tag">Редактировать теги</a>
+		{else}
+			Редактировать теги
+		{/if}
+	</li>
+	<li>
+		{if condition="$section != 'similar'"}
+			<a href="/admin/similar">Найденные совпадения картинок</a>
+		{else}
+			Найденные совпадения картинок
+		{/if}
+	</li>
+	<li>
+		{if condition="$section != 'help'"}
+			<a href="/admin/help">Редактировать справочный текст при добавлении</a>
+		{else}
+			Редактировать справочный текст при добавлении
+		{/if}
+	</li>
+</ul>
+

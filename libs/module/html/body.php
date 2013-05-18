@@ -10,6 +10,10 @@ class Module_Html_Body extends Module_Html_Abstract
 			return new Module_Html_Art_Item($query);
 		}
 
+		if ($query->url(0) == 'admin') {
+			return new Module_Html_Admin($query);
+		}
+
 		if ($query->url(0) == 'add') {
 			return new Module_Html_Add($query);
 		}

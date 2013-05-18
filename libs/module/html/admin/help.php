@@ -1,9 +1,8 @@
 <?php
 
-class Module_Html_Add_Help extends Module_Html_Abstract
+class Module_Html_Admin_Help extends Module_Html_Abstract
 {
-	protected $css = ['overlay', 'help'];
-	protected $js = ['overlay', 'help'];
+	protected $js = ['external/wysibb', 'wysibb', 'form'];
 
 	protected function get_params(Query $query)
 	{
