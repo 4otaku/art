@@ -1,5 +1,11 @@
-{$module_0}
-<div class="clear"></div>
-{if="isset($module_1)"}
-	{$module_1}
+{if="Session::is_moderator()"}
+	{$module_0}
+	<div class="clear"></div>
+	{if="isset($module_1)"}
+		{$module_1}
+	{/if}
+{else}
+	<script type="text/javascript">
+		document.location.href = '/';
+	</script>
 {/if}
