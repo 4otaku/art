@@ -1,9 +1,36 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
-</body>
-</html>
+<table width="100%" cellspacing="0">
+	<tbody>
+		<tr>
+			<th width="15%">Имя:</th>
+			<th>Варианты:</th>
+			<th width="15%">Цвет:</th>
+			<th width="300px">Опции:</th>
+		</tr>
+		{loop="data"}
+			<tr>
+				<td class="name">
+					<a href="/?tag={$value.name}" target="_blank">
+						{$value.name}
+					</a>
+				</td>
+				<td>
+					{$value.variant}
+				</td>
+				<td>
+					<span style="color: #{$value.color};">
+						{$value.color_name}
+					</span>
+				</td>
+				<td>
+					<button class="btn btn-small">
+						Объединить
+					</button>
+					<button class="btn btn-danger btn-small">
+						Удалить
+					</button>
+				</td>
+			</tr>
+		{/loop}
+	</tbody>
+</table>
+{$count}
