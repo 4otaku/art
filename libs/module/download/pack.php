@@ -17,7 +17,7 @@ class Module_Download_Pack extends Module_Download_Abstract
 	}
 
 	protected function get_link($data) {
-		if (empty($data['data'])) {
+		if (empty($data['data']['id'])) {
 			return false;
 		}
 
