@@ -2,9 +2,10 @@
 	<tbody>
 		<tr>
 			<th width="15%">Имя:</th>
+			<th width="5%"></th>
 			<th>Варианты:</th>
 			<th width="15%">Цвет:</th>
-			<th width="300px">Опции:</th>
+			<th width="180px">Опции:</th>
 		</tr>
 		{loop="data"}
 			<tr>
@@ -13,15 +14,16 @@
 						{$value.name}
 					</a>
 				</td>
+				<td></td>
 				<td>
 					{$value.variant}
 				</td>
-				<td>
+				<td class="center">
 					<span style="color: #{$value.color};">
 						{$value.color_name}
 					</span>
 				</td>
-				<td>
+				<td class="center">
 					<button class="btn btn-small">
 						Объединить
 					</button>
