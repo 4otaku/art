@@ -208,7 +208,8 @@ extend(OBJECT.edit_tags, OBJECT.ajax_tip, {
 			this.start_terms = this.get_terms();
 		},
 		field: {
-			keyup: function() {
+			keyup: function(e) {
+				this.get_super().events.field.keyup.call(this, e);
 				var terms = this.get_terms(),
 					add = $(terms).not(this.start_terms).toArray(),
 					remove = $(this.start_terms).not(terms).toArray(),
