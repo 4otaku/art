@@ -40,3 +40,16 @@
 .admin-tag-table tr td select {
 	width: 150px;
 }
+
+.admin-similar {
+	margin: 0 0 10px 25px;
+	width: 900px;
+}
+
+.admin-similar > div:first-child {
+	border-top: 1px lightgray solid;
+}
+.admin-similar > div {
+	border-bottom: 1px lightgray solid;
+	padding: 5px;
+}

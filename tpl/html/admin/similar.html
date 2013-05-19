@@ -1,9 +1,71 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="admin-similar">
+	{loop="data"}
+		<div>
+			<div class="left">
+				<img src="{function="Config::get('api', 'image_url')"}art/{$value.first.md5}_thumb.jpg">
+				<br />
+				Просмотреть:
+				<a href="/{$value.first.id}" target="_blank">
+					№{$value.first.id}
+				</a>
+				<br />
+				Формат: {$value.first.ext}
+				<br />
+				Вес: {$value.first.weight}
+				<br />
+				Размер: {$value.first.width}x{$value.first.height}
+				<br />
+				Анимация: {if="$value.first.animated"}да{else}нет{/if}
+				<br />
+				Добавлено: {$value.first.created}
+				{if="$value.first.id_parent != $value.first.id"}
+					<br />
+					Вариация на:
+					<a href="/{$value.first.id_parent}" target="_blank">
+						арт №{$value.first.id_parent}
+					</a>
+				{/if}
+			</div>
+			<div class="right">
+				<img src="{function="Config::get('api', 'image_url')"}art/{$value.second.md5}_thumb.jpg">
+				<br />
+				Просмотреть:
+				<a href="/{$value.second.id}" target="_blank">
+					№{$value.second.id}
+				</a>
+				<br />
+				Формат: {$value.second.ext}
+				<br />
+				Вес: {$value.second.weight}
+				<br />
+				Размер: {$value.second.width}x{$value.second.height}
+				<br />
+				Анимация: {if="$value.second.animated"}да{else}нет{/if}
+				<br />
+				Добавлено: {$value.second.created}
+				{if="$value.second.id_parent != $value.second.id"}
+				<br />
+				Вариация на:
+				<a href="/{$value.second.id_parent}" target="_blank">
+					арт №{$value.second.id_parent}
+				</a>
+				{/if}
+			</div>
+			<div class="center">
+				<button class="btn first_main">
+					Вторая картинка вариация первой
+				</button>
+				<br /><br />
+				<button class="btn second_main">
+					Первая картинка вариация второй
+				</button>
+				<br /><br />
+				<button class="btn mistake">
+					Не являются вариациями
+				</button>
+			</div>
+			<div class="clear"></div>
+		</div>
+	{/loop}
+</div>
+{$module_paginator}
