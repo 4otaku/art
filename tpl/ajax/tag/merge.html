@@ -1,0 +1,22 @@
+<h2>
+	Слияние тега с {$data.name}.
+</h2>
+<div>
+	<div id="admin_tag_merge_{$data.id}">
+		Имя другого тега: <input type="text" value="" />
+		<div class="error hidden"></div>
+		<div class="loader hidden"></div>
+		<br /><br />
+		<button type="button" class="btn submit to_second">
+			Влить {$data.name} в другой тег
+		</button>
+		<br /><br />
+		<button type="button" class="btn submit to_first">
+			Влить другой тег в {$data.name}
+		</button>
+	</div>
+</div>
+<script type="text/javascript">
+	init('admin_tag_merge', '{$data.id}');
+</script>
+

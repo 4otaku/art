@@ -21,6 +21,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 			$this->filter = (string) $query->get('filter');
 		}
 		$this->set_param('filter', $this->filter);
+		$this->set_param('colors', $this->color);
 	}
 
 	protected function get_modules(Query $query)

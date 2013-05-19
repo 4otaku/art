@@ -8,9 +8,35 @@
 
 .admin-tag-table tr {
 	border-bottom: 1px lightgray solid;
+	height: 31px;
 }
 
 .admin-tag-table td {
 	padding: 0;
 	margin: 0;
+	vertical-align: middle;
+}
+
+.admin-tag-table td > div {
+	width: 100%;
+	height: 30px;
+}
+
+.admin-tag-table td > div span, .admin-tag-table td > div a {
+	height: 30px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.admin-tag-table td > div input {
+	width: 90%;
+}
+
+.admin-tag-table tr td .hidden {
+	display: none;
+	margin-bottom: 0;
+}
+
+.admin-tag-table tr td select {
+	width: 150px;
 }

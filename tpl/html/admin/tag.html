@@ -10,32 +10,68 @@
 			<th width="15%">Имя:</th>
 			<th width="5%"></th>
 			<th>Варианты:</th>
-			<th width="15%">Цвет:</th>
+			<th width="180px">Цвет:</th>
 			<th width="180px">Опции:</th>
 		</tr>
 		{loop="data"}
 			<tr>
 				<td class="name">
-					<a href="/?tag={$value.name}" target="_blank">
-						{$value.name}
-					</a>
+					<div id="admin_tag_name_{$value.id}">
+						<a href="/?tag={$value.name}" target="_blank">
+							{$value.name}
+						</a>
+						<input type="text" value="{$value.name}" class="hidden" />
+					</div>
+					<script type="text/javascript">
+						add('admin_tag_name', '{$value.id}');
+					</script>
 				</td>
 				<td></td>
 				<td>
-					{$value.variant}
+					<div id="admin_tag_variant_{$value.id}">
+						<span>{$value.variant}</span>
+						<input type="text" value="{$value.variant}" class="hidden" />
+					</div>
+					<script type="text/javascript">
+						add('admin_tag_variant', '{$value.id}');
+					</script>
 				</td>
 				<td class="center">
-					<span style="color: #{$value.color};">
-						{$value.color_name}
-					</span>
+					<div id="admin_tag_color_{$value.id}">
+						<span style="color: #{$value.color};">
+							{$value.color_name}
+						</span>
+						<select class="hidden">
+							{loop="colors"}
+								<option value="{$key}" style="color: #{$key};">
+									{$value}
+								</option>
+							{/loop}
+						</select>
+					</div>
+					<script type="text/javascript">
+						add('admin_tag_color', '{$value.id}', {}, {
+							init: function() {
+								this.child.field.val('{$value.color}');
+							}
+						});
+					</script>
 				</td>
 				<td class="center">
-					<button class="btn btn-small">
+					<button class="btn btn-small"
+					        id="admin_tag_start_merge_{$value.id}">
 						Объединить
 					</button>
-					<button class="btn btn-danger btn-small">
+					<button class="btn btn-danger btn-small"
+					        id="admin_tag_delete_{$value.id}">
 						Удалить
 					</button>
+					<script type="text/javascript">
+						add('admin_tag_start_merge', '{$value.id}');
+					</script>
+					<script type="text/javascript">
+						add('admin_tag_delete', '{$value.id}', '{$value.name}');
+					</script>
 				</td>
 			</tr>
 		{/loop}
