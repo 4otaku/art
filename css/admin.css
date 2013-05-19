@@ -1,0 +1,16 @@
+.admin-tag-filter button {
+	margin-bottom: 9px;
+}
+
+.admin-tag-table {
+	width: 100%;
+}
+
+.admin-tag-table tr {
+	border-bottom: 1px lightgray solid;
+}
+
+.admin-tag-table td {
+	padding: 0;
+	margin: 0;
+}

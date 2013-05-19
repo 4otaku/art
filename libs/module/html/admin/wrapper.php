@@ -2,7 +2,7 @@
 
 class Module_Html_Admin extends Module_Html_Abstract
 {
-	protected $css = array('base');
+	protected $css = array('admin');
 
 	protected function get_modules(Query $query)
 	{

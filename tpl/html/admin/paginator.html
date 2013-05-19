@@ -1,0 +1,78 @@
+<div class="pagination">
+	<ul>
+		<li>
+			<span>Страница {$curr} из {$last}</span>
+		</li>
+		{if condition="$curr == 2"}
+		<li>
+			<a href="{$base}">
+				&lt;
+			</a>
+		</li>
+		{elseif condition="$curr > 2"}
+		<li>
+			<a href="{$base}page={$curr-1}">
+				&lt;
+			</a>
+		</li>
+		{/if}
+		{if condition="$curr == 1"}
+		<li class="active_page">
+			<a href="{$base}">
+				1
+			</a>
+		</li>
+		{else}
+		<li>
+			<a href="{$base}">
+				1
+			</a>
+		</li>
+		{/if}
+		{if condition="$start > 2"}
+		<li class="space">
+			<span>...</span>
+		</li>
+		{/if}
+		{loop="loop"}
+		{if condition="$value.current"}
+		<li class="active_page">
+			<a href="{$base}page={$value.page}">
+				{$value.page}
+			</a>
+		</li>
+		{else}
+		<li>
+			<a href="{$base}page={$value.page}">
+				{$value.page}
+			</a>
+		</li>
+		{/if}
+		{/loop}
+		{if condition="$end < $last - 1"}
+		<li class="space">
+			<span>...</span>
+		</li>
+		{/if}
+		{if condition="$last > 1"}
+		{if condition="$last == $curr"}
+		<li class="active_page">
+			<a href="{$base}page={$last}">
+				{$last}
+			</a>
+		</li>
+		{else}
+		<li class="first_last_page">
+			<a href="{$base}page={$last}">
+				{$last}
+			</a>
+		</li>
+		<li>
+			<a href="{$base}page={$curr+1}">
+				&gt;
+			</a>
+		</li>
+		{/if}
+		{/if}
+	</ul>
+</div>

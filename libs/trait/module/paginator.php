@@ -20,9 +20,6 @@ trait Trait_Module_Paginator
 		}
 
 		$url_string = $this->get_url();
-		if (!empty($url_string)) {
-			$url_string .= '&';
-		}
 
 		$this->set_param('curr', $curr);
 		$this->set_param('last', $last);

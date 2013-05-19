@@ -34,7 +34,11 @@ class Module_Html_Comment_Paginator extends Module_Html_Abstract
 	}
 
 	protected function get_url() {
-		return $this->get_query()->to_url_string();
+		$url_string = $this->get_query()->to_url_string();
+		if (!empty($url_string)) {
+			$url_string .= '&';
+		}
+		return $url_string;
 	}
 
 	public function recieve_data($data) {

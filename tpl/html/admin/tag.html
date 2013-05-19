@@ -1,4 +1,10 @@
-<table width="100%" cellspacing="0">
+<form action="" method="get" class="admin-tag-filter">
+	<input type="text" value="{$filter}" name="filter" />
+	<button class="btn">
+		Фильтровать
+	</button>
+</form>
+<table class="admin-tag-table">
 	<tbody>
 		<tr>
 			<th width="15%">Имя:</th>
@@ -35,4 +41,4 @@
 		{/loop}
 	</tbody>
 </table>
-{$count}
+{$module_paginator}
