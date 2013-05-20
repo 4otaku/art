@@ -10,6 +10,7 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 	},
 	error_message: '',
 	focused: false,
+	init_val: '',
 	save: function() {
 		this.message('admin_tag_error', false);
 		var data = {id: this.id};
