@@ -12,7 +12,7 @@ class Module_Ajax_Tag_Merge extends Module_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Item('art_tag', $this,
+		return new Request_Item('tag_art', $this,
 			['id' => $this->id]);
 	}
 }

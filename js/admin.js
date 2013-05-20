@@ -10,13 +10,20 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 	},
 	focused: false,
 	save: function() {
-		var data = {};
+		var data = {id: this.id};
 		data[this.type] = this.get_val();
 		Ajax.perform('/ajax/save', {
-			api: 'art_tag',
-			id: this.id,
+			api: 'tag_art',
 			data: data
-		});
+		}, this.on_success, this.on_failure, this);
+	},
+	on_success: function() {
+		this.child.display.html(this.get_new_val());
+		this.blur();
+	},
+	on_failure: function() {
+		this.child.display.html(this.get_new_val());
+		this.blur();
 	},
 	get_val: function() {
 		return this.child.field.val();
@@ -105,7 +112,7 @@ OBJECT.admin_tag_delete = function(id, values, events) {
 	OBJECT.clickable.call(this, id, function() {
 		if (confirm('Вы действительно желаете удалить тег ' + values)) {
 			Ajax.perform('/ajax/delete', {
-				api: 'art_tag',
+				api: 'tag_art',
 				id: this.id
 			}, function() {
 				document.location.reload();
@@ -166,9 +173,11 @@ extend(OBJECT.admin_tag_merge, OBJECT.clickable, {
 			}
 
 			Ajax.perform('/ajax/save', {
-				api: 'art_tag',
-				id: to_first ? this.id : item.id,
-				merge: to_first ? item.id : this.id
+				api: 'tag_art',
+				data: {
+					id: to_first ? this.id : item.id,
+					merge: to_first ? item.id : this.id
+				}
 			}, function(){
 				document.location.reload();
 			}, function(){

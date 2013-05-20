@@ -31,7 +31,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 
 	protected function make_request()
 	{
-		return new Request('art_tag', $this, ['page' => $this->page,
+		return new Request('tag_art', $this, ['page' => $this->page,
 			'filter' => $this->filter]);
 	}
 

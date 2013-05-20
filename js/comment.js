@@ -135,13 +135,14 @@ extend(OBJECT.comment_form, OBJECT.form, {
 	},
 	url: '/ajax/save/',
 	add_data: {
-		api: 'comment_art',
+		api: 'comment',
 		create: true
 	},
 	success: function() {
 		document.location.reload();
 	},
 	prepare_data: function(data) {
+		data.data.area = 'art';
 		return $.extend({data: data.data}, this.add_data);
 	},
 	submit: function(e) {
