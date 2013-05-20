@@ -192,3 +192,71 @@ extend(OBJECT.admin_tag_merge, OBJECT.clickable, {
 		}
 	}
 });
+
+OBJECT.admin_similar = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+
+	this.id_first = this.id.split('_')[0];
+	this.id_second = this.id.split('_')[1];
+};
+
+extend(OBJECT.admin_similar, OBJECT.base, {
+	class_name: 'admin_similar',
+	child_config: {
+		first_main: '.first_main',
+		second_main: '.second_main',
+		mistake: '.mistake'
+	},
+	start_loading: function() {
+		this.el.children().hide();
+		this.el.addClass('loader');
+	},
+	stop_loading: function() {
+		this.el.children().show();
+		this.el.removeClass('loader');
+	},
+	delete_pair: function() {
+		Ajax.perform('/ajax/delete', {
+			api: 'art_similar',
+			data: {
+				id_first: this.id_first,
+				id_second: this.id_second
+			}
+		}, function(){
+			this.el.remove();
+		}, function(){
+			this.stop_loading();
+		}, this);
+	},
+	make_similar: function(main, variation) {
+		this.start_loading();
+		Ajax.perform('/ajax/save', {
+			api: 'art_variation',
+			data: {id: main, add: [{id: variation}]}
+		}, function(){
+			this.child.first_main.remove();
+			this.child.second_main.remove();
+			this.delete_pair();
+		}, function(){
+			this.stop_loading();
+		}, this);
+	},
+	events: {
+		first_main: {
+			click: function() {
+				this.make_similar(this.id_first, this.id_second);
+			}
+		},
+		second_main: {
+			click: function() {
+				this.make_similar(this.id_second, this.id_first);
+			}
+		},
+		mistake: {
+			click: function() {
+				this.start_loading();
+				this.delete_pair();
+			}
+		}
+	}
+});
