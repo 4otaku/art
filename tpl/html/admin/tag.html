@@ -4,6 +4,17 @@
 		Фильтровать
 	</button>
 </form>
+<div class="clear"></div>
+<div class="error" id="listener_admin_tag_error"></div>
+<script type="text/javascript">
+	add('listener', 'admin_tag_error', function(error){
+		if (!error) {
+			this.el.hide();
+		} else {
+			this.el.html(error).show();
+		}
+	});
+</script>
 <table class="admin-tag-table">
 	<tbody>
 		<tr>
@@ -11,19 +22,18 @@
 			<th width="5%"></th>
 			<th>Варианты:</th>
 			<th width="180px">Цвет:</th>
-			<th width="180px">Опции:</th>
+			<th width="240px">Опции:</th>
 		</tr>
 		{loop="data"}
 			<tr>
 				<td class="name">
 					<div id="admin_tag_name_{$value.id}">
-						<a href="/?tag={$value.name}" target="_blank">
-							{$value.name}
-						</a>
+						<span>{$value.name}</span>
 						<input type="text" value="{$value.name}" class="hidden" />
 					</div>
 					<script type="text/javascript">
-						add('admin_tag_name', '{$value.id}');
+						add('admin_tag_name', '{$value.id}',
+								{init_val: '{$value.name}'});
 					</script>
 				</td>
 				<td></td>
@@ -33,7 +43,8 @@
 						<input type="text" value="{$value.variant}" class="hidden" />
 					</div>
 					<script type="text/javascript">
-						add('admin_tag_variant', '{$value.id}');
+						add('admin_tag_variant', '{$value.id}',
+								{init_val: '{$value.variant}'});
 					</script>
 				</td>
 				<td class="center">
@@ -50,11 +61,8 @@
 						</select>
 					</div>
 					<script type="text/javascript">
-						add('admin_tag_color', '{$value.id}', {}, {
-							init: function() {
-								this.child.field.val('{$value.color}');
-							}
-						});
+						add('admin_tag_color', '{$value.id}',
+								{init_val: '{$value.color}'});
 					</script>
 				</td>
 				<td class="center">
@@ -66,6 +74,10 @@
 					        id="admin_tag_delete_{$value.id}">
 						Удалить
 					</button>
+					<a href="/?tag={$value.name}"
+					   class="btn btn-small" target="_blank">
+						Просмотреть
+					</a>
 					<script type="text/javascript">
 						add('admin_tag_start_merge', '{$value.id}');
 					</script>

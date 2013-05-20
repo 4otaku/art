@@ -8,23 +8,38 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 		display: ':not(input,select,option)',
 		field: 'input,select'
 	},
+	error_message: '',
 	focused: false,
 	save: function() {
+		this.message('admin_tag_error', false);
 		var data = {id: this.id};
 		data[this.type] = this.get_val();
+
+		this.child.display.css('visibility', 'hidden');
+		this.child.field.css('visibility', 'hidden');
+		this.el.addClass('loader').css('margin', 0).show();
+
 		Ajax.perform('/ajax/save', {
 			api: 'tag_art',
 			data: data
-		}, this.on_success, this.on_failure, this);
+		}, this.on_save, function(){
+			this.message('admin_tag_error', this.error_message);
+			this.on_save();
+		}, this);
 	},
-	on_success: function() {
-		this.child.display.html(this.get_new_val());
+	on_save: function() {
+		Ajax.get('/ajax/tag', {id: this.id},
+			this.on_reload, this.on_reload, this);
+	},
+	on_reload: function(result) {
+		this.set_val(result.data[0]);
+		this.child.display.css('visibility', 'inherit');
+		this.child.field.css('visibility', 'inherit');
+		this.el.removeClass('loader');
+		this.focused = false;
 		this.blur();
 	},
-	on_failure: function() {
-		this.child.display.html(this.get_new_val());
-		this.blur();
-	},
+	set_val: function(data) {},
 	get_val: function() {
 		return this.child.field.val();
 	},
@@ -37,6 +52,9 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 		this.child.field.hide();
 	},
 	events: {
+		init: function() {
+			this.child.field.val(this.init_val);
+		},
 		mouseenter: function() {
 			this.focus();
 		},
@@ -58,11 +76,6 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 				if (e.which == 13) {
 					this.save();
 				}
-			},
-			change: function() {
-				if (this.is_select) {
-					this.save();
-				}
 			}
 		}
 	}
@@ -74,7 +87,12 @@ OBJECT.admin_tag_name = function(id, values, events) {
 
 extend(OBJECT.admin_tag_name, OBJECT.admin_tag_hover, {
 	class_name: 'admin_tag_name',
-	type: 'name'
+	error_message: 'Тег с таким именем уже существует',
+	type: 'name',
+	set_val: function(data) {
+		this.child.field.val(data.name);
+		this.child.display.html(data.name);
+	}
 });
 
 OBJECT.admin_tag_variant = function(id, values, events) {
@@ -83,12 +101,18 @@ OBJECT.admin_tag_variant = function(id, values, events) {
 
 extend(OBJECT.admin_tag_variant, OBJECT.admin_tag_hover, {
 	class_name: 'admin_tag_variant',
+	error_message: 'Часть вариантов совпала с существующими тегами и не была сохранена',
 	type: 'variant',
 	get_val: function() {
 		var val = this.get_super().get_val.call(this);
-		return $.grep(val.split(/[, ]/), function(value){
+		val = $.grep(val.split(/[, ]/), function(value){
 			return !!value;
 		});
+		return val.length ? val : 0;
+	},
+	set_val: function(data) {
+		this.child.field.val(data.variant.join(', '));
+		this.child.display.html(data.variant.join(', '));
 	}
 });
 
@@ -99,6 +123,12 @@ OBJECT.admin_tag_color = function(id, values, events) {
 extend(OBJECT.admin_tag_color, OBJECT.admin_tag_hover, {
 	class_name: 'admin_tag_color',
 	type: 'color',
+	set_val: function(data) {
+		this.child.field.val(data.color);
+		var text = this.child.field.children(':selected').text();
+		this.child.display.html(text);
+		this.child.display.css('color', '#' + data.color);
+	},
 	events: {
 		field: {
 			change: function() {
@@ -129,6 +159,7 @@ extend(OBJECT.admin_tag_delete, OBJECT.clickable, {
 
 OBJECT.admin_tag_start_merge = function(id, values, events) {
 	OBJECT.clickable.call(this, id, function() {
+		this.message('admin_tag_error', false);
 		Overlay.ajax('/ajax/tag_merge?id=' + id);
 	}, events);
 };
