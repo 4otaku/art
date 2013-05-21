@@ -174,5 +174,14 @@ div.mini-shell div.text {
 	color: #565656 !important;
 }
 
+.help_text {
+	border: 1px dashed #008b8b;
+	border-radius: 10px;
+	background-color: #ffffe0;
+	padding: 5px;
+	margin: 0 5px;
+}
+
 .wysibb .powered {
-	display: none}
+	display: none
+}

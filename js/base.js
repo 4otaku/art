@@ -64,7 +64,7 @@ var Ajax = {
 		if (error.message) {
 			return error.message.replace(/</g, "&lt;")
 				.replace(/>/g, "&gt;");
-		} 
+		}
 
 		if (this.error[error.code]) {
 			return this.error[error.code];

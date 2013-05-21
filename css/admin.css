@@ -2,6 +2,20 @@
 	margin-bottom: 9px;
 }
 
+.admin-tag-filter-strict {
+	margin-left: 20px;
+}
+
+.admin-tag-filter-strict div {
+	display: table-cell;
+	vertical-align: middle;
+	height: 30px;
+}
+
+.admin-tag-filter-strict div input {
+	margin: 0;
+}
+
 .admin-tag-table {
 	width: 100%;
 }

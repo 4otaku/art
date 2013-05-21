@@ -4,6 +4,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 {
 	protected $page = 1;
 	protected $filter = '';
+	protected $strict = false;
 	protected $color = array(
 		"" => 'Обычный',
 		"AA0000" => 'Автор',
@@ -20,7 +21,11 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 		if ($query->get('filter')) {
 			$this->filter = (string) $query->get('filter');
 		}
+		if ($query->get('strict')) {
+			$this->strict = true;
+		}
 		$this->set_param('filter', $this->filter);
+		$this->set_param('strict', $this->strict);
 		$this->set_param('colors', $this->color);
 	}
 
@@ -32,7 +37,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 	protected function make_request()
 	{
 		return new Request('tag_art', $this, ['page' => $this->page,
-			'filter' => $this->filter]);
+			($this->strict ? 'name' : 'filter') => $this->filter]);
 	}
 
 	public function recieve_data($data)

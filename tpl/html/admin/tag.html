@@ -1,12 +1,46 @@
+<button class="btn btn-info right" id="clickable_help">
+	Справка
+</button>
 <form action="" method="get" class="admin-tag-filter">
 	<input type="text" value="{$filter}" name="filter" />
 	<button class="btn">
 		Фильтровать
 	</button>
+	<span class="admin-tag-filter-strict">
+		<div>
+			<input type="checkbox" {if="$strict"}checked="checked"{/if} name="strict" />
+			Строгий поиск
+		</div>
+	</span>
 </form>
+<div class="hidden help_text" id="listener_help_clicked">
+	С помощью меню сверху, можно отфильтровать теги.
+	Нестрогий фильтр оставит все теги где встречается указанная строчка.
+	Строгий оставит только тег, полностью совпадающий со строчкой, если он существует.
+	Вариации при наложении фильтра не учитываются.
+	<br />
+	Чтобы отредактировать имя, вариации или цвет, наведите мышку и внесите изменения.
+	Для сохранения имени или вариаций нажмите энтер, для сохранения цвета просто выберите новый.
+</div>
 <div class="clear"></div>
 <div class="error" id="listener_admin_tag_error"></div>
 <script type="text/javascript">
+	add('clickable', 'help', function(){
+		if (this.el.is('.active')) {
+			this.message('help_clicked', 0);
+			this.el.removeClass('active');
+		} else {
+			this.message('help_clicked', 1);
+			this.el.addClass('active');
+		}
+	});
+	add('listener', 'help_clicked', function(show){
+		if (show) {
+			this.el.slideDown();
+		} else {
+			this.el.slideUp();
+		}
+	});
 	add('listener', 'admin_tag_error', function(error){
 		if (!error) {
 			this.el.hide();
