@@ -102,7 +102,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 
 			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
-		},
+		}, 
 		edit_data_change: function(data, have_changes) {
 			this.data = data;
 
