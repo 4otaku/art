@@ -61,12 +61,13 @@ var Ajax = {
 	unknown_error: 'Неизвестная ошибка.',
 
 	translate_error: function(error) {
-		if (this.error[error.code]) {
-			return this.error[error.code];
+		if (error.message) {
+			return error.message.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;");
 		}
 
-		if (error.message) {
-			return error.message;
+		if (this.error[error.code]) {
+			return this.error[error.code];
 		}
 
 		return this.unknown_error + ' Код ошибки: ' + error.code;
