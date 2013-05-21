@@ -86,6 +86,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			this.el.show();
 			this.child.form.hide();
 			this.child.save_wrapper.hide();
+			this.child.save.show();
 			this.child.save.addClass('disabled');
 			this.child.loader.show();
 			this.child.error.hide();
@@ -96,7 +97,8 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			this.api = (mode != 'art') && (type != 'tag') ? mode :
 				mode + '_' + type;
 			this.need_full_reload = (mode != 'art') ||
-				(type == 'translation') || (type == 'variation');
+				(type == 'translation') || (type == 'variation') ||
+				(type == 'approve');
 
 			Ajax.load('/ajax/edit/' + type, {mode: mode, id: id},
 				this.on_load, this.on_load_failure, this);
@@ -109,6 +111,12 @@ extend(OBJECT.edit_form, OBJECT.base, {
 			} else {
 				this.child.save.addClass('disabled');
 			}
+		},
+		edit_hide_save_button: function() {
+			this.child.save.hide();
+		},
+		edit_do_save: function() {
+			this.child.save.click();
 		}
 	}
 });
@@ -512,6 +520,27 @@ mixin(OBJECT.edit_similar.prototype, {
 		this.message('edit_data_change',
 			{order: this.order, remove: this.remove},
 			sorted || this.remove.length);
+	}
+});
+
+OBJECT.edit_state = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_state, OBJECT.base, {
+	class_name: 'edit_state',
+	confirm: false,
+	events: {
+		init: function() {
+			this.message('edit_hide_save_button');
+		},
+		click: function() {
+			if (this.confirm && !confirm(this.confirm)) {
+				return;
+			}
+			this.message('edit_data_change', {state: 'state_' + this.id}, true);
+			this.message('edit_do_save');
+		}
 	}
 });
 

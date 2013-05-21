@@ -118,6 +118,14 @@
 			{/if}
 			{if condition="$moderator"}
 				<div class="sidebar_row">
+					<a href="#do-edit-approve" id="edit_start_approve_{$id}">
+						Изменить статус
+					</a>
+				</div>
+				<script type="text/javascript">
+					add('edit_start', 'approve_{$id}');
+				</script>
+				<div class="sidebar_row">
 					<a href="#do-edit-image" id="edit_start_image_{$id}">
 						Редактировать картинку
 					</a>

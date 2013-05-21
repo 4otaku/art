@@ -1,0 +1,30 @@
+<div>
+	{if="!in_array('approved', $state)"}
+		<button class="btn" id="edit_state_approved">
+			Одобрить
+		</button>
+	{/if}
+	{if="!in_array('unapproved', $state)"}
+		<button class="btn" id="edit_state_unapproved">
+			Вернуть в очередь премодерации
+		</button>
+	{/if}
+	{if="!in_array('disapproved', $state)"}
+		<button class="btn" id="edit_state_disapproved">
+			Отправить в барахолку
+		</button>
+	{/if}
+	<button class="btn btn-danger" id="edit_state_deleted">
+		Удалить
+	</button>
+</div>
+
+<script type="text/javascript">
+	init('edit_state', 'approved');
+	init('edit_state', 'unapproved');
+	init('edit_state', 'disapproved');
+	init('edit_state', 'deleted', {
+		confirm: 'Вы уверены что хотите окончательно и бесповоротно ' +
+			'удалить этот арт?'
+	});
+</script>
