@@ -29,11 +29,12 @@
 .overlay_box .close {
 	background-image:url(/images/close_overlay.png);
 	position: absolute;
-	right: -2px;
-	top: -2px;
+	right: -15px;
+	top: -15px;
 	cursor: pointer;
 	height: 30px;
 	width: 30px;
+	opacity: 1 !important;
 }
 
 .overlay_box .overlay_content {

@@ -77,6 +77,10 @@ ul.plain_list {
 	display: none;
 }
 
+.displayed {
+	display: block !important;
+}
+
 .margin10 {
 	 margin-bottom: 10px;
 }
