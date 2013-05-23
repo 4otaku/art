@@ -118,7 +118,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		edit_do_save: function() {
 			this.child.save.click();
 		}
-	} 
+	}
 });
 
 OBJECT.edit_start = function(id, values, events) {
