@@ -2,9 +2,7 @@ OBJECT.help = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
 	this.submodule.static.el.show();
-
-	this.text += '<div>' +
-		this.submodule.static.el.html() + '</div>';
+	this.text += '<div>' + this.submodule.static.el.html() + '</div>';
 };
 
 extend(OBJECT.help, OBJECT.base, {
