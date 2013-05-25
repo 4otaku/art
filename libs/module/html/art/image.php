@@ -8,7 +8,8 @@ class Module_Html_Art_Image extends Module_Html_Art_Abstract
 		'list'];
 
 	public function recieve_data($data) {
-		$data['hidden'] = $this->is_filtered($data['tag'], true);
+		$data['hidden'] = empty($data['tag']) ? false :
+			$this->is_filtered($data['tag'], true);
 
 		$data['src_resized'] = Config::get('api', 'image_url') . 'art/' .
 			$data['md5'] . '_resize.jpg';

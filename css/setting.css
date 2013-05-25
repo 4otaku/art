@@ -23,3 +23,29 @@
 .filter-item select {
 	width: auto;
 }
+
+.settings hr {
+	background-color: #666;
+	border: 0 none;
+	color: #666;
+	height: 1px;
+}
+
+.settings .settings_header {
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+
+.settings .settings_item {
+	height: 35px;
+}
+
+.settings select {
+	width: auto;
+	float: right;
+}
+
+.settings input[type="checkbox"] {
+	float: right;
+}

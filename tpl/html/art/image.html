@@ -17,7 +17,7 @@
 		</div>
 	{/if}
 	{loop="translation"}
-		<div class="art_translation" id="translation_{$value.id}">
+		<div id="translation_{$value.id}" class="art_translation{if="!Config::get('show', 'translation')"} hidden{/if}">
 			<div class="handle"></div>
 			<div class="box" id="bb_{$value.id}_tr">{$value.text}</div>
 			<div class="edit_translation"><textarea></textarea></div>

@@ -5,7 +5,7 @@
 	<img src="/images/slideshow/next.png" class="next" />
 	<div class="delay">
 		<span class="label">Задержка:</span>
-		<input value="05" type="text" />
+		<input value="{$delay}" type="text" />
 	</div>
 	<div class="slideshow_images"></div>
 </div>
@@ -13,6 +13,7 @@
 <script type="text/javascript">
 	add('slideshow', 'main', {
 		query: "{$query}",
+		auto: "{$auto}",
 		start: {$start}
 	});
 </script>

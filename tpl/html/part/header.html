@@ -1,7 +1,7 @@
 <div class="header_menu">
 	<ul class="right_menu">
 		<li class="box header_menu_item">
-			<a href="/settings/">
+			<a id="clickable_settings">
 				Настройки
 			</a>
 			<ul>
@@ -106,6 +106,9 @@
 	</ul>
 </div>
 <script type="text/javascript">
+	add('clickable', 'settings', function() {
+		Overlay.ajax('/ajax/config');
+	});
 	add('clickable', 'logout', function() {
 		$.cookie(Cookie.name, null, {path: '/'});
 		$.cookie(Cookie.name, null, {path: '/',

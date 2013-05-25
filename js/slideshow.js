@@ -8,7 +8,11 @@ OBJECT.slideshow = function(id, values, events) {
 		decimal: false,
 		negative: false
 	});
-}
+
+	if (this.auto) {
+		this.child.play.click();
+	}
+};
 
 extend(OBJECT.slideshow, OBJECT.base, {
 	class_name: 'slideshow',
@@ -163,6 +167,12 @@ extend(OBJECT.slideshow, OBJECT.base, {
 				this.child.delay.show();
 
 				this.do_slide(true);
+
+				Ajax.perform('/ajax/setting', {
+					section: 'slideshow',
+					key: 'auto',
+					value: 1
+				});
 			}
 		},
 		pause: {
@@ -173,6 +183,12 @@ extend(OBJECT.slideshow, OBJECT.base, {
 				this.child.delay.hide();
 
 				clearTimeout(this.slide_next);
+
+				Ajax.perform('/ajax/setting', {
+					section: 'slideshow',
+					key: 'auto',
+					value: 0
+				});
 			}
 		},
 		next: {
@@ -200,12 +216,18 @@ extend(OBJECT.slideshow, OBJECT.base, {
 			}
 		},
 		delay_input: {
-			keydown: function() {
+			keyup: function() {
 				var delay = parseInt(this.child.delay_input.val());
 				if (delay > 0) {
 					this.delay = delay;
 					clearTimeout(this.slide_next);
 					this.do_slide(true);
+
+					Ajax.perform('/ajax/setting', {
+						section: 'slideshow',
+						key: 'delay',
+						value: delay
+					});
 				}
 			}
 		}
