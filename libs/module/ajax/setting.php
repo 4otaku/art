@@ -13,9 +13,7 @@ class Module_Ajax_Setting extends Module_Ajax_Json
 		}
 
 		foreach ($values as $key => $value) {
-			if (preg_match('/[^a-z_\d]/ui', $section) ||
-				preg_match('/[^a-z_\d]/ui', $key)) {
-
+			if (preg_match('/[^a-z_\d]/ui', $section)) {
 				$this->set_error(430);
 				return;
 			}

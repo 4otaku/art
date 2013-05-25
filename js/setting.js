@@ -13,7 +13,7 @@ OBJECT.settings = function(id, values, events) {
 	} else {
 		this.el.val(this.value);
 	}
-}
+};
 
 extend(OBJECT.settings, OBJECT.base, {
 	class_name: 'settings',
@@ -35,7 +35,7 @@ extend(OBJECT.settings, OBJECT.base, {
 
 OBJECT.settings_overlay = function(id, values, events) {
 	OBJECT.settings_overlay.super.constructor.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.settings_overlay, OBJECT.settings, {
 	class_name: 'settings_overlay',
@@ -49,7 +49,7 @@ extend(OBJECT.settings_overlay, OBJECT.settings, {
 
 OBJECT.settings_reload = function(id, values, events) {
 	OBJECT.settings_reload.super.constructor.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.settings_reload, OBJECT.settings, {
 	class_name: 'settings_reload',
@@ -70,7 +70,7 @@ OBJECT.settings_rss = function(id, values, events) {
 	this.value = User.rss[this.key];
 
 	OBJECT.settings_rss.super.constructor.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.settings_rss, OBJECT.settings, {
 	class_name: 'settings_rss',
@@ -80,6 +80,49 @@ extend(OBJECT.settings_rss, OBJECT.settings, {
 			console.log(this.class_name);
 			this.get_super().events.change.call(this);
 			User.rss[this.key] = this.get_value();
+		}
+	}
+});
+
+OBJECT.filter_edit = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.filter_edit, OBJECT.base, {
+	class_name: 'filter_edit',
+	child_config: {
+		add: '.filter-add',
+		do_add: '.filter-add button',
+		value: '.filter-add select',
+		key: '.filter-add input',
+		container: '.filter-container'
+	},
+	events: {
+		do_add: {
+			click: function(e) {
+				e.preventDefault();
+				var key = this.child.key.val();
+				var val = this.child.value.val();
+
+				if (!key || !val) {
+					return;
+				}
+
+				var add = this.child.add.clone();
+				this.child.key.val('');
+
+				add.find('button').remove();
+				add.find('input').remove();
+				add.find('option').show();
+				add.find('span').html('Арты с тегом: "' + key + '"');
+				add.find('select').attr('id', 'settings_overlay_filter_' + key);
+				this.child.container.append(add);
+
+				init('settings_overlay', 'filter_' + key, {
+					section: 'filter', key: key, value: val
+				});
+				add.find('select').change();
+			}
 		}
 	}
 });

@@ -3,11 +3,15 @@
 class Request_Art_List extends Request
 {
 	protected $stateful_api = true;
-	protected $default_approved_state = 'yes';
-	protected $default_tagged_state = 'yes';
+	protected $default_approved_state = 'all';
+	protected $default_tagged_state = 'all';
 
 	protected $api_modes = array(
 		'comment', 'translation', 'pack', 'group', 'manga',  'artist',
+	);
+
+	protected $pool_modes = array(
+		'pack', 'group', 'manga',  'artist',
 	);
 
 	protected $pool_sorted = array(
@@ -59,6 +63,13 @@ class Request_Art_List extends Request
 	}
 
 	protected function fetch_api($data) {
+		if (Config::get('content', 'moderated')) {
+			$this->default_approved_state = 'yes';
+		}
+		if (Config::get('content', 'tagged')) {
+			$this->default_tagged_state = 'yes';
+		}
+
 		if (!isset($data['mode']) || !in_array($data['mode'], $this->api_modes)) {
 			return 'art_list';
 		}
@@ -85,6 +96,14 @@ class Request_Art_List extends Request
 			$data['sort_by'] = $data['pool_mode'];
 			$data['sort_value'] = $data['pool_value'];
 			$data['sort_order'] = $this->pool_sorted[$data['pool_mode']];
+		} elseif (
+			!Config::get('content', 'moderated') &&
+			(
+				!isset($data['mode']) ||
+				!in_array($data['mode'], $this->pool_modes)
+			)
+		) {
+			$data['sort_by'] = 'created';
 		}
 
 		if (isset($data['order'])) {
@@ -139,6 +158,17 @@ class Request_Art_List extends Request
 				);
 			}
 		}
+
+		foreach (Config::get('filter') as $value => $type) {
+			if ($type == 'remove') {
+				$data['filter'][] = array(
+					'name' => $this->filter_types['tag'],
+					'type' => 'not',
+					'value' => $value
+				);
+			}
+		}
+
 		unset($data['pool_mode']);
 		unset($data['pool_value']);
 		unset($data['approved']);

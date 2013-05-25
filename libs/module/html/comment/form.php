@@ -7,7 +7,7 @@ class Module_Html_Comment_Form extends Module_Html_Abstract
 
 	protected function get_params(Query $query)
 	{
-		$data = Session::get_instance()->get_data();
+		$data = Config::get();
 
 		if (isset($data['default']['name'])) {
 			$this->set_param('name', $data['default']['name']);

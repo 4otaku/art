@@ -1,0 +1,25 @@
+.filter-wrapper {
+	width: 600px;
+}
+
+.filter-wrapper input[type="checkbox"] {
+	margin: 0;
+}
+
+.filter-item {
+	height: 30px;
+}
+
+.filter-item span {
+	position: relative;
+	bottom: 4px;
+	margin-right: 20px;
+}
+
+.filter-item button {
+	margin-left: 20px;
+}
+
+.filter-item select {
+	width: auto;
+}

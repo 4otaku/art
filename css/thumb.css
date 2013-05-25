@@ -2,6 +2,11 @@
 	display: inline-block;
 	text-align: center;
 	position: relative;
+	vertical-align: top;
+}
+
+.image_thumbnail img {
+	vertical-align: inherit;
 }
 
 .small_thumbnail {

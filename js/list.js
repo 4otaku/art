@@ -102,3 +102,38 @@ extend(OBJECT.thumb, OBJECT.base, {
 		}
 	}
 });
+
+OBJECT.image_warning = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.image_warning, OBJECT.base, {
+	class_name: 'image_warning',
+	child_config: {
+		container: '.hidden',
+		image: '.hidden img',
+		display: '.display',
+		edit: '.edit'
+	},
+	src: '',
+	init: false,
+	events: {
+		display: {
+			click: function(e) {
+				e.preventDefault();
+				this.child.image.attr('src', this.src);
+				this.el.replaceWith(this.child.container);
+				this.child.container.show();
+				if (this.init) {
+					init('image', this.id, this.init);
+				}
+			}
+		},
+		edit: {
+			click: function(e) {
+				e.preventDefault();
+				Overlay.ajax('/ajax/filters');
+			}
+		}
+	}
+});

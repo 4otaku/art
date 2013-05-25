@@ -4,7 +4,8 @@ class Module_Html_Sidebar_Tool extends Module_Html_Abstract
 {
 	use Trait_Module_Art_List;
 
-	protected $css = array('sidebar');
+	protected $css = ['sidebar', 'setting'];
+	protected $js = ['setting'];
 
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());

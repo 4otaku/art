@@ -1,0 +1,62 @@
+<h2>
+	Ваши фильтры
+</h2>
+<div class="filter-wrapper" id="filter_edit">
+	<div class="filter-container">
+		{loop="filter"}
+			{if="$value == 'hide' or $value == 'remove' or $key == 'nsfw'"}
+				<div class="filter-item clear">
+					<span>
+						{if="$key == 'nsfw'"}
+							Арты с возрастным рейтингом 18+:
+						{else}
+							Арты с тегом "{$key}":
+						{/if}
+					</span>
+					<select name="{$key}" class="right"
+					        id="settings_overlay_filter_{$key}">
+						<option value="">Показывать</option>
+						<option value="hide">Предупреждать</option>
+						<option value="remove">Убрать</option>
+					</select>
+				</div>
+				<script type="text/javascript">
+					init('settings_overlay', 'filter_{$key}', {
+						section: 'filter', key: '{$key}', value: '{$value}'
+					});
+				</script>
+			{/if}
+		{/loop}
+	</div>
+	<div class="filter-item filter-add clear margin10">
+		<span>Арты с тегом:</span>
+		<input type="text" value="" />
+		<button class="btn right">
+			Добавить
+		</button>
+		<select class="right">
+			<option value="" class="hidden">Показывать</option>
+			<option value="hide" selected="selected">Предупреждать</option>
+			<option value="remove">Убрать</option>
+		</select>
+	</div>
+	<hr />
+	<input type="checkbox" id="settings_overlay_moderated" />
+	Показывать по умолчанию только проверенное модераторами.
+	<script type="text/javascript">
+		init('settings_overlay', 'moderated', {
+			section: 'content', key: 'moderated', value: '{$content.moderated}'
+		});
+	</script>
+	<br />
+	<input type="checkbox" id="settings_overlay_tagged" />
+	Показывать по умолчанию только протеганное.
+	<script type="text/javascript">
+		init('settings_overlay', 'tagged', {
+			section: 'content', key: 'tagged', value: '{$content.tagged}'
+		});
+	</script>
+</div>
+<script type="text/javascript">
+	init('filter_edit');
+</script>

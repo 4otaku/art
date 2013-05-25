@@ -1,8 +1,20 @@
 <div class="image">
-	{if condition="$resized"}
-		<img id="image_{$id}" src="{function="Config::get('api', 'image_url')"}art/{$md5}_resize.jpg" />
+	{if="!$hidden"}
+		<img id="image_{$id}" src="{$src}" />
 	{else}
-		<img id="image_{$id}" src="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}" />
+		<div id="image_warning_{$id}">
+			<span class="hidden"><img id="image_{$id}" src="#" /></span>
+			<div class="margin10">
+				Изображение скрыто вашими фильтрами.
+			</div>
+			<button class="btn btn-small display margin10">
+				Показать
+			</button>
+			<br />
+			<button class="btn btn-small edit">
+				Редактировать фильтры
+			</button>
+		</div>
 	{/if}
 	{loop="translation"}
 		<div class="art_translation" id="translation_{$value.id}">
@@ -21,12 +33,21 @@
 	</div>
 {/if}
 <script type="text/javascript">
-	add('image', '{$id}', {
-		is_resized: {$resized},
-		resized: '{function="Config::get('api', 'image_url')"}art/{$md5}_resize.jpg',
-		full: '{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}',
-		full_width: {$width}
-	});
+	{if="!$hidden"}
+		add('image', '{$id}', {
+			is_resized: {$resized},
+			resized: '{$src_resized}',
+			full: '{$src_full}',
+			full_width: {$width}
+		});
+	{else}
+		add('image_warning', '{$id}', {src: '{$src}', init: {
+			is_resized: {$resized},
+			resized: '{$src_resized}',
+			full: '{$src_full}',
+			full_width: {$width}
+		}});
+	{/if}
 	{loop="translation"}
 		add('translation', '{$value.id}', {
 			full_width: {$width},

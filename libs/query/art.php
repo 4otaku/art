@@ -184,14 +184,14 @@ class Query_Art extends Query
 
 	public function is_pool_full_view() {
 		$parts = $this->to_url_array();
-		return count($parts) == 2 && $this->get_pool_mode() &&
+		return count($parts) == 1 && $this->get_pool_mode() &&
 			empty($this->other['sort']) && $this->page() == 1 &&
 			$this->per_page_all;
 	}
 
 	public function is_variation_list() {
 		$parts = $this->to_url_array();
-		return count($parts) == 4 && !$this->get_pool_mode() &&
+		return count($parts) == 3 && !$this->get_pool_mode() &&
 			$this->other['sort'] == 'parent_order' &&
 			$this->other['order'] == 'asc' &&
 			!empty($this->parsed['parent']) &&
