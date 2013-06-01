@@ -39,6 +39,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 				document.location.reload();
 			}
 		} else {
+			document.location.hash = '';
 			this.message('art_reload', function(){
 				this.el.hide();
 			}, this);
@@ -423,13 +424,22 @@ extend(OBJECT.edit_text, OBJECT.edit_simple, {
 		if (this.inited) {
 			this.child.field.sync();
 		}
-		return this.get_super().gather_data.call(this);
+		// get_super it should be. descending class conflicts
+		return OBJECT.edit_text.super.gather_data.call(this);
 	},
 	listen: {
 		wysibb_change: function() {
 			this.send_data();
 		}
 	}
+});
+
+OBJECT.edit_comment = function(id, values, events) {
+	OBJECT.edit_text.call(this, id, values, events);
+};
+
+extend(OBJECT.edit_comment, OBJECT.edit_text, {
+	class_name: 'edit_comment'
 });
 
 OBJECT.edit_cover = function(id, values, events) {

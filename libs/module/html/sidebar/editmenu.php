@@ -7,12 +7,15 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	protected $js = ['edit'];
 	protected $css = ['sidebar'];
 	protected $id_artist;
+	protected $id_art;
 
 	protected function get_params(Query $query) {
 		$this->set_param('is_variation_list', false);
 		if (is_numeric($query->url(0))) {
 			$this->set_param('mode', false);
 			$this->set_param('id', $query->url(0));
+
+			$this->id_art = $query->url(0);
 
 			$this->set_param('variation_link', 'parent=' . $query->url(0) .
 				'&sort=parent_order&order=asc&per_page=all');
@@ -47,14 +50,16 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	{
 		if ($this->id_artist) {
 			return new Request_Item('art_artist', $this,
-				['id' => $this->id_artist]);
+				['id' => $this->id_artist], 'recieve_artist');
+		} elseif ($this->id_art) {
+			return new Request_Art($this->id_art, $this, 'recieve_art');
 		} else {
 			$this->set_param('is_author', false);
 			return [];
 		}
 	}
 
-	public function recieve_data($data) {
+	public function recieve_artist($data) {
 		$this->set_param('is_author', $data['data']['is_author']);
 		if ($this->id_artist &&
 			!$data['data']['is_author'] &&
@@ -62,6 +67,18 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 
 			$this->disable();
 		}
+	}
+
+	public function recieve_art($data) {
+		if (!isset($data['data']['artist'][0]['id'])) {
+			$this->set_param('is_author', false);
+			return;
+		}
+
+		$user = Session::get_instance()->get_data();
+
+		$this->set_param('is_author', $data['data']['artist'][0]['id'] ==
+			$user['user']['gallery']);
 	}
 
 	public function recieve_additional($data) {

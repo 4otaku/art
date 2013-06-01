@@ -95,7 +95,14 @@ class Query_Art extends Query
 		}
 
 		if (empty($this->other['per_page'])) {
-			$this->other['per_page'] = Config::get('pp', 'art');
+			if (
+				isset($this->other['mode']) &&
+				$this->other['mode'] == 'comment'
+			) {
+				$this->other['per_page'] = Config::get('pp', 'art_comment');
+			} else {
+				$this->other['per_page'] = Config::get('pp', 'art');
+			}
 			$this->forced_per_page = false;
 		}
 	}
@@ -192,7 +199,9 @@ class Query_Art extends Query
 	public function is_variation_list() {
 		$parts = $this->to_url_array();
 		return count($parts) == 3 && !$this->get_pool_mode() &&
+			isset($this->other['sort']) &&
 			$this->other['sort'] == 'parent_order' &&
+			isset($this->other['order']) &&
 			$this->other['order'] == 'asc' &&
 			!empty($this->parsed['parent']) &&
 			count($this->parsed['parent']['is']) == 1 &&
@@ -203,7 +212,7 @@ class Query_Art extends Query
 	protected function parse($items, $is_comparable) {
 		$is = $not = $more = $less = [];
 		foreach ($items as $item) {
-			if (strpos($item, '!') === 0) {
+			if (strpos($item, '-') === 0) {
 				$not[] = substr($item, 1);
 				continue;
 			}

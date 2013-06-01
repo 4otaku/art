@@ -14,7 +14,7 @@
 		<div class="sidebar_row">
 			Полный размер:
 				<a href="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}"
-					id="clickable_fullsize"
+					id="clickable_fullsize" onclick="return false;"
 				>{$width}px * {$height}px</a>.
 		</div>
 	{/if}

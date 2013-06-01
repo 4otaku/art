@@ -30,6 +30,7 @@ extend(OBJECT.art_item, OBJECT.base, {
 				.css('padding-top', (height - 15) + 'px')
 				.css('width', width + 'px').show();
 		});
+
 		Ajax.load(document.location.href, function(data){
 			data = $(data);
 			$.each(me.child, function(name, el){

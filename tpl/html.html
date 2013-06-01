@@ -10,11 +10,11 @@
 		{/if}
 		<script type="text/javascript">
 			INIT = {};
-			function add(type, id, events, values) {
+			function add(type, id, values, events) {
 				if (typeof INIT[type] == 'undefined') {
 					INIT[type] = [];
 				}
-				INIT[type].push([id, events, values]);
+				INIT[type].push([id, values, events]);
 			}
 			User = {
 				name: '{function="Config::get('user', 'login')"}',

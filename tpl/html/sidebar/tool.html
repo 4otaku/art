@@ -1,6 +1,17 @@
 <div class="sidebar_part">
 	<div class="sidebar_row">
-		Артов в выборке: {$count}.
+		{if condition="$mode == 'group'"}
+			Групп
+		{elseif condition="$mode == 'pack'"}
+			CG-паков
+		{elseif condition="$mode == 'manga'"}
+			Манги
+		{elseif condition="$mode == 'artist'"}
+			Галерей
+		{else}
+			Артов
+		{/if}
+		в выборке: {$count}.
 	</div>
 	<div class="sidebar_row">
 		<a href="/rss/{if condition="$query"}?{$query}{/if}">Подписаться на RSS</a>

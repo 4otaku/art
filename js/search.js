@@ -1,6 +1,6 @@
 OBJECT.search = function(id, values, events) {
 	OBJECT.ajax_tip.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.search, OBJECT.ajax_tip, {
 	class_name: 'search',
@@ -85,7 +85,8 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 		var data = [];
 		$.each(this.query_language, function(query_term, values) {
 			if (query_term.indexOf(term) == 0) {
-				data.push({name: query_term, cls: 'search-language', postfix: ':'});
+				data.push({name: query_term,
+					cls: 'search-language', postfix: ':'});
 			}
 		});
 		return data;
@@ -117,15 +118,16 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 
 				var data = this.parse_term(term);
 				if (data.type == 'tag') {
-					term = data.name.replace(/^!/, '');
-					this.do_request(term);
+					term = data.name.replace(/^\-/, '');
+					this.do_request(term, data.name.match(/^\-/));
 				} else {
 					var vals = this.query_language[data.type] || [];
 
 					var tags = [];
 					$.each(vals, function(key, variant) {
 						if (variant.indexOf(data.name) == 0) {
-							tags.push({name: variant, cls: 'search-language', append_from: ':'});
+							tags.push({name: variant,
+								cls: 'search-language', append_from: ':'});
 						}
 					});
 

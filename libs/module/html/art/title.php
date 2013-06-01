@@ -28,7 +28,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		'artist' => 'галереи художников',
 	);
 	protected $tagged_variants = array(
-		'no' => 'не протеганное',
+		'no' => 'непротеганное',
 		'all' => 'вне зависимости от тегов',
 	);
 	protected $approved_variants = array(

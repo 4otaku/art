@@ -1,7 +1,5 @@
 OBJECT.ajax_tip = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
-
-	this.terms = this.get_terms();
 }
 
 extend(OBJECT.ajax_tip, OBJECT.base, {
@@ -46,7 +44,7 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 			item.term = item.name + item.postfix;
 			item.append_from = item.append_from || false;
 			var el = $('<div/>').addClass('ajax-tip').data(item);
-			var link = $('<a/>').attr('href', '#').html(text).appendTo(el);
+			$('<a/>').attr('href', '#').html(text).appendTo(el);
 			if (item.cls) {
 				el.addClass(item.cls);
 			}
@@ -85,7 +83,7 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 		this.child.field.val(val.slice(0, start) + data.term +
 			val.slice(end, val.length)).caretTo(start + data.term.length);
 	},
-	do_request: function(term) {
+	do_request: function(term, was_negated) {
 		if (term.length >= this.minimum_term_length
 			&& this.current_tip_request !== term) {
 
@@ -95,6 +93,9 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 					var data = this.get_base_data(term);
 
 					$.each(response.data, function(key, item) {
+						if (was_negated) {
+							item.append_from = was_negated[0];
+						}
 						data.push(item);
 					});
 

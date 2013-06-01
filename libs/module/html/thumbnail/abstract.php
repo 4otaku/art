@@ -11,7 +11,7 @@ abstract class Module_Html_Thumbnail_Abstract extends Module_Html_Abstract
 		$data['hidden'] = $this->is_filtered($data['tag']);
 
 		$large = (Config::get('art', 'largethumbs') ? 'large' : '');
-		if (isset($data['md5'])) {
+		if (!empty($data['md5'])) {
 			$data['src'] = Config::get('api', 'image_url') . 'art/' .
 				$data['md5'] . '_' . $large . 'thumb.jpg';
 		} else {

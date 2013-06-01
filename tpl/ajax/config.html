@@ -87,6 +87,18 @@
 		</select>
 	</div>
 	<div class="clear settings_item">
+		Количество последних комментариев в ленте комментариев:
+		<select id="settings_overlay_11">
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="7">7</option>
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
+	</div>
+	<div class="clear settings_item">
 		Направление комментариев:
 		<select id="settings_overlay_3">
 			<option value="1">инвертированное</option>
@@ -151,5 +163,10 @@
 		section: 'pp',
 		key: 'art_tag',
 		value: {function="Config::get('pp', 'art_tags')"}
+	});
+	init('settings_overlay', 11, {
+		section: 'pp',
+		key: 'art_comment',
+		value: {function="Config::get('pp', 'art_comment')"}
 	});
 </script>

@@ -1,39 +1,45 @@
-<div class="image_thumbnail small_thumbnail">
-	{if="!$hidden"}
-		<a href="/{$id}{if condition="$query"}?{$query}{/if}" title="{$tip}">
-			<img src="{$src}" />
-		</a>
-	{else}
-		<div id="image_warning_{$id}">
-			<a class="hidden" href="/{$id}{if condition="$query"}?{$query}{/if}" title="{$tip}">
-				<img src="#" />
+<div class="comment_thumbnail">
+	<div class="image_thumbnail small_thumbnail left">
+		{if="!$hidden"}
+			<a href="/{$id}{if condition="$query"}?{$query}{/if}">
+				<img src="{$src}" />
 			</a>
-			<div class="margin10">
-				Изображение скрыто вашими фильтрами.
+		{else}
+			<div id="image_warning_{$id}">
+				<a class="hidden" href="/{$id}{if condition="$query"}?{$query}{/if}">
+					<img src="#" />
+				</a>
+				<div class="margin10">
+					Изображение скрыто вашими фильтрами.
+				</div>
+				<button class="btn btn-small display margin10">
+					Показать
+				</button>
+				<br />
+				<button class="btn btn-small edit">
+					Редактировать фильтры
+				</button>
 			</div>
-			<button class="btn btn-small display margin10">
-				Показать
-			</button>
-			<br />
-			<button class="btn btn-small edit">
-				Редактировать фильтры
-			</button>
-		</div>
-		<script type="text/javascript">
-			add('image_warning', '{$id}', {src: '{$src}'});
-		</script>
-	{/if}
-	{if condition="$animated || $similar_count > 1"}
-		<span class="info_tip">
-		{if condition="$animated"}
-			A
+			<script type="text/javascript">
+				add('image_warning', '{$id}', {src: '{$src}'});
+			</script>
 		{/if}
-		{if condition="$animated && $similar_count > 1"}
-			<br />
+		{if condition="$animated || $similar_count > 1"}
+			<span class="info_tip">
+			{if condition="$animated"}
+				A
+			{/if}
+			{if condition="$animated && $similar_count > 1"}
+				<br />
+			{/if}
+			{if condition="$similar_count > 1"}
+				+{$similar_count-1}
+			{/if}
+			</span>
 		{/if}
-		{if condition="$similar_count > 1"}
-			+{$similar_count-1}
-		{/if}
-		</span>
-	{/if}
+	</div>
+	<div class="comment_thumbnail_text" id="bb_comment_{$id}">{$tip}</div>
+	<script type="text/javascript">
+		add('bb', 'comment_{$id}');
+	</script>
 </div>

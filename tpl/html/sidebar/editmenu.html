@@ -77,6 +77,16 @@
 				{/if}
 			{/if}
 		{else}
+			{if condition="$is_author or $moderator"}
+				<div class="sidebar_row">
+					<a href="#do-edit-comment" id="edit_start_comment_{$id}">
+						Редактировать описание
+					</a>
+				</div>
+				<script type="text/javascript">
+					add('edit_start', 'comment_{$id}', {mode: '{$mode}'});
+				</script>
+			{/if}
 			<div class="sidebar_row">
 				<a href="#do-edit-translation" id="edit_start_translation_{$id}">
 					{if condition="$have_translation"}

@@ -21,6 +21,14 @@ class Module_Html_Art_Search extends Module_Html_Art_Abstract
 			}
 		}
 
+		// Если отдельный арт, то добавим страницу на которой он был
+		if ($query->get('pos')) {
+			$page = ceil($query->get('pos') / $query->per_page());
+			if ($page > 1) {
+				$search[] = 'page:' . $page;
+			}
+		}
+
 		$this->set_param('query', implode(' ', $search));
 	}
 }
