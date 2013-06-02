@@ -12,6 +12,7 @@ var spoiler_html = '<div class="mini-shell">' + '' +
 
 wbbconfig = {
 	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,',
+	smileList: false,
 	img_uploadurl: '/external/wysibb_upload.php',
 	allButtons: {
 		spoiler: {

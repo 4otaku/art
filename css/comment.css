@@ -116,6 +116,11 @@
 	bottom: 3px;
 }
 
+.comment-text img {
+	max-width: 400px;
+	max-height: 400px;
+}
+
 .comment-depth-0 {
 	margin-left: 0px;
 }

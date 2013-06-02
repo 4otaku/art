@@ -15,6 +15,10 @@ class Module_Html_Comment_Item extends Module_Html_Abstract
 
 		$data['uid'] = md5(rand());
 
+
+		$data['text'] = new Text($data['text']);
+		$data['text']->trim()->links2bb();
+
 		parent::recieve_data($data);
 	}
 }
