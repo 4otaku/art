@@ -34,9 +34,15 @@ class Query_Art extends Query
 	public function __construct($url, $get = [], $clean = true) {
 		parent::__construct($url, $get, $clean);
 
-		$search = [];
 		$pool_count = 0;
+
 		foreach ($this->get() as $key => $items) {
+			$negated = false;
+			if (strpos($key, '-') === 0) {
+				$key = substr($key, 1);
+				$negated = true;
+			}
+
 			$is_comparable = in_array($key, $this->comparable_keys);
 			$is_equal = in_array($key, $this->equal_keys);
 			$is_other = in_array($key, $this->other_keys);
@@ -53,16 +59,27 @@ class Query_Art extends Query
 				continue;
 			}
 
-			$data = [];
-			list($data['is'], $data['not'], $data['more'], $data['less']) =
-				$this->parse((array) $items, $is_comparable);
-			$search[] = ['data' => $data, 'type' => $key];
+			list($is, $not, $more, $less) = $this->parse((array) $items,
+				$is_comparable, $negated);
+			if (!isset($this->parsed[$key])) {
+				$this->parsed[$key] = ['is' => [], 'not' => [],
+					'more' => [], 'less' => []];
+			}
+
+			$this->parsed[$key]['is'] =
+				array_merge($this->parsed[$key]['is'], $is);
+			$this->parsed[$key]['not'] =
+				array_merge($this->parsed[$key]['not'], $not);
+			$this->parsed[$key]['more'] =
+				array_merge($this->parsed[$key]['more'], $more);
+			$this->parsed[$key]['less'] =
+				array_merge($this->parsed[$key]['less'], $less);
 
 			if ($is_pool && $pool_count !== false) {
-				if (!empty($data['not']) || !empty($data['more']) || !empty($data['less'])) {
+				if (!empty($not) || !empty($more) || !empty($less)) {
 					$pool_count = false;
 				} else {
-					$pool_count += count($data['is']);
+					$pool_count += count($is);
 					$this->pool_mode = $key;
 				}
 			}
@@ -77,9 +94,6 @@ class Query_Art extends Query
 		}
 
 		ksort($this->other);
-		foreach ($search as $item) {
-			$this->parsed[$item['type']] = $item['data'];
-		}
 
 		if (isset($this->other['per_page']) && $this->other['per_page'] == 'all') {
 			if ($this->get_pool_mode() || !empty($this->parsed['parent']['is'])) {
@@ -157,14 +171,17 @@ class Query_Art extends Query
 
 		foreach ($params as $key => $param) {
 			foreach ($param as $mode => $items) {
+				$sign = '';
+				$negated = '';
 				switch ($mode) {
-					case 'is': $mode = ''; break;
-					case 'more': $mode = '>'; break;
-					case 'less': $mode = '<'; break;
-					case 'not': $mode = '!'; break;
+					case 'is': break;
+					case 'more': $sign = '>'; break;
+					case 'less': $sign = '<'; break;
+					case 'not': $negated = '-'; break;
+					default: break;
 				}
 				foreach ($items as $item) {
-					$parts[] = $key . '[]=' . $mode . $item;
+					$parts[] = $negated . $key . '[]=' . $sign . $item;
 				}
 			}
 		}
@@ -209,22 +226,30 @@ class Query_Art extends Query
 			$this->page() == 1 && $this->per_page_all;
 	}
 
-	protected function parse($items, $is_comparable) {
+	protected function parse($items, $is_comparable, $negated) {
 		$is = $not = $more = $less = [];
 		foreach ($items as $item) {
-			if (strpos($item, '-') === 0) {
-				$not[] = substr($item, 1);
-				continue;
-			}
 			if (strpos($item, '>') === 0 && $is_comparable) {
-				$more[] = substr($item, 1);
+				if ($negated) {
+					$less[] = substr($item, 1);
+				} else {
+					$more[] = substr($item, 1);
+				}
 				continue;
 			}
 			if (strpos($item, '<') === 0 && $is_comparable) {
-				$less[] = substr($item, 1);
+				if ($negated) {
+					$more[] = substr($item, 1);
+				} else {
+					$less[] = substr($item, 1);
+				}
 				continue;
 			}
-			$is[] = $item;
+			if ($negated) {
+				$not[] = $item;
+			} else {
+				$is[] = $item;
+			}
 		}
 		return [$is, $not, $more, $less];
 	}

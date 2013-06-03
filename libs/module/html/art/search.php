@@ -12,12 +12,19 @@ class Module_Html_Art_Search extends Module_Html_Art_Abstract
 
 		$search = array();
 		foreach ($query->get() as $key => $items) {
+			$negated = '';
+			if (strpos($key, '-') === 0) {
+				$key = substr($key, 1);
+				$negated = '-';
+			}
+
 			if (!in_array($key, $legal)) {
 				continue;
 			}
 
 			foreach ((array) $items as $item) {
-				$search[] = $key == 'tag' ? $item : $key . ':' . $item;
+				$search[] = $negated .
+					($key == 'tag' ? $item : $key . ':' . $item);
 			}
 		}
 

@@ -42,15 +42,20 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 	},
 	parse_term: function(term) {
 		var sep_position = term.indexOf(':', 1);
-		if (sep_position === -1) {
-			var type = 'tag';
-		} else {
-			var type = term.slice(0, sep_position);
-			if (typeof this.query_language[type] == 'undefined') {
-				var type = 'tag';
+		var type = 'tag';
+		if (sep_position !== -1) {
+			type = term.slice(0, sep_position);
+			var test = type.replace(/^\-/, '');
+			if (typeof this.query_language[test] == 'undefined') {
+				type = 'tag';
 			} else {
 				term = term.slice(sep_position + 1, term.length);
 			}
+		}
+
+		if (type == 'tag' && term.match(/^\-/, '')) {
+			type = '-tag';
+			term = term.slice(1, term.length);
 		}
 		return {type: type, name: term};
 	},
@@ -81,12 +86,16 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 	perform_search: function(terms) {
 		document.location.href = '/?' + this.build_uri(terms);
 	},
-	get_base_data: function(term) {
+	get_base_data: function(term, append_from) {
 		var data = [];
 		$.each(this.query_language, function(query_term, values) {
 			if (query_term.indexOf(term) == 0) {
-				data.push({name: query_term,
-					cls: 'search-language', postfix: ':'});
+				data.push({
+					name: query_term,
+					cls: 'search-language',
+					postfix: ':',
+					append_from: append_from
+				});
 			}
 		});
 		return data;
@@ -111,23 +120,29 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 				}
 
 				var term = this.get_current();
-				if (term.length == 0) {
+				if (term.length == 0 && term == '-') {
 					this.current_tip_request = '';
+					this.child.tip.empty();
 					return;
 				}
 
 				var data = this.parse_term(term);
+				term = data.name.replace(/^\-/, '');
 				if (data.type == 'tag') {
-					term = data.name.replace(/^\-/, '');
-					this.do_request(term, data.name.match(/^\-/));
+					var negation = data.name.match(/^\-/) ?
+						data.name.match(/^\-/)[0] : false;
+					this.do_request(term, negation);
 				} else {
 					var vals = this.query_language[data.type] || [];
 
 					var tags = [];
 					$.each(vals, function(key, variant) {
-						if (variant.indexOf(data.name) == 0) {
-							tags.push({name: variant,
-								cls: 'search-language', append_from: ':'});
+						if (variant.indexOf(term) == 0) {
+							tags.push({
+								name: variant,
+								cls: 'search-language',
+								append_from: ':'
+							});
 						}
 					});
 

@@ -83,19 +83,17 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 		this.child.field.val(val.slice(0, start) + data.term +
 			val.slice(end, val.length)).caretTo(start + data.term.length);
 	},
-	do_request: function(term, was_negated) {
+	do_request: function(term, append_from) {
 		if (term.length >= this.minimum_term_length
 			&& this.current_tip_request !== term) {
 
 			this.current_tip_request = term;
 			Ajax.get('/ajax/' + this.address, {term: term}, function(response) {
 				if (response.success && response.query == this.current_tip_request) {
-					var data = this.get_base_data(term);
+					var data = this.get_base_data(term, append_from);
 
 					$.each(response.data, function(key, item) {
-						if (was_negated) {
-							item.append_from = was_negated[0];
-						}
+						item.append_from = append_from;
 						data.push(item);
 					});
 
@@ -108,7 +106,7 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 			}, this);
 		}
 	},
-	get_base_data: function(term) {
+	get_base_data: function(term, append_from) {
 		return [];
 	},
 	on_enter: function(selected) {
