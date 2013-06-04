@@ -2,7 +2,7 @@
 
 class Module_Html_Thumbnail_Comment extends Module_Html_Thumbnail_Abstract
 {
-	protected $css = array('comment');
+	protected $css = array('thumb', 'comment');
 
 	protected function make_tooltip($data) {
 		$username = $data['comment']['username'];
