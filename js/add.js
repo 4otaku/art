@@ -22,7 +22,7 @@ OBJECT.upload = function(id, values, events) {
 	var me = this;
 	this.el.fileupload({
 		namespace: 'upload',
-		maxFileSize: 10 * 1024 * 1024,
+		maxFileSize: 20 * 1024 * 1024,
 		acceptFileTypes: /(gif|jpeg|png)$/i,
 		previewSourceMaxFileSize: 10 * 1024 * 1024,
 		limitConcurrentUploads: 3,
