@@ -19,7 +19,7 @@ extend(OBJECT.search_collect, OBJECT.search, {
 		this.message('collect_load_failure');
 	},
 	perform_search: function(terms) {
-		terms.push(this.mode + ':-' + this.val);
+		terms.push('-' + this.mode + ':' + this.val);
 		terms.push('per_page:' + this.actual_limit);
 		this.message('collect_load_start');
 		Ajax.get('/ajax/art_json', this.build_uri(terms), this.on_success,
