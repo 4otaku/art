@@ -127,17 +127,17 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 				}
 
 				var data = this.parse_term(term);
-				term = data.name.replace(/^\-/, '');
-				if (data.type == 'tag') {
-					var negation = data.name.match(/^\-/) ?
-						data.name.match(/^\-/)[0] : false;
-					this.do_request(term, negation);
+				var type = data.type.replace(/^\-/, '');
+				if (type == 'tag') {
+					var negation = data.type.match(/^\-/) ?
+						data.type.match(/^\-/)[0] : false;
+					this.do_request(data.name, negation);
 				} else {
-					var vals = this.query_language[data.type] || [];
+					var vals = this.query_language[type] || [];
 
 					var tags = [];
 					$.each(vals, function(key, variant) {
-						if (variant.indexOf(term) == 0) {
+						if (variant.indexOf(data.name) == 0) {
 							tags.push({
 								name: variant,
 								cls: 'search-language',
