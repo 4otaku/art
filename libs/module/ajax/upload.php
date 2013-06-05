@@ -27,6 +27,12 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 
 	protected $data = [];
 
+	protected $header = [
+		'Access-Control-Allow-Origin' => '*',
+		'Access-Control-Allow-Headers' =>
+			'Origin, X-Requested-With, Content-Type, Accept, X-File-Name'
+	];
+
 	protected function make_request()
 	{
 		$url = Config::get('api', 'url');
