@@ -83,12 +83,13 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 		this.child.field.val(val.slice(0, start) + data.term +
 			val.slice(end, val.length)).caretTo(start + data.term.length);
 	},
-	do_request: function(term, append_from) {
+	do_request: function(term, append_from, address) {
+		address = address || this.address;
 		if (term.length >= this.minimum_term_length
 			&& this.current_tip_request !== term) {
 
 			this.current_tip_request = term;
-			Ajax.get('/ajax/' + this.address, {term: term}, function(response) {
+			Ajax.get('/ajax/' + address, {term: term}, function(response) {
 				if (response.success && response.query == this.current_tip_request) {
 					var data = this.get_base_data(term, append_from);
 

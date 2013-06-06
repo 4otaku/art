@@ -16,9 +16,6 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 			$this->set_param('id', $query->url(0));
 
 			$this->id_art = $query->url(0);
-
-			$this->set_param('variation_link', 'parent=' . $query->url(0) .
-				'&sort=parent_order&order=asc&per_page=all');
 		} else {
 			if (!$query->get_pool_mode()) {
 				if (!$query->is_variation_list() || !Session::is_moderator()) {
@@ -70,6 +67,11 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	}
 
 	public function recieve_art($data) {
+		$parent = $data['data']['id_parent'];
+		$this->set_param('variation_link', 'parent=' . $parent .
+			'&sort=parent_order&order=asc&per_page=all');
+		$this->set_param('id_parent', $parent);
+
 		if (!isset($data['data']['artist'][0]['id'])) {
 			$this->set_param('is_author', false);
 			return;

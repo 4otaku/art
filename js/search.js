@@ -5,6 +5,7 @@ OBJECT.search = function(id, values, events) {
 extend(OBJECT.search, OBJECT.ajax_tip, {
 	class_name: 'search',
 	address: 'tip_tag',
+	address_user: 'tip_user',
 	query_language: {
 		rating: [],
 		width: [],
@@ -132,6 +133,8 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 					var negation = data.type.match(/^\-/) ?
 						data.type.match(/^\-/)[0] : false;
 					this.do_request(data.name, negation);
+				} else if (type == 'user') {
+					this.do_request(data.name, ':', this.address_user);
 				} else {
 					var vals = this.query_language[type] || [];
 
