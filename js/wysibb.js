@@ -1,5 +1,9 @@
 wbbdebug = false;
 
+CURLANG.fs_verysmall = "Маленький";
+CURLANG.fs_small = "Нормальный";
+CURLANG.fs_normal = "Крупный";
+
 // Common config
 
 var spoiler_html = '<div class="mini-shell">' + '' +
