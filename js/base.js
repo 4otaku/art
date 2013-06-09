@@ -130,6 +130,7 @@ function init_objects() {
 			}
 		});
 	});
+
 	$.each(inited, function(key, object) {
 		object.el.trigger('init');
 	});

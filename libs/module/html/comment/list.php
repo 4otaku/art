@@ -10,11 +10,11 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 	protected $id_comment = 0;
 
 	public function __construct(Query $query, $disabled = false) {
-		parent::__construct($query, $disabled);
-
 		$this->reverse = (bool) Config::get('comment', 'reverse');
 		$this->per_page = (int) Config::get('comment', 'per_page');
 		$this->is_tree = (bool) Config::get('comment', 'tree');
+
+		parent::__construct($query, $disabled);
 	}
 
 	protected function get_modules(Query $query) {
@@ -27,8 +27,13 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 	protected function get_params(Query $query)
 	{
 		if ($query->get('comment_page')) {
-			$this->page = max($this->page,
-				(int) $query->get('comment_page'));
+			$page = $query->get('comment_page');
+			if ($page == 'all') {
+				$this->per_page = 99999;
+				$page = 1;
+			}
+
+			$this->page = max($this->page, (int) $page);
 		}
 
 		if ($query->url(0)) {

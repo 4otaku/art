@@ -43,6 +43,11 @@ extend(OBJECT.comment, OBJECT.base, {
 		Ajax.load('/ajax/comment', {
 			id_comment: this.id_parent
 		}, function(result){
+			if (this.parent_loaded) {
+				return;
+			}
+
+			this.parent_loaded = true;
 			var obj = $(result);
 
 			if (!this.parent_obj.is(':visible')) {
@@ -50,7 +55,6 @@ extend(OBJECT.comment, OBJECT.base, {
 			}
 			this.parent_obj.replaceWith(obj);
 			this.parent_obj = obj;
-			this.parent_loaded = true;
 		}, this);
 	},
 	move_margin: function() {
@@ -213,7 +217,7 @@ extend(OBJECT.comment_navi, OBJECT.base, {
 				this.message('comment_navi_used');
 
 				var url = $(e.target).attr('href');
-				var page_match = /&?comment_page=(\d+)/;
+				var page_match = /&?comment_page=(\d+|all)/;
 				var page_number = url.match(page_match);
 				page_number = page_number ? page_number[1] : 1;
 
