@@ -27,11 +27,11 @@
 				<span class="count">{$value.count}</span>
 				{if condition="$value.color"}
 					<a href="/?{$prefix}tag={$value.name}" class="tag" style="color:#{$value.color};">
-						{$value.name}
+						{$value.display}
 					</a>
 				{else}
 					<a href="/?{$prefix}tag={$value.name}"  class="tag">
-						{$value.name}
+						{$value.display}
 					</a>
 				{/if}
 			</div>

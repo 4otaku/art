@@ -34,9 +34,7 @@
 }
 
 .tag {
-	width: 170px;
-	display: block;
-	word-wrap: break-word;
+	text-decoration: underline;
 }
 
 .question, .inactive_question {

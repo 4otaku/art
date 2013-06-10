@@ -20,6 +20,9 @@ class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 
 	public function recieve_data($data) {
 		usort($data, [$this, 'sort_tag']);
+		foreach ($data as &$item) {
+			$item['display'] = str_replace('_', ' ', $item['name']);
+		}
 		$this->set_param('data', $data);
 	}
 }

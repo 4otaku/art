@@ -48,14 +48,16 @@ extend(OBJECT.art_item, OBJECT.base, {
 	events: {
 		init: function() {
 			// Hide art query if working with item
-			if (
-				!window.history || !document.location.search ||
-				document.location.search.match('comment_page')) {
+			if (!window.history || !document.location.search) {
 				return;
 			}
 
+			var search = document.location.search.match(
+				/comment_page=(\d+|all)/);
+			search = search ? '?' + search[0] : '';
+
 			history.replaceState(false, false, document.location.pathname
-				+ document.location.hash);
+				+ search + document.location.hash);
 		}
 	},
 	listen: {
