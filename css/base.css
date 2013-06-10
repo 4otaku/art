@@ -36,6 +36,7 @@ p {
 
 img {
 	border: none;
+	max-width: none !important;
 }
 
 ul li {

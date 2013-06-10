@@ -1,9 +1,11 @@
 <div class="image">
 	{if="!$hidden"}
-		<img id="image_{$id}" src="{$src}" />
+		<div id="image_{$id}"><img src="{$src}" /></div>
 	{else}
 		<div id="image_warning_{$id}">
-			<span class="hidden"><img id="image_{$id}" src="#" /></span>
+			<span class="hidden">
+				<div id="image_{$id}"><img id="image_{$id}" src="#" /></div>
+			</span>
 			<div class="margin10">
 				Изображение скрыто вашими фильтрами.
 			</div>

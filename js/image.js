@@ -1,22 +1,81 @@
 OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	this.el.imagesLoaded($.proxy(this.message_width, this));
+	this.child.img.imagesLoaded($.proxy(this.message_width, this));
+
+	this.resized_object = this.child.img;
+	if (!this.is_resized) {
+		this.full_object = this.child.img;
+	}
 };
 
 extend(OBJECT.image, OBJECT.base, {
 	class_name: 'image',
+	child_config: {
+		img: 'img'
+	},
 	is_resized: 0,
 	resized: '',
 	full: '',
 	full_width: 0,
+	full_object: null,
+	resized_object: null,
+	loading: false,
 	adding_translation: false,
 	last_translation_id: 0,
 	message_width: function() {
-		this.message('image_resized', this.id, this.el.width());
+		this.message('image_resized', this.id, this.child.img.width());
+	},
+	display_full: function() {
+		if (this.full_object == null) {
+			this.full_object = $('<img/>').attr('src', this.full);
+
+			this.loading = true;
+			this.el.css('position', 'relative');
+			this.full_object.css({
+				position: 'absolute',
+				top: '0px',
+				left: '0px',
+				'z-index': 100
+			});
+			this.full_object.imagesLoaded($.proxy(this.on_full_load, this));
+		}
+
+		if (!this.loading) {
+			this.child.img.replaceWith(this.full_object);
+			this.child.img = this.full_object;
+		} else {
+			this.child.img.css('width', this.full_width);
+			this.el.append(this.full_object);
+		}
+	},
+	display_resized: function() {
+		if (this.child.img.is(this.full_object)) {
+			this.child.img.replaceWith(this.resized_object);
+		} else {
+			this.full_object.detach();
+		}
+
+		this.child.img = this.resized_object;
+		this.child.img.css('width', 'auto');
+	},
+	on_full_load: function() {
+		this.loading = false;
+
+		this.full_object.css({
+			position: 'static',
+			top: 'auto',
+			left: 'auto',
+			'z-index': 1
+		});
+
+		if (this.child.img.is(this.resized_object)) {
+			this.child.img.detach();
+			this.child.img = this.full_object;
+		}
 	},
 	add_translation: function(x, y) {
-		var resize = this.el.width() / this.full_width;
+		var resize = this.child.img.width() / this.full_width;
 		x = Math.round(x / resize);
 		y = Math.round(y / resize);
 		var size = Math.round(25 / resize);
@@ -41,7 +100,7 @@ extend(OBJECT.image, OBJECT.base, {
 			x2: size * 2,
 			y2: size * 2
 		});
-		tr.display(this.el.width());
+		tr.display(this.child.img.width());
 		tr.start_drag();
 	},
 	events: {
@@ -52,23 +111,22 @@ extend(OBJECT.image, OBJECT.base, {
 				this.add_translation(e.pageX - this.el.offset().left,
 					e.pageY - this.el.offset().top);
 			}
-		},
-		resize: function() {
-			this.message_width();
 		}
 	},
 	listen: {
 		fullsize_clicked: function() {
 			if (this.is_resized) {
 				this.is_resized = 0;
-				this.el.attr('src', this.full);
+				this.display_full();
 			} else {
 				this.is_resized = 1;
-				this.el.attr('src', this.resized);
+				this.display_resized();
 			}
+			this.message_width();
 		},
 		change_translation_mode: function(mode) {
 			this.adding_translation = (mode == 'edit');
+			console.log(this.adding_translation);
 		}
 	}
 });
