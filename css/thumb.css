@@ -25,7 +25,7 @@
 }
 
 .comment_thumbnail_text {
-	height: 160px;
+	min-height: 160px;
 	padding-left: 190px;
 }
 

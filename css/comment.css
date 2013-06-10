@@ -3,6 +3,10 @@
 	margin: 0;
 }
 
+.comment_form_spacer {
+	margin-right: 30px;
+}
+
 .comment-display {
 	text-align: left;
 }
