@@ -307,10 +307,6 @@ mixin(OBJECT.base.prototype, {
 		target.on('click.propagation', function(e){
 			e.stopPropagation();
 		});
-	},
-
-	is_opera: function() {
-		return !!(window.opera && window.opera.buildNumber);
 	}
 });
 

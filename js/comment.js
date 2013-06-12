@@ -168,14 +168,6 @@ extend(OBJECT.comment_form, OBJECT.form, {
 		init: function() {
 			this.child.text.wysibb(wbbconfig);
 
-			if (this.is_opera()) {
-				this.el.find('.wysibb-body').click(function(e){
-					if (e.which === 1) {
-						
-					}
-				});
-			}
-
 			if (this.name.length) {
 				this.child.name.val(this.name);
 			}

@@ -18,6 +18,7 @@ wbbconfig = {
 	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,|,removeFormat,',
 	smileList: false,
 	img_uploadurl: '/external/wysibb_upload.php',
+	onlyBBmode: !!(window.opera && window.opera.buildNumber),
 	allButtons: {
 		spoiler: {
 			title: 'Спойлер',
