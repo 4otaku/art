@@ -7,6 +7,10 @@
 	margin-right: 30px;
 }
 
+.comment_field .wysibb {
+	width: 700px;
+}
+
 .comment-display {
 	text-align: left;
 }

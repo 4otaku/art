@@ -15,7 +15,7 @@ var spoiler_html = '<div class="mini-shell">' + '' +
 '</div>';
 
 wbbconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,|,removeFormat,',
 	smileList: false,
 	img_uploadurl: '/external/wysibb_upload.php',
 	allButtons: {
@@ -44,7 +44,7 @@ wbbconfig.allButtons.spoiler.transform[spoiler_html] =
 // Translation config
 
 wbbtranslationconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,|,removeFormat,',
 	allButtons: {
 		save: {
 			cmd: function() {
