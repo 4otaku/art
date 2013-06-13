@@ -5,10 +5,10 @@ OBJECT.art_item = function(id, values, events) {
 extend(OBJECT.art_item, OBJECT.base, {
 	class_name: 'art_item',
 	child_config: {
-		menu: '#reloadable_editmenu.sidebar_part',
-		info: '#reloadable_info.sidebar_part',
-		tags: '#reloadable_tags.sidebar_part',
-		image: '#reloadable_image'
+		menu: '.reloadable_editmenu.sidebar_part',
+		info: '.reloadable_info.sidebar_part',
+		tags: '.reloadable_tags.sidebar_part',
+		image: '.reloadable_image'
 	},
 	add_scripts: null,
 	do_reload: function(callback) {
