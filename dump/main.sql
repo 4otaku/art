@@ -41,6 +41,9 @@ CREATE TABLE IF NOT EXISTS `plugin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+INSERT INTO `plugin` (`id`, `filename`, `thread`, `css`, `js`, `script`) VALUES
+(1, 'collapsible_sidebar', 11971, 1, 1, 0);
+
 -- --------------------------------------------------------
 
 --
