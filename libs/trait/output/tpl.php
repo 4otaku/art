@@ -34,13 +34,14 @@ trait Trait_Output_Tpl
 		$this->get_tpl()->assign($key, $value);
 	}
 
-	protected function get_meta_address($type, $array) {
+	protected function get_meta_address($type, $array, $path_postfix = false) {
 		if (empty($array)) {
 			return false;
 		}
 
 		$time = 0;
-		$base = $type == 'js' ? JS . SL : CSS . SL;
+		$base = ($type == 'js' ? JS . SL : CSS . SL) .
+			($path_postfix ? $path_postfix . SL : '');
 		foreach ($array as &$file) {
 			$file = $file . '.' . $type;
 			$time = max($time, filemtime($base . $file));
