@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name       4otaku.org Art Sidebar
 // @namespace  https://gist.github.com/shtrih/5756421
-// @version    0.3
+// @version    0.4
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, shtrih
 // ==/UserScript==
 
 $(function(){
-	var	version = 0.3,
+	var    version = 0.4,
 		icons = {
 			'arrow-left':  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAACz0lEQVRIS8VWy3EaQRD1cICjcARGEViKwEsEkiIwjsCrA5+b0Y3PQRCBUQSGCIQikIjA6wzgCAfwe1MzU72zs+wKqUpbRbE709OvX/+m1acST7vdvlBKXeEXHQ6HOv4veAzvL3hf43+J32I8Hr8UqVPHBHq9XguKfkGmUaTI7CeQ749Go4c8+SAggBo4+BuHIu/ghqzkmmF75sktsf5jMBgkPnAGEGDRfr//gwN1ITzF2izPZXR5pVJpQf6nPQPD6OqmfyYFSDAIPQqgBYDjkKUhlxnPTLB3Zfdh6KUEdYAUxuazZQbgO8Si7yuO47heq9Xuub7dbm8nk8nal+l0On3oYeyZWGuwv7RGO0AI0e/fjFAuWLVafRRZ+gCj6MrMI0GxuRwOh00KaUCTjUwSPgtsXoeYSTBjWC4g97vd7ty6F0xvYNxcA8KaBFZ/0RYode7HjG70wSC6gkujkEutsSamf813AiLnymTYs1mcYjGW7E4FszpAZgYS3/nNBFLS135GvRWMIJIQE5GANlk2YOdq7z3ALEvEkpl8BsAnhQ92jq/8QFAjCuWAud7pJ1TgO5ElY0np3gvAg8k4Byizq4TyoAiUuwyWJfchgEGXopss6WrP/BU7RwnWyW63i23JCIYrlzRUhBh+tspMC0uBMgZQ1DxWeyFj/KRhs9VdPlQWPtPXgmbKokzhvwUU7FKESre2U0Bla4Nn/iFkjUzzxsYcGzd+LHJielrzpvKy15NkKmvNN9C7E12Npy5gM6/o+cQMQ3c5TGdcRzdpFV3AENvw/sxcwFTgjxh0L27r29eMGMj0ewC4+xTvTZxneeknOEQRCHtyEptB0bRgiGJptYRHyOxaggUBDVPON7zH9MhhHzYHrKXGRKxxSJYTHsPxxCmu1JgoATh6AJgDkZ4Gih6mPmRijhJ5skcnb3vIjPqMS2TY2B5reytH/XmZUf8/deFYj8EYQ4QAAAAASUVORK5CYII=',
 			'arrow-right': 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAACz0lEQVRIS7VWy3EaQRDVcICjcARGEUiKwEsEkiIwjsCrA5+b0Y3PQRCBUQSGCLSOQCIC4wzgCAfwe1s9U7PDDLOoyltFsdvTPW9ed093q4sST7vdvlFK3eGXHA6HOv5vaIb3d7yv8Z/htxiPx++x7dQphV6v18JGP6DTiG0k6yvo90ej0UtI3wsIoAYMf8IocQw3ZGXLhO2lo5dB/m0wGKxc4CNAgCX7/f4XDOqW8hSyWchldHmlUmlB/7u2wcHo6qZrUwAkGJReLaAFgFPfSX0uE89MsHan13HQWxvUAFIZi2+aGYCfEIu+u3GapvVarfZM+Xa7fZxMJmtXp9Pp9LEPY8/EWoP9rT60AYQS/f5FlLxgXOt2u3PNgPHc7XbNGCj0s+Fw2KR9DijZyCThs8Divc9lLqAcLgjqHO4BHpvngGC3ArvP+QmUujoVM3FpBtVrfagQU4npH9FbgciVkgx7E+EUwjTETsvPAQWZGUh8pS0TSNkBdjPqFHBZUJsQE5GAOlk2YGffvRjRi7KgiCUz+RKAvxU+WDmu+YGgJkSxUr8RQ7VrayimmlReewF4kGwzgLbfY4ChdWz+AgItSUpz5byAdjr/D0CvS6vVKktU1KVSmcwVkQMuUYUSXRCsPFmapGEJggs+ncOIscbBXnV/9IFR5iYNmeRV/txrUQbs6Fp89OKXARN2BUIfKm1lwezShpD9RcgaR8UbC3MsPIRi6cngQoLYdsHi7d6VUC8UF5n2hO8gmNMTzR0vNGCZV/L5RIahJ5epVKEZ5Uj9VoleuGEWHzVgbuCOGHQvuvXjOSMGMv0ZAKaf4r0J+0wf3DtEEQgK9iQ2w0bTyBDFq5WXMnnI7N4Gozw4JnJK0yOH3oHFAbLCmAgZh+RCl2Ej4BRXaky0Y8bRA8AciPJpIPYw9aGTcpQI6Z6cvLWRjPqMS+LUziVZQ85Rf15m1P8Hvilej5nlQtEAAAAASUVORK5CYII=',
@@ -36,14 +36,9 @@ $(function(){
 			'href':  '#',
 			'text':  'Свернуть панель',
 			'title': 'Свернуть панель',
+			'class': 'collapse-link',
 			'css': {
-				'display':      'block',
-				'background':   'url('+ icons['arrow-left'] +') no-repeat left center',
-				'height':       '28px',
-				'line-height':  '28px',
-				'padding-left': '32px',
-				'margin-bottom':'5px',
-				'overflow':     'hidden'
+				'background-image':   'url('+ icons['arrow-left'] +')',
 			},
 			'click': function () {
 				if(localStorage.getItem('art-sidebar-collapsed')) {
@@ -52,7 +47,7 @@ $(function(){
 					localStorage.setItem('art-sidebar-collapsed', '');
 				}
 				else {
-					collaple_sidebar();
+					collapse_sidebar();
 
 					localStorage.setItem('art-sidebar-collapsed', true);
 				}
@@ -61,20 +56,11 @@ $(function(){
 			}
 		}),
 		side_button_list = $('<ul/>', {
-			'css': {
-				'list-style-type': 'none',
-				'margin': '0'
-			}
+			'class': 'collapsed-sidebar'
 		}),
 		side_button_list_item = $('<li/>', {
 			'css': {
-				'background': 'url('+ icons.info +') no-repeat left center',
-				'display': 'block',
-				'width':   '30px',
-				'height':  '30px',
-				'margin':  '8px 0',
-				'position':'relative',
-				'opacity': '0.6'
+				'background-image': 'url('+ icons.info +')',
 			},
 			'mouseenter': function () {
 				$(this)
@@ -82,15 +68,13 @@ $(function(){
 					.children().fadeIn('fast')
 				;
 			},
-			'mouseleave': function () {
+		   'mouseleave': function () {
 				$(this)
 					.css('opacity', '0.6')
 					.children().fadeOut('fast')
 				;
 			}
 		});
-
-
 
 	// добавляем линк в сайдбар
 	sidebar.prepend(
@@ -105,7 +89,7 @@ $(function(){
 
 	// восстанавливаем состояние сайдбара
 	if(localStorage.getItem('art-sidebar-collapsed')) {
-		collaple_sidebar();
+		collapse_sidebar();
 	}
 
 	function expand_sidebar() {
@@ -115,21 +99,24 @@ $(function(){
 			.css('background', 'url('+ icons['arrow-left'] +') no-repeat left center')
 		;
 
+		side_button_list.children().each(function () {
+			$(this).children().appendTo(sidebar);
+		});
+
 		sidebar
 			.children('div').show()
-			.end()
+		.end()
 			.css({
 				'border-right': 'none'
 			})
 			.animate({'width': '250px'}, 'fast')
 		;
 
-		//art_container.css('margin-left', '250px');
 		art_container.animate({'margin-left': '250px'}, 'fast');
 		side_button_list.hide();
 	}
 
-	function collaple_sidebar() {
+	function collapse_sidebar() {
 		sidebar_collapse_link
 			.attr('title', 'Развернуть панель')
 			.text('')
@@ -138,47 +125,39 @@ $(function(){
 
 		sidebar
 			.children('div').hide('fast')
-			.end()
+		.end()
 			.animate(
-			{ 'width': '40px' },
-			'fast',
-			function () {
-				$(this).css({
-					'border-right': '#eee 1px solid'
-				});
-			}
-		)
+				{ 'width': '40px' },
+				'fast',
+				function () {
+					$(this).css({
+						'border-right': '#eee 1px solid'
+					});
+				}
+			)
 		;
 
 		art_container.animate({'margin-left': '45px'}, 'fast');
-		//art_container.css('margin-left', '45px');
 
 		if (!side_button_list.children().length) {
-			sidebar.children('.sidebar_part').each(function (index) {
-				var list_item = side_button_list_item.clone(true);
-
+			for (var i = 0, len = sidebar.children('.sidebar_part').length; i < len; i++) {
 				side_button_list.append(
-					list_item.append(
-						$(this).clone(true).css({
-							'display':    'none',
-							'position':   'absolute',
-							'left':       '20px',
-							'margin-left':'10px',
-							'background': '#fff',
-							'box-shadow': '1px 1px 10px #aaa',
-							'overflow':   'visible',
-							'z-index':    '1000'
-						})
-					).css('background', 'url('+ icons[ art_icons[ art_container.attr('class') ][index] ] +') no-repeat left center')
+					side_button_list_item.clone(true)
+						.css('background-image', 'url('+ icons[ art_icons[ art_container.attr('class') ][i] ] +')')
 				);
-			});
+			}
 
 			sidebar.append(
 				side_button_list
 			);
 		}
-		else {
-			side_button_list.show();
-		}
+
+		side_button_list.children().each(function () {
+			$(this).append(
+				sidebar.children('.sidebar_part').eq(0)
+			);
+		});
+
+		side_button_list.fadeIn('fast');
 	}
 });
