@@ -75,6 +75,7 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 		var parts = [];
 		$.each(items, function(type, item){
 			$.each(item, function(key, part){
+				part = encodeURIComponent(part);
 				if (item.length == 1) {
 					parts.push(type + '=' + part);
 				} else {
