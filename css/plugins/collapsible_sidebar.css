@@ -38,6 +38,7 @@ ul.collapsed-sidebar li .sidebar_part {
 
 ul.collapsed-sidebar li .sidebar_part.reloading {
 	border: none !important;
+	box-shadow: none !important;
 }
 
 ul.collapsed-sidebar li .sidebar_part.reloading img {
