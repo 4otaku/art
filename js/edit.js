@@ -189,6 +189,9 @@ extend(OBJECT.edit_simple, OBJECT.base, {
 			this.start_data = this.gather_data();
 		},
 		fields: {
+			keyup: function() {
+				this.send_data()
+			},
 			change: function() {
 				this.send_data()
 			}
