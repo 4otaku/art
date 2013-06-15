@@ -10,6 +10,7 @@ class Module_Ajax_Plugin extends Module_Abstract
 
 		foreach ($plugins as &$plugin) {
 			$plugin['name'] = ucfirst($plugin['filename']);
+			$plugin['name'] = str_replace('_', ' ', $plugin['name']);
 		}
 
 		$this->set_param('plugin', $plugins);
