@@ -35,3 +35,11 @@ ul.collapsed-sidebar li .sidebar_part {
 	overflow:   visible;
 	z-index:    1000;
 }
+
+ul.collapsed-sidebar li .sidebar_part.reloading {
+	border: none !important;
+}
+
+ul.collapsed-sidebar li .sidebar_part.reloading img {
+	display: none !important;
+}
