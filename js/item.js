@@ -5,6 +5,7 @@ OBJECT.art_item = function(id, values, events) {
 extend(OBJECT.art_item, OBJECT.base, {
 	class_name: 'art_item',
 	child_config: {
+		scroll: '.scroll',
 		menu: '.reloadable_editmenu.sidebar_part',
 		info: '.reloadable_info.sidebar_part',
 		tags: '.reloadable_tags.sidebar_part',
@@ -65,6 +66,19 @@ extend(OBJECT.art_item, OBJECT.base, {
 			this.do_reload(function(){
 				callback.call(scope);
 			});
+		},
+		image_resized: function(id, width, height) {
+			var top = Math.min(200, height - 120);
+
+			if (top < 0) {
+				this.child.scroll.css('top', 0);
+				this.child.scroll.css('height', height + 'px');
+			} else {
+				this.child.scroll.css('top', top + 'px');
+				this.child.scroll.css('height', 'auto');
+			}
+
+			this.child.scroll.show();
 		}
 	}
 });

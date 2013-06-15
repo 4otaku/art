@@ -5,6 +5,7 @@
 }
 
 .scroll {
+	display: none;
 	position: absolute;
 	top: 200px;
 	opacity: 0.5;

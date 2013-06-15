@@ -1,7 +1,7 @@
 OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 
-	this.child.img.imagesLoaded($.proxy(this.message_width, this));
+	this.child.img.imagesLoaded($.proxy(this.message_size, this));
 
 	this.resized_object = this.child.img;
 	if (!this.is_resized) {
@@ -23,8 +23,9 @@ extend(OBJECT.image, OBJECT.base, {
 	loading: false,
 	adding_translation: false,
 	last_translation_id: 0,
-	message_width: function() {
-		this.message('image_resized', this.id, this.child.img.width());
+	message_size: function() {
+		this.message('image_resized', this.id, this.child.img.width(),
+			this.child.img.height());
 	},
 	display_full: function() {
 		if (this.full_object == null) {
@@ -122,7 +123,7 @@ extend(OBJECT.image, OBJECT.base, {
 				this.is_resized = 1;
 				this.display_resized();
 			}
-			this.message_width();
+			this.message_size();
 		},
 		change_translation_mode: function(mode) {
 			this.adding_translation = (mode == 'edit');
