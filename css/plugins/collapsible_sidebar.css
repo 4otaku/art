@@ -44,3 +44,16 @@ ul.collapsed-sidebar li .sidebar_part.reloading {
 ul.collapsed-sidebar li .sidebar_part.reloading img {
 	display: none !important;
 }
+
+html.collapsible_sidebar .sidebar {
+	width: 40px;
+}
+
+html.collapsible_sidebar .sidebar_part {
+	display: none;
+}
+
+html.collapsible_sidebar .art,
+html.collapsible_sidebar .images {
+	margin-left: 45px;
+}
