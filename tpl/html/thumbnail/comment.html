@@ -1,5 +1,6 @@
 <div class="comment_thumbnail">
-	<div class="image_thumbnail small_thumbnail left">
+	<div class="left image_thumbnail
+		{if="Config::get('art', 'largethumbs')"}large{else}small{/if}_thumbnail">
 		{if="!$hidden"}
 			<a href="/{$id}{if condition="$query"}?{$query}{/if}">
 				<img src="{$src}" />
@@ -38,7 +39,8 @@
 			</span>
 		{/if}
 	</div>
-	<div class="comment_thumbnail_text comment-text" id="bb_comment_{$id}"
+	<div id="bb_comment_{$id}" class="comment-text
+		comment_thumbnail_text{if="Config::get('art', 'largethumbs')"}_large{/if}"
 		>{$tip}</div>
 	<script type="text/javascript">
 		add('bb', 'comment_{$id}');

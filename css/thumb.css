@@ -14,6 +14,11 @@
 	height: 160px;
 }
 
+.large_thumbnail {
+	width: 260px;
+	height: 260px;
+}
+
 .comment_thumbnail {
 	margin: 5px;
 	padding: 5px;
@@ -27,6 +32,11 @@
 .comment_thumbnail_text {
 	min-height: 160px;
 	padding-left: 190px;
+}
+
+.comment_thumbnail_text_large {
+	min-height: 260px;
+	padding-left: 290px;
 }
 
 .small_thumbnail img {

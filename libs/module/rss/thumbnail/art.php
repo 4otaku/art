@@ -2,6 +2,11 @@
 
 class Module_Rss_Thumbnail_Art extends Module_Rss_Thumbnail_Abstract
 {
+	public function recieve_data($data) {
+		parent::recieve_data($data);
+		$this->set_param('md5', $data['md5']);
+	}
+
 	protected function get_title($data) {
 		return 'Арт №' . $data['id'];
 	}

@@ -1,4 +1,4 @@
-<div class="image_thumbnail small_thumbnail">
+<div class="image_thumbnail {if="Config::get('art', 'largethumbs')"}large{else}small{/if}_thumbnail">
 	{if="!$hidden"}
 		<a href="/?artist={$id}" title="{$tip}">
 			<img src="{$src}" />
