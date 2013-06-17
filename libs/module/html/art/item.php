@@ -4,6 +4,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 {
 	protected $css = array('item', 'sidebar');
 	protected $js = array('item');
+	protected $next = false;
 
 	protected function get_modules(Query $query) {
 		return array(
@@ -78,10 +79,17 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 		if (!empty($data['next'])) {
 			$this->set_param('next', $data['next']['id']);
 			$this->set_param('next_pos', $data['next']['pos']);
+			$url = $query->to_url_string();
+			$this->next = '/' . $data['next']['id'] . '?' .
+				($url ? $url . '&' : '') . 'pos=' . $data['next']['pos'];
 		}
 		if (!empty($data['prev'])) {
 			$this->set_param('prev', $data['prev']['id']);
 			$this->set_param('prev_pos', $data['prev']['pos']);
 		}
+	}
+
+	public function get_prefetch() {
+		return $this->next ? $this->next : [];
 	}
 }
