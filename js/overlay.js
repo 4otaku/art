@@ -94,7 +94,7 @@ Overlay = {
 				success: function(response) {
 					$.cookie(Cookie.name, null, {path: '/'});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
-						domain: document.location.host});
+						domain: '.4otaku.org'});
 					document.location.reload();
 				}
 			});
@@ -109,7 +109,7 @@ Overlay = {
 				success: function(response) {
 					$.cookie(Cookie.name, null, {path: '/'});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
-						domain: document.location.host});
+						domain: '.4otaku.org'});
 					document.location.reload();
 				}
 			});
