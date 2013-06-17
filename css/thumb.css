@@ -30,12 +30,12 @@
 }
 
 .comment_thumbnail_text {
-	min-height: 160px;
+	min-height: 175px;
 	padding-left: 190px;
 }
 
 .comment_thumbnail_text_large {
-	min-height: 260px;
+	min-height: 275px;
 	padding-left: 290px;
 }
 

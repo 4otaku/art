@@ -12,8 +12,9 @@ class Module_Html_Sidebar_Comment extends Module_Html_Abstract
 	public function recieve_data($data) {
 		$data = $data['data'];
 		foreach ($data as &$comment){
-			$comment['comment']['text'] = new Text($comment['comment']['text']);
-			$comment['comment']['text']->format()->cut_long(100);
+			$comment['username'] = $comment['comment'][0]['username'];
+			$comment['text'] = new Text($comment['comment'][0]['text']);
+			$comment['text']->format()->cut_long(100);
 		}
 		$this->set_param('data', $data);
 	}
