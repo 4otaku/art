@@ -111,8 +111,7 @@
 	});
 	add('clickable', 'logout', function() {
 		$.cookie(Cookie.name, null, {path: '/'});
-		$.cookie(Cookie.name, null, {path: '/',
-			domain: '.' + document.location.host});
+		$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
 		document.location.reload();
 	});
 	add('clickable', 'change_pass', function() {

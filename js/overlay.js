@@ -93,6 +93,7 @@ Overlay = {
 				url: '/api/create/user',
 				success: function(response) {
 					$.cookie(Cookie.name, null, {path: '/'});
+					$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
 						domain: '.4otaku.org'});
 					document.location.reload();
@@ -108,6 +109,7 @@ Overlay = {
 				url: '/api/read/cookie',
 				success: function(response) {
 					$.cookie(Cookie.name, null, {path: '/'});
+					$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
 						domain: '.4otaku.org'});
 					document.location.reload();
