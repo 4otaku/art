@@ -9,8 +9,8 @@ trait Trait_Module_Paginator
 	public function build_pager($count) {
 		$curr = $this->get_page();
 		$last = ceil($count / $this->get_per_page());
-		$start = max($curr - 8, 2);
-		$end = min($curr + 9, $last - 1);
+		$start = max($curr - 5, 2);
+		$end = min($curr + 6, $last - 1);
 
 		$loop = array();
 		if ($end >= $start) {
