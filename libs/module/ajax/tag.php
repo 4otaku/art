@@ -12,7 +12,10 @@ class Module_Ajax_Tag extends Module_Ajax_Json
 
 	protected function make_request()
 	{
-		return new Request('tag_art', $this, $this->params);
+		return new Request('tag_art', $this, array_merge(array(
+			'sort_by' => 'id',
+			'sort_order' => 'desc'
+		), $this->params));
 	}
 
 	public function recieve_data($data)
