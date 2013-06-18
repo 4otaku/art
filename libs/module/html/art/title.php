@@ -144,7 +144,9 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function primary_transform($part) {
-		return preg_replace('/^(.)(.*)/uie', 'mb_strtoupper("$1")."$2"', $part);
+		return preg_replace_callback('/^(.)(.*)/ui', function ($match) {
+			return mb_strtoupper($match[1]) . $match[2];
+		}, $part);
 	}
 
 	protected function word_group($data, $primary = false) {
