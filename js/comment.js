@@ -161,7 +161,9 @@ extend(OBJECT.comment_form, OBJECT.form, {
 		this.get_super().submit.call(this, e);
 	},
 	get_data: function() {
-		this.child.text.sync();
+		if (!wbbconfig.onlyBBmode) {
+			this.child.text.sync();
+		}
 		return this.get_super().get_data.call(this);
 	},
 	events: {
