@@ -1,12 +1,5 @@
 OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
-
-	this.child.img.imagesLoaded($.proxy(this.message_size, this));
-
-	this.resized_object = this.child.img;
-	if (!this.is_resized) {
-		this.full_object = this.child.img;
-	}
 };
 
 extend(OBJECT.image, OBJECT.base, {
@@ -18,14 +11,16 @@ extend(OBJECT.image, OBJECT.base, {
 	resized: '',
 	full: '',
 	full_width: 0,
+	full_height: 0,
 	full_object: null,
 	resized_object: null,
 	loading: false,
 	adding_translation: false,
 	last_translation_id: 0,
-	message_size: function() {
-		this.message('image_resized', this.id, this.child.img.width(),
-			this.child.img.height());
+	message_size: function(width, height) {
+		width = width || this.child.img.width();
+		height = height || this.child.img.height();
+		this.message('image_resized', this.id, width, height);
 	},
 	display_full: function() {
 		if (this.full_object == null) {
@@ -105,6 +100,17 @@ extend(OBJECT.image, OBJECT.base, {
 		tr.start_drag();
 	},
 	events: {
+		init: function() {
+			this.resized_object = this.child.img;
+			if (!this.is_resized) {
+				this.full_object = this.child.img;
+			}
+
+			var resize_factor = this.is_resized ?
+				Math.min(1, (750 / this.full_width)) : 1;
+			this.message_size(this.full_width * resize_factor,
+				this.full_height * resize_factor);
+		},
 		click: function(e) {
 			if (!this.adding_translation) {
 				this.message('image_clicked', this.id);
@@ -127,7 +133,6 @@ extend(OBJECT.image, OBJECT.base, {
 		},
 		change_translation_mode: function(mode) {
 			this.adding_translation = (mode == 'edit');
-			console.log(this.adding_translation);
 		}
 	}
 });

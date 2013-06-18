@@ -40,14 +40,16 @@
 			is_resized: {$resized},
 			resized: '{$src_resized}',
 			full: '{$src_full}',
-			full_width: {$width}
+			full_width: {$width},
+			full_height: {$height}
 		});
 	{else}
 		add('image_warning', '{$id}', {src: '{$src}', init: {
 			is_resized: {$resized},
 			resized: '{$src_resized}',
 			full: '{$src_full}',
-			full_width: {$width}
+			full_width: {$width},
+			full_height: {$height}
 		}});
 	{/if}
 	{loop="translation"}
