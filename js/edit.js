@@ -215,6 +215,18 @@ extend(OBJECT.edit_tags, OBJECT.ajax_tip, {
 		field: '.tags',
 		tip: '.tips'
 	},
+	on_tip_click: function(data){
+		this.get_super().on_tip_click.call(this, data);
+		this.on_data_change();
+	},
+	on_data_change: function() {
+		var terms = this.get_terms(),
+			add = $(terms).not(this.start_terms).toArray(),
+			remove = $(this.start_terms).not(terms).toArray(),
+			have_changes = add.length || remove.length;
+		this.message('edit_data_change', {add: add, remove: remove},
+			have_changes);
+	},
 	events: {
 		init: function() {
 			this.start_terms = this.get_terms();
@@ -222,12 +234,7 @@ extend(OBJECT.edit_tags, OBJECT.ajax_tip, {
 		field: {
 			keyup: function(e) {
 				this.get_super().events.field.keyup.call(this, e);
-				var terms = this.get_terms(),
-					add = $(terms).not(this.start_terms).toArray(),
-					remove = $(this.start_terms).not(terms).toArray(),
-					have_changes = add.length || remove.length;
-				this.message('edit_data_change', {add: add, remove: remove},
-					have_changes);
+				this.on_data_change();
 			}
 		}
 	}
