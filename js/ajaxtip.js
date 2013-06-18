@@ -14,8 +14,9 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 		tip: ''
 	},
 	get_terms: function() {
-		return this.child.field.val().replace(/^[\s\u200b]+/, '')
-			.replace(/[\s\u200b]+$/, '').split(/[\s\u200b]+/);
+		var ret = this.child.field.val().replace(/^[\s\u200b]+/, '')
+			.replace(/[\s\u200b]+$/, '');
+		return ret.length ? ret.split(/[\s\u200b]+/) : [];
 	},
 	get_current: function() {
 		var pos = this.child.field.caret().start || 0;

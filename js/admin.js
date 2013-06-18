@@ -141,7 +141,7 @@ extend(OBJECT.admin_tag_color, OBJECT.admin_tag_hover, {
 
 OBJECT.admin_tag_delete = function(id, values, events) {
 	OBJECT.clickable.call(this, id, function() {
-		if (confirm('Вы действительно желаете удалить тег ' + values)) {
+		if (confirm('Вы действительно желаете удалить тег ' + values + '?')) {
 			Ajax.perform('/ajax/delete', {
 				api: 'tag_art',
 				id: this.id

@@ -66,7 +66,6 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 		$this->modules['image']->disable();
 		$this->modules['tags']->disable();
 		$this->modules['info']->disable();
-		$this->modules['tags']->disable();
 		$this->modules['error']->enable();
 	}
 
