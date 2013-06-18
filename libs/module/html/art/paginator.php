@@ -40,9 +40,6 @@ class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 		}
 
 		$url = $this->get_url();
-		if (!empty($url)) {
-			$url .= '&';
-		}
 
 		return '/?' . $url . 'page=' . ($this->get_page() + 1);
 	}
