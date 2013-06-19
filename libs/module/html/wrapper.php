@@ -50,4 +50,10 @@ class Module_Html extends Module_Html_Abstract
 			'footer' => new Module_Html_Part_Footer($query)
 		);
 	}
+
+	public function dispatch() {
+		$this->set_param('title', $this->modules['body']->get_title());
+
+		parent::dispatch();
+	}
 }

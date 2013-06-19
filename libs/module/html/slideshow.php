@@ -19,4 +19,9 @@ class Module_Html_Slideshow extends Module_Html_Abstract
 		}
 		$this->set_param('delay', $delay);
 	}
+
+	public function get_title()
+	{
+		return 'Слайдшоу';
+	}
 }
