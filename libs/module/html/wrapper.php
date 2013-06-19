@@ -51,9 +51,8 @@ class Module_Html extends Module_Html_Abstract
 		);
 	}
 
-	public function dispatch() {
+	public function get_data() {
 		$this->set_param('title', $this->modules['body']->get_title());
-
-		parent::dispatch();
+		return parent::get_data();
 	}
 }
