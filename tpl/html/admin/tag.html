@@ -6,10 +6,22 @@
 	<button class="btn">
 		Фильтровать
 	</button>
-	<span class="admin-tag-filter-strict">
+	<span class="admin-tag-filter">
 		<div>
 			<input type="checkbox" {if="$strict"}checked="checked"{/if} name="strict" />
 			Строгий поиск
+		</div>
+	</span>
+	<span class="admin-tag-filter">
+		<div>
+			<input type="checkbox" {if="$namesort"}checked="checked"{/if} name="namesort" />
+			Сортировать по имени
+		</div>
+	</span>
+	<span class="admin-tag-filter">
+		<div>
+			<input type="checkbox" {if="$reverse"}checked="checked"{/if} name="reverse" />
+			В обратном порядке
 		</div>
 	</span>
 </form>
@@ -21,6 +33,10 @@
 	<br />
 	Чтобы отредактировать имя, вариации или цвет, наведите мышку и внесите изменения.
 	Для сохранения имени или вариаций нажмите энтер, для сохранения цвета просто выберите новый.
+	<br />
+	Числа к колонке "кол-во", слева направо: число артов с этим тегом,
+	число групп с этим тегом, число манги с этим тегом,
+	число CG-паков с этим тегом, число галерей с этим тегом.
 </div>
 <div class="clear"></div>
 <div class="error" id="listener_admin_tag_error"></div>
@@ -53,7 +69,7 @@
 	<tbody>
 		<tr>
 			<th width="15%">Имя:</th>
-			<th width="5%"></th>
+			<th width="90px">Кол-во:</th>
 			<th>Варианты:</th>
 			<th width="180px">Цвет:</th>
 			<th width="240px">Опции:</th>
@@ -70,7 +86,15 @@
 								{init_val: '{$value.name}'});
 					</script>
 				</td>
-				<td></td>
+				<td>
+					<center>
+						{$value.count},
+						{$value.count_group},
+						{$value.count_manga},
+						{$value.count_pack},
+						{$value.count_artist}
+					</center>
+				</td>
 				<td>
 					<div id="admin_tag_variant_{$value.id}">
 						<span>{$value.variant}</span>

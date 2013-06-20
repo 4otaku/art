@@ -5,6 +5,8 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 	protected $page = 1;
 	protected $filter = '';
 	protected $strict = false;
+	protected $sort = 'id';
+	protected $order = 'desc';
 	protected $color = array(
 		"" => 'Обычный',
 		"AA0000" => 'Автор',
@@ -24,8 +26,16 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 		if ($query->get('strict')) {
 			$this->strict = true;
 		}
+		if ($query->get('namesort')) {
+			$this->sort = 'name';
+		}
+		if ($query->get('reverse')) {
+			$this->order = 'asc';
+		}
 		$this->set_param('filter', $this->filter);
 		$this->set_param('strict', $this->strict);
+		$this->set_param('namesort', (bool) $query->get('namesort'));
+		$this->set_param('reverse', (bool) $query->get('reverse'));
 		$this->set_param('colors', $this->color);
 	}
 
@@ -38,7 +48,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 	{
 		return new Request('tag_art', $this, ['page' => $this->page,
 			($this->strict ? 'name' : 'filter') => $this->filter,
-			'sort_by' => 'id', 'sort_order' => 'desc']);
+			'sort_by' => $this->sort, 'sort_order' => $this->order]);
 	}
 
 	public function recieve_data($data)

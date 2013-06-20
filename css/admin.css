@@ -2,17 +2,17 @@
 	margin-bottom: 9px;
 }
 
-.admin-tag-filter-strict {
+.admin-tag-filter {
 	margin-left: 20px;
 }
 
-.admin-tag-filter-strict div {
+.admin-tag-filter div {
 	display: table-cell;
 	vertical-align: middle;
 	height: 30px;
 }
 
-.admin-tag-filter-strict div input {
+.admin-tag-filter div input {
 	margin: 0;
 }
 
