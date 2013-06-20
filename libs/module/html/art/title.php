@@ -34,6 +34,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	protected $approved_variants = array(
 		'no' => 'барахолка',
 		'waiting' => 'очередь премодерации',
+		'yes_or_waiting' => 'кроме забракованных',
 		'all' => 'вне зависимости от одобрения',
 	);
 

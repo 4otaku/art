@@ -32,7 +32,7 @@ extend(OBJECT.search, OBJECT.ajax_tip, {
 		mode: ['art', 'comment', 'translation', 'pack', 'group', 'manga', 'artist'],
 		page: [],
 		per_page: [],
-		approved: ['yes', 'no', 'waiting', 'all'],
+		approved: ['yes', 'no', 'waiting', 'yes_or_waiting', 'all'],
 		tagged: ['yes', 'no', 'all'],
 		variations: ['yes', 'no']
 	},

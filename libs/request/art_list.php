@@ -47,6 +47,7 @@ class Request_Art_List extends Request
 		'yes' => array('is' => 'approved'),
 		'no' => array('is' => 'disapproved'),
 		'waiting' => array('is' => 'unapproved'),
+		'yes_or_waiting' => array('not' => 'disapproved'),
 		'all' => array(),
 	);
 
@@ -57,12 +58,6 @@ class Request_Art_List extends Request
 	);
 
 	public function __construct($object = false, $data = array(), $method = 'recieve_data') {
-		$api = $this->fetch_api($data);
-		$data = $this->translate_data($data);
-		parent::__construct($api, $object, $data, $method);
-	}
-
-	protected function fetch_api($data) {
 		if (Config::get('content', 'moderated')) {
 			$this->default_approved_state = 'yes';
 		}
@@ -70,13 +65,19 @@ class Request_Art_List extends Request
 			$this->default_tagged_state = 'yes';
 		}
 
+		$api = $this->fetch_api($data);
+		$data = $this->translate_data($data);
+		parent::__construct($api, $object, $data, $method);
+	}
+
+	protected function fetch_api($data) {
 		if (!isset($data['mode']) || !in_array($data['mode'], $this->api_modes)) {
 			return 'art_list';
 		}
 
 		if ($data['mode'] != 'comment' && $data['mode'] != 'translated') {
 			$this->stateful_api = false;
-		} elseif ($data['mode'] == 'comment') {
+		} else {
 			$this->default_approved_state = 'all';
 			$this->default_tagged_state = 'all';
 		}
