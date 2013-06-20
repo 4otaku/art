@@ -173,7 +173,22 @@ mixin(OBJECT.base.prototype, {
 	submodule_config: {},
 	class_name: 'base',
 	id: '',
-	events: {},
+	events: {
+		unbind_listeners: function(e) {
+			console.log(this.class_name);
+			$.each(this.listen, $.proxy(function(type, listener) {
+				$.each(LISTENERS[type], $.proxy(function(key, listener){
+					if (
+						typeof listener != 'undefined' &&
+						listener.obj.class_name == this.class_name &&
+						listener.obj.id == this.id
+					) {
+						LISTENERS[type].splice(key, 1);
+					}
+				}, this));
+			}, this));
+		}
+	},
 	values: {},
 	listen: {},
 

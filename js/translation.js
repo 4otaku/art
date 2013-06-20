@@ -6,6 +6,8 @@ OBJECT.translation = function(id, values, events) {
 	if (this.is_new) {
 		this.message('translation_change_end');
 	}
+
+	this.uid = Math.random(0, 1);
 };
 
 extend(OBJECT.translation, OBJECT.base, {

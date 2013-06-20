@@ -26,6 +26,8 @@ extend(OBJECT.art_item, OBJECT.base, {
 		$.each(this.child, function(name, el){
 			var height = Math.round(el.height() / 2);
 			var width = el.width();
+			el.trigger('unbind_listeners');
+			el.find('*').trigger('unbind_listeners');
 			el.hide().html('<img src="/images/ajax-loader.gif" />')
 				.addClass('reloading').css('height', (height + 15) + 'px')
 				.css('padding-top', (height - 15) + 'px')
