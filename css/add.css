@@ -140,13 +140,13 @@
 
 .files .tips_container {
 	position: relative;
-	margin: 0 32px 0 80px;
+	margin: 0 32px 0 90px;
 }
 
 .files .tips {
 	width: 100%;
 	left: 1px;
-	top: 30px;
+	top: 0;
  }
 
 .files .data_passive {
