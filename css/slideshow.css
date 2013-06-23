@@ -24,8 +24,8 @@ body {
 
 .slideshow_images div.image {
 	display: none;
-	margin-bottom: 0px;
 	max-height: 100%;
+	margin: 0;
 }
 
 .slideshow_images div.image img {
