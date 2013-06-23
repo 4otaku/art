@@ -8,7 +8,7 @@ class Module_Html_Admin extends Module_Html_Abstract
 	protected function get_modules(Query $query)
 	{
 		if (!Session::is_moderator()) {
-			return [];
+	//		return [];
 		}
 
 		$return = [new Module_Html_Admin_Menu($query)];

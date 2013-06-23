@@ -7,16 +7,13 @@
 }
 
 .admin-tag-filter-option {
-	margin-left: 20px;
-}
-
-.admin-tag-filter-option div {
+	padding-left: 20px;
 	display: table-cell;
 	vertical-align: middle;
 	height: 30px;
 }
 
-.admin-tag-filter-option div input {
+.admin-tag-filter-option input {
 	margin: 0;
 }
 
