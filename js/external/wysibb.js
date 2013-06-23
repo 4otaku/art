@@ -1170,7 +1170,7 @@ var wbbdebug=true;
 				this.$toolbar.find(".wysibb-toolbar-btn.dis").removeClass("dis");
 			}
 
-
+			message('wysibb_change');
 		},
 		initModal: function() {
 			this.$modal=$("#wbbmodal");
@@ -1835,7 +1835,7 @@ var wbbdebug=true;
 			if (!this.options.rules) {return this.$txtArea.val();}
 			if (this.options.bbmode) {return this.$txtArea.val();}
 			this.clearEmpty();
-			this.removeLastBodyBR();
+		//	this.removeLastBodyBR();
 			return this.toBB(this.$body.html());
 		},
 		toBB: function(data) {
