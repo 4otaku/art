@@ -421,6 +421,7 @@ OBJECT.edit_text = function(id, values, events) {
 
 	this.child.field.wysibb(wbbconfig);
 	this.inited = true;
+	this.el.on('keyup click', $.proxy(this.send_data, this));
 };
 
 extend(OBJECT.edit_text, OBJECT.edit_simple, {
