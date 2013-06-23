@@ -45,6 +45,7 @@ extend(OBJECT.art_item, OBJECT.base, {
 			me.init_elements(me.id);
 			callback.call();
 		}, function(data){
+			document.location.href = '';
 			document.location.reload();
 		}, this);
 	},
