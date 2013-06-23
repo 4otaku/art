@@ -6,22 +6,26 @@
 	<button class="btn">
 		Фильтровать
 	</button>
-	<span class="admin-tag-filter">
-		<div>
-			<input type="checkbox" {if="$strict"}checked="checked"{/if} name="strict" />
-			Строгий поиск
-		</div>
-	</span>
-	<span class="admin-tag-filter">
-		<div>
-			<input type="checkbox" {if="$namesort"}checked="checked"{/if} name="namesort" />
-			Сортировать по имени
-		</div>
-	</span>
-	<span class="admin-tag-filter">
-		<div>
-			<input type="checkbox" {if="$reverse"}checked="checked"{/if} name="reverse" />
-			В обратном порядке
+	<span>
+		<div class="admin-tag-filter-options">
+			<span class="admin-tag-filter-option">
+				<div>
+					<input type="checkbox" {if="$strict"}checked="checked"{/if} name="strict" />
+					Строгий поиск
+				</div>
+			</span>
+			<span class="admin-tag-filter-option">
+				<div>
+					<input type="checkbox" {if="$namesort"}checked="checked"{/if} name="namesort" />
+					Сортировать по имени
+				</div>
+			</span>
+			<span class="admin-tag-filter-option">
+				<div>
+					<input type="checkbox" {if="$reverse"}checked="checked"{/if} name="reverse" />
+					В обратном порядке
+				</div>
+			</span>
 		</div>
 	</span>
 </form>

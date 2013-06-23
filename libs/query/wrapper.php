@@ -33,17 +33,13 @@ class Query
 		}
 
 		foreach ($data as $k => $v) {
-
 			if (is_array($v)) {
 				$input[$k] = $this->clean_globals($data[$k], [], $iteration + 1);
 			} else {
-				$v = stripslashes($v);
-
 				$v = str_replace(chr('0'),'',$v);
 				$v = str_replace("\0",'',$v);
 				$v = str_replace("\x00",'',$v);
 				$v = str_replace('%00','',$v);
-				$v = str_replace("../","&#46;&#46;/",$v);
 
 				$input[$k] = $v;
 			}

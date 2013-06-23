@@ -6,10 +6,7 @@ extend(OBJECT.art_item, OBJECT.base, {
 	class_name: 'art_item',
 	child_config: {
 		scroll: '.scroll',
-		menu: '.reloadable_editmenu.sidebar_part',
-		info: '.reloadable_info.sidebar_part',
-		tags: '.reloadable_tags.sidebar_part',
-		image: '.reloadable_image'
+		reload: '.reloadable'
 	},
 	add_scripts: null,
 	do_reload: function(callback) {
@@ -23,12 +20,14 @@ extend(OBJECT.art_item, OBJECT.base, {
 			});
 		}
 
-		$.each(this.child, function(name, el){
-			var height = Math.round(el.height() / 2);
-			var width = el.width();
-			el.trigger('unbind_listeners');
-			el.find('*').trigger('unbind_listeners');
-			el.hide().html('<img src="/images/ajax-loader.gif" />')
+		this.child.reload.each(function(){
+			var height = Math.round($(this).height() / 2);
+			var width = $(this).width();
+			$(this).triggerHandler('unbind_listeners');
+			$(this).find('*').each(function(){
+				$(this).triggerHandler('unbind_listeners');
+			});
+			$(this).hide().html('<img src="/images/ajax-loader.gif" />')
 				.addClass('reloading').css('height', (height + 15) + 'px')
 				.css('padding-top', (height - 15) + 'px')
 				.css('width', width + 'px').show();
@@ -36,9 +35,10 @@ extend(OBJECT.art_item, OBJECT.base, {
 
 		Ajax.load(document.location.href, function(data){
 			data = $(data);
-			$.each(me.child, function(name, el){
-				var selector = me.child_config[name];
-				el.replaceWith(data.find(selector));
+			me.child.reload.each(function(){
+				// Shifting elements on one-by-one basis
+				var selector = '.reloadable:eq(0)';
+				$(this).replaceWith(data.find(selector));
 			});
 			eval(me.add_scripts);
 			init_objects();
