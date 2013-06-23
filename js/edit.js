@@ -36,6 +36,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 				href = href.replace(/\bparent=\d+\b/, 'parent=' + data.parent);
 				document.location.assign(href);
 			} else {
+				document.location.hash = '';
 				document.location.reload();
 			}
 		} else {
