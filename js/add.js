@@ -193,6 +193,7 @@ extend(OBJECT.add, OBJECT.base, {
 	upload_key: false,
 	uploaded: false,
 	add_pending: false,
+	add_callback: null,
 	submodule_config: {
 		tags: 'add_tags',
 		groups: 'add_groups',
@@ -238,7 +239,7 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.progress_wrapper.addClass('progress-successful');
 
 		if (this.add_pending) {
-			this.child.add.click();
+			this.do_add();
 		}
 	},
 	process_error: function(data) {
@@ -274,6 +275,10 @@ extend(OBJECT.add, OBJECT.base, {
 		this.child.data.find('button').hide();
 		this.child.show_panel.hide();
 		this.el.addClass('editing-disabled');
+
+		if (this.add_callback) {
+			this.add_callback.call(this);
+		}
 	},
 	fix_name_length: function(name) {
 		this.submodule.packs.set_default_filename(name);
@@ -289,58 +294,56 @@ extend(OBJECT.add, OBJECT.base, {
 		return name.substr(0, part_length) +
 			'..' + name.substr(-1 * part_length) + ext;
 	},
+	do_add: function() {
+		if (!this.uploaded) {
+			this.add_pending = true;
+			this.child.upload.click();
+			return;
+		}
+
+		this.child.add.addClass('disabled').unbind('click').click(function(e){
+			e.preventDefault();
+		});
+		this.child.cancel.addClass('disabled').unbind('click').click(function(e){
+			e.preventDefault();
+		});
+		this.child.progress_wrapper.addClass('progress-adding');
+
+		var data = {
+			upload_key: this.upload_key,
+			tag: this.submodule.tags.get_terms(),
+			source: this.child.source.val(),
+			group: this.submodule.groups.get_terms(),
+			pack: this.submodule.packs.get_terms(),
+			manga: this.submodule.manga.get_terms(),
+			artist: this.child.artist.is(':visible') ? 1 : 0,
+			comment: this.submodule.comment.get_text(),
+			approved: this.child.approved.is(':visible') ? 1 : 0
+		};
+
+		Ajax.perform('/ajax/create/art', data, function(response) {
+			this.child.add.hide();
+			this.child.progress_wrapper.removeClass('progress-adding');
+
+			if (!response.id) {
+				this.process_error({code: 540, error: ''});
+				return;
+			}
+
+			this.child.progress_wrapper.removeClass('progress-successful');
+			this.child.progress_wrapper.html('<a href="/' +
+				response.id + '" target="_blank">Успешно добавлено</a>');
+			this.disable_edit();
+		}, function(data){
+			this.process_error(data.errors[0]);
+		}, this);
+	},
 	events: {
 		add: {
 			click: function(e) {
 				e.preventDefault();
-				if (!this.uploaded) {
-					this.add_pending = true;
-					this.child.upload.click();
-					return;
-				}
-
-				this.child.add.addClass('disabled').unbind('click').click(function(e){
-					e.preventDefault();
-				});
-				this.child.cancel.addClass('disabled').unbind('click').click(function(e){
-					e.preventDefault();
-				});
-				this.child.progress_wrapper.addClass('progress-adding');
-
-				var data = {
-					upload_key: this.upload_key,
-					tag: this.submodule.tags.get_terms(),
-					source: this.child.source.val(),
-					group: this.submodule.groups.get_terms(),
-					pack: this.submodule.packs.get_terms(),
-					manga: this.submodule.manga.get_terms(),
-					artist: this.child.artist.is(':visible') ? 1 : 0,
-					comment: this.submodule.comment.get_text(),
-					approved: this.child.approved.is(':visible') ? 1 : 0
-				};
-
-				Ajax.perform('/ajax/create/art', data, function(response) {
-					this.child.add.hide();
-					this.child.progress_wrapper.removeClass('progress-adding');
-
-					if (response.errors) {
-						this.process_error({
-							code: response.errors[0].code,
-							error: response.errors[0].message
-						});
-						return;
-					}
-					if (!response.id) {
-						this.process_error({code: 540, error: ''});
-						return;
-					}
-
-					this.child.progress_wrapper.removeClass('progress-successful');
-					this.child.progress_wrapper.html('<a href="/' +
-						response.id + '" target="_blank">Успешно добавлено</a>');
-					this.disable_edit();
-
-				}, this);
+				this.add_callback = null;
+				this.do_add();
 			}
 		},
 		cancel: {
@@ -400,7 +403,12 @@ extend(OBJECT.add, OBJECT.base, {
 			}
 		},
 		add_all: function() {
-			this.child.add.click();
+			if ($('.template-upload:not(.editing-disabled)').index(this.el) === 0) {
+				this.add_callback = function(){
+					this.message('add_all');
+				};
+				this.do_add();
+			}
 		}
 	}
 });
