@@ -67,7 +67,10 @@ class Request_Art_List extends Request
 
 		$api = $this->fetch_api($data);
 		$data = $this->translate_data($data);
+
 		parent::__construct($api, $object, $data, $method);
+
+		$this->data['add_meta'] = true;
 	}
 
 	protected function fetch_api($data) {

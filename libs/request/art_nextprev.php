@@ -4,7 +4,8 @@ class Request_Art_Nextprev extends Request_Art_List
 {
 	protected $pos = false;
 
-	public function __construct($pos, $object = false, $data = array(), $method = 'recieve_data') {
+	public function __construct($pos, $object = false, $data = array(),
+	                            $method = 'recieve_data') {
 		unset($data['page']);
 		$this->pos = $pos;
 
@@ -15,10 +16,9 @@ class Request_Art_Nextprev extends Request_Art_List
 			$data['offset'] = 0;
 			$data['per_page'] = 2;
 		}
-
-		$data['skip_meta'] = true;
-
 		parent::__construct($object, $data, $method);
+
+		$this->data['add_meta'] = false;
 	}
 
 	public function pass_data($data) {

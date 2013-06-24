@@ -6,7 +6,10 @@ class Module_Html_Sidebar_Comment extends Module_Html_Abstract
 
 	protected function make_request() {
 		return new Request('art_list_comment', $this,
-			array('per_page'=>Config::get('pp', 'latest_comments')));
+			[
+				'per_page'=>Config::get('pp', 'latest_comments'),
+				'add_meta' => true
+			]);
 	}
 
 	public function recieve_data($data) {
