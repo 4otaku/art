@@ -393,3 +393,35 @@ extend(OBJECT.bb, OBJECT.base, {
 		return stc.worker;
 	}
 });
+
+OBJECT.header = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.header, OBJECT.base, {
+	class_name: 'header',
+	child_config: {
+		items: '.header_menu_item'
+	},
+	events: {
+		init: function() {
+			this.child.items.each(function(){
+				if (!$(this).find('ul').length) {
+					return true;
+				}
+
+				var host = $(this).find('a')[0].hostname;
+				if (host == document.location.hostname) {
+					$(this).addClass('current');
+					return false;
+				}
+			});
+		},
+		items: {
+			hover: function(e) {
+				this.child.items.removeClass('current');
+				$(e.currentTarget).addClass('current');
+			}
+		}
+	}
+});
