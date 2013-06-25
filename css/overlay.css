@@ -47,13 +47,7 @@
 }
 
 .header_private_item li.box {
-	padding-right: 0px;
-}
-
-.edit_private_item {
-	margin-top: 9px;
-	margin-right: -22px;
-	cursor: pointer;
+	padding-right: 0;
 }
 
 .login_input_table, .table_add_menu, .table_edit_menu {

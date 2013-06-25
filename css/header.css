@@ -28,6 +28,12 @@ ul.plain_list {
 	float: left;
 }
 
+.edit_private_item {
+	margin-top: 3px;
+	margin-right: -16px;
+	cursor: pointer;
+}
+
 .main_menu li.header_menu_item a.link,
 .main_menu li.header_menu_item span {
 	text-shadow: 0 0 1px #fff;
@@ -137,7 +143,7 @@ ul.plain_list {
 }
 
 .header_private_item li.box {
-	padding-right: 0px;
+	padding-right: 0;
 }
 
 #personal_link_dummy {
