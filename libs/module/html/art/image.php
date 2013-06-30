@@ -23,6 +23,8 @@ class Module_Html_Art_Image extends Module_Html_Art_Abstract
 			$translation['id_art'] = $data['id'];
 			$translation['text'] = new Text($translation['text']);
 			$translation['text']->html_escape();
+			$length = strlen((string) $translation['text']);
+			$translation['width'] = max(100, min(400, $length * 2));
 		}
 		parent::recieve_data($data);
 	}

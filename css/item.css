@@ -42,13 +42,11 @@
 	border: 1px solid black;
 	text-align: left;
 	display: none;
-	max-width: 300px;
-	min-width: 60px;
 	min-height: 10px;
 	position: absolute;
 	padding: 5px;
 	top: 100%;
-	right: -1px;
+	left: -1px;
 	cursor: pointer;
 	overflow: auto;
 	z-index: 15;
