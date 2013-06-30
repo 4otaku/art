@@ -67,6 +67,9 @@
 									{$value['name']}
 								</a>
 							</li>
+							{if="$value['separator']"}
+								<li class="separator"></li>
+							{/if}
 						{/loop}
 					</ul>
 				{/if}
@@ -97,7 +100,7 @@
 					<a href="" class="link"></a>
 				</li>
 				<li class="add_menu">
-					<a id="clickable_add_menu" class="link">
+					<a id="clickable_add_menu" class="link right">
 						 Добавить ссылку
 					</a>
 				</li>
