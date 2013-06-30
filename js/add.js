@@ -44,7 +44,8 @@ extend(OBJECT.upload, OBJECT.base, {
 	class_name: 'upload',
 	child_config: {
 		start: 'button.start',
-		add: 'button.add'
+		add: 'button.add',
+		remove: 'button.remove'
 	},
 	// Функция вынужденно скопирована почти целиком
 	doneCallback: function (e, data) {
@@ -138,18 +139,32 @@ extend(OBJECT.upload, OBJECT.base, {
 				e.preventDefault();
 				this.message('add_all');
 			}
+		},
+		remove: {
+			click: function(e) {
+				e.preventDefault();
+				this.message('remove_all');
+			}
 		}
 	},
 	listen: {
 		file_number_changed: function(modificator){
 			modificator = modificator || 0;
-			var count = $('.template-upload:not(.editing-disabled)').length;
-			if (count + modificator > 1) {
+			var countAdd = $('.template-upload:not(.editing-disabled)').length;
+			var countRemove = $('.template-upload.editing-disabled').length;
+
+			if (countAdd + modificator > 1) {
 				this.child.start.show();
 				this.child.add.show();
 			} else {
 				this.child.start.hide();
 				this.child.add.hide();
+			}
+
+			if (countRemove > 1) {
+				this.child.remove.show();
+			} else {
+				this.child.remove.hide();
 			}
 		}
 	}
@@ -279,6 +294,8 @@ extend(OBJECT.add, OBJECT.base, {
 		if (this.add_callback) {
 			this.add_callback.call(this);
 		}
+
+		this.message('file_number_changed');
 	},
 	fix_name_length: function(name) {
 		this.submodule.packs.set_default_filename(name);
@@ -409,6 +426,9 @@ extend(OBJECT.add, OBJECT.base, {
 				};
 				this.do_add();
 			}
+		},
+		remove_all: function() {
+			this.child.remove.click();
 		}
 	}
 });
