@@ -14,7 +14,7 @@
 		<div class="sidebar_row">
 			Полный размер:
 				<a href="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}"
-					id="clickable_fullsize" onclick="return false;"
+					id="fullsize_sidebar" onclick="return false;"
 				>{$width}px * {$height}px</a>.
 		</div>
 	{/if}
@@ -115,11 +115,6 @@
 </div>
 
 <script type="text/javascript">
-	add('clickable', 'fullsize', function(e) {
-		if (e.which == 1) {
-			e.preventDefault();
-			this.message('fullsize_clicked');
-		}
-	});
+	add('fullsize', 'sidebar');
 	add('rating', 'main');
 </script>

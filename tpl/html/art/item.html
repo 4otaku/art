@@ -12,6 +12,12 @@
 	</div>
 	{$module_editfield}
 	<div class="art">
+		{if condition="$resized"}
+			<a href="#" class="enlarge_icon" id="fullsize_main"
+			   title="Изображение уменьшено. Кликните для просмотра полной версии.">
+				<img src="/images/enlarge.jpg" />
+			</a>
+		{/if}
 		{if condition="$prev"}
 			<a href="/{$prev}/?{if condition="$query"}{$query}&{/if}pos={$prev_pos}">
 				<img class="scroll scroll_left" src="/images/arrow_left.gif" />
@@ -32,5 +38,6 @@
 </div>
 
 <script type="text/javascript">
+	add('fullsize', 'main', {hide: true});
 	add('art_item', '{$id}');
 </script>

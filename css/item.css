@@ -4,6 +4,12 @@
 	position: relative;
 }
 
+.enlarge_icon {
+	position: absolute;
+	top: 0;
+	right: 10px;
+}
+
 .scroll {
 	display: none;
 	position: absolute;

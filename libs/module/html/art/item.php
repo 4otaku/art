@@ -55,6 +55,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 	}
 
 	protected function recieve_succesful($data) {
+		$this->set_param('resized', $data['resized']);
 		$this->modules['image']->recieve_data($data);
 		$this->modules['editmenu']->recieve_additional($data);
 		$this->modules['tags']->recieve_data($data['tag']);

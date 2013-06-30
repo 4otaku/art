@@ -1,3 +1,36 @@
+OBJECT.fullsize = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.fullsize, OBJECT.clickable, {
+	class_name: 'fullsize',
+	hide: false,
+	events: {
+		init: function() {
+			if (this.hide) {
+				this.el.hide();
+			}
+		},
+		click: function(e) {
+			if (e.which == 1) {
+				e.preventDefault();
+				this.message('fullsize_clicked');
+			}
+		}
+	},
+	listen: {
+		image_resized: function(id, width, height, resized) {
+			if (this.hide) {
+				if (resized) {
+					this.el.show();
+				} else {
+					this.el.hide();
+				}
+			}
+		}
+	}
+});
+
 OBJECT.image = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 };
@@ -20,7 +53,7 @@ extend(OBJECT.image, OBJECT.base, {
 	message_size: function(width, height) {
 		width = width || this.child.img.width();
 		height = height || this.child.img.height();
-		this.message('image_resized', this.id, width, height);
+		this.message('image_resized', this.id, width, height, this.is_resized);
 	},
 	display_full: function() {
 		if (this.full_object == null) {
