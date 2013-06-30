@@ -96,8 +96,6 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			$this->modules['error']->recieve_data($errors);
 		}
 
-		$this->modules['editmenu']->disable();
-		$this->modules['editfield']->disable();
 		$this->modules['list']->disable();
 		$this->modules['tags']->disable();
 		$this->modules['paginator']->disable();
