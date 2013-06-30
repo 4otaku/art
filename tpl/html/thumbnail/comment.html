@@ -2,7 +2,7 @@
 	<div class="left image_thumbnail
 		{if="Config::get('art', 'largethumbs')"}large{else}small{/if}_thumbnail">
 		{if="!$hidden"}
-			<a href="/{$id}{if condition="$query"}?{$query}{/if}">
+			<a href="/{$id}/{if condition="$query"}?{$query}{/if}">
 				<img src="{$src}" />
 			</a>
 		{else}

@@ -14,12 +14,12 @@
 	<div class="art">
 		{if condition="$prev"}
 			<a href="/{$prev}?{if condition="$query"}{$query}&{/if}pos={$prev_pos}">
-				<img class="scroll scroll_left" src="images/arrow_left.gif" />
+				<img class="scroll scroll_left" src="/images/arrow_left.gif" />
 			</a>
 		{/if}
 		{if condition="$next"}
 			<a href="/{$next}?{if condition="$query"}{$query}&{/if}pos={$next_pos}">
-				<img class="scroll scroll_right" src="images/arrow_right.gif" />
+				<img class="scroll scroll_right" src="/images/arrow_right.gif" />
 			</a>
 		{/if}
 		{$module_error}
