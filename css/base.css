@@ -188,6 +188,6 @@ div.mini-shell div.text {
 	margin: 0 5px;
 }
 
-.wysibb .powered {
+.wysibb .powered, .wbb-fs_custom {
 	display: none
 }

@@ -1,9 +1,5 @@
 wbbdebug = false;
 
-CURLANG.fs_verysmall = "Маленький";
-CURLANG.fs_small = "Нормальный";
-CURLANG.fs_normal = "Крупный";
-
 // Common config
 
 var spoiler_html = '<div class="mini-shell">' + '' +
@@ -14,8 +10,16 @@ var spoiler_html = '<div class="mini-shell">' + '' +
 	'<div class="text hidden">{SELTEXT}</div>' +
 '</div>';
 
+var fs_custom = {
+	buttonText: '',
+	transform: {
+		'<span style="font-size:{SIZE}%">{SELTEXT}</span>':
+			'[size={SIZE}]{SELTEXT}[/size]'
+	}
+};
+
 wbbconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,|,removeFormat,',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,spoiler,|,link,img,|,removeFormat,fs_custom',
 	smileList: false,
 	img_uploadurl: '/external/wysibb_upload.php',
 	onlyBBmode: !!(window.opera && window.opera.buildNumber),
@@ -35,7 +39,8 @@ wbbconfig = {
 				}]
 			},
 			transform: {}
-		}
+		},
+		fs_custom: fs_custom
 	}
 };
 
@@ -45,7 +50,7 @@ wbbconfig.allButtons.spoiler.transform[spoiler_html] =
 // Translation config
 
 wbbtranslationconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,|,removeFormat,',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,|,removeFormat,fs_custom',
 	allButtons: {
 		save: {
 			cmd: function() {
@@ -53,7 +58,8 @@ wbbtranslationconfig = {
 			},
 			buttonHTML: '<img src="/images/wysibb/save.png" title="Сохранить" />',
 			rootSelector: []
-		}
+		},
+		fs_custom: fs_custom
 	}
 };
 

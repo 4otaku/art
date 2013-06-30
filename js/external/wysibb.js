@@ -388,7 +388,8 @@ var wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "1",
 					transform: {
-						'<font size="1">{SELTEXT}</font>':'[size=50]{SELTEXT}[/size]'
+						'<span style="font-size:50%">{SELTEXT}</span>':
+							'[size=50]{SELTEXT}[/size]'
 					}
 				},
 				fs_small: {
@@ -397,7 +398,8 @@ var wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "2",
 					transform: {
-						'<font size="2">{SELTEXT}</font>':'[size=85]{SELTEXT}[/size]'
+						'<span style="font-size:85%">{SELTEXT}</span>':
+							'[size=85]{SELTEXT}[/size]'
 					}
 				},
 				fs_normal: {
@@ -406,7 +408,8 @@ var wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "3",
 					transform: {
-						'<font size="3">{SELTEXT}</font>':'[size=100]{SELTEXT}[/size]'
+						'<span style="font-size:100%">{SELTEXT}</span>':
+							'[size=100]{SELTEXT}[/size]'
 					}
 				},
 				fs_big: {
@@ -415,7 +418,8 @@ var wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "4",
 					transform: {
-						'<font size="4">{SELTEXT}</font>':'[size=150]{SELTEXT}[/size]'
+						'<span style="font-size:150%">{SELTEXT}</span>':
+							'[size=150]{SELTEXT}[/size]'
 					}
 				},
 				fs_verybig: {
@@ -424,7 +428,8 @@ var wbbdebug=true;
 					excmd: 'fontSize',
 					exvalue: "6",
 					transform: {
-						'<font size="6">{SELTEXT}</font>':'[size=200]{SELTEXT}[/size]'
+						'<span style="font-size:200%">{SELTEXT}</span>':
+							'[size=200]{SELTEXT}[/size]'
 					}
 				},
 
