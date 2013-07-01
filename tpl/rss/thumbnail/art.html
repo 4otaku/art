@@ -2,7 +2,7 @@
 	<title>{$title}</title>
 	<description><![CDATA[
 		<a href="{$link}">
-			<img src="http://images.4otaku.org/art/{$md5}_thumb.jpg">
+			<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg">
 		</a>
 		<br />{$description}
 		]]></description>

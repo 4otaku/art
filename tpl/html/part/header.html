@@ -114,8 +114,9 @@
 		Overlay.ajax('/ajax/config');
 	});
 	add('clickable', 'logout', function() {
+		var domain = document.location.host.replace(/[^\.]+/, '');
 		$.cookie(Cookie.name, null, {path: '/'});
-		$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
+		$.cookie(Cookie.name, null, {path: '/', domain: domain});
 		document.location.reload();
 	});
 	add('clickable', 'change_pass', function() {

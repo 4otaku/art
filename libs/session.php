@@ -78,7 +78,8 @@ class Session
 
 	protected function update_lifetime()
 	{
-		setcookie($this->name, $this->hash, time()+3600*24*60, '/', '.4otaku.org');
+		$domain = preg_replace('/^[^\.]+/ui', '', $_SERVER['SERVER_NAME']);
+		setcookie($this->name, $this->hash, time()+3600*24*60, '/', $domain);
 		// Фиксируем факт обновления в БД
 		Database::update('settings', ['lastchange' => time()],
 			'cookie = ?', $this->hash);

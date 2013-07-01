@@ -92,10 +92,11 @@ Overlay = {
 				},
 				url: '/api/create/user',
 				success: function(response) {
+					var domain = document.location.host.replace(/[^\.]+/, '');
 					$.cookie(Cookie.name, null, {path: '/'});
-					$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
+					$.cookie(Cookie.name, null, {path: '/', domain: domain});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
-						domain: '.4otaku.org'});
+						domain: domain});
 					document.location.reload();
 				}
 			});
@@ -108,10 +109,11 @@ Overlay = {
 				},
 				url: '/api/read/cookie',
 				success: function(response) {
+					var domain = document.location.host.replace(/[^\.]+/, '');
 					$.cookie(Cookie.name, null, {path: '/'});
-					$.cookie(Cookie.name, null, {path: '/', domain: '.4otaku.org'});
+					$.cookie(Cookie.name, null, {path: '/', domain: domain});
 					$.cookie(Cookie.name, response.cookie, {path: '/',
-						domain: '.4otaku.org'});
+						domain: domain});
 					document.location.reload();
 				}
 			});
