@@ -62,6 +62,7 @@ class Module_Html_Admin_Tag extends Module_Html_Abstract
 				$item['color_name'] = 'Ошибка';
 			}
 			$item['variant'] = implode(', ', $item['variant']);
+			$item['escaped_name'] = str_replace('\\', '\\\\', $item['name']);
 		}
 		parent::recieve_data($data);
 	}
