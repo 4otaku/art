@@ -5,6 +5,7 @@ OBJECT.art_item = function(id, values, events) {
 extend(OBJECT.art_item, OBJECT.base, {
 	class_name: 'art_item',
 	child_config: {
+		art: '.art',
 		scroll: '.scroll',
 		reload: '.reloadable'
 	},
@@ -70,7 +71,15 @@ extend(OBJECT.art_item, OBJECT.base, {
 				callback.call(scope);
 			});
 		},
-		image_resized: function(id, width, height) {
+		image_resized: function(id, width, height, is_resized) {
+			if (is_resized) {
+				this.child.art.css('width', 'auto');
+			} else {
+				if (width + 70 > this.child.art.width()) {
+					this.child.art.css('width', width + 70);
+				}
+			}
+
 			var top = Math.min(200, height - 120);
 
 			if (top < 0) {

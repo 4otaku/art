@@ -4,7 +4,8 @@ OBJECT.fullsize = function(id, values, events) {
 
 extend(OBJECT.fullsize, OBJECT.clickable, {
 	class_name: 'fullsize',
-	hide: false,
+	hide: true,
+	reverse: false,
 	events: {
 		init: function() {
 			if (this.hide) {
@@ -21,7 +22,7 @@ extend(OBJECT.fullsize, OBJECT.clickable, {
 	listen: {
 		image_resized: function(id, width, height, resized) {
 			if (this.hide) {
-				if (resized) {
+				if ((resized && !this.reverse) || (!resized && this.reverse)) {
 					this.el.show();
 				} else {
 					this.el.hide();

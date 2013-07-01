@@ -18,6 +18,12 @@
 				<img src="/images/enlarge.jpg" />
 			</a>
 		{/if}
+		{if condition="$resized"}
+			<a href="#" class="reduce_icon" id="fullsize_reduce"
+			   title="Изображение показано в полном размере. Кликните, чтобы уменьшить.">
+				<img src="/images/reduce.jpg" />
+			</a>
+		{/if}
 		{if condition="$prev"}
 			<a href="/{$prev}/?{if condition="$query"}{$query}&{/if}pos={$prev_pos}">
 				<img class="scroll scroll_left" src="/images/arrow_left.gif" />
@@ -38,6 +44,7 @@
 </div>
 
 <script type="text/javascript">
-	add('fullsize', 'main', {hide: true});
+	add('fullsize', 'main');
+	add('fullsize', 'reduce', {reverse: true});
 	add('art_item', '{$id}');
 </script>
