@@ -106,6 +106,8 @@ extend(OBJECT.ajax_tip, OBJECT.base, {
 					});
 				}
 			}, this);
+		} else {
+			this.child.tip.empty();
 		}
 	},
 	get_base_data: function(term, append_from) {
