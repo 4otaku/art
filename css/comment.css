@@ -11,6 +11,10 @@
 	width: 700px;
 }
 
+.wysibb-text .mini-shell .text {
+	display: block;
+}
+
 .comment-display {
 	text-align: left;
 }

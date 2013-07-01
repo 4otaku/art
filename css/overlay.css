@@ -41,15 +41,6 @@
 	display: block;
 }
 
-
-.header_private_item li {
-	padding-right: 28px;
-}
-
-.header_private_item li.box {
-	padding-right: 0;
-}
-
 .login_input_table, .table_add_menu, .table_edit_menu {
 	margin: 5px;
 	border-collapse: collapse;

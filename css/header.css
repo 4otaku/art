@@ -6,7 +6,7 @@ ul.plain_list {
 
 .header_menu {
 	height: 28px;
-	background: url(http://4otaku.org/images/top.png) 0 0 repeat-x;
+	background: url(/images/top.png) 0 0 repeat-x;
 	position: relative;
 	padding-left: 10px;
 	margin-bottom: 28px;
@@ -26,12 +26,6 @@ ul.plain_list {
 
 .main_menu li.header_menu_item {
 	float: left;
-}
-
-.edit_private_item {
-	margin-top: 3px;
-	margin-right: -16px;
-	cursor: pointer;
 }
 
 .main_menu li.header_menu_item a.link,
@@ -138,12 +132,22 @@ ul.plain_list {
 	margin-left: -4px;
 }
 
-.header_private_item li {
-	padding-right: 28px;
+.header_private_item li a {
+	display: inline-block !important;
 }
 
-.header_private_item li.box {
-	padding-right: 0;
+.edit_private_item {
+	height: 16px;
+	width: 16px;
+	background: url(/images/edit.gif) 0 0 no-repeat;
+	cursor: pointer;
+	text-decoration: none;
+	position: relative;
+	top: 3px;
+}
+
+.edit_private_item:hover {
+	text-decoration: none;
 }
 
 #personal_link_dummy {

@@ -78,14 +78,19 @@
 		<li class="header_menu_item header_private_item">
 			<span>Личное</span>
 			<ul>
+				<li class="add_menu">
+					<a id="clickable_add_menu" class="link">
+						Добавить ссылку
+					</a>
+				</li>
+				<li class="separator"></li>
 				{loop="$personal"}
 					<li id="personal_link_{$value['id']}">
-						<a title="Редактировать ссылку"
-							 class="right edit_private_item">
-							<img src="/images/edit.gif" />
-						</a>
 						<a href="{$value['url']}" class="link">
 							{$value['name']}
+						</a>
+						<a title="Редактировать ссылку" class="edit_private_item">
+							&nbsp;
 						</a>
 					</li>
 					<script type="text/javascript">
@@ -98,11 +103,6 @@
 						<img src="/images/edit.gif" />
 					</a>
 					<a href="" class="link"></a>
-				</li>
-				<li class="add_menu">
-					<a id="clickable_add_menu" class="link right">
-						 Добавить ссылку
-					</a>
 				</li>
 			</ul>
 		</li>
