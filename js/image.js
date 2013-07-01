@@ -77,6 +77,8 @@ extend(OBJECT.image, OBJECT.base, {
 			this.child.img.css('width', this.full_width);
 			this.el.append(this.full_object);
 		}
+
+		this.el.css('width', this.full_width);
 	},
 	display_resized: function() {
 		if (this.child.img.is(this.full_object)) {
@@ -87,6 +89,8 @@ extend(OBJECT.image, OBJECT.base, {
 
 		this.child.img = this.resized_object;
 		this.child.img.css('width', 'auto');
+
+		this.el.css('width', 'auto');
 	},
 	on_full_load: function() {
 		this.loading = false;
