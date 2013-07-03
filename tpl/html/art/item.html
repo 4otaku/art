@@ -12,6 +12,17 @@
 	</div>
 	{$module_editfield}
 	<div class="art">
+		{$module_error}
+		<div class="reloadable">
+			{if condition="$prev"}
+				<a class="navigate navigate_left" href="/{$prev}/?{if condition="$query"}{$query}&{/if}pos={$prev_pos}"></a>
+			{/if}
+			{if condition="$next"}
+				<a class="navigate navigate_right" href="/{$next}/?{if condition="$query"}{$query}&{/if}pos={$next_pos}"></a>
+			{/if}
+			
+			{$module_image}
+		</div>
 		{if condition="$resized"}
 			<a href="#" class="enlarge_icon" id="fullsize_main"
 			   title="Изображение уменьшено. Кликните для просмотра полной версии.">
@@ -24,20 +35,7 @@
 				<img src="/images/reduce.jpg" />
 			</a>
 		{/if}
-		{if condition="$prev"}
-			<a href="/{$prev}/?{if condition="$query"}{$query}&{/if}pos={$prev_pos}">
-				<img class="scroll scroll_left" src="/images/arrow_left.gif" />
-			</a>
-		{/if}
-		{if condition="$next"}
-			<a href="/{$next}/?{if condition="$query"}{$query}&{/if}pos={$next_pos}">
-				<img class="scroll scroll_right" src="/images/arrow_right.gif" />
-			</a>
-		{/if}
-		{$module_error}
-		<div class="reloadable">
-			{$module_image}
-		</div>
+		
 		{$module_comment}
 	</div>
 	<div class="clear"></div>
