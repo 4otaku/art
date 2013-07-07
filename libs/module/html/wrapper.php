@@ -3,7 +3,7 @@
 class Module_Html extends Module_Html_Abstract
 {
 	protected $css = ['external/bootstrap', 'external/plugins'];
-	protected $js = ['external/jquery', 'external/bootstrap', 'external/plugins', 'base', 'external/lock'];
+	protected $js = ['external/jquery', 'external/bootstrap', 'external/plugins', 'base'];
 
 	protected function get_params(Query $query) {
 		$plugins = Database::get_vector('plugin', array('id', 'filename',
