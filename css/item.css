@@ -16,24 +16,34 @@
 	left: 0;
 }
 
-.scroll {
-	display: none;
+.navigate {
 	position: absolute;
-	top: 200px;
+	top: 0;
+	bottom: 0;
+	background-color: #f5f5f5;
+	background-repeat:  no-repeat;
+	width: 24px;
 	opacity: 0.5;
-	cursor: pointer;
 }
 
-.scroll:hover {
+.navigate:hover {
 	opacity: 1;
 }
 
-.scroll_left {
+.navigate_left {
 	left: 10px;
+	background-image: url(../images/arrow_left.gif);
+	background-position: right center;
 }
 
-.scroll_right {
+.navigate_right {
 	right: 10px;
+	background-image: url(../images/arrow_right.gif);
+	background-position: left center;
+}
+
+.reloadable {
+	position: relative;
 }
 
 .image {

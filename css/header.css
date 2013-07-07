@@ -18,7 +18,7 @@ ul.plain_list {
 }
 
 .header_menu li.separator {
-	border-left: 1px solid #aaa;
+	border-left: 1px solid #ddd;
 	display: inline-block;
 	height: 10px;
 	vertical-align: middle;
