@@ -10,7 +10,7 @@ window.locale = {
 	}
 };
 
-$(window).bind('beforeunload', function(e) {
+$(window).on('beforeunload', function(e) {
 	return $('.template-upload:not(.editing-disabled)').length ?
 		'Вы действительно хотите покинуть эту страницу? Несохраненные арты будут потеряны.' :
 		null;

@@ -21,12 +21,17 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		this.child.loader.hide();
 		this.child.form.html('').show().html(data);
 		this.child.save_wrapper.show();
+		$(window).on('beforeunload.edit', function(e) {
+			return 'Вы действительно хотите покинуть эту страницу? ' +
+				'Несохраненные данные будут потеряны.';
+		});
 	},
 	on_save: function(data) {
 		if (!data.success) {
 			this.on_save_failure(data);
 			return;
 		}
+		$(window).off('beforeunload.edit');
 		this.child.form.hide();
 		this.child.loader.hide();
 		this.child.success.show();
@@ -59,6 +64,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 		cancel: {
 			click: function() {
 				this.el.hide();
+				$(window).off('beforeunload.edit');
 				this.message('edit_cancel');
 			}
 		},

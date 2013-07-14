@@ -282,7 +282,6 @@ extend(OBJECT.collect_add, OBJECT.base, {
 				clone.data('id', item.data('id'));
 				me.added.push(item.data('id'));
 				clone.dblclick(function(){
-					console.log(me.added);
 					me.added = jQuery.grep(me.added, $.proxy(function(value) {
 						return value != $(this).data('id');
 					}, this));

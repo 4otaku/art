@@ -175,7 +175,6 @@ mixin(OBJECT.base.prototype, {
 	id: '',
 	events: {
 		unbind_listeners: function(e) {
-			console.log(this.class_name);
 			$.each(this.listen, $.proxy(function(type, listener) {
 				$.each(LISTENERS[type], $.proxy(function(key, listener){
 					if (
