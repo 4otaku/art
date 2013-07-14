@@ -34,7 +34,7 @@ OBJECT.upload = function(id, values, events) {
 		downloadTemplateId: null
 	}).bind('fileuploadadded', function (e, data){
 		init_objects();
-	}).bind('fileuploadchange fileuploadpaste fileuploaddrop fileuploaddragover', function (e, data){
+	}).bind('fileuploaddrop fileuploaddragover', function (e, data){
 		me.message('file_number_changed', 1);
 	});
 
