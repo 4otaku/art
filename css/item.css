@@ -4,15 +4,17 @@
 	position: relative;
 }
 
-.enlarge_icon {
+.enlarge_icon, .reduce_icon {
 	position: absolute;
 	top: 0;
+	display: none;
+}
+
+.enlarge_icon {
 	right: 0;
 }
 
 .reduce_icon {
-	position: absolute;
-	top: 0;
 	left: 0;
 }
 

@@ -10,6 +10,8 @@ extend(OBJECT.fullsize, OBJECT.clickable, {
 		init: function() {
 			if (this.hide) {
 				this.el.hide();
+			} else {
+				this.el.show();
 			}
 		},
 		click: function(e) {
@@ -104,7 +106,7 @@ extend(OBJECT.image, OBJECT.base, {
 		});
 
 		if (this.child.img.is(this.resized_object)) {
-			this.child.img.detach();
+			this.resized_object.detach();
 			this.child.img = this.full_object;
 		}
 	},
