@@ -11,9 +11,10 @@ window.locale = {
 };
 
 $(window).on('beforeunload', function(e) {
-	return $('.template-upload:not(.editing-disabled)').length ?
-		'Вы действительно хотите покинуть эту страницу? Несохраненные арты будут потеряны.' :
-		null;
+	if ($('.template-upload:not(.editing-disabled)').length) {
+		return 'Вы действительно хотите покинуть эту страницу? ' +
+			'Несохраненные арты будут потеряны.';
+	}
 });
 
 OBJECT.upload = function(id, values, events) {
