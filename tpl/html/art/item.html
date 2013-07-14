@@ -20,22 +20,20 @@
 			{if condition="$next"}
 				<a class="navigate navigate_right" href="/{$next}/?{if condition="$query"}{$query}&{/if}pos={$next_pos}"></a>
 			{/if}
-			
+
 			{$module_image}
 		</div>
-		{if condition="$resized"}
+		{if condition="Config::get('art', 'resized') and $resized"}
 			<a href="#" class="enlarge_icon" id="fullsize_main"
 			   title="Изображение уменьшено. Кликните для просмотра полной версии.">
 				<img src="/images/enlarge.jpg" />
 			</a>
-		{/if}
-		{if condition="$resized"}
 			<a href="#" class="reduce_icon" id="fullsize_reduce"
 			   title="Изображение показано в полном размере. Кликните, чтобы уменьшить.">
 				<img src="/images/reduce.jpg" />
 			</a>
 		{/if}
-		
+
 		{$module_comment}
 	</div>
 	<div class="clear"></div>

@@ -84,7 +84,6 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	}
 
 	public function recieve_additional($data) {
-		$this->set_param('voted', $data['voted'] != 0);
 		$this->set_param('have_translation', !empty($data['translation']));
 		$this->set_param('have_source', !empty($data['source']));
 	}
