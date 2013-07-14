@@ -105,9 +105,11 @@ extend(OBJECT.image, OBJECT.base, {
 			'z-index': 1
 		});
 
-		if (this.child.img.is(this.resized_object)) {
-			this.resized_object.detach();
+		if (this.is_resized) {
+			this.full_object.detach();
+		} else {
 			this.child.img = this.full_object;
+			this.resized_object.detach();
 		}
 	},
 	add_translation: function(x, y) {
