@@ -3,11 +3,27 @@
 		Загрузил: <a href="/?user={$user}">{$user}</a>.
 	</div>
 	<div class="sidebar_row rating_row" id="rating_main">
-		Рейтинг: <span class="rating_number">{$rating}</span>.
+		Рейтинг:
+		{if condition="$voted == 0"}
+			<a href="#" id="vote_down" title="Не понравилось">
+				<img src="/images/minus.gif" class="vote">
+			</a>
+		{/if}
+		<span class="rating_number">{$rating}</span>
+		{if condition="$voted == 0"}
+			<a href="#" id="vote_up" title="Понравилось">
+				<img src="/images/plus.gif" class="vote">
+			</a>
+		{/if}
 		{if condition="$voted > 0"}
 			<img src="/images/plus.gif" class="voted" title="Вам понравилось">
 		{elseif condition="$voted < 0"}
 			<img src="/images/minus.gif" class="voted" title="Вам не понравилось">
+		{else}
+			<script type="text/javascript">
+				add('vote', 'down', {item: '{$id}', approve: 0});
+				add('vote', 'up', {item: '{$id}', approve: 1});
+			</script>
 		{/if}
 	</div>
 	{if condition="!empty($resized)"}

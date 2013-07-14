@@ -21,7 +21,8 @@
 }
 
 .sidebar_row .vote {
-	margin-left: 5px;
+	position: relative;
+	bottom: 1px;
 }
 
 .rating_row .voted {

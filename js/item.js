@@ -111,3 +111,40 @@ extend(OBJECT.rating, OBJECT.base, {
 		}
 	}
 });
+
+
+
+OBJECT.vote = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.vote, OBJECT.base, {
+	class_name: 'vote',
+	disabled: false,
+	approve: false,
+	item: 0,
+	events: {
+		click: function(e) {
+			e.preventDefault();
+			if (this.disabled) {
+				return;
+			}
+
+			Ajax.perform('/ajax/save/', {api: 'art_rating',
+				data: {approve: this.approve, id: this.item}});
+
+			this.message('vote_clicked', this.approve);
+		}
+	},
+	listen: {
+		vote_clicked: function(approve) {
+			this.disabled = true;
+			if (approve != this.approve) {
+				this.el.hide();
+			} else {
+				this.el.addClass('vote_disabled');
+				this.el.attr('title', 'Вы уже голосовали');
+			}
+		}
+	}
+});

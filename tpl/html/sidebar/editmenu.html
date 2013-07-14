@@ -111,21 +111,6 @@
 			<script type="text/javascript">
 				add('edit_start', 'source_{$id}');
 			</script>
-			{if condition="!$voted"}
-				<div class="sidebar_row">
-					Голосовать:
-						<a href="#" id="vote_down" title="Не понравилось">
-							<img src="/images/minus.gif" class="vote">
-						</a>
-						<a href="#" id="vote_up" title="Понравилось">
-							<img src="/images/plus.gif" class="vote">
-						</a>
-				</div>
-				<script type="text/javascript">
-					add('vote', 'down', {item: '{$id}', approve: 0});
-					add('vote', 'up', {item: '{$id}', approve: 1});
-				</script>
-			{/if}
 			{if condition="$moderator"}
 				<div class="sidebar_row">
 					<a href="#do-edit-approve" id="edit_start_approve_{$id}">
