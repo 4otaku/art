@@ -40,7 +40,9 @@
 </div>
 
 <script type="text/javascript">
-	add('fullsize', 'main');
-	add('fullsize', 'reduce', {reverse: true});
+	{if condition="Config::get('art', 'resized') and $resized"}
+		add('fullsize', 'main');
+		add('fullsize', 'reduce', {reverse: true});
+	{/if}
 	add('art_item', '{$id}');
 </script>
