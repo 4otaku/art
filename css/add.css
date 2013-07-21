@@ -157,3 +157,7 @@
 .files .data_passive button {
 	margin-left: 10px;
 }
+
+#add_link .input {
+	width: 800px;
+}

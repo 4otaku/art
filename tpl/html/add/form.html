@@ -1,4 +1,4 @@
-<form id="upload_main" action="http://art_upload.4otaku.org/ajax/upload/" method="POST" enctype="multipart/form-data">
+<form id="upload_main" action="http://frontend.4otaku.local/ajax/upload/" method="POST" enctype="multipart/form-data">
 	<div class="row fileupload-buttonbar">
 		<div class="span7">
 			<span class="btn btn-success fileinput-button">
@@ -6,6 +6,10 @@
 				<span>Выбрать изображения</span>
 				<input type="file" name="file[]" multiple />
 			</span>
+			<button type="button" class="btn link">
+				<i class="icon-arrow-right"></i>
+				<span>Указать ссылку</span>
+			</button>
 			<button type="submit" class="btn btn-warning start hidden">
 				<i class="icon-upload icon-white"></i>
 				<span>Закачать все</span>

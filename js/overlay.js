@@ -153,6 +153,9 @@ Overlay = {
 					init('personal_link', response.id, response);
 				}
 			});
+		},
+		add_link: function() {
+			init('add_link');
 		}
 	},
 
@@ -310,6 +313,20 @@ Overlay.templates.add_menu = '<h2>Добавить пункт в личное м
 	'</tr>' +
 	'<tr>' +
 		'<td colspan="2" class="action_holder">' +
+			'<input type="submit" class="submit" value="Добавить">' +
+		'</td>' +
+	'</tr>' +
+'</table></div>';
+
+Overlay.templates.add_link = '<h2>Укажите ссылку.</h2>' +
+'<div><table class="table_add_link" id="add_link">' +
+	'<tr>' +
+		'<td>' +
+			'<input type="text" class="input" name="link" value="">' +
+		'</td>' +
+	'</tr>' +
+	'<tr>' +
+		'<td colspan="2" class="add">' +
 			'<input type="submit" class="submit" value="Добавить">' +
 		'</td>' +
 	'</tr>' +

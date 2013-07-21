@@ -83,7 +83,7 @@ class Request
 		$request->do_request($data);
 	}
 
-	protected function do_request($data)
+	public function do_request($data)
 	{
 		$url = Config::get('api', 'url');
 		$api = $this->get_api();

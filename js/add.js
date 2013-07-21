@@ -24,7 +24,7 @@ OBJECT.upload = function(id, values, events) {
 	this.el.fileupload({
 		namespace: 'upload',
 		maxFileSize: 20 * 1024 * 1024,
-		acceptFileTypes: /(gif|jpeg|png)$/i,
+		acceptFileTypes: /(gif|jpeg|png|link)$/i,
 		previewSourceMaxFileSize: 10 * 1024 * 1024,
 		limitConcurrentUploads: 3,
 		previewMaxWidth: 150,
@@ -46,7 +46,8 @@ extend(OBJECT.upload, OBJECT.base, {
 	child_config: {
 		start: 'button.start',
 		add: 'button.add',
-		remove: 'button.remove'
+		remove: 'button.remove',
+		link: 'button.link'
 	},
 	// Функция вынужденно скопирована почти целиком
 	doneCallback: function (e, data) {
@@ -146,6 +147,11 @@ extend(OBJECT.upload, OBJECT.base, {
 				e.preventDefault();
 				this.message('remove_all');
 			}
+		},
+		link: {
+			click: function() {
+				Overlay.tpl('add_link');
+			}
 		}
 	},
 	listen: {
@@ -166,6 +172,33 @@ extend(OBJECT.upload, OBJECT.base, {
 				this.child.remove.show();
 			} else {
 				this.child.remove.hide();
+			}
+		},
+		link_added: function(link) {
+			this.el.fileupload('add', {files:
+				[new Blob([link], {type : "image\/link"})]});
+		}
+	}
+});
+
+OBJECT.add_link = function(id, values, events) {
+	OBJECT.base.call(this, id, values, events);
+};
+
+extend(OBJECT.add_link, OBJECT.base, {
+	class_name: 'add_link',
+	child_config: {
+		link: '.input',
+		add: '.submit'
+	},
+	events: {
+		add: {
+			click: function() {
+				var link = this.child.link.val();
+				if (link.length) {
+					Overlay.close();
+					this.message('link_added', link);
+				}
 			}
 		}
 	}

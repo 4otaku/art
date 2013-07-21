@@ -37,6 +37,31 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 	{
 		$url = Config::get('api', 'url');
 
+		$link = false;
+		foreach ($_FILES as $file) {
+			foreach ((array) $file['type'] as $key => $type) {
+				if (strpos($type, 'link') !== false) {
+					$link = file_get_contents($file['tmp_name'][$key]);
+					break 2;
+				}
+			}
+		}
+
+		if ($link) {
+			if (!empty($url)) {
+				$request = new Request_Change('upload_art', $this, ['file' => $link]);
+				$request->perform();
+			} else {
+				$api = new Api_Upload_Art(new Api_Request_Inner(['file' => $link]));
+				$response = $api->set_base_path(API_IMAGES)
+					->process_request()->get_response();
+
+				$this->recieve_data($response);
+			}
+
+			return false;
+		}
+
 		// Hacked because of file send
 		if (!empty($url)) {
 			$url .= '/upload/art';
@@ -64,8 +89,12 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 				->process_request()->get_response();
 		}
 
-		$response = json_decode($response, true);
+		$this->recieve_data(json_decode($response, true));
 
+		return false;
+	}
+
+	public function recieve_data($response) {
 		foreach ($response['files'] as $item) {
 			if (empty($item['error'])) {
 				$this->data[] = [
@@ -83,8 +112,6 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 				];
 			}
 		}
-
-		return false;
 	}
 
 	public function format_data() {
