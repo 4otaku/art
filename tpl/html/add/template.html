@@ -4,6 +4,7 @@
 <script id="template-upload" type="text/x-tmpl">
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
 		<div class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
+			<div class="preview left"><span class="fade"></span></div>
 			{% if (file.type == 'image/link') { %}
 				<div class="name left">
 					<span title="{%=file.name%}">{%=file.name%}</span>
@@ -18,7 +19,6 @@
 					}
 				%}
 			{% } else { %}
-				<div class="preview left"><span class="fade"></span></div>
 				<div class="name left">
 					<span title="{%=file.name%}">{%=file.name%}</span>
 				</div>
