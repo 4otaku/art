@@ -5,6 +5,7 @@ config/*
 
 cache/*
 !cache/index.php
+!cache/tmp/.gitignore
 
 files/board_cache/*
 !files/board_cache/index.php

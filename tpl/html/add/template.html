@@ -4,9 +4,25 @@
 <script id="template-upload" type="text/x-tmpl">
 	{% for (var i=0, file; file=o.files[i]; i++) { %}
 		<div class="template-upload fade" id="add_{%=(++UPLOAD_UNITS_COUNT)%}">
-
-			<div class="preview left"><span class="fade"></span></div>
-			<div class="name left"><span title="{%=file.name%}">{%=file.name%}</span></div>
+			{% if (file.type == 'image/link') { %}
+				<div class="name left">
+					<span title="{%=file.name%}">{%=file.name%}</span>
+				</div>
+				{%
+					var reader = new FileReader();
+					reader.readAsText(file);
+					var id = '#add_' + UPLOAD_UNITS_COUNT;
+					reader.onload = function() {
+						$(id + ' .name span').html(reader.result)
+							.attr('title', reader.result);
+					}
+				%}
+			{% } else { %}
+				<div class="preview left"><span class="fade"></span></div>
+				<div class="name left">
+					<span title="{%=file.name%}">{%=file.name%}</span>
+				</div>
+			{% } %}
 
 			<div class="cancel right">
 				{% if (!i) { %}
@@ -60,7 +76,13 @@
 				</span>
 			</div>
 
-			<div class="size right"><span>{%=o.formatFileSize(file.size)%}</span></div>
+			<div class="size right">
+				{% if (file.type == 'image/link') { %}
+					<span>? КБ</span>
+				{% } else { %}
+					<span>{%=o.formatFileSize(file.size)%}</span>
+				{% } %}
+			</div>
 
 			<div class="data_active">
 
