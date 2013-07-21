@@ -1,7 +1,7 @@
 <div id="edit_tags_main">
 	<textarea class="textinput autogrow-short tags"
 		spellcheck="false" name="tags"
-	>&#8203;{loop="tag"}{$value.name} {/loop}</textarea>
+	>{if="$tag"}{loop="tag"}{$value.name} {/loop}{else} {/if}</textarea>
 	<div class="tips_container"><div class="tips"></div></div>
 </div>
 
