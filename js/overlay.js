@@ -322,12 +322,17 @@ Overlay.templates.add_link = '<h2>Укажите ссылку.</h2>' +
 '<div><table class="table_add_link" id="add_link">' +
 	'<tr>' +
 		'<td>' +
+			'<input type="submit" class="submit add" value="Добавить еще">' +
+		'</td>' +
+	'</tr>' +
+	'<tr class="example">' +
+		'<td>' +
 			'<input type="text" class="input" name="link" value="">' +
 		'</td>' +
 	'</tr>' +
 	'<tr>' +
-		'<td colspan="2" class="add">' +
-			'<input type="submit" class="submit" value="Добавить">' +
+		'<td colspan="2">' +
+			'<input type="submit" class="submit done" value="Готово">' +
 		'</td>' +
 	'</tr>' +
 '</table></div>';

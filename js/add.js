@@ -188,16 +188,34 @@ OBJECT.add_link = function(id, values, events) {
 extend(OBJECT.add_link, OBJECT.base, {
 	class_name: 'add_link',
 	child_config: {
-		link: '.input',
-		add: '.submit'
+		example: '.example',
+		add: '.add',
+		done: '.done'
 	},
 	events: {
 		add: {
 			click: function() {
-				var link = this.child.link.val();
-				if (link.length) {
+				var insert = this.child.example.clone();
+				insert.find('input').val('');
+				var last = this.el.find('.example').last();
+				insert.insertAfter(last);
+			}
+		},
+		done: {
+			click: function() {
+				var link = this.el.find('.example input');
+				var close = false;
+
+				me = this;
+				link.each(function(){
+					if ($(this).val()) {
+						me.message('link_added', $(this).val());
+						close = true;
+					}
+				});
+
+				if (close) {
 					Overlay.close();
-					this.message('link_added', link);
 				}
 			}
 		}
