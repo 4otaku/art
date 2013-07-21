@@ -17,6 +17,7 @@ class Module_Html_Art_Image extends Module_Html_Art_Abstract
 			$data['md5'] . '.' . $data['ext'];
 		$data['src'] = ($data['resized'] && Config::get('art', 'resized')) ?
 			$data['src_resized'] : $data['src_full'];
+		$data['resized'] = (int) ($data['resized'] && Config::get('art', 'resized'));
 
 		foreach ($data['translation'] as &$translation) {
 			$translation['id'] = $translation['id_translation'];
