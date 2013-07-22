@@ -115,8 +115,9 @@
 	});
 	add('clickable', 'logout', function() {
 		var domain = document.location.host.replace(/[^\.]+/, '');
-		$.cookie(Cookie.name, null, {path: '/'});
-		$.cookie(Cookie.name, null, {path: '/', domain: domain});
+		var cookie = Config.get('cookie', 'name');
+		$.cookie(cookie, null, {path: '/'});
+		$.cookie(cookie, null, {path: '/', domain: domain});
 		document.location.reload();
 	});
 	add('clickable', 'change_pass', function() {

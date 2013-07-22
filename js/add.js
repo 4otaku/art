@@ -239,10 +239,10 @@ OBJECT.add = function(id, values, events) {
 		return;
 	}
 
-	if (User.name) {
-		if (User.gallery) {
+	if (Config.get('user', 'login')) {
+		if (Config.get('user', 'gallery')) {
 			this.child.with_gallery.find('a')
-				.attr('href', '/?artist=' + User.gallery);
+				.attr('href', '/?artist=' + Config.get('user', 'gallery'));
 			this.child.with_gallery.show();
 		} else {
 			this.child.without_gallery.show();

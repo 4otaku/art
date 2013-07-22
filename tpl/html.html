@@ -20,12 +20,30 @@
 				}
 				INIT[type].push([id, values, events]);
 			}
-			User = {
-				name: '{function="Config::get('user', 'login')"}',
-				gallery: '{function="Config::get('user', 'gallery')"}'
-			};
-			Cookie = {
-				name: '{function="Config::get('cookie', 'name')"}'
+			Config = {
+				get: function(section, key) {
+					if (!this.data[section] || !this.data[section][key]) {
+						return null;
+					}
+
+					return this.data[section][key];
+				},
+				set: function(section, key, value) {
+					if (!Ajax) { return false; }
+
+					if (!this.data[section]) {
+						this.data[section] = {};
+					}
+					this.data[section][key] = value;
+
+					Ajax.get('/ajax/setting', {
+						section: section,
+						key: key,
+						value: value
+					});
+					return true;
+				},
+				data: JSON.parse('{function="Session::get_instance()->to_json()"}')
 			};
 		</script>
 		{loop="prefetch"}

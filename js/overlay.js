@@ -88,14 +88,15 @@ Overlay = {
 					}]
 				},
 				add_data: {
-					cookie: $.cookie(Cookie.name)
+					cookie: $.cookie(Config.get('cookie', 'name'))
 				},
 				url: '/api/create/user',
 				success: function(response) {
 					var domain = document.location.host.replace(/[^\.]+/, '');
-					$.cookie(Cookie.name, null, {path: '/'});
-					$.cookie(Cookie.name, null, {path: '/', domain: domain});
-					$.cookie(Cookie.name, response.cookie, {path: '/',
+					var cookie = Config.get('cookie', 'name');
+					$.cookie(cookie, null, {path: '/'});
+					$.cookie(cookie, null, {path: '/', domain: domain});
+					$.cookie(cookie, response.cookie, {path: '/',
 						domain: domain});
 					document.location.reload();
 				}
@@ -110,9 +111,10 @@ Overlay = {
 				url: '/api/read/cookie',
 				success: function(response) {
 					var domain = document.location.host.replace(/[^\.]+/, '');
-					$.cookie(Cookie.name, null, {path: '/'});
-					$.cookie(Cookie.name, null, {path: '/', domain: domain});
-					$.cookie(Cookie.name, response.cookie, {path: '/',
+					var cookie = Config.get('cookie', 'name');
+					$.cookie(cookie, null, {path: '/'});
+					$.cookie(cookie, null, {path: '/', domain: domain});
+					$.cookie(cookie, response.cookie, {path: '/',
 						domain: domain});
 					document.location.reload();
 				}
@@ -129,7 +131,7 @@ Overlay = {
 					}]
 				},
 				add_data: {
-					login: User.name
+					login: Config.get('user', 'login')
 				},
 				url: '/api/update/user',
 				success: function(response) {

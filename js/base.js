@@ -45,6 +45,13 @@ var Ajax = {
 		this.request(url, data, success, failure, scope, true, false);
 	},
 
+	api: function(api, data, success, failure, scope) {
+		var url = 'http://api.4otaku.org/' + api.replace(/_/g, '/');
+		data = data || {};
+
+		this.perform(url, data, success, failure, scope);
+	},
+
 	error: {
 		10: 'Слишком большой файл.',
 		20: 'Файл не является корректным изображением gif/jpg/png.',

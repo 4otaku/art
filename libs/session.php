@@ -173,4 +173,14 @@ class Session
 		}
 		return $this;
 	}
+
+	public function to_json()
+	{
+		$data = $this->get_data();
+		$config = Config::get();
+		unset($config['db']);
+		unset($config['github']);
+
+		return json_encode(array_replace_recursive($data, $config));
+	}
 }

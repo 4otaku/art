@@ -65,24 +65,6 @@ extend(OBJECT.settings_reload, OBJECT.settings, {
 	}
 });
 
-OBJECT.settings_rss = function(id, values, events) {
-	this.key = id;
-	this.value = User.rss[this.key];
-
-	OBJECT.settings_rss.super.constructor.call(this, id, values, events);
-};
-
-extend(OBJECT.settings_rss, OBJECT.settings, {
-	class_name: 'settings_rss',
-	section: 'rss',
-	events: {
-		change: function() {
-			this.get_super().events.change.call(this);
-			User.rss[this.key] = this.get_value();
-		}
-	}
-});
-
 OBJECT.filter_edit = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
 };
