@@ -47,7 +47,6 @@ var Ajax = {
 
 	api: function(api, data, success, failure, scope) {
 		var url = 'http://api.4otaku.org/' + api.replace(/_/g, '/');
-		data = data || {};
 
 		this.perform(url, data, success, failure, scope);
 	},
