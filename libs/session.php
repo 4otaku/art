@@ -11,13 +11,14 @@ class Session
 	// Хеш куки пользователя
 	protected $hash = '';
 
+	// ID куки пользователя
+	protected $id = 0;
+
 	// Настройки пользователя
 	protected $data = [];
 	protected $api_loaded = false;
 
 	protected $moderator = false;
-
-	protected $changed = false;
 
 	protected static $instance;
 
@@ -44,7 +45,7 @@ class Session
 		}
 
 		// Пробуем прочитать настройки для хэша
-		$sess = Database::get_row('settings', ['data', 'lastchange'],
+		$sess = Database::get_row('cookie', ['id', 'lastchange'],
 			'cookie = ?', $this->hash);
 
 		// Проверяем полученные настройки
@@ -54,12 +55,10 @@ class Session
 				// Обновляем cookie еще на 2 мес у клиента, если она поставлена больше месяца назад
 				$this->update_lifetime();
 			}
-			$this->parse_data($sess['data']);
+			$this->id = $this->parse_data($sess['id']);
 		} else {
-			$this->create_session();
+			$this->id = $this->create_session();
 		}
-
-		register_shutdown_function([$this, 'write_changes']);
 	}
 
 	public static function get_instance()
@@ -81,29 +80,30 @@ class Session
 		$domain = preg_replace('/^[^\.]+/ui', '', $_SERVER['SERVER_NAME']);
 		setcookie($this->name, $this->hash, time()+3600*24*60, '/', $domain);
 		// Фиксируем факт обновления в БД
-		Database::update('settings', ['lastchange' => time()],
+		Database::update('cookie', ['lastchange' => time()],
 			'cookie = ?', $this->hash);
 	}
 
-	protected function parse_data($data)
+	protected function parse_data($id)
 	{
-		// Проверяем валидность настроек и исправляем, если что-то не так
-		$data = base64_decode($data);
-		if ($data === false) {
-			$this->changed = true;
-			return;
-		}
+		$raw = Database::get_table('setting', array('section', 'key', 'value'),
+			'id_cookie = ?', $id);
 
-		$data = unserialize($data);
-		if (!is_array($data)) {
-			$this->changed = true;
-			return;
+		$data = array();
+		foreach ($raw as $item) {
+			if (!isset($data[$item['section']])) {
+				$data[$item['section']] = array();
+			}
+			$data[$item['section']][$item['key']] = $item['value'];
 		}
 
 		if (empty($data['user'])) {
 			$data['user'] = [];
 		}
+
 		$this->data = $data;
+
+		return $id;
 	}
 
 	public function recieve_data($data)
@@ -122,26 +122,21 @@ class Session
 	protected function create_session()
 	{
 		// Вносим в БД сессию с дефолтными настройками
-		Database::insert('settings', ['cookie' => $this->hash]);
+		Database::insert('cookie', ['cookie' => $this->hash]);
+		$id = Database::last_id();
 		$this->update_lifetime();
-		$this->changed = true;
+		return $id;
 	}
 
-	public function write_changes()
+	public function set($section, $key, $value)
 	{
-		if (!$this->changed) {
-			return;
-		}
-
-		Database::update('settings',
-			['data' => base64_encode(serialize($this->data))],
-			'cookie = ?', $this->hash);
-	}
-
-	public function set($section, $field, $value)
-	{
-		$this->data[$section][$field] = $value;
-		$this->changed = true;
+		$this->data[$section][$key] = $value;
+		Database::replace('setting', array(
+			'id_cookie' => $this->id,
+			'section' => $section,
+			'key' => $key,
+			'value' => $value
+		), array('id_cookie', 'section', 'key'));
 	}
 
 	public function get_hash()
