@@ -22,6 +22,8 @@ class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 		usort($data, [$this, 'sort_tag']);
 		foreach ($data as &$item) {
 			$item['display'] = str_replace('_', ' ', $item['name']);
+			$item['display'] = str_replace('<', '&lt;', $item['display']);
+			$item['display'] = str_replace('>', '&gt;', $item['display']);
 
 			if (!$item['count']) {
 				$item['count'] = 0;
