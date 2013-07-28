@@ -47,14 +47,27 @@ INSERT INTO `plugin` (`id`, `filename`, `thread`, `css`, `js`, `script`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `settings`
+-- Структура таблицы `cookie`
 --
 
-CREATE TABLE IF NOT EXISTS `settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cookie` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `data` text COLLATE utf8_unicode_ci NOT NULL,
-  `lastchange` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cookie` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `cookie` varchar(32) NOT NULL,
+  `lastchange` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `cookie` (`cookie`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+  UNIQUE KEY `unique` (`cookie`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `setting`
+--
+
+CREATE TABLE IF NOT EXISTS `setting` (
+  `id_cookie` int(10) unsigned NOT NULL,
+  `section` varchar(128) NOT NULL,
+  `key` varchar(128) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`id_cookie`,`section`,`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

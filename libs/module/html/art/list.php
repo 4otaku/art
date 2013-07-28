@@ -80,7 +80,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 			}
 		}
 		arsort($count);
-		$count = array_slice($count, 0, Config::get('pp', 'art_tags'), true);
+		$count = array_slice($count, 0, Config::get('sidebar', 'tags'), true);
 
 		$tags = array();
 		foreach ($count as $key => $count) {

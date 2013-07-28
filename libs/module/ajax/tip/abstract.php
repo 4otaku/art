@@ -31,7 +31,7 @@ abstract class Module_Ajax_Tip_Abstract extends Module_Ajax_Json
 	{
 		return new Request($this->get_request_name(), $this, array(
 			$this->request_type => $this->term,
-			'per_page' => Config::get('pp', 'tip')
+			'per_page' => Config::get('art', 'tag_tip')
 		));
 	}
 
