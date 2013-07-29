@@ -1,0 +1,52 @@
+.masstag {
+	border: 1px dashed #008B8B;
+	border-radius: 5px 5px 5px 5px;
+	margin: 0 10px 10px 250px;
+	padding: 15px 10px 10px;
+	position: relative;
+	text-align: left;
+}
+
+.masstag .cancel {
+	background-image: url('/images/close_overlay.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 31px;
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	width: 31px;
+}
+
+.masstag .name {
+	width: 0;
+	float: left;
+	white-space:nowrap
+}
+
+.masstag .field {
+	margin-left: 120px;
+	position: relative;
+	bottom: 3px;
+}
+
+.masstag textarea.field {
+	width: 80%;
+	height: 20px;
+	resize: none;
+}
+
+.masstag .tips_container {
+	margin: 0 10px;
+	position: relative;
+	width: 100%;
+}
+
+.masstag .tips_container .tips {
+	left: 110px;
+	top: -10px;
+	width: 80%;
+	background-color: #FFFFFF;
+	position: absolute;
+	z-index: 9001;
+}

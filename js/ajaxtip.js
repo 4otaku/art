@@ -1,6 +1,6 @@
 OBJECT.ajax_tip = function(id, values, events) {
 	OBJECT.base.call(this, id, values, events);
-}
+};
 
 extend(OBJECT.ajax_tip, OBJECT.base, {
 	class_name: 'ajax_tip',
