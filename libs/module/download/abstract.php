@@ -28,7 +28,7 @@ abstract class Module_Download_Abstract extends Module_Abstract
 		}
 
 		$api_url = Config::get('api', 'url');
-		$prefix = $api_url ?
+		$prefix = !Config::get('api', 'inner') ?
 			'http://' . parse_url($api_url, PHP_URL_HOST) . '/' :
 			ROOT_DIR . SL . 'api' . SL;
 

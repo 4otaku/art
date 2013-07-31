@@ -118,7 +118,7 @@ $(function(){
 		var height = image.height();
 		var md5 = src.match(/[\da-f]{32}/i)[1];
 		image.attr('src', '/images/ajax-loader.gif');
-		image.css('position', 'relative');array
+		image.css('position', 'relative');
 		image.css('top', Math.max(0, Math.ceil(height/2 - 31)) + 'px');
 
 		var id = this.pathname.replace(/[^\d]/g, '');
@@ -139,7 +139,9 @@ $(function(){
 			state_worker(function(){
 				tag_worker(function(){
 					read_image(function(title){
-						link.attr('title', title);
+						if (title) {
+							link.attr('title', title);
+						}
 						image.css('top', '0px');
 						image.attr('src', src);
 					}, id);
@@ -161,6 +163,11 @@ $(function(){
 		callback.call(this, []);
 	};
 	read_image = function(callback, id) {
-		callback.call(this, 'asdasd');
+		Ajax.api('read_art', {id: id}, function(data){
+			console.log(data);
+			callback.call(this, false);
+		}, function(){
+			callback.call(this, false);
+		});
 	}
 });

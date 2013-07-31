@@ -88,8 +88,7 @@ class Request
 		$url = Config::get('api', 'url');
 		$api = $this->get_api();
 
-		if (!empty($url)) {
-
+		if (!Config::get('api', 'inner')) {
 			$url .= '/' . str_replace('_', '/', $api);
 
 			if (function_exists('igbinary_serialize')) {
