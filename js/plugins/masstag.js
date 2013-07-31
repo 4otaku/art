@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name       4otaku.org MassTag
-// @version    0.1
+// @version    0.2
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, Nameless
 // ==/UserScript==
 
 $(function(){
-	var version = 0.1;
+	var version = 0.2;
 
 	if (!document.location.pathname.match(/^\/*$/)) {
 		return;
@@ -16,7 +16,8 @@ $(function(){
 	}
 
 	var	sidebar = $('.sidebar:first-child'),
-		insert_to = sidebar.children('.sidebar_part:first-child');
+		insert_to = sidebar.children('.sidebar_part:first-child'),
+		images = $('.image_thumbnail a');
 
 	// Создаем объект масстега
 	var masstag = $('<div/>').addClass('masstag');
@@ -58,18 +59,18 @@ $(function(){
 	var state = $('<div/>').append(state_label).append(state_select);
 	masstag.append(state);
 
-	var import_select = $('<select/>').addClass('field');
-	var import_label = $('<span/>').html('Взять теги с: ').addClass('name');
+	var fetch_select = $('<select/>').addClass('field');
+	var fetch_label = $('<span/>').html('Взять теги с: ').addClass('name');
 	$.each({
 		' ': null,
 		'Danbooru': 'approved',
 		'Iqdb': 'iqdb'
 	}, function(key, value) {
 		var option = $('<option/>').val(value).html(key);
-		import_select.append(option);
+		fetch_select.append(option);
 	});
-	var import_wrapper = $('<div/>').append(import_label).append(import_select);
-	masstag.append(import_wrapper);
+	var fetch = $('<div/>').append(fetch_label).append(fetch_select);
+	masstag.append(fetch);
 
 	// добавляем линк в сайдбар
 	var link = $('<a/>').html('MassTag 9001').attr('href', '#')
@@ -96,14 +97,70 @@ $(function(){
 			tip: '.tips'
 		}
 	});
-	init('masstag_tip', 'add');
-	init('masstag_tip', 'del');
+	var add_object = init('masstag_tip', 'add');
+	var del_object = init('masstag_tip', 'del');
 
 	// функции вызываемые по клику на что-либо
 	show_masstag = function() {
 		masstag.show();
+		images.on('click.masstag', process);
 	};
 	hide_masstag = function() {
 		masstag.hide();
+		images.off('click.masstag');
 	};
+	process = function(e) {
+		e.preventDefault();
+
+		var link = $(this);
+		var image = link.children('img');
+		var src = image.attr('src');
+		var height = image.height();
+		var md5 = src.match(/[\da-f]{32}/i)[1];
+		image.attr('src', '/images/ajax-loader.gif');
+		image.css('position', 'relative');array
+		image.css('top', Math.max(0, Math.ceil(height/2 - 31)) + 'px');
+
+		var id = this.pathname.replace(/[^\d]/g, '');
+		var add = add_object.get_terms();
+		var del = del_object.get_terms();
+		var state = state_select.val();
+		var fetch = fetch_select.val();
+
+		var tag_worker = add.length || del.length ? process_tag : dummy;
+		var state_worker = state ? process_state : dummy;
+		var fetch_worker = fetch ? process_fetch : dummy;
+
+		fetch_worker(function(result){
+			add.concat(result || []);
+			add = $.grep(add, function(el, index) {
+				return index == $.inArray(el, add);
+			});
+			state_worker(function(){
+				tag_worker(function(){
+					read_image(function(title){
+						link.attr('title', title);
+						image.css('top', '0px');
+						image.attr('src', src);
+					}, id);
+				}, id, add, del);
+			}, id, state);
+		}, md5, fetch);
+	};
+	dummy = function(callback, id, param) {
+		callback.call(this);
+	};
+	process_tag = function(callback, id, add, del) {
+		console.log(add);
+		callback.call(this);
+	};
+	process_state = function(callback, id, state) {
+		callback.call(this);
+	};
+	process_fetch = function(callback, md5, fetch) {
+		callback.call(this, []);
+	};
+	read_image = function(callback, id) {
+		callback.call(this, 'asdasd');
+	}
 });
