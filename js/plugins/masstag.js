@@ -18,7 +18,7 @@ $(function(){
 	var	sidebar = $('.sidebar:first-child'),
 		insert_to = sidebar.children('.sidebar_part:first-child'),
 		images = $('.image_thumbnail a'),
-		is_moderator = Config.get('user', 'rights') > 0;
+		is_moderator = Config.get('user', 'moderator') > 0;
 
 	// Создаем объект масстега
 	var masstag = $('<div/>').addClass('masstag');

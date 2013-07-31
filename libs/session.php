@@ -175,6 +175,7 @@ class Session
 		$config = Config::get();
 		unset($config['db']);
 		unset($config['github']);
+		$data['user']['moderator'] = (int) $this->is_moderator();
 
 		return json_encode(array_replace_recursive($data, $config));
 	}
