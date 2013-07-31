@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name       4otaku.org MassTag
-// @version    0.2
+// @version    0.3
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, Nameless
 // ==/UserScript==
@@ -17,7 +17,8 @@ $(function(){
 
 	var	sidebar = $('.sidebar:first-child'),
 		insert_to = sidebar.children('.sidebar_part:first-child'),
-		images = $('.image_thumbnail a');
+		images = $('.image_thumbnail a'),
+		is_moderator = Config.get('user', 'rights') > 0;
 
 	// Создаем объект масстега
 	var masstag = $('<div/>').addClass('masstag');
@@ -57,7 +58,9 @@ $(function(){
 		state_select.append(option);
 	});
 	var state = $('<div/>').append(state_label).append(state_select);
-	masstag.append(state);
+	if (is_moderator) {
+		masstag.append(state);
+	}
 
 	var fetch_select = $('<select/>').addClass('field');
 	var fetch_label = $('<span/>').html('Взять теги с: ').addClass('name');
@@ -70,7 +73,7 @@ $(function(){
 		fetch_select.append(option);
 	});
 	var fetch = $('<div/>').append(fetch_label).append(fetch_select);
-	masstag.append(fetch);
+	//masstag.append(fetch);
 
 	// добавляем линк в сайдбар
 	var link = $('<a/>').html('MassTag 9001').attr('href', '#')
@@ -124,7 +127,7 @@ $(function(){
 		var id = this.pathname.replace(/[^\d]/g, '');
 		var add = add_object.get_terms();
 		var del = del_object.get_terms();
-		var state = state_select.val();
+		var state = is_moderator ? state_select.val() : false;
 		var fetch = fetch_select.val();
 
 		var tag_worker = add.length || del.length ? process_tag : dummy;
@@ -153,19 +156,34 @@ $(function(){
 		callback.call(this);
 	};
 	process_tag = function(callback, id, add, del) {
-		console.log(add);
-		callback.call(this);
+		Ajax.api('update_art_tag', {id: id, add: add, remove: del}, function(){
+			callback.call(this);
+		}, function(){
+			callback.call(this);
+		});
 	};
 	process_state = function(callback, id, state) {
-		callback.call(this);
+		Ajax.api('update_art_approve', {id: id, state: state}, function(){
+			callback.call(this);
+		}, function(){
+			callback.call(this);
+		});
 	};
 	process_fetch = function(callback, md5, fetch) {
 		callback.call(this, []);
 	};
 	read_image = function(callback, id) {
-		Ajax.api('read_art', {id: id}, function(data){
-			console.log(data);
-			callback.call(this, false);
+		Ajax.api('read_art', {id: id, add_tags: 1}, function(data){
+			data = data.data[0];
+			var title = [];
+			title.push('Рейтинг: ' + data.rating);
+			title.push('Опубликовал: ' + data.user);
+			var tags = [];
+			$.each(data.tag, function(key, tag){
+				tags.push(tag.name);
+			});
+			title.push('Теги: ' + tags.join(', '));
+			callback.call(this, title.join(' | '));
 		}, function(){
 			callback.call(this, false);
 		});
