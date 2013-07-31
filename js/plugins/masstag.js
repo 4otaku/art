@@ -163,7 +163,9 @@ $(function(){
 		});
 	};
 	process_state = function(callback, id, state) {
-		Ajax.api('update_art_approve', {id: id, state: state}, function(){
+		Ajax.api('update_art_approve', {
+			id: id, state: state, cookie: Config.get('cookie', 'hash')
+		}, function(){
 			callback.call(this);
 		}, function(){
 			callback.call(this);
