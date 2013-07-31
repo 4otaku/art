@@ -77,7 +77,7 @@
 				{/if}
 			{/if}
 		{else}
-			{if condition="$is_author or $moderator"}
+			{if condition="!$have_author or $is_author or $moderator"}
 				<div class="sidebar_row">
 					<a href="#do-edit-comment" id="edit_start_comment_{$id}">
 						Редактировать описание

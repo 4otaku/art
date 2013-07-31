@@ -74,6 +74,7 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 
 		if (!isset($data['data']['artist'][0]['id'])) {
 			$this->set_param('is_author', false);
+			$this->set_param('have_author', false);
 			return;
 		}
 
@@ -81,6 +82,7 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 
 		$this->set_param('is_author', $data['data']['artist'][0]['id'] ==
 			$user['user']['gallery']);
+		$this->set_param('have_author', true);
 	}
 
 	public function recieve_additional($data) {
