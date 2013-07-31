@@ -189,5 +189,5 @@ div.mini-shell div.text {
 }
 
 .wysibb .powered, .wbb-fs_custom {
-	display: none
+	display: none !important;
 }

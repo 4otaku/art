@@ -14,10 +14,16 @@ extend(OBJECT.art_item, OBJECT.base, {
 		var me = this;
 		if (this.add_scripts === null) {
 			this.add_scripts = '';
+			var scripts = [];
 			$.each(this.child, function(name, el){
 				el.find('script').each(function(){
-					me.add_scripts += $(this).html();
+					scripts.push(this);
 				});
+			});
+			scripts = $.unique(scripts);
+
+			$.each(scripts, function(key, script){
+				me.add_scripts += $(script).html();
 			});
 		}
 
@@ -39,7 +45,9 @@ extend(OBJECT.art_item, OBJECT.base, {
 			me.child.reload.each(function(){
 				// Shifting elements on one-by-one basis
 				var selector = '.reloadable:eq(0)';
-				$(this).replaceWith(data.find(selector));
+				var replace = data.find(selector);
+				replace.find('script').remove();
+				$(this).replaceWith(replace);
 			});
 			eval(me.add_scripts);
 			init_objects();

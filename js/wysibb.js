@@ -50,7 +50,7 @@ wbbconfig.allButtons.spoiler.transform[spoiler_html] =
 // Translation config
 
 wbbtranslationconfig = {
-	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,save,|,removeFormat,fs_custom',
+	buttons: 'bold,italic,strike,|,fontsize,fontcolor,|,link,|,save,|,removeFormat,fs_custom',
 	allButtons: {
 		save: {
 			cmd: function() {
