@@ -28,6 +28,8 @@ class Module_Html_Sidebar_Tag extends Module_Html_Abstract
 			if (!$item['count']) {
 				$item['count'] = 0;
 			}
+
+			$item['name'] = urlencode($item['name']);
 		}
 		$this->set_param('data', $data);
 	}
