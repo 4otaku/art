@@ -154,7 +154,9 @@ extend(OBJECT.edit_start, OBJECT.base, {
 				}
 			}
 		},
-		click: function() {
+		click: function(e) {
+			e.preventDefault();
+			history.replaceState(false, false, this.el.attr('href'));
 			this.do_start();
 		}
 	}

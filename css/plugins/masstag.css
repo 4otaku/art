@@ -50,3 +50,7 @@
 	position: absolute;
 	z-index: 9001;
 }
+
+html.collapsible_sidebar .masstag {
+	margin-left: 45px;
+}

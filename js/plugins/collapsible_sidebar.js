@@ -18,6 +18,7 @@ $(function(){
 		},
 		sidebar = $('.sidebar'),
 		art_container = $('.art,.images').first(),
+		slide = '.art,.images,.masstag',
 		art_icons = {
 			'art': [
 				'pencil',
@@ -37,7 +38,7 @@ $(function(){
 			'title': 'Свернуть панель',
 			'class': 'collapse-link',
 			'css': {
-				'background-image':   'url('+ icons['arrow-left'] +')',
+				'background-image':   'url('+ icons['arrow-left'] +')'
 			},
 			'click': function () {
 				if(localStorage.getItem('art-sidebar-collapsed')) {
@@ -59,7 +60,7 @@ $(function(){
 		}),
 		side_button_list_item = $('<li/>', {
 			'css': {
-				'background-image': 'url('+ icons.info +')',
+				'background-image': 'url('+ icons.info +')'
 			},
 			'mouseenter': function () {
 				$(this)
@@ -111,7 +112,7 @@ $(function(){
 			.animate({'width': '250px'}, 'fast')
 		;
 
-		art_container.animate({'margin-left': '250px'}, 'fast');
+		$(slide).animate({'margin-left': '250px'}, 'fast');
 		side_button_list.hide();
 	}
 
@@ -136,7 +137,7 @@ $(function(){
 			)
 		;
 
-		art_container.animate({'margin-left': '45px'}, 'fast');
+		$(slide).animate({'margin-left': '45px'}, 'fast');
 
 		if (!side_button_list.children().length) {
 			for (var i = 0, len = sidebar.children('.sidebar_part').length; i < len; i++) {
