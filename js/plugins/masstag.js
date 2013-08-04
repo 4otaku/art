@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name       4otaku.org MassTag
-// @version    0.3
+// @version    0.4
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, Nameless
 // ==/UserScript==
 
 $(function(){
-	var version = 0.2;
+	var version = 0.4;
 
 	if (!document.location.pathname.match(/^\/*$/)) {
 		return;
@@ -18,7 +18,11 @@ $(function(){
 	var	sidebar = $('.sidebar').first(),
 		insert_to = sidebar.find('.sidebar_part').first(),
 		images = $('.image_thumbnail a'),
-		is_moderator = Config.get('user', 'moderator') > 0;
+		is_moderator = Config.get('user', 'moderator') > 0,
+		save_key = JSON.stringify(
+			location.search.substring(1).replace(/(^|&)page=\d+/, '')
+				.replace(/\[\]=/g, '=').split('&').sort()
+		);
 
 	var save_state = function() {
 		localStorage.setItem('masstag', JSON.stringify({
@@ -27,6 +31,7 @@ $(function(){
 			state: is_moderator ? state_select.val() : false,
 			fetch: fetch_select.val()
 		}));
+		localStorage.setItem('masstag_key', save_key);
 	};
 
 	// Создаем объект масстега
@@ -77,7 +82,7 @@ $(function(){
 	var fetch_label = $('<span/>').html('Взять теги с: ').addClass('name');
 	$.each({
 		' ': null,
-//		'Danbooru': 'danbooru',
+		'Danbooru': 'danbooru',
 		'Iqdb': 'iqdb'
 	}, function(key, value) {
 		var option = $('<option/>').val(value).html(key);
@@ -153,7 +158,12 @@ $(function(){
 		var tag_worker = add.length || del.length || fetch ?
 			process_tag : dummy;
 		var state_worker = state ? process_state : dummy;
-		var fetch_worker = fetch ? process_fetch : dummy;
+		var fetch_worker = dummy;
+		if (fetch == 'iqdb') {
+			fetch_worker = iqdb_fetch;
+		} else if (fetch == 'danbooru') {
+			fetch_worker = danbooru_fetch;
+		}
 
 		fetch_worker(function(result){
 			add = add.concat(result || []);
@@ -192,7 +202,7 @@ $(function(){
 			callback.call(this);
 		});
 	};
-	var process_fetch = function(callback, md5, fetch) {
+	var iqdb_fetch = function(callback, md5) {
 		var url = 'http://www.iqdb.org/?url=http://images.4otaku.org/art/' +
 			md5 + '_thumb.jpg';
 		$.get(url, function(data){
@@ -235,6 +245,24 @@ $(function(){
 			callback.call(this, tags);
 		});
 	};
+	var danbooru_fetch = function(callback, md5) {
+		var url = 'http://danbooru.donmai.us/posts.json?tags=md5:'+md5+'&limit=1';
+		$.get(url, function(data){
+			var tags = [];
+
+			var html = $(data.responseText);
+			if (!html.length) {
+				Overlay.html('<h2>Danbooru не отвечает</h2>');
+			} else {
+				var info = JSON.parse(html.filter('p').html());
+				if (info.length) {
+					tags = info[0].tag_string.split(' ');
+				}
+			}
+
+			callback.call(this, tags);
+		});
+	};
 	var read_image = function(callback, id) {
 		Ajax.api('read_art', {id: id, add_tags: 1}, function(data){
 			data = data.data[0];
@@ -253,10 +281,10 @@ $(function(){
 	};
 
 	// Воспроизводим состояние масстега
-	var saved = false;
 	try {
-		saved = JSON.parse(localStorage.getItem('masstag'));
-		if (saved) {
+		var saved = JSON.parse(localStorage.getItem('masstag'));
+		var prev_key = localStorage.getItem('masstag_key');
+		if (saved && prev_key && prev_key == save_key) {
 			show_masstag(saved);
 		}
 	} catch (e) {}
