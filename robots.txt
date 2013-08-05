@@ -1,13 +1,2 @@
 User-agent: *
-Disallow: /images/
-Disallow: /files/
-Host: 4otaku.ru
-Crawl-delay: 1
-
-User-agent: Yandex
-Disallow: /files/
-Crawl-delay: 1
-
-User-agent: googlebot
-Disallow: /files/
-Crawl-delay: 1
+Host: art.4otaku.org
