@@ -17,6 +17,6 @@ class Module_Html_Part_Header extends Module_Html_Abstract
 	}
 
 	protected function make_request() {
-		return new Request('head_menu', $this);
+		return new Request_Read('head_menu', $this);
 	}
 }

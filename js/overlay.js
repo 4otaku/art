@@ -146,7 +146,6 @@ Overlay = {
 					name: Validate.non_empty
 				},
 				url: '/ajax/menu_add',
-				get: true,
 				success: function(response) {
 					Overlay.close();
 					$('#personal_link_dummy').clone()

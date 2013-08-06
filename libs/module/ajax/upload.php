@@ -49,7 +49,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 
 		if ($link) {
 			if (!Config::get('api', 'inner')) {
-				$request = new Request_Change('upload_art', $this, ['file' => $link]);
+				$request = new Request('upload_art', $this, ['file' => $link]);
 				$request->perform();
 			} else {
 				$api = new Api_Upload_Art(new Api_Request_Inner(['file' => $link]));

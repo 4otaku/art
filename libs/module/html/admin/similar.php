@@ -20,7 +20,7 @@ class Module_Html_Admin_Similar extends Module_Html_Abstract
 
 	protected function make_request()
 	{
-		return new Request('art_similar', $this, ['page' => $this->page]);
+		return new Request_Read('art_similar', $this, ['page' => $this->page]);
 	}
 
 	public function recieve_data($data)

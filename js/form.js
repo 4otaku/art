@@ -14,7 +14,7 @@ extend(OBJECT.form, OBJECT.base, {
 	},
 	add_data: {},
 	validate: {},
-	get: false,
+	api: false,
 	submit: function(e) {
 		e.preventDefault();
 		var data = this.get_data();
@@ -30,9 +30,10 @@ extend(OBJECT.form, OBJECT.base, {
 
 		data = this.prepare_data(data);
 
-		var fn = this.get ? Ajax.get : Ajax.perform;
+		var fn = this.api ? Ajax.api : Ajax.perform;
+		var request = this.api ? this.api : this.url;
 
-		fn.call(Ajax, this.url, data, $.proxy(function(response) {
+		fn.call(Ajax, request, data, $.proxy(function(response) {
 			this.child.submit.show();
 			this.child.loader.hide();
 			this.success.call(this, response);

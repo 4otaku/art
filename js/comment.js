@@ -69,13 +69,14 @@ extend(OBJECT.comment, OBJECT.base, {
 				if (confirm('Вы уверены что хотите удалить комментарий?')) {
 					this.el.children().hide();
 					this.el.addClass('loader').show();
-					Ajax.perform('/ajax/delete', {
-						api: 'comment',
+					Ajax.api('delete_comment', {
 						id: this.id_comment
 					}, function() {
 						document.location.reload();
 					}, function(data) {
-						alert(Ajax.translate_error(data.errors[0]));
+						Overlay.html('<h2>' +
+							Ajax.translate_error(data.errors[0]) +
+						'</h2>');
 						this.el.removeClass('loader');
 						this.el.children().show();
 					}, this);
@@ -137,17 +138,13 @@ extend(OBJECT.comment_form, OBJECT.form, {
 		parent: '.comment_parent',
 		noreply_link: '.comment_noreply'
 	},
-	url: '/ajax/save/',
-	add_data: {
-		api: 'comment',
-		create: true
-	},
+	api: 'create_comment',
 	success: function() {
 		document.location.reload();
 	},
 	prepare_data: function(data) {
 		data.data.area = 'art';
-		return $.extend({data: data.data}, this.add_data);
+		return $.extend(data.data, this.add_data);
 	},
 	submit: function(e) {
 		Ajax.get('/ajax/setting', {

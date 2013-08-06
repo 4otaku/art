@@ -7,7 +7,7 @@ abstract class Module_Ajax_Create_Abstract extends Module_Ajax_Api
 
 	protected function make_request()
 	{
-		return new Request_Change($this->request_type, $this, $this->data);
+		return new Request_Create($this->request_type, $this, $this->data);
 	}
 
 	public function recieve_data($data)

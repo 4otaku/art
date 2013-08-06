@@ -117,7 +117,7 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 		if ($this->request !== null) {
 			return $this->request;
 		}
-		return false;
+		return array();
 	}
 
 	public function recieve_data($data) {

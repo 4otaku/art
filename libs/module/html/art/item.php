@@ -41,7 +41,7 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 			return $request;
 		}
 
-		return new Request_Multi($request,
+		return array($request,
 			new Request_Art_Nextprev($pos, $this, $params, 'recieve_nextprev')
 		);
 	}

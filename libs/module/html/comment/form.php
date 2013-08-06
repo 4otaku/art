@@ -11,13 +11,13 @@ class Module_Html_Comment_Form extends Module_Html_Abstract
 
 		if (isset($data['default']['name'])) {
 			$this->set_param('name', $data['default']['name']);
-		} else {
+		} elseif (isset($data['user']['login'])) {
 			$this->set_param('name', $data['user']['login']);
 		}
 
 		if (isset($data['default']['mail'])) {
 			$this->set_param('mail', $data['default']['mail']);
-		} else {
+		} elseif (isset($data['user']['email'])) {
 			$this->set_param('mail', $data['user']['email']);
 		}
 

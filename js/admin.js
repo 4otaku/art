@@ -20,10 +20,7 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 		this.child.field.css('visibility', 'hidden');
 		this.el.addClass('loader').css('margin', 0).show();
 
-		Ajax.perform('/ajax/save', {
-			api: 'tag_art',
-			data: data
-		}, this.on_save, function(){
+		Ajax.perform('update_tag_art', data, this.on_save, function(){
 			this.message('admin_tag_error', this.error_message);
 			this.on_save();
 		}, this);
@@ -142,10 +139,7 @@ extend(OBJECT.admin_tag_color, OBJECT.admin_tag_hover, {
 OBJECT.admin_tag_delete = function(id, values, events) {
 	OBJECT.clickable.call(this, id, function() {
 		if (confirm('Вы действительно желаете удалить тег ' + values + '?')) {
-			Ajax.perform('/ajax/delete', {
-				api: 'tag_art',
-				id: this.id
-			}, function() {
+			Ajax.api('delete_tag_art', {id: this.id}, function() {
 				document.location.reload();
 			}, function() {
 				document.location.reload();
@@ -204,12 +198,9 @@ extend(OBJECT.admin_tag_merge, OBJECT.clickable, {
 				return;
 			}
 
-			Ajax.perform('/ajax/save', {
-				api: 'tag_art',
-				data: {
-					id: to_first ? this.id : item.id,
-					merge: to_first ? item.id : this.id
-				}
+			Ajax.api('update_tag_art', {
+				id: to_first ? this.id : item.id,
+				merge: to_first ? item.id : this.id
 			}, function(){
 				document.location.reload();
 			}, function(){
@@ -257,12 +248,9 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 		this.el.removeClass('loader');
 	},
 	delete_pair: function() {
-		Ajax.perform('/ajax/delete', {
-			api: 'art_similar',
-			data: {
-				id_first: this.id_first,
-				id_second: this.id_second
-			}
+		Ajax.perform('delete_art_similar', {
+			id_first: this.id_first,
+			id_second: this.id_second
 		}, function(){
 			this.el.remove();
 		}, function(){
@@ -271,9 +259,8 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 	},
 	make_similar: function(main, variation) {
 		this.start_loading();
-		Ajax.perform('/ajax/save', {
-			api: 'art_variation',
-			data: {id: main, add: [{id: variation}]}
+		Ajax.api('update_art_variation', {
+			id: main, add: [{id: variation}]
 		}, function(){
 			this.child.first_main.remove();
 			this.child.second_main.remove();

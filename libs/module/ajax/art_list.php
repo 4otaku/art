@@ -22,7 +22,7 @@ class Module_Ajax_Art_List extends Module_Abstract
 			$this->data[] = $item['id'];
 		}
 
-		$request = new Request('art', $this, array(
+		$request = new Request_Read('art', $this, array(
 			'id' => $this->data,
 			'add_translations' => 1
 		), 'recieve_details');

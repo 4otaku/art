@@ -51,7 +51,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 
 	protected function make_request() {
 		if (!empty($this->id)) {
-			return new Request('comment', $this, array(
+			return new Request_Read('comment', $this, array(
 				'root_only' => (int) $this->is_tree,
 				'add_tree' => (int) $this->is_tree,
 				'sort_order' => $this->reverse ? 'desc' : 'asc',
@@ -67,7 +67,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 		if (!empty($this->id_comment)) {
 			$this->modules['paginator']->disable();
 			$this->set_param('single_mode', 1);
-			return new Request('comment', $this, array(
+			return new Request_Read('comment', $this, array(
 				'filter' => array(
 					'id' => $this->id_comment
 				)

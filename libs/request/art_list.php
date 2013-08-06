@@ -1,6 +1,6 @@
 <?php
 
-class Request_Art_List extends Request
+class Request_Art_List extends Request_Read
 {
 	protected $stateful_api = true;
 	protected $default_approved_state = 'all';

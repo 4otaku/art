@@ -66,6 +66,7 @@ extend(OBJECT.edit_form, OBJECT.base, {
 				this.el.hide();
 				$(window).off('beforeunload.edit');
 				this.message('edit_cancel');
+				document.location.hash = '';
 			}
 		},
 		save: {
@@ -80,8 +81,8 @@ extend(OBJECT.edit_form, OBJECT.base, {
 				this.child.save_wrapper.hide();
 				var send = $.extend({}, this.data);
 				send.id = this.data_id;
-				Ajax.perform('/ajax/save/', {data: send, api: this.api},
-					this.on_save, this.on_save_failure, this);
+				Ajax.api('update_' + this.api, send, this.on_save,
+					this.on_save_failure, this);
 			}
 		}
 	},

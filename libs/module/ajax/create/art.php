@@ -2,7 +2,7 @@
 
 class Module_Ajax_Create_Art extends Module_Ajax_Create_Abstract
 {
-	protected $request_type = 'create_art';
+	protected $request_type = 'art';
 
 	protected function get_params(Query $query)
 	{

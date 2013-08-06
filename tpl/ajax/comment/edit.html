@@ -11,16 +11,13 @@
 </div>
 <script type="text/javascript">
 	init('form', 'edit_comment_{$id}', {
-		url: '/ajax/save',
+		api: 'update_comment',
 		id_comment: '{$id}',
 		get_data: function() {
 			return {
 				data: {
-					data: {
-						text: this.child.datafields.bbcode(),
-						id: this.id_comment
-					},
-					api: 'comment'
+					text: this.child.datafields.bbcode(),
+					id: this.id_comment
 				},
 				error: []
 			}

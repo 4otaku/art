@@ -31,21 +31,21 @@ class Module_Html_Add_Template extends Module_Html_Abstract
 		$request = [];
 
 		if (!empty($parsed['group']['is'])) {
-			$request[] = new Request('art_group', $this,
+			$request[] = new Request_Read('art_group', $this,
 				['id' => $parsed['group']['is']], 'recieve_groups');
 		}
 
 		if (!empty($parsed['pack']['is'])) {
-			$request[] = new Request('art_pack', $this,
+			$request[] = new Request_Read('art_pack', $this,
 				['id' => $parsed['pack']['is']], 'recieve_packs');
 		}
 
 		if (!empty($parsed['manga']['is'])) {
-			$request[] = new Request('art_manga', $this,
+			$request[] = new Request_Read('art_manga', $this,
 				['id' => $parsed['manga']['is']], 'recieve_manga');
 		}
 
-		return new Request_Multi($request);
+		return $request;
 	}
 
 	public function recieve_groups($data)

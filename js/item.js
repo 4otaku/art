@@ -138,9 +138,7 @@ extend(OBJECT.vote, OBJECT.base, {
 				return;
 			}
 
-			Ajax.perform('/ajax/save/', {api: 'art_rating',
-				data: {approve: this.approve, id: this.item}});
-
+			Ajax.perform('/ajax/rate/', {approve: this.approve, id: this.item});
 			this.message('vote_clicked', this.approve);
 		}
 	},

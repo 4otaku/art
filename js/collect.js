@@ -255,13 +255,11 @@ extend(OBJECT.collect_add, OBJECT.base, {
 				});
 				var data = {add: added, id: this.item};
 				if (this.type != 'parent') {
-					Ajax.perform('/ajax/save/',
-						{data: data, api: 'art_' + this.type},
-						this.on_save, this.on_save_failure, this);
+					Ajax.api('update_art_' + this.type, data, this.on_save,
+						this.on_save_failure, this);
 				} else {
-					Ajax.perform('/ajax/save/',
-						{data: data, api: 'art_variation'},
-						this.on_save, this.on_save_failure, this);
+					Ajax.api('update_art_variation', data, this.on_save,
+						this.on_save_failure, this);
 				}
 			}
 		}

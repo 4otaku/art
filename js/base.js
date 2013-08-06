@@ -46,7 +46,11 @@ var Ajax = {
 	},
 
 	api: function(api, data, success, failure, scope) {
+		data = data || {};
 		var url = Config.get('api', 'url') + api.replace(/_/g, '/');
+
+		var cookie = Config.get('cookie', 'name');
+		data.cookie = $.cookie(cookie);
 
 		this.perform(url, data, success, failure, scope);
 	},
