@@ -63,7 +63,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 		}
 
 		// Hacked because of file send
-		if (!empty($url)) {
+		if (!Config::get('api', 'inner')) {
 			$url .= '/upload/art';
 
 			$post = [];
@@ -91,7 +91,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 
 		$this->recieve_data(json_decode($response, true));
 
-		return false;
+		return array();
 	}
 
 	public function recieve_data($response) {

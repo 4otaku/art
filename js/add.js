@@ -390,7 +390,7 @@ extend(OBJECT.add, OBJECT.base, {
 			approved: this.child.approved.is(':visible') ? 1 : 0
 		};
 
-		Ajax.perform('/ajax/create/art', data, function(response) {
+		Ajax.api('create_art', data, function(response) {
 			this.child.add.hide();
 			this.child.progress_wrapper.removeClass('progress-adding');
 
@@ -502,6 +502,17 @@ extend(OBJECT.add_pools, OBJECT.pool_tip, {
 		tip: '.tips',
 		selected: '.selected'
 	},
+	get_terms: function() {
+		var ret = [],
+			me = this;
+		this.child.selected.find('.pool').each(function(){
+			ret.push(me.read_input(this));
+		});
+		return ret;
+	},
+	read_input: function(field) {
+		return {id: $(field).data('id')};
+	},
 	disable: function() {
 		this.child.field.hide();
 		this.child.tip.hide();
@@ -532,13 +543,9 @@ extend(OBJECT.add_packs, OBJECT.add_pools, {
 				addClass('input-done').text($(this).val()));
 		});
 	},
-	get_terms: function() {
-		var ret = [];
-		this.child.selected.find('.pool').each(function(){
-			var name = $(this).find('.filename').val() || this.filename;
-			ret.push({id: $(this).data('id'), filename: name});
-		});
-		return ret;
+	read_input: function(field) {
+		var name = $(field).find('.filename').val() || field.filename;
+		return {id: $(field).data('id'), filename: name};
 	},
 	build_selected: function(data){
 		var insert = this.get_super().build_selected.call(this, data),

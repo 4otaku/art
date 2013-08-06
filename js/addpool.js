@@ -23,7 +23,7 @@ extend(OBJECT.new_pool, OBJECT.base, {
 	},
 	process_error: function(errors) {
 		// Таким образом, потому что ошибка может произойти только в случае НЁХ
-		alert('Неизвестная ошибка');
+		Overlay.html('<h2>Неизвестная ошибка</h2>');
 	},
 	events: {
 		title: {
@@ -44,9 +44,9 @@ extend(OBJECT.new_pool, OBJECT.base, {
 
 				var data = this.gather_data();
 
-				Ajax.perform('/ajax/create/' + this.pool_type, data, function(response) {
+				Ajax.api('create_art_' + this.pool_type, data, function(response) {
 					this.sending = false;
-					if (response.errors || !response.id) {
+					if (response.errors.length || !response.id) {
 						this.process_error(response.errors);
 						return;
 					}
