@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name       4otaku.org MassTag
-// @version    0.4
+// @version    0.5
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, Nameless
 // ==/UserScript==
 
 $(function(){
-	var version = 0.4;
+	var version = 0.5;
 
 	if (!document.location.pathname.match(/^\/*$/)) {
 		return;
@@ -181,7 +181,7 @@ $(function(){
 					}, id);
 				}, id, add, del);
 			}, id, state);
-		}, md5, fetch);
+		}, md5, id);
 	};
 	var dummy = function(callback) {
 		callback.call(this);
@@ -245,10 +245,11 @@ $(function(){
 			callback.call(this, tags);
 		});
 	};
-	var danbooru_fetch = function(callback, md5) {
+	var danbooru_fetch = function(callback, md5, id) {
 		var url = 'http://danbooru.donmai.us/posts.json?tags=md5:'+md5+'&limit=1';
 		$.get(url, function(data){
-			var tags = [];
+			var tags = [],
+				source = null;
 
 			var html = $(data.responseText);
 			if (!html.length) {
@@ -257,10 +258,26 @@ $(function(){
 				var info = JSON.parse(html.filter('p').html());
 				if (info.length) {
 					tags = info[0].tag_string.split(' ');
+					source = info[0].source;
 				}
 			}
 
-			callback.call(this, tags);
+			if (source == null) {
+				callback.call(this, tags);
+			} else {
+				Ajax.api('read_art', {id: id}, function(data){
+					if (data.data[0].source) {
+						callback.call(this, tags);
+						return;
+					}
+
+					Ajax.api('update_art_source', {id: id, source: source}, function(){
+						callback.call(this, tags);
+					}, function(){
+						callback.call(this, tags);
+					});
+				});
+			}
 		});
 	};
 	var read_image = function(callback, id) {
