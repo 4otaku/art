@@ -1,6 +1,6 @@
 <?php
 
-class Module_Html_Part_Header extends Module_Html_Abstract
+class Module_Html_Header extends Module_Html_Abstract
 {
 	protected $css = array('base', 'header', 'overlay', 'setting');
 	protected $js = array('overlay', 'setting', 'form', 'personal');
