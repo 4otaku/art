@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
 {
 	use Trait_Module_Paginator, Trait_Module_Art_List;

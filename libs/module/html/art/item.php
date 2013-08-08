@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Art_Item extends Module_Html_Art_Abstract
 {
 	protected $css = array('item', 'sidebar');

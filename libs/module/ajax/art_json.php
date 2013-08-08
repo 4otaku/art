@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Art_Json extends Module_Ajax_Api
 {
 	use Trait_Module_Art_List;

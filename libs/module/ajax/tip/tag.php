@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Tip_Tag extends Module_Ajax_Tip_Abstract
 {
 	protected $request_type = 'left';

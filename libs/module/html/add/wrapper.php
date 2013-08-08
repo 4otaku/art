@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Add extends Module_Html_Abstract
 {
 	protected function get_modules(Query $query)

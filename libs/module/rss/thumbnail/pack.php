@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Rss_Thumbnail_Pack extends Module_Rss_Thumbnail_Abstract
 {
 	protected function get_title($data) {

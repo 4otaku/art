@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 abstract class Module_Html_Add_Pool extends Module_Html_Abstract
 {
 	use Trait_Module_Art;

@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Sidebar_Info extends Module_Html_Abstract
 {
 	use Trait_Date, Trait_File, Trait_Module_Art;

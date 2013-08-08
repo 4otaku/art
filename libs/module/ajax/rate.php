@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Rate extends Module_Ajax_Json
 {
 	protected $id;

@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 trait Trait_Module_Art
 {
 	private $query;

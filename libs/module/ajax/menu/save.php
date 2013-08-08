@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Menu_Save extends Module_Ajax_Json
 {
 	protected function get_params(Query $query)

@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Menu_Edit extends Module_Abstract
 {
 	use Trait_Output_Tpl;

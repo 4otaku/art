@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 trait Trait_Module_Paginator
 {
 	abstract protected function get_page();

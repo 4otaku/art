@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Tag extends Module_Ajax_Json
 {
 	protected $params = array();

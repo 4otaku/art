@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Thumbnail_Translation extends Module_Html_Thumbnail_Abstract
 {
 	use Trait_Number;

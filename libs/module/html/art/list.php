@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Art_List extends Module_Html_Art_Abstract
 {
 	use Trait_Module_Art_List;

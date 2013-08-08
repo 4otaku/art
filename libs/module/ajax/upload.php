@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Upload extends Module_Ajax_Json
 {
 	const

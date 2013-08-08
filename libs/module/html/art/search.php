@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Art_Search extends Module_Html_Art_Abstract
 {
 	protected $js = array('ajaxtip', 'search');

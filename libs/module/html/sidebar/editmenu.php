@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 {
 	use Trait_Module_Art;

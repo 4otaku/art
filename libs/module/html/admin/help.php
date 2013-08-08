@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Admin_Help extends Module_Html_Abstract
 {
 	protected $js = ['external/wysibb', 'wysibb', 'form'];

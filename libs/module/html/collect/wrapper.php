@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Collect extends Module_Html_Collect_Abstract
 {
 	protected $css = ['collect'];

@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Body extends Module_Html_Abstract
 {
 	protected $css = array('base');

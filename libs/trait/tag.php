@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 trait Trait_Tag
 {
 	use Trait_Number;

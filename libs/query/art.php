@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Query_Art extends Query
 {
 	protected $parsed = [];

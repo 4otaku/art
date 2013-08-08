@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Request_Art extends Request_Item
 {
 	public function __construct($id, $object, $method = 'recieve_data') {

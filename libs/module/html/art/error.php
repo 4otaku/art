@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Art_Error extends Module_Html_Art_Abstract
 {
 	protected function get_params(Query $query) {

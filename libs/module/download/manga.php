@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Download_Manga extends Module_Download_Abstract
 {
 	protected $header = ['Content-type' => 'application/zip'];

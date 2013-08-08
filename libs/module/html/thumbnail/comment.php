@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Thumbnail_Comment extends Module_Html_Thumbnail_Abstract
 {
 	protected $css = array('thumb', 'comment');

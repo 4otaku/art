@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Admin_Similar extends Module_Html_Abstract
 {
 	use Trait_File, Trait_Date;

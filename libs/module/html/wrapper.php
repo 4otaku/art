@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html extends Module_Html_Abstract
 {
 	protected $css = ['external/bootstrap', 'external/plugins'];

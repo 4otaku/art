@@ -1,13 +1,22 @@
 <?php
 
+namespace otaku\art;
+use otaku\framework\Config;
+use otaku\framework\Http;
+use otaku\framework\Session;
+use otaku\framework\Query;
+
 include_once 'framework/init.php';
 
 define('API', ROOT_DIR . SL . 'api' . SL);
 define('API_LIBS', API . 'libs' . SL);
 define('API_IMAGES', API . 'images' . SL);
 
-Autoload::init(array(LIBS, EXTERNAL, API_LIBS,
-	FRAMEWORK_LIBS, FRAMEWORK_EXTERNAL), CACHE);
+new \Autoload(array(
+	'art' => LIBS,
+	'api' => API_LIBS,
+	'framework' => FRAMEWORK_LIBS
+), FRAMEWORK_EXTERNAL);
 
 mb_internal_encoding('UTF-8');
 
@@ -27,9 +36,9 @@ $query = new Query($_SERVER['REQUEST_URI'],
 	array_replace($_POST, $_GET));
 unset ($_GET, $_POST);
 
-RainTPL::configure('tpl_dir', TPL . SL);
-RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
-RainTPL::configure('path_replace', false);
+\RainTPL::configure('tpl_dir', TPL . SL);
+\RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
+\RainTPL::configure('path_replace', false);
 
 $module = new Module_Main($query);
 $request = $module->gather_request();

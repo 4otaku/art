@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Rss_Thumbnail_Art extends Module_Rss_Thumbnail_Abstract
 {
 	public function recieve_data($data) {

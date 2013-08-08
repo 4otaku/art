@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Request_Art_List extends Request_Read
 {
 	protected $stateful_api = true;

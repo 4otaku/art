@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 abstract class Module_Rss_Thumbnail_Abstract extends Module_Abstract
 {
 	use Trait_Output_Tpl;

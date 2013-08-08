@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 abstract class Module_Ajax_Tip_Abstract extends Module_Ajax_Json
 {
 	protected $raw_term = false;

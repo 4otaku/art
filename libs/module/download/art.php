@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Download_Art extends Module_Download_Abstract
 {
 	protected $manga = false;

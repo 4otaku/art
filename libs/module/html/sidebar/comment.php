@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Sidebar_Comment extends Module_Html_Abstract
 {
 	protected $css = ['sidebar'];

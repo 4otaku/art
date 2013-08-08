@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Request_Art_Nextprev extends Request_Art_List
 {
 	protected $pos = false;

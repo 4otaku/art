@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Rss extends Module_Abstract
 {
 	use Trait_Output_Tpl, Trait_Module_Art_List;

@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Ajax_Art_List extends Module_Abstract
 {
 	use Trait_Output_Tpl, Trait_Module_Art_List;

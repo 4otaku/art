@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Add_Form extends Module_Html_Abstract
 {
 	protected $js = ['external/upload', 'external/upload-ui', 'external/wysibb',

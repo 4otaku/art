@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Main extends Module_Abstract
 {
 	use Trait_Output_Plain;

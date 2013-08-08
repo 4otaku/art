@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 abstract class Module_Html_Collect_Abstract extends Module_Html_Art_Abstract
 {
 	protected $valid_types = ['parent', 'group', 'pack', 'manga', 'artist'];

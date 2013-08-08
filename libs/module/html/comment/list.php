@@ -1,5 +1,7 @@
 <?php
 
+namespace otaku\art;
+
 class Module_Html_Comment_List extends Module_Html_Abstract
 {
 	protected $is_tree = true;
