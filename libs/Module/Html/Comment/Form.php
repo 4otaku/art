@@ -13,7 +13,7 @@ class HtmlCommentForm extends HtmlAbstract
 
 	protected function get_params(Query $query)
 	{
-		$data = Config::get();
+		$data = Config::getInstance()->get();
 
 		if (isset($data['default']['name'])) {
 			$this->set_param('name', $data['default']['name']);

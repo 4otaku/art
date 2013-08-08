@@ -15,7 +15,7 @@ class Html extends HtmlAbstract
 	protected function get_params(Query $query) {
 		$plugins = Database::get_vector('plugin', array('id', 'filename',
 			'css', 'js', 'script'));
-		$enabled = (array) Config::get('plugins');
+		$enabled = (array) Config::getInstance()->get('plugins');
 
 		$js = [];
 		$css = [];

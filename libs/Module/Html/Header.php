@@ -18,7 +18,7 @@ class HtmlHeader extends HtmlAbstract
 		$menu = Database::get_table('head_menu_user',
 			array('id', 'url', 'name'),
 			'cookie = ? order by `order`',
-			Config::get('cookie', 'hash')
+			Config::getInstance()->get('cookie', 'hash')
 		);
 
 		$this->set_param('personal', $menu);

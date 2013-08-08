@@ -89,7 +89,8 @@ class HtmlArtList extends HtmlArtAbstract
 			}
 		}
 		arsort($count);
-		$count = array_slice($count, 0, Config::get('sidebar', 'tags'), true);
+		$max = Config::getInstance()->get('sidebar', 'tags');
+		$count = array_slice($count, 0, $max, true);
 
 		$tags = array();
 		foreach ($count as $key => $count) {

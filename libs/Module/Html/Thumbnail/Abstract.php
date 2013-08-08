@@ -16,9 +16,9 @@ abstract class HtmlThumbnailAbstract extends HtmlAbstract
 		$data['tip'] = $this->make_tooltip($data);
 		$data['hidden'] = $this->is_filtered($data['tag']);
 
-		$large = (Config::get('art', 'largethumbs') ? 'large' : '');
+		$large = (Config::getInstance()->get('art', 'largethumbs') ? 'large' : '');
 		if (!empty($data['md5'])) {
-			$data['src'] = Config::get('api', 'image_url') . 'art/' .
+			$data['src'] = Config::getInstance()->get('api', 'image_url') . 'art/' .
 				$data['md5'] . '_' . $large . 'thumb.jpg';
 		} else {
 			$data['src'] = '/images/empty_' . $large . 'pool.jpg';

@@ -18,9 +18,9 @@ class HtmlSlideshow extends HtmlAbstract
 	protected function get_params(Query $query) {
 		$this->set_param('query', $query->to_url_string());
 		$this->set_param('start', max(1, $query->get('start')));
-		$this->set_param('auto', Config::get('slideshow', 'auto'));
+		$this->set_param('auto', Config::getInstance()->get('slideshow', 'auto'));
 
-		$delay = Config::get('slideshow', 'delay');
+		$delay = Config::getInstance()->get('slideshow', 'delay');
 		if ($delay < 10) {
 			$delay = '0' . $delay;
 		}

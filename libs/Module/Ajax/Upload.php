@@ -44,7 +44,7 @@ class AjaxUpload extends AjaxJson
 
 	protected function make_request()
 	{
-		$url = Config::get('api', 'url');
+		$url = Config::getInstance()->get('api', 'url');
 
 		$link = false;
 		foreach ($_FILES as $file) {
@@ -57,7 +57,7 @@ class AjaxUpload extends AjaxJson
 		}
 
 		if ($link) {
-			if (!Config::get('api', 'inner')) {
+			if (!Config::getInstance()->get('api', 'inner')) {
 				$request = new Request('upload_art', $this, ['file' => $link]);
 				$request->perform();
 			} else {
@@ -72,7 +72,7 @@ class AjaxUpload extends AjaxJson
 		}
 
 		// Hacked because of file send
-		if (!Config::get('api', 'inner')) {
+		if (!Config::getInstance()->get('api', 'inner')) {
 			$url .= '/upload/art';
 
 			$post = [];
@@ -104,13 +104,14 @@ class AjaxUpload extends AjaxJson
 	}
 
 	public function recieve_data($response) {
+		$url = Config::getInstance()->get('api', 'image_url');
 		foreach ($response['files'] as $item) {
 			if (empty($item['error'])) {
 				$this->data[] = [
 					'name' => $item['name'],
 					'size' => $item['weight'],
-					'url' => Config::get('api', 'image_url') . $item['image'],
-					'thumbnail_url' => Config::get('api', 'image_url') . $item['thumbnail'],
+					'url' => $url . $item['image'],
+					'thumbnail_url' => $url . $item['thumbnail'],
 					'upload_key' => $item['upload_key'],
 					'tags' => $this->get_auto_tags($item)
 				];

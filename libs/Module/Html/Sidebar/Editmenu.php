@@ -87,7 +87,7 @@ class HtmlSidebarEditmenu extends HtmlAbstract
 			return;
 		}
 
-		$user = Session::get_instance()->get_data();
+		$user = Session::getInstance()->get_data();
 
 		$this->set_param('is_author', $data['data']['artist'][0]['id'] ==
 			$user['user']['gallery']);

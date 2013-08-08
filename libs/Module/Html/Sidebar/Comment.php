@@ -14,7 +14,7 @@ class HtmlSidebarComment extends HtmlAbstract
 	protected function make_request() {
 		return new RequestRead('art_list_comment', $this,
 			[
-				'per_page'=>Config::get('sidebar', 'comments'),
+				'per_page'=>Config::getInstance()->get('sidebar', 'comments'),
 				'add_meta' => true
 			]);
 	}

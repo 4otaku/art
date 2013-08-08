@@ -38,7 +38,7 @@ trait TraitTag
 	protected function is_filtered($tags, $strict = false)
 	{
 		$filtered = array();
-		foreach (Config::get('filter') as $name => $type) {
+		foreach (Config::getInstance()->get('filter') as $name => $type) {
 			if ($type == 'hide' || ($strict && $type == 'remove')) {
 				$filtered[] = strtolower($name);
 			}

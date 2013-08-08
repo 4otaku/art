@@ -20,7 +20,7 @@ class AjaxMenuEdit extends Base
 			return;
 		}
 
-		$session = Session::get_instance();
+		$session = Session::getInstance();
 		$cookie = $session->get_hash();
 
 		$item = Database::get_full_row('head_menu_user',

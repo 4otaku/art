@@ -12,7 +12,7 @@ define('API', ROOT_DIR . SL . 'api' . SL);
 define('API_LIBS', API . 'libs' . SL);
 define('API_IMAGES', API . 'images' . SL);
 
-new \Autoload(array(
+new Autoload(array(
 	'Art' => LIBS,
 	'Api' => API_LIBS,
 	'Framework' => FRAMEWORK_LIBS
@@ -20,17 +20,19 @@ new \Autoload(array(
 
 mb_internal_encoding('UTF-8');
 
-Config::parse(CONFIG . SL . 'define.ini', true);
-Config::parse(CONFIG . SL . 'settings.ini');
+$config = Config::getInstance();
+$config->parse(CONFIG . SL . 'define.ini', true);
+$config->parse(CONFIG . SL . 'settings.ini');
 
-$domain = Config::get('site', 'domain');
+$domain = $config->get('site', 'domain');
 if ($domain && $domain != $_SERVER['SERVER_NAME']) {
 	$url = 'http://'.$domain.$_SERVER['REQUEST_URI'];
 	Http::redirect($url, true);
 }
 
-$session = Session::get_instance();
-Config::add($session->get_data());
+$session = Session::getInstance();
+$session->init();
+$config->add($session->get_data());
 
 $query = new Query($_SERVER['REQUEST_URI'],
 	array_replace($_POST, $_GET));

@@ -24,7 +24,7 @@ class AjaxSetting extends AjaxJson
 				return;
 			}
 
-			$session = Session::get_instance();
+			$session = Session::getInstance();
 			$session->set($section, $key, $value);
 		}
 

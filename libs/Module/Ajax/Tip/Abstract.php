@@ -39,7 +39,7 @@ abstract class AjaxTipAbstract extends AjaxJson
 	{
 		return new RequestRead($this->get_request_name(), $this, array(
 			$this->request_type => $this->term,
-			'per_page' => Config::get('art', 'tag_tip')
+			'per_page' => Config::getInstance()->get('art', 'tag_tip')
 		));
 	}
 

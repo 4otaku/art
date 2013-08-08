@@ -17,13 +17,13 @@ class HtmlArtImage extends HtmlArtAbstract
 		$data['hidden'] = empty($data['tag']) ? false :
 			$this->is_filtered($data['tag'], true);
 
-		$data['src_resized'] = Config::get('api', 'image_url') . 'art/' .
-			$data['md5'] . '_resize.jpg';
-		$data['src_full'] = Config::get('api', 'image_url') . 'art/' .
-			$data['md5'] . '.' . $data['ext'];
-		$data['src'] = ($data['resized'] && Config::get('art', 'resized')) ?
+		$url = Config::getInstance()->get('api', 'image_url');
+		$resized = Config::getInstance()->get('api', 'resized');
+		$data['src_resized'] = $url . 'art/' . $data['md5'] . '_resize.jpg';
+		$data['src_full'] = $url . 'art/' . $data['md5'] . '.' . $data['ext'];
+		$data['src'] = ($data['resized'] && $resized) ?
 			$data['src_resized'] : $data['src_full'];
-		$data['resized'] = (int) ($data['resized'] && Config::get('art', 'resized'));
+		$data['resized'] = (int) ($data['resized'] && $resized);
 
 		foreach ($data['translation'] as &$translation) {
 			$translation['id'] = $translation['id_translation'];

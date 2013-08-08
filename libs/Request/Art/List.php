@@ -63,10 +63,10 @@ class RequestArtList extends RequestRead
 	);
 
 	public function __construct($object = false, $data = array(), $method = 'recieve_data') {
-		if (Config::get('content', 'moderated')) {
+		if (Config::getInstance()->get('content', 'moderated')) {
 			$this->default_approved_state = 'yes';
 		}
-		if (Config::get('content', 'tagged')) {
+		if (Config::getInstance()->get('content', 'tagged')) {
 			$this->default_tagged_state = 'yes';
 		}
 
@@ -106,7 +106,7 @@ class RequestArtList extends RequestRead
 			$data['sort_value'] = $data['pool_value'];
 			$data['sort_order'] = $this->pool_sorted[$data['pool_mode']];
 		} elseif (
-			!Config::get('content', 'moderated') &&
+			!Config::getInstance()->get('content', 'moderated') &&
 			(
 				!isset($data['mode']) ||
 				!in_array($data['mode'], $this->pool_modes)
@@ -168,7 +168,7 @@ class RequestArtList extends RequestRead
 			}
 		}
 
-		foreach (Config::get('filter') as $value => $type) {
+		foreach (Config::getInstance()->get('filter') as $value => $type) {
 			if ($type == 'remove') {
 				$data['filter'][] = array(
 					'name' => $this->filter_types['tag'],

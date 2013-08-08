@@ -118,9 +118,11 @@ class QueryArt extends Query
 				isset($this->other['mode']) &&
 				$this->other['mode'] == 'comment'
 			) {
-				$this->other['per_page'] = Config::get('art', 'per_page_comment');
+				$this->other['per_page'] = Config::getInstance()
+					->get('art', 'per_page_comment');
 			} else {
-				$this->other['per_page'] = Config::get('art', 'per_page');
+				$this->other['per_page'] = Config::getInstance()
+					->get('art', 'per_page');
 			}
 			$this->forced_per_page = false;
 		}

@@ -13,7 +13,7 @@ class AjaxFilters extends Base
 
 	protected function get_params(Query $query)
 	{
-		$this->set_param('filter', Config::get('filter'));
-		$this->set_param('content', Config::get('content'));
+		$this->set_param('filter', Config::getInstance()->get('filter'));
+		$this->set_param('content', Config::getInstance()->get('content'));
 	}
 }

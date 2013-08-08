@@ -20,7 +20,7 @@ class AjaxMenuAdd extends AjaxJson
 			return;
 		}
 
-		$session = Session::get_instance();
+		$session = Session::getInstance();
 		$cookie = $session->get_hash();
 
 		$order = Database::get_field('head_menu_user',

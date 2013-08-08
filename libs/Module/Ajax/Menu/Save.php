@@ -24,7 +24,7 @@ class AjaxMenuSave extends AjaxJson
 		Database::update('head_menu_user',
 			['url' => $url, 'name' => $name], $id);
 
-		$session = Session::get_instance();
+		$session = Session::getInstance();
 		$cookie = $session->get_hash();
 
 		$items = Database::order('order', 'asc')->

@@ -18,9 +18,10 @@ class HtmlCommentList extends HtmlAbstract
 	protected $id_comment = 0;
 
 	public function __construct(Query $query, $disabled = false) {
-		$this->reverse = (bool) Config::get('comment', 'reverse');
-		$this->per_page = (int) Config::get('comment', 'per_page');
-		$this->is_tree = (bool) Config::get('comment', 'tree');
+		$config = Config::getInstance()->get('comment');
+		$this->reverse = (bool) $config['reverse'];
+		$this->per_page = (int) $config['per_page'];
+		$this->is_tree = (bool) $config['tree'];
 
 		parent::__construct($query, $disabled);
 	}
