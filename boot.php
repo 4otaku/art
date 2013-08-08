@@ -1,10 +1,10 @@
 <?php
 
 namespace otaku\art;
-use otaku\framework\Config;
-use otaku\framework\Http;
-use otaku\framework\Session;
-use otaku\framework\Query;
+use Otaku\Framework\Config;
+use Otaku\Framework\Http;
+use Otaku\Framework\Session;
+use Otaku\Framework\Query;
 
 include_once 'framework/init.php';
 
@@ -13,9 +13,9 @@ define('API_LIBS', API . 'libs' . SL);
 define('API_IMAGES', API . 'images' . SL);
 
 new \Autoload(array(
-	'art' => LIBS,
-	'api' => API_LIBS,
-	'framework' => FRAMEWORK_LIBS
+	'Art' => LIBS,
+	'Api' => API_LIBS,
+	'Framework' => FRAMEWORK_LIBS
 ), FRAMEWORK_EXTERNAL);
 
 mb_internal_encoding('UTF-8');
