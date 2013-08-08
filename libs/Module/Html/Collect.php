@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
 
-class ModuleHtmlCollect extends ModuleHtmlCollectAbstract
+class HtmlCollect extends HtmlCollectAbstract
 {
 	protected $css = ['collect'];
 
@@ -13,10 +13,10 @@ class ModuleHtmlCollect extends ModuleHtmlCollectAbstract
 		$valid = $this->is_valid();
 
 		return [
-			'title' => new ModuleHtmlCollectTitle($query, !$valid),
-			'search' => new ModuleHtmlCollectSearch($query, !$valid),
-			'add' => new ModuleHtmlCollectAdd($query, !$valid),
-			'error' => new ModuleHtmlCollectError($query, $valid)
+			'title' => new HtmlCollectTitle($query, !$valid),
+			'search' => new HtmlCollectSearch($query, !$valid),
+			'add' => new HtmlCollectAdd($query, !$valid),
+			'error' => new HtmlCollectError($query, $valid)
 		];
 	}
 }

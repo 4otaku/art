@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Module\AjaxJson;
 use Otaku\Framework\Query;
 use Otaku\Framework\RequestUpdate;
 
-class ModuleAjaxRate extends ModuleAjaxJson
+class AjaxRate extends AjaxJson
 {
 	protected $id;
 	protected $approve;

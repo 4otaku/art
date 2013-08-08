@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleRssThumbnailTranslation extends ModuleRssThumbnailAbstract
+class RssThumbnailTranslation extends RssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Новый перевод арта №' . $data['id'];

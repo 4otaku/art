@@ -1,10 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
+use Otaku\Art\RequestArt;
+use Otaku\Art\RequestArtNextprev;
 
-class ModuleHtmlArtItem extends ModuleHtmlArtAbstract
+class HtmlArtItem extends HtmlArtAbstract
 {
 	protected $css = array('item', 'sidebar');
 	protected $js = array('item');
@@ -12,16 +14,16 @@ class ModuleHtmlArtItem extends ModuleHtmlArtAbstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'title' => new ModuleHtmlArtTitle($query),
-			'search' => new ModuleHtmlArtSearch($query),
-			'error' => new ModuleHtmlArtError($query, true),
-			'image' => new ModuleHtmlArtImage($query),
-			'info' => new ModuleHtmlSidebarInfo($query),
-			'tags' => new ModuleHtmlSidebarTag($query),
-			'editmenu' => new ModuleHtmlSidebarEditmenu($query),
-			'editfield' => new ModuleHtmlArtEditfield($query),
-			'recent_comments' => new ModuleHtmlSidebarComment($query),
-			'comment' => new ModuleHtmlComment($query)
+			'title' => new HtmlArtTitle($query),
+			'search' => new HtmlArtSearch($query),
+			'error' => new HtmlArtError($query, true),
+			'image' => new HtmlArtImage($query),
+			'info' => new HtmlSidebarInfo($query),
+			'tags' => new HtmlSidebarTag($query),
+			'editmenu' => new HtmlSidebarEditmenu($query),
+			'editfield' => new HtmlArtEditfield($query),
+			'recent_comments' => new HtmlSidebarComment($query),
+			'comment' => new HtmlComment($query)
 		);
 	}
 

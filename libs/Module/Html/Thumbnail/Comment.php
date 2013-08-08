@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Text;
 
-class ModuleHtmlThumbnailComment extends ModuleHtmlThumbnailAbstract
+class HtmlThumbnailComment extends HtmlThumbnailAbstract
 {
 	protected $css = array('thumb', 'comment');
 

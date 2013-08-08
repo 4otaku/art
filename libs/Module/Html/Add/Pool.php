@@ -1,11 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
+use Otaku\Art\TraitModuleArt;
 
-abstract class ModuleHtmlAddPool extends ModuleHtmlAbstract
+abstract class HtmlAddPool extends HtmlAbstract
 {
 	use TraitModuleArt;
 
@@ -15,7 +16,7 @@ abstract class ModuleHtmlAddPool extends ModuleHtmlAbstract
 
 	protected function get_modules(Query $query)
 	{
-		return ['form' => new ModuleHtmlAddForm($query)];
+		return ['form' => new HtmlAddForm($query)];
 	}
 
 	protected function get_params(Query $query)

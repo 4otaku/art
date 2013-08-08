@@ -1,11 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
+use Otaku\Art\TraitTag;
 
-class ModuleHtmlSidebarTag extends ModuleHtmlAbstract
+class HtmlSidebarTag extends HtmlAbstract
 {
 	use TraitTag;
 

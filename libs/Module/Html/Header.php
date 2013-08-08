@@ -1,14 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\Database;
 use Otaku\Framework\Config;
 use Otaku\Framework\RequestRead;
 
-class ModuleHtmlHeader extends ModuleHtmlAbstract
+class HtmlHeader extends HtmlAbstract
 {
 	protected $css = array('base', 'header', 'overlay', 'setting');
 	protected $js = array('overlay', 'setting', 'form', 'personal');

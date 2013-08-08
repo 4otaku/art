@@ -1,6 +1,6 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleAjaxTipManga extends ModuleAjaxTipAbstract
+class AjaxTipManga extends AjaxTipAbstract
 {}

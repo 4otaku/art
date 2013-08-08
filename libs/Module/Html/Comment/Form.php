@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\Config;
 
-class ModuleHtmlCommentForm extends ModuleHtmlAbstract
+class HtmlCommentForm extends HtmlAbstract
 {
 	protected $css = ['comment'];
 	protected $js = ['external/wysibb', 'wysibb', 'comment'];

@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Text;
 
-class ModuleRssThumbnailComment extends ModuleRssThumbnailAbstract
+class RssThumbnailComment extends RssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Новый комментарий к арту №' . $data['id'];

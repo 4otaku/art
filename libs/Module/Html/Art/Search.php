@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
 
-class ModuleHtmlArtSearch extends ModuleHtmlArtAbstract
+class HtmlArtSearch extends HtmlArtAbstract
 {
 	protected $js = array('ajaxtip', 'search');
 	protected $css = array('ajaxtip', 'search');

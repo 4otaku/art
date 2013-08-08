@@ -1,6 +1,6 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlCollectError extends ModuleHtmlCollectAbstract
+class HtmlCollectError extends HtmlCollectAbstract
 {}

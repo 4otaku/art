@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleRssThumbnailGroup extends ModuleRssThumbnailAbstract
+class RssThumbnailGroup extends RssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Группа ' . $data['title'];

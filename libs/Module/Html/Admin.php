@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Session;
 use Otaku\Framework\Query;
 
-class ModuleHtmlAdmin extends ModuleHtmlAbstract
+class HtmlAdmin extends HtmlAbstract
 {
 	protected $css = ['admin'];
 	protected $js = ['admin'];
@@ -17,18 +17,18 @@ class ModuleHtmlAdmin extends ModuleHtmlAbstract
 			return [];
 		}
 
-		$return = [new ModuleHtmlAdminMenu($query)];
+		$return = [new HtmlAdminMenu($query)];
 
 		if ($query->url(1) == 'tag') {
-			$return[] = new ModuleHtmlAdminTag($query);
+			$return[] = new HtmlAdminTag($query);
 		}
 
 		if ($query->url(1) == 'help') {
-			$return[] = new ModuleHtmlAdminHelp($query);
+			$return[] = new HtmlAdminHelp($query);
 		}
 
 		if ($query->url(1) == 'similar') {
-			$return[] = new ModuleHtmlAdminSimilar($query);
+			$return[] = new HtmlAdminSimilar($query);
 		}
 
 		return $return;

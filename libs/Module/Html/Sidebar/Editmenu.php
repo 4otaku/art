@@ -1,13 +1,15 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\RequestItem;
 use Otaku\Framework\Session;
+use Otaku\Art\TraitModuleArt;
+use Otaku\Art\RequestArt;
 
-class ModuleHtmlSidebarEditmenu extends ModuleHtmlAbstract
+class HtmlSidebarEditmenu extends HtmlAbstract
 {
 	use TraitModuleArt;
 

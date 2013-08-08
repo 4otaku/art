@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\Database;
 
-class ModuleHtmlAddHelp extends ModuleHtmlAbstract
+class HtmlAddHelp extends HtmlAbstract
 {
 	protected $css = ['overlay', 'help'];
 	protected $js = ['overlay', 'help'];

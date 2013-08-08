@@ -1,26 +1,26 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlAdd extends ModuleHtmlAbstract
+class HtmlAdd extends HtmlAbstract
 {
 	protected function get_modules(Query $query)
 	{
 		if ($query->url(1) == 'group') {
-			return new ModuleHtmlAddGroup($query);
+			return new HtmlAddGroup($query);
 		}
 
 		if ($query->url(1) == 'pack') {
-			return new ModuleHtmlAddPack($query);
+			return new HtmlAddPack($query);
 		}
 
 		if ($query->url(1) == 'manga') {
-			return new ModuleHtmlAddManga($query);
+			return new HtmlAddManga($query);
 		}
 
-		return new ModuleHtmlAddArt($query);
+		return new HtmlAddArt($query);
 	}
 }

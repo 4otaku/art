@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlFooter extends ModuleHtmlAbstract
+class HtmlFooter extends HtmlAbstract
 {
 	protected $css = array('base', 'footer');
 

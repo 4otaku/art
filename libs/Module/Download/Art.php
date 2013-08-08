@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleDownloadAbstract;
+use Otaku\Framework\Module\DownloadAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\RequestItem;
 
-class ModuleDownloadArt extends ModuleDownloadAbstract
+class DownloadArt extends DownloadAbstract
 {
 	protected $manga = false;
 	protected $pack = false;

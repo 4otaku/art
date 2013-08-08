@@ -1,13 +1,13 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
 
-class ModuleHtmlAddManga extends ModuleHtmlAddPool
+class HtmlAddManga extends HtmlAddPool
 {
 	protected function get_modules(Query $query)
 	{
-		return ['form' => new ModuleHtmlAddForm($query)];
+		return ['form' => new HtmlAddForm($query)];
 	}
 }

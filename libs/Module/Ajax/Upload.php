@@ -1,15 +1,15 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Module\AjaxJson;
 use Otaku\Framework\Config;
 use Otaku\Framework\Request;
 use Otaku\Api\ApiUploadArt;
 use Otaku\Api\ApiRequest;
 use Otaku\Api\ApiRequestInner;
 
-class ModuleAjaxUpload extends ModuleAjaxJson
+class AjaxUpload extends AjaxJson
 {
 	const
 		LOW_WIDTH = 480,

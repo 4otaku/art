@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleAjaxTipUser extends ModuleAjaxTipAbstract
+class AjaxTipUser extends AjaxTipAbstract
 {
 	protected $request_type = 'left';
 	protected $request_name_field = 'login';

@@ -1,8 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlThumbnailArt extends ModuleHtmlThumbnailAbstract
+use Otaku\Art\TraitTag;
+
+class HtmlThumbnailArt extends HtmlThumbnailAbstract
 {
 	use TraitTag;
 

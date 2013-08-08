@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\RequestRead;
 
-class ModuleHtmlAdminTag extends ModuleHtmlAbstract
+class HtmlAdminTag extends HtmlAbstract
 {
 	protected $page = 1;
 	protected $filter = '';
@@ -47,7 +47,7 @@ class ModuleHtmlAdminTag extends ModuleHtmlAbstract
 
 	protected function get_modules(Query $query)
 	{
-		return ['paginator' => new ModuleHtmlAdminPaginator($query)];
+		return ['paginator' => new HtmlAdminPaginator($query)];
 	}
 
 	protected function make_request()

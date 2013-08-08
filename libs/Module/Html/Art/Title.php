@@ -1,13 +1,13 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\TraitFile;
 use Otaku\Framework\RequestItem;
 use Otaku\Framework\Query;
 use Otaku\Framework\Text;
 
-class ModuleHtmlArtTitle extends ModuleHtmlArtAbstract
+class HtmlArtTitle extends HtmlArtAbstract
 {
 	use TraitFile;
 

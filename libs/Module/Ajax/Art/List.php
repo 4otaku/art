@@ -1,21 +1,22 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAbstract;
-use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\Module\Base;
+use Otaku\Framework\Module\Container;
 use Otaku\Framework\RequestRead;
 use Otaku\Framework\Query;
 use Otaku\Framework\TraitOutputTpl;
+use Otaku\Art\TraitModuleArtList;
 
-class ModuleAjaxArtList extends ModuleAbstract
+class AjaxArtList extends Base
 {
 	use TraitOutputTpl, TraitModuleArtList;
 
 	protected $data = array();
 
 	protected function get_modules(Query $query) {
-		return new ModuleContainer('html_art_image');
+		return new Container('html_art_image');
 	}
 
 	protected function make_request() {

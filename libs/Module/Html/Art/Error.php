@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
 
-class ModuleHtmlArtError extends ModuleHtmlArtAbstract
+class HtmlArtError extends HtmlArtAbstract
 {
 	protected function get_params(Query $query) {
 		$this->set_param('have_message', false);

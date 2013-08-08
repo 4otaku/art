@@ -1,13 +1,13 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Database;
 use Otaku\Framework\Query;
 use Otaku\Framework\Config;
 
-class ModuleHtml extends ModuleHtmlAbstract
+class Html extends HtmlAbstract
 {
 	protected $css = ['external/bootstrap', 'external/plugins'];
 	protected $js = ['external/jquery', 'external/bootstrap', 'external/plugins', 'base'];
@@ -47,14 +47,14 @@ class ModuleHtml extends ModuleHtmlAbstract
 	protected function get_modules(Query $query) {
 		if ($query->url(0) == 'slideshow') {
 			return array(
-				'body' => new ModuleHtmlSlideshow($query)
+				'body' => new HtmlSlideshow($query)
 			);
 		}
 
 		return array(
-			'header' => new ModuleHtmlHeader($query),
-			'body' => new ModuleHtmlBody($query),
-			'footer' => new ModuleHtmlFooter($query)
+			'header' => new HtmlHeader($query),
+			'body' => new HtmlBody($query),
+			'footer' => new HtmlFooter($query)
 		);
 	}
 

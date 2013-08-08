@@ -1,13 +1,13 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\RequestRead;
 use Otaku\Framework\Config;
 use Otaku\Framework\Text;
 
-class ModuleHtmlSidebarComment extends ModuleHtmlAbstract
+class HtmlSidebarComment extends HtmlAbstract
 {
 	protected $css = ['sidebar'];
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleAjaxEditText extends ModuleAjaxEditAbstract
+class AjaxEditText extends AjaxEditAbstract
 {}

@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleRssThumbnailArt extends ModuleRssThumbnailAbstract
+class RssThumbnailArt extends RssThumbnailAbstract
 {
 	public function recieve_data($data) {
 		parent::recieve_data($data);

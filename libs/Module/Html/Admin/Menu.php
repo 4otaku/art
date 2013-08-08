@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlAdminMenu extends ModuleHtmlAbstract
+class HtmlAdminMenu extends HtmlAbstract
 {
 	protected function get_params(Query $query)
 	{

@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\Module\Base;
 use Otaku\Framework\TraitOutputTpl;
 
-abstract class ModuleRssThumbnailAbstract extends ModuleAbstract
+abstract class RssThumbnailAbstract extends Base
 {
 	use TraitOutputTpl;
 

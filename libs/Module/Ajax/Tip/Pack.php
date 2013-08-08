@@ -1,6 +1,6 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleAjaxTipPack extends ModuleAjaxTipAbstract
+class AjaxTipPack extends AjaxTipAbstract
 {}

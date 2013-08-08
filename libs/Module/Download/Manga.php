@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleDownloadAbstract;
+use Otaku\Framework\Module\DownloadAbstract;
 use Otaku\Framework\RequestItem;
 
-class ModuleDownloadManga extends ModuleDownloadAbstract
+class DownloadManga extends DownloadAbstract
 {
 	protected $header = ['Content-type' => 'application/zip'];
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\TraitDate;
 use Otaku\Framework\Text;
 
-class ModuleHtmlCommentItem extends ModuleHtmlAbstract
+class HtmlCommentItem extends HtmlAbstract
 {
 	use TraitDate;
 

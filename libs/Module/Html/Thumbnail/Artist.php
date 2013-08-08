@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlThumbnailArtist extends ModuleHtmlThumbnailAbstract
+class HtmlThumbnailArtist extends HtmlThumbnailAbstract
 {
 	protected function make_tooltip($data) {
 		return $data['artist'];

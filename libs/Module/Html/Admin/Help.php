@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\Database;
 
-class ModuleHtmlAdminHelp extends ModuleHtmlAbstract
+class HtmlAdminHelp extends HtmlAbstract
 {
 	protected $js = ['external/wysibb', 'wysibb', 'form'];
 

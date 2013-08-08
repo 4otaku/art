@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleRssThumbnailPack extends ModuleRssThumbnailAbstract
+class RssThumbnailPack extends RssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'CG-пак игры ' . $data['title'];

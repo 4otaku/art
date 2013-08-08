@@ -1,13 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
-use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\Module\Container;
 use Otaku\Framework\Config;
 use Otaku\Framework\RequestItem;
+use Otaku\Art\TraitModuleArtList;
 
-class ModuleHtmlArtList extends ModuleHtmlArtAbstract
+class HtmlArtList extends HtmlArtAbstract
 {
 	use TraitModuleArtList;
 
@@ -18,17 +19,18 @@ class ModuleHtmlArtList extends ModuleHtmlArtAbstract
 
 	protected function get_modules(Query $query) {
 		$return = array(
-			'title' => new ModuleHtmlArtTitle($query),
-			'search' => new ModuleHtmlArtSearch($query),
-			'error' => new ModuleHtmlArtError($query, true),
-			'list' => new ModuleContainer('html_thumbnail_' . $query->mode()),
-			'tags' => new ModuleHtmlSidebarTag($query),
-			'tags_pool' => new ModuleHtmlSidebarTag($query),
-			'editmenu' => new ModuleHtmlSidebarEditmenu($query),
-			'editfield' => new ModuleHtmlArtEditfield($query),
-			'tools' => new ModuleHtmlSidebarTool($query),
-			'recent_comments' => new ModuleHtmlSidebarComment($query),
-			'paginator' => new ModuleHtmlArtPaginator($query),
+			'title' => new HtmlArtTitle($query),
+			'search' => new HtmlArtSearch($query),
+			'error' => new HtmlArtError($query, true),
+			'list' => new Container(__NAMESPACE__ .
+				'\HtmlThumbnail' . ucfirst($query->mode())),
+			'tags' => new HtmlSidebarTag($query),
+			'tags_pool' => new HtmlSidebarTag($query),
+			'editmenu' => new HtmlSidebarEditmenu($query),
+			'editfield' => new HtmlArtEditfield($query),
+			'tools' => new HtmlSidebarTool($query),
+			'recent_comments' => new HtmlSidebarComment($query),
+			'paginator' => new HtmlArtPaginator($query),
 		);
 
 		if ($query->is_pool_list()) {

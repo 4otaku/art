@@ -1,11 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Config;
 use Otaku\Framework\Text;
+use Otaku\Art\TraitTag;
 
-class ModuleHtmlArtImage extends ModuleHtmlArtAbstract
+class HtmlArtImage extends HtmlArtAbstract
 {
 	use TraitTag;
 

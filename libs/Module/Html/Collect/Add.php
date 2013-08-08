@@ -1,7 +1,7 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlCollectAdd extends ModuleHtmlCollectAbstract
+class HtmlCollectAdd extends HtmlCollectAbstract
 {
 }

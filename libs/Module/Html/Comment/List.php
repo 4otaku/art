@@ -1,14 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 use Otaku\Framework\Config;
-use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\Module\Container;
 use Otaku\Framework\RequestRead;
 
-class ModuleHtmlCommentList extends ModuleHtmlAbstract
+class HtmlCommentList extends HtmlAbstract
 {
 	protected $is_tree = true;
 	protected $per_page = 7;
@@ -27,8 +27,8 @@ class ModuleHtmlCommentList extends ModuleHtmlAbstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new ModuleContainer('html_comment_item'),
-			'paginator' => new ModuleHtmlCommentPaginator($query)
+			'list' => new Container('html_comment_item'),
+			'paginator' => new HtmlCommentPaginator($query)
 		);
 	}
 

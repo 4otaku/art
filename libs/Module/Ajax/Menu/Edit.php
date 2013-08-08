@@ -1,14 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\Module\Base;
 use Otaku\Framework\TraitOutputTpl;
 use Otaku\Framework\Query;
 use Otaku\Framework\Session;
 use Otaku\Framework\Database;
 
-class ModuleAjaxMenuEdit extends ModuleAbstract
+class AjaxMenuEdit extends Base
 {
 	use TraitOutputTpl;
 

@@ -1,14 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Module\AjaxJson;
 use Otaku\Framework\Query;
 use Otaku\Framework\Text;
 use Otaku\Framework\RequestRead;
 use Otaku\Framework\Config;
 
-abstract class ModuleAjaxTipAbstract extends ModuleAjaxJson
+abstract class AjaxTipAbstract extends AjaxJson
 {
 	protected $raw_term = false;
 	protected $term = false;

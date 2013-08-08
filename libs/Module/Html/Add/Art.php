@@ -1,17 +1,17 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlAddArt extends ModuleHtmlAbstract
+class HtmlAddArt extends HtmlAbstract
 {
 	protected function get_modules(Query $query)
 	{
 		return [
-			'form' => new ModuleHtmlAddForm($query),
-			'help' => new ModuleHtmlAddHelp($query),
+			'form' => new HtmlAddForm($query),
+			'help' => new HtmlAddHelp($query),
 		];
 	}
 }

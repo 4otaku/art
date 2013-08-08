@@ -1,12 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Module\AjaxJson;
 use Otaku\Framework\Query;
 use Otaku\Framework\RequestRead;
 
-class ModuleAjaxTag extends ModuleAjaxJson
+class AjaxTag extends AjaxJson
 {
 	protected $params = array();
 

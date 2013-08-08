@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\Query;
 
-abstract class ModuleHtmlCollectAbstract extends ModuleHtmlArtAbstract
+abstract class HtmlCollectAbstract extends HtmlArtAbstract
 {
 	protected $valid_types = ['parent', 'group', 'pack', 'manga', 'artist'];
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\TraitNumber;
 
-class ModuleHtmlThumbnailTranslation extends ModuleHtmlThumbnailAbstract
+class HtmlThumbnailTranslation extends HtmlThumbnailAbstract
 {
 	use TraitNumber;
 

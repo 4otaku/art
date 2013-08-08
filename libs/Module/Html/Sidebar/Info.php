@@ -1,14 +1,16 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\TraitDate;
 use Otaku\Framework\TraitFile;
 use Otaku\Framework\Query;
 use Otaku\Framework\Text;
+use Otaku\Art\TraitModuleArt;
+use Otaku\Art\RequestArt;
 
-class ModuleHtmlSidebarInfo extends ModuleHtmlAbstract
+class HtmlSidebarInfo extends HtmlAbstract
 {
 	use TraitDate, TraitFile, TraitModuleArt;
 

@@ -1,13 +1,14 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\Module\Base;
 use Otaku\Framework\TraitOutputTpl;
 use Otaku\Framework\Query;
-use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\Module\Container;
+use Otaku\Art\TraitModuleArtList;
 
-class ModuleRss extends ModuleAbstract
+class Rss extends Base
 {
 	use TraitOutputTpl, TraitModuleArtList;
 
@@ -15,8 +16,8 @@ class ModuleRss extends ModuleAbstract
 
 	protected function get_modules(Query $query) {
 		return [
-			'title' => new ModuleHtmlArtTitle($query),
-			'list' => new ModuleContainer('rss_thumbnail_' . $query->mode())
+			'title' => new HtmlArtTitle($query),
+			'list' => new Container('rss_thumbnail_' . $query->mode())
 		];
 	}
 

@@ -1,8 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlArtPaginator extends ModuleHtmlArtAbstract
+use Otaku\Art\TraitModulePaginator;
+use Otaku\Art\TraitModuleArtList;
+
+class HtmlArtPaginator extends HtmlArtAbstract
 {
 	use TraitModulePaginator, TraitModuleArtList;
 

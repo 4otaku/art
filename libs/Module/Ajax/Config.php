@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\Module\Base;
 use Otaku\Framework\TraitOutputTpl;
 
-class ModuleAjaxConfig extends ModuleAbstract
+class AjaxConfig extends Base
 {
 	use TraitOutputTpl;
 }

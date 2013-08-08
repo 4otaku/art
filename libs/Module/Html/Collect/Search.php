@@ -1,8 +1,8 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlCollectSearch extends ModuleHtmlCollectAbstract
+class HtmlCollectSearch extends HtmlCollectAbstract
 {
 	protected $js = array('ajaxtip', 'search', 'collect');
 	protected $css = array('ajaxtip', 'search', 'thumb', 'paginator');

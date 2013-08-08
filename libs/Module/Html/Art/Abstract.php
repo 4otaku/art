@@ -1,10 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
+use Otaku\Art\TraitModuleArt;
 
-abstract class ModuleHtmlArtAbstract extends ModuleHtmlAbstract
+abstract class HtmlArtAbstract extends HtmlAbstract
 {
 	use TraitModuleArt;
 }

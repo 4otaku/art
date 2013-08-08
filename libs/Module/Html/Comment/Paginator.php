@@ -1,10 +1,12 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
+use Otaku\Art\TraitModulePaginator;
+use Otaku\Art\TraitModuleArt;
 
-class ModuleHtmlCommentPaginator extends ModuleHtmlAbstract
+class HtmlCommentPaginator extends HtmlAbstract
 {
 	use TraitModulePaginator, TraitModuleArt;
 

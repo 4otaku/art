@@ -1,11 +1,11 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlAddForm extends ModuleHtmlAbstract
+class HtmlAddForm extends HtmlAbstract
 {
 	protected $js = ['external/upload', 'external/upload-ui', 'external/wysibb',
 		'wysibb', 'ajaxtip', 'addcommon', 'add'];
@@ -14,7 +14,7 @@ class ModuleHtmlAddForm extends ModuleHtmlAbstract
 	protected function get_modules(Query $query)
 	{
 		return [
-			'template' => new ModuleHtmlAddTemplate($query),
+			'template' => new HtmlAddTemplate($query),
 		];
 	}
 }

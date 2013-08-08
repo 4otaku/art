@@ -1,16 +1,16 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Module\HtmlAbstract;
 use Otaku\Framework\Query;
 
-class ModuleHtmlComment extends ModuleHtmlAbstract
+class HtmlComment extends HtmlAbstract
 {
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new ModuleHtmlCommentList($query),
-			'form' => new ModuleHtmlCommentForm($query)
+			'list' => new HtmlCommentList($query),
+			'form' => new HtmlCommentForm($query)
 		);
 	}
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
 use Otaku\Framework\RequestItem;
 
-class ModuleAjaxEditApprove extends ModuleAjaxEditAbstract
+class AjaxEditApprove extends AjaxEditAbstract
 {
 	protected function make_request() {
 		return new RequestItem($this->mode, $this,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Otaku\Art;
+namespace Otaku\Art\Module;
 
-class ModuleHtmlCollectTitle extends ModuleHtmlArtTitle
+class HtmlCollectTitle extends HtmlArtTitle
 {}
