@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Comment_Edit extends Module_Abstract
+class ModuleAjaxCommentEdit extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	protected $css = ['comment'];
 	protected $js = ['external/wysibb', 'wysibb'];
@@ -17,7 +17,7 @@ class Module_Ajax_Comment_Edit extends Module_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Item('comment', $this,
+		return new RequestItem('comment', $this,
 			['filter' => ['id' => $this->id]]);
 	}
 

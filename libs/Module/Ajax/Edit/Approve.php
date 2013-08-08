@@ -2,10 +2,10 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Edit_Approve extends Module_Ajax_Edit_Abstract
+class ModuleAjaxEditApprove extends ModuleAjaxEditAbstract
 {
 	protected function make_request() {
-		return new Request_Item($this->mode, $this,
+		return new RequestItem($this->mode, $this,
 			['id' => $this->id, 'add_state' => 1]);
 	}
 }

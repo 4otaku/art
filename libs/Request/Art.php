@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Request_Art extends Request_Item
+class RequestArt extends RequestItem
 {
 	public function __construct($id, $object, $method = 'recieve_data') {
 		$params = array(

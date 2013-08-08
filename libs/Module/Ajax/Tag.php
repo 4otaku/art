@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Tag extends Module_Ajax_Json
+class ModuleAjaxTag extends ModuleAjaxJson
 {
 	protected $params = array();
 
@@ -14,7 +14,7 @@ class Module_Ajax_Tag extends Module_Ajax_Json
 
 	protected function make_request()
 	{
-		return new Request_Read('tag_art', $this, $this->params);
+		return new RequestRead('tag_art', $this, $this->params);
 	}
 
 	public function recieve_data($data)

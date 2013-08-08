@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Comment_Paginator extends Module_Html_Abstract
+class ModuleHtmlCommentPaginator extends ModuleHtmlAbstract
 {
-	use Trait_Module_Paginator, Trait_Module_Art;
+	use TraitModulePaginator, TraitModuleArt;
 
 	protected $js = ['comment'];
 	protected $css = ['paginator'];

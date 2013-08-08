@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Menu_Save extends Module_Ajax_Json
+class ModuleAjaxMenuSave extends ModuleAjaxJson
 {
 	protected function get_params(Query $query)
 	{

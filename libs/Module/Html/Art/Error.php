@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Error extends Module_Html_Art_Abstract
+class ModuleHtmlArtError extends ModuleHtmlArtAbstract
 {
 	protected function get_params(Query $query) {
 		$this->set_param('have_message', false);

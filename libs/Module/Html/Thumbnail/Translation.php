@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Thumbnail_Translation extends Module_Html_Thumbnail_Abstract
+class ModuleHtmlThumbnailTranslation extends ModuleHtmlThumbnailAbstract
 {
-	use Trait_Number;
+	use TraitNumber;
 
 	protected function make_tooltip($data) {
 		$count = $data['translation_count'];

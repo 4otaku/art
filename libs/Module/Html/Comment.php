@@ -2,12 +2,12 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Comment extends Module_Html_Abstract
+class ModuleHtmlComment extends ModuleHtmlAbstract
 {
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new Module_Html_Comment_List($query),
-			'form' => new Module_Html_Comment_Form($query)
+			'list' => new ModuleHtmlCommentList($query),
+			'form' => new ModuleHtmlCommentForm($query)
 		);
 	}
 }

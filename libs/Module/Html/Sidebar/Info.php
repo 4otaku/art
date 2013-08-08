@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Sidebar_Info extends Module_Html_Abstract
+class ModuleHtmlSidebarInfo extends ModuleHtmlAbstract
 {
-	use Trait_Date, Trait_File, Trait_Module_Art;
+	use TraitDate, TraitFile, TraitModuleArt;
 
 	protected $css = ['sidebar'];
 
@@ -16,7 +16,7 @@ class Module_Html_Sidebar_Info extends Module_Html_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Art($this->get_query()->url(0), $this);
+		return new RequestArt($this->get_query()->url(0), $this);
 	}
 
 	public function recieve_data($data) {

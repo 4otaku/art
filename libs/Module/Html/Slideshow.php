@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Slideshow extends Module_Html_Abstract
+class ModuleHtmlSlideshow extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art;
+	use TraitModuleArt;
 
 	protected $js = ['external/wysibb', 'wysibb', 'slideshow',
 		'image', 'translation'];

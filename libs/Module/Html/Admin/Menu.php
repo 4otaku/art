@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Admin_Menu extends Module_Html_Abstract
+class ModuleHtmlAdminMenu extends ModuleHtmlAbstract
 {
 	protected function get_params(Query $query)
 	{

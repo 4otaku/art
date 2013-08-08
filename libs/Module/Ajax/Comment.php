@@ -2,11 +2,11 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Comment extends Module_Abstract
+class ModuleAjaxComment extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	protected function get_modules(Query $query) {
-		return new Module_Html_Comment_List($query);
+		return new ModuleHtmlCommentList($query);
 	}
 }

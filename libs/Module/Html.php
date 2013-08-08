@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html extends Module_Html_Abstract
+class ModuleHtml extends ModuleHtmlAbstract
 {
 	protected $css = ['external/bootstrap', 'external/plugins'];
 	protected $js = ['external/jquery', 'external/bootstrap', 'external/plugins', 'base'];
@@ -42,14 +42,14 @@ class Module_Html extends Module_Html_Abstract
 	protected function get_modules(Query $query) {
 		if ($query->url(0) == 'slideshow') {
 			return array(
-				'body' => new Module_Html_Slideshow($query)
+				'body' => new ModuleHtmlSlideshow($query)
 			);
 		}
 
 		return array(
-			'header' => new Module_Html_Header($query),
-			'body' => new Module_Html_Body($query),
-			'footer' => new Module_Html_Footer($query)
+			'header' => new ModuleHtmlHeader($query),
+			'body' => new ModuleHtmlBody($query),
+			'footer' => new ModuleHtmlFooter($query)
 		);
 	}
 

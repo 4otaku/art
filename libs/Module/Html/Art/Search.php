@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Search extends Module_Html_Art_Abstract
+class ModuleHtmlArtSearch extends ModuleHtmlArtAbstract
 {
 	protected $js = array('ajaxtip', 'search');
 	protected $css = array('ajaxtip', 'search');

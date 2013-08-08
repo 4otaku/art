@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Thumbnail_Comment extends Module_Html_Thumbnail_Abstract
+class ModuleHtmlThumbnailComment extends ModuleHtmlThumbnailAbstract
 {
 	protected $css = array('thumb', 'comment');
 

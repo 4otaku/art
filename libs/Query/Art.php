@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Query_Art extends Query
+class QueryArt extends Query
 {
 	protected $parsed = [];
 	protected $other = [];

@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Comment_Item extends Module_Html_Abstract
+class ModuleHtmlCommentItem extends ModuleHtmlAbstract
 {
-	use Trait_Date;
+	use TraitDate;
 
 	protected $css = array('comment');
 	protected $js = array('comment');

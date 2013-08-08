@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Rss_Thumbnail_Manga extends Module_Rss_Thumbnail_Abstract
+class ModuleRssThumbnailManga extends ModuleRssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Манга ' . $data['title'];

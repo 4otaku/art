@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Image extends Module_Html_Art_Abstract
+class ModuleHtmlArtImage extends ModuleHtmlArtAbstract
 {
-	use Trait_Tag;
+	use TraitTag;
 
 	protected $js = ['external/wysibb', 'wysibb', 'image', 'translation',
 		'list'];

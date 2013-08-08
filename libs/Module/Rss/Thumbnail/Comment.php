@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Rss_Thumbnail_Comment extends Module_Rss_Thumbnail_Abstract
+class ModuleRssThumbnailComment extends ModuleRssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Новый комментарий к арту №' . $data['id'];

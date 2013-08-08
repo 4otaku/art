@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Rss_Thumbnail_Group extends Module_Rss_Thumbnail_Abstract
+class ModuleRssThumbnailGroup extends ModuleRssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Группа ' . $data['title'];

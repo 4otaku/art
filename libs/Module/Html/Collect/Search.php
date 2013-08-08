@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Collect_Search extends Module_Html_Collect_Abstract
+class ModuleHtmlCollectSearch extends ModuleHtmlCollectAbstract
 {
 	protected $js = array('ajaxtip', 'search', 'collect');
 	protected $css = array('ajaxtip', 'search', 'thumb', 'paginator');

@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Collect extends Module_Html_Collect_Abstract
+class ModuleHtmlCollect extends ModuleHtmlCollectAbstract
 {
 	protected $css = ['collect'];
 
@@ -11,10 +11,10 @@ class Module_Html_Collect extends Module_Html_Collect_Abstract
 		$valid = $this->is_valid();
 
 		return [
-			'title' => new Module_Html_Collect_Title($query, !$valid),
-			'search' => new Module_Html_Collect_Search($query, !$valid),
-			'add' => new Module_Html_Collect_Add($query, !$valid),
-			'error' => new Module_Html_Collect_Error($query, $valid)
+			'title' => new ModuleHtmlCollectTitle($query, !$valid),
+			'search' => new ModuleHtmlCollectSearch($query, !$valid),
+			'add' => new ModuleHtmlCollectAdd($query, !$valid),
+			'error' => new ModuleHtmlCollectError($query, $valid)
 		];
 	}
 }

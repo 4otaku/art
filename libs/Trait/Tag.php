@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-trait Trait_Tag
+trait TraitTag
 {
-	use Trait_Number;
+	use TraitNumber;
 
 	protected function sort_tag ($a, $b)
 	{

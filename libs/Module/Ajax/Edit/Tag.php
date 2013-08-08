@@ -2,10 +2,10 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Edit_Tag extends Module_Ajax_Edit_Abstract
+class ModuleAjaxEditTag extends ModuleAjaxEditAbstract
 {
 	protected function make_request() {
-		return new Request_Item($this->mode, $this,
+		return new RequestItem($this->mode, $this,
 			['id' => $this->id, 'add_tags' => 1]);
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Editfield extends Module_Html_Art_Abstract
+class ModuleHtmlArtEditfield extends ModuleHtmlArtAbstract
 {
 	protected $css = ['edit'];
 	protected $js = ['external/wysibb', 'external/upload',

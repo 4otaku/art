@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Comment_List extends Module_Html_Abstract
+class ModuleHtmlCommentList extends ModuleHtmlAbstract
 {
 	protected $is_tree = true;
 	protected $per_page = 7;
@@ -21,8 +21,8 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new Module_Container('html_comment_item'),
-			'paginator' => new Module_Html_Comment_Paginator($query)
+			'list' => new ModuleContainer('html_comment_item'),
+			'paginator' => new ModuleHtmlCommentPaginator($query)
 		);
 	}
 
@@ -53,7 +53,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 
 	protected function make_request() {
 		if (!empty($this->id)) {
-			return new Request_Read('comment', $this, array(
+			return new RequestRead('comment', $this, array(
 				'root_only' => (int) $this->is_tree,
 				'add_tree' => (int) $this->is_tree,
 				'sort_order' => $this->reverse ? 'desc' : 'asc',
@@ -69,7 +69,7 @@ class Module_Html_Comment_List extends Module_Html_Abstract
 		if (!empty($this->id_comment)) {
 			$this->modules['paginator']->disable();
 			$this->set_param('single_mode', 1);
-			return new Request_Read('comment', $this, array(
+			return new RequestRead('comment', $this, array(
 				'filter' => array(
 					'id' => $this->id_comment
 				)

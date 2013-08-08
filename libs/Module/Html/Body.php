@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Body extends Module_Html_Abstract
+class ModuleHtmlBody extends ModuleHtmlAbstract
 {
 	protected $css = array('base');
 	protected $title = 'Материалы для отаку';
@@ -11,24 +11,24 @@ class Module_Html_Body extends Module_Html_Abstract
 	{
 		if (is_numeric($query->url(0))) {
 			$this->title = 'Арт №' . $query->url(0);
-			return new Module_Html_Art_Item($query);
+			return new ModuleHtmlArtItem($query);
 		}
 
 		if ($query->url(0) == 'admin') {
 			$this->title = 'Админка';
-			return new Module_Html_Admin($query);
+			return new ModuleHtmlAdmin($query);
 		}
 
 		if ($query->url(0) == 'add') {
 			$this->title = 'Загрузка новых артов';
-			return new Module_Html_Add($query);
+			return new ModuleHtmlAdd($query);
 		}
 
 		if ($query->url(0) == 'add_to') {
-			return new Module_Html_Collect($query);
+			return new ModuleHtmlCollect($query);
 		}
 
-		return new Module_Html_Art_List($query);
+		return new ModuleHtmlArtList($query);
 	}
 
 	public function get_title()

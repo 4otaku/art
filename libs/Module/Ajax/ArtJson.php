@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Art_Json extends Module_Ajax_Api
+class ModuleAjaxArtJson extends ModuleAjaxApi
 {
-	use Trait_Module_Art_List;
+	use TraitModuleArtList;
 
 	protected function make_request() {
 		return $this->get_common_request();

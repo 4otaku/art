@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Item extends Module_Html_Art_Abstract
+class ModuleHtmlArtItem extends ModuleHtmlArtAbstract
 {
 	protected $css = array('item', 'sidebar');
 	protected $js = array('item');
@@ -10,16 +10,16 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'title' => new Module_Html_Art_Title($query),
-			'search' => new Module_Html_Art_Search($query),
-			'error' => new Module_Html_Art_Error($query, true),
-			'image' => new Module_Html_Art_Image($query),
-			'info' => new Module_Html_Sidebar_Info($query),
-			'tags' => new Module_Html_Sidebar_Tag($query),
-			'editmenu' => new Module_Html_Sidebar_Editmenu($query),
-			'editfield' => new Module_Html_Art_Editfield($query),
-			'recent_comments' => new Module_Html_Sidebar_Comment($query),
-			'comment' => new Module_Html_Comment($query)
+			'title' => new ModuleHtmlArtTitle($query),
+			'search' => new ModuleHtmlArtSearch($query),
+			'error' => new ModuleHtmlArtError($query, true),
+			'image' => new ModuleHtmlArtImage($query),
+			'info' => new ModuleHtmlSidebarInfo($query),
+			'tags' => new ModuleHtmlSidebarTag($query),
+			'editmenu' => new ModuleHtmlSidebarEditmenu($query),
+			'editfield' => new ModuleHtmlArtEditfield($query),
+			'recent_comments' => new ModuleHtmlSidebarComment($query),
+			'comment' => new ModuleHtmlComment($query)
 		);
 	}
 
@@ -37,14 +37,14 @@ class Module_Html_Art_Item extends Module_Html_Art_Abstract
 		$params['pool_mode'] = $query->get_pool_mode();
 		$params['pool_value'] = $query->get_pool_value();
 
-		$request = new Request_Art($query->url(0), $this);
+		$request = new RequestArt($query->url(0), $this);
 		$pos = (int) $query->get('pos');
 		if ($pos <= 0) {
 			return $request;
 		}
 
 		return array($request,
-			new Request_Art_Nextprev($pos, $this, $params, 'recieve_nextprev')
+			new RequestArtNextprev($pos, $this, $params, 'recieve_nextprev')
 		);
 	}
 

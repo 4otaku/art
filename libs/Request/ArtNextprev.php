@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Request_Art_Nextprev extends Request_Art_List
+class RequestArtNextprev extends RequestArtList
 {
 	protected $pos = false;
 

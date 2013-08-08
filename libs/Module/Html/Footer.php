@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Footer extends Module_Html_Abstract
+class ModuleHtmlFooter extends ModuleHtmlAbstract
 {
 	protected $css = array('base', 'footer');
 

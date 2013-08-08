@@ -2,6 +2,6 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Collect_Add extends Module_Html_Collect_Abstract
+class ModuleHtmlCollectAdd extends ModuleHtmlCollectAbstract
 {
 }

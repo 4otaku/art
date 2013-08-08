@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Add_Template extends Module_Html_Abstract
+class ModuleHtmlAddTemplate extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art;
+	use TraitModuleArt;
 
 	protected function get_params(Query $query)
 	{
@@ -33,17 +33,17 @@ class Module_Html_Add_Template extends Module_Html_Abstract
 		$request = [];
 
 		if (!empty($parsed['group']['is'])) {
-			$request[] = new Request_Read('art_group', $this,
+			$request[] = new RequestRead('art_group', $this,
 				['id' => $parsed['group']['is']], 'recieve_groups');
 		}
 
 		if (!empty($parsed['pack']['is'])) {
-			$request[] = new Request_Read('art_pack', $this,
+			$request[] = new RequestRead('art_pack', $this,
 				['id' => $parsed['pack']['is']], 'recieve_packs');
 		}
 
 		if (!empty($parsed['manga']['is'])) {
-			$request[] = new Request_Read('art_manga', $this,
+			$request[] = new RequestRead('art_manga', $this,
 				['id' => $parsed['manga']['is']], 'recieve_manga');
 		}
 

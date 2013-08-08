@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Admin_Similar extends Module_Html_Abstract
+class ModuleHtmlAdminSimilar extends ModuleHtmlAbstract
 {
-	use Trait_File, Trait_Date;
+	use TraitFile, TraitDate;
 
 	protected $page = 1;
 
@@ -17,12 +17,12 @@ class Module_Html_Admin_Similar extends Module_Html_Abstract
 
 	protected function get_modules(Query $query)
 	{
-		return ['paginator' => new Module_Html_Admin_Paginator($query)];
+		return ['paginator' => new ModuleHtmlAdminPaginator($query)];
 	}
 
 	protected function make_request()
 	{
-		return new Request_Read('art_similar', $this, ['page' => $this->page]);
+		return new RequestRead('art_similar', $this, ['page' => $this->page]);
 	}
 
 	public function recieve_data($data)

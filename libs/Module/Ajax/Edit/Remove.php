@@ -2,6 +2,6 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Edit_Remove extends Module_Ajax_Edit_Abstract
+class ModuleAjaxEditRemove extends ModuleAjaxEditAbstract
 {
 }

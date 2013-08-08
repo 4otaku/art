@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Add_Help extends Module_Html_Abstract
+class ModuleHtmlAddHelp extends ModuleHtmlAbstract
 {
 	protected $css = ['overlay', 'help'];
 	protected $js = ['overlay', 'help'];

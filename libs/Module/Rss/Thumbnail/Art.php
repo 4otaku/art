@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Rss_Thumbnail_Art extends Module_Rss_Thumbnail_Abstract
+class ModuleRssThumbnailArt extends ModuleRssThumbnailAbstract
 {
 	public function recieve_data($data) {
 		parent::recieve_data($data);

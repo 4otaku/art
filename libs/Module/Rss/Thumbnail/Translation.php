@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Rss_Thumbnail_Translation extends Module_Rss_Thumbnail_Abstract
+class ModuleRssThumbnailTranslation extends ModuleRssThumbnailAbstract
 {
 	protected function get_title($data) {
 		return 'Новый перевод арта №' . $data['id'];

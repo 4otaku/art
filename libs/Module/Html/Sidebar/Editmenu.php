@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
+class ModuleHtmlSidebarEditmenu extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art;
+	use TraitModuleArt;
 
 	protected $js = ['edit'];
 	protected $css = ['sidebar'];
@@ -48,10 +48,10 @@ class Module_Html_Sidebar_Editmenu extends Module_Html_Abstract
 	protected function make_request()
 	{
 		if ($this->id_artist) {
-			return new Request_Item('art_artist', $this,
+			return new RequestItem('art_artist', $this,
 				['id' => $this->id_artist], 'recieve_artist');
 		} elseif ($this->id_art) {
-			return new Request_Art($this->id_art, $this, 'recieve_art');
+			return new RequestArt($this->id_art, $this, 'recieve_art');
 		} else {
 			$this->set_param('is_author', false);
 			return [];

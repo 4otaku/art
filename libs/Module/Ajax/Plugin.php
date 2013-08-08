@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Plugin extends Module_Abstract
+class ModuleAjaxPlugin extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	protected function get_params(Query $query)
 	{

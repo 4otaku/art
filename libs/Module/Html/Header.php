@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Header extends Module_Html_Abstract
+class ModuleHtmlHeader extends ModuleHtmlAbstract
 {
 	protected $css = array('base', 'header', 'overlay', 'setting');
 	protected $js = array('overlay', 'setting', 'form', 'personal');
@@ -19,6 +19,6 @@ class Module_Html_Header extends Module_Html_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Read('head_menu', $this);
+		return new RequestRead('head_menu', $this);
 	}
 }

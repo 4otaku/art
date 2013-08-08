@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Ajax_Edit_Abstract extends Module_Abstract
+abstract class ModuleAjaxEditAbstract extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	protected $id;
 	protected $mode;
@@ -15,7 +15,7 @@ abstract class Module_Ajax_Edit_Abstract extends Module_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Item($this->mode, $this, ['id' => $this->id]);
+		return new RequestItem($this->mode, $this, ['id' => $this->id]);
 	}
 
 	public function recieve_data($data) {

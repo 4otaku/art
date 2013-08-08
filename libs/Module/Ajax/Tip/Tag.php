@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Tip_Tag extends Module_Ajax_Tip_Abstract
+class ModuleAjaxTipTag extends ModuleAjaxTipAbstract
 {
 	protected $request_type = 'left';
 	protected $request_name_field = 'name';

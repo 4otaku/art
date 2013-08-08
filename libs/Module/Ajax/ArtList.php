@@ -2,14 +2,14 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Art_List extends Module_Abstract
+class ModuleAjaxArtList extends ModuleAbstract
 {
-	use Trait_Output_Tpl, Trait_Module_Art_List;
+	use TraitOutputTpl, TraitModuleArtList;
 
 	protected $data = array();
 
 	protected function get_modules(Query $query) {
-		return new Module_Container('html_art_image');
+		return new ModuleContainer('html_art_image');
 	}
 
 	protected function make_request() {
@@ -24,7 +24,7 @@ class Module_Ajax_Art_List extends Module_Abstract
 			$this->data[] = $item['id'];
 		}
 
-		$request = new Request_Read('art', $this, array(
+		$request = new RequestRead('art', $this, array(
 			'id' => $this->data,
 			'add_translations' => 1
 		), 'recieve_details');

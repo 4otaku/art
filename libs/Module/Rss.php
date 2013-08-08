@@ -2,16 +2,16 @@
 
 namespace Otaku\Art;
 
-class Module_Rss extends Module_Abstract
+class ModuleRss extends ModuleAbstract
 {
-	use Trait_Output_Tpl, Trait_Module_Art_List;
+	use TraitOutputTpl, TraitModuleArtList;
 
 	protected $header = ['Content-type' => 'application/rss+xml'];
 
 	protected function get_modules(Query $query) {
 		return [
-			'title' => new Module_Html_Art_Title($query),
-			'list' => new Module_Container('rss_thumbnail_' . $query->mode())
+			'title' => new ModuleHtmlArtTitle($query),
+			'list' => new ModuleContainer('rss_thumbnail_' . $query->mode())
 		];
 	}
 

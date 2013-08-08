@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Rate extends Module_Ajax_Json
+class ModuleAjaxRate extends ModuleAjaxJson
 {
 	protected $id;
 	protected $approve;
@@ -13,7 +13,7 @@ class Module_Ajax_Rate extends Module_Ajax_Json
 	}
 
 	protected function make_request() {
-		return new Request_Update('art_rating', $this,
+		return new RequestUpdate('art_rating', $this,
 			['id' => $this->id, 'approve' => $this->approve]);
 	}
 

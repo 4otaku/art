@@ -2,23 +2,23 @@
 
 namespace Otaku\Art;
 
-class Module_Main extends Module_Abstract
+class ModuleMain extends ModuleAbstract
 {
-	use Trait_Output_Plain;
+	use TraitOutputPlain;
 
 	protected function get_modules(Query $query) {
 		if ($query->url(0) == 'download') {
-			return new Module_Download($query);
+			return new ModuleDownload($query);
 		}
 
 		if ($query->url(0) == 'ajax') {
-			return new Module_Ajax($query);
+			return new ModuleAjax($query);
 		}
 
 		if ($query->url(0) == 'rss') {
-			return new Module_Rss($query);
+			return new ModuleRss($query);
 		}
 
-		return new Module_Html($query);
+		return new ModuleHtml($query);
 	}
 }

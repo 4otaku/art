@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-trait Trait_Module_Paginator
+trait TraitModulePaginator
 {
 	abstract protected function get_page();
 	abstract protected function get_per_page();

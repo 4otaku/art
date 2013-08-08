@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Html_Collect_Abstract extends Module_Html_Art_Abstract
+abstract class ModuleHtmlCollectAbstract extends ModuleHtmlArtAbstract
 {
 	protected $valid_types = ['parent', 'group', 'pack', 'manga', 'artist'];
 

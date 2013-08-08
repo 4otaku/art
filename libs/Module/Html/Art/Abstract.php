@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Html_Art_Abstract extends Module_Html_Abstract
+abstract class ModuleHtmlArtAbstract extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art;
+	use TraitModuleArt;
 }

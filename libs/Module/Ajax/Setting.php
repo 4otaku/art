@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Setting extends Module_Ajax_Json
+class ModuleAjaxSetting extends ModuleAjaxJson
 {
 	protected function get_params(Query $query)
 	{

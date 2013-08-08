@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Tag_Merge extends Module_Abstract
+class ModuleAjaxTagMerge extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	protected $id = 0;
 
@@ -14,7 +14,7 @@ class Module_Ajax_Tag_Merge extends Module_Abstract
 	}
 
 	protected function make_request() {
-		return new Request_Item('tag_art', $this,
+		return new RequestItem('tag_art', $this,
 			['id' => $this->id]);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Upload extends Module_Ajax_Json
+class ModuleAjaxUpload extends ModuleAjaxJson
 {
 	const
 		LOW_WIDTH = 480,
@@ -54,7 +54,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 				$request = new Request('upload_art', $this, ['file' => $link]);
 				$request->perform();
 			} else {
-				$api = new Api_Upload_Art(new Api_Request_Inner(['file' => $link]));
+				$api = new ApiUploadArt(new ApiRequestInner(['file' => $link]));
 				$response = $api->set_base_path(API_IMAGES)
 					->process_request()->get_response();
 
@@ -86,7 +86,7 @@ class Module_Ajax_Upload extends Module_Ajax_Json
 			$response = curl_exec($ch);
 			curl_close($ch);
 		} else {
-			$api = new Api_Upload_Art(new Api_Request('dummy'));
+			$api = new ApiUploadArt(new ApiRequest('dummy'));
 			$response = $api->set_base_path(API_IMAGES)
 				->process_request()->get_response();
 		}

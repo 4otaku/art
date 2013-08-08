@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Download_Art extends Module_Download_Abstract
+class ModuleDownloadArt extends ModuleDownloadAbstract
 {
 	protected $manga = false;
 	protected $pack = false;
@@ -28,7 +28,7 @@ class Module_Download_Art extends Module_Download_Abstract
 			$params['add_packs'] = 1;
 		}
 
-		return new Request_Item('art', $this, $params);
+		return new RequestItem('art', $this, $params);
 	}
 
 	public function recieve_data($data) {

@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Html_Thumbnail_Abstract extends Module_Html_Abstract
+abstract class ModuleHtmlThumbnailAbstract extends ModuleHtmlAbstract
 {
-	use Trait_Tag;
+	use TraitTag;
 
 	protected $css = array('thumb');
 

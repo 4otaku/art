@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Comment_Form extends Module_Html_Abstract
+class ModuleHtmlCommentForm extends ModuleHtmlAbstract
 {
 	protected $css = ['comment'];
 	protected $js = ['external/wysibb', 'wysibb', 'comment'];

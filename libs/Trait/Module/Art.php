@@ -2,14 +2,14 @@
 
 namespace Otaku\Art;
 
-trait Trait_Module_Art
+trait TraitModuleArt
 {
 	private $query;
 
 	protected function preprocess_query(Query $query)
 	{
-		if (!($query instanceOf Query_Art)) {
-			$query = new Query_Art($query);
+		if (!($query instanceOf QueryArt)) {
+			$query = new QueryArt($query);
 		}
 
 		$this->query = $query;

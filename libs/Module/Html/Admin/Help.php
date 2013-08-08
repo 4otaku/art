@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Admin_Help extends Module_Html_Abstract
+class ModuleHtmlAdminHelp extends ModuleHtmlAbstract
 {
 	protected $js = ['external/wysibb', 'wysibb', 'form'];
 

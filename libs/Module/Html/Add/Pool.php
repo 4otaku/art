@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Html_Add_Pool extends Module_Html_Abstract
+abstract class ModuleHtmlAddPool extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art;
+	use TraitModuleArt;
 
 	protected $js = ['external/wysibb', 'wysibb', 'ajaxtip',
 		'addcommon', 'addpool'];
@@ -12,7 +12,7 @@ abstract class Module_Html_Add_Pool extends Module_Html_Abstract
 
 	protected function get_modules(Query $query)
 	{
-		return ['form' => new Module_Html_Add_Form($query)];
+		return ['form' => new ModuleHtmlAddForm($query)];
 	}
 
 	protected function get_params(Query $query)

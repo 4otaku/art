@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Paginator extends Module_Html_Art_Abstract
+class ModuleHtmlArtPaginator extends ModuleHtmlArtAbstract
 {
-	use Trait_Module_Paginator, Trait_Module_Art_List;
+	use TraitModulePaginator, TraitModuleArtList;
 
 	protected $css = array('paginator');
 	protected $have_next_page = false;

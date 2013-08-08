@@ -2,10 +2,10 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Add_Pack extends Module_Html_Add_Pool
+class ModuleHtmlAddPack extends ModuleHtmlAddPool
 {
 	protected function get_modules(Query $query)
 	{
-		return ['form' => new Module_Html_Add_Form($query)];
+		return ['form' => new ModuleHtmlAddForm($query)];
 	}
 }

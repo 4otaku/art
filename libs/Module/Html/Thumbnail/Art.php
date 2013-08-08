@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Thumbnail_Art extends Module_Html_Thumbnail_Abstract
+class ModuleHtmlThumbnailArt extends ModuleHtmlThumbnailAbstract
 {
-	use Trait_Tag;
+	use TraitTag;
 
 	protected function make_tooltip($data) {
 		$parts = array();

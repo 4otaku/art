@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Module_Ajax_Save_Help extends Module_Ajax_Json
+class ModuleAjaxSaveHelp extends ModuleAjaxJson
 {
 	protected function get_params(Query $query) {
 		if (Session::is_moderator()) {

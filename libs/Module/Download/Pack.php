@@ -2,12 +2,12 @@
 
 namespace Otaku\Art;
 
-class Module_Download_Pack extends Module_Download_Abstract
+class ModuleDownloadPack extends ModuleDownloadAbstract
 {
 	protected $header = ['Content-type' => 'application/zip'];
 
 	protected function request_item($id) {
-		return new Request_Item('art_pack', $this, ['id' => $id]);
+		return new RequestItem('art_pack', $this, ['id' => $id]);
 	}
 
 	public function recieve_data($data) {

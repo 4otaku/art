@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Sidebar_Tool extends Module_Html_Abstract
+class ModuleHtmlSidebarTool extends ModuleHtmlAbstract
 {
-	use Trait_Module_Art_List;
+	use TraitModuleArtList;
 
 	protected $css = ['sidebar', 'setting'];
 	protected $js = ['setting'];

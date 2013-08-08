@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_Title extends Module_Html_Art_Abstract
+class ModuleHtmlArtTitle extends ModuleHtmlArtAbstract
 {
-	use Trait_File;
+	use TraitFile;
 
 	protected $sort_variants = array(
 		'none' => 'без сортировки',
@@ -153,22 +153,22 @@ class Module_Html_Art_Title extends Module_Html_Art_Abstract
 	}
 
 	protected function word_group($data, $primary = false) {
-		$this->request = new Request_Item('art_group', $this, array('id' => $data));
+		$this->request = new RequestItem('art_group', $this, array('id' => $data));
 		return 'Группа ';
 	}
 
 	protected function word_pack($data, $primary = false) {
-		$this->request = new Request_Item('art_pack', $this, array('id' => $data));
+		$this->request = new RequestItem('art_pack', $this, array('id' => $data));
 		return 'CG-пак ';
 	}
 
 	protected function word_manga($data, $primary = false) {
-		$this->request = new Request_Item('art_manga', $this, array('id' => $data));
+		$this->request = new RequestItem('art_manga', $this, array('id' => $data));
 		return 'Манга ';
 	}
 
 	protected function word_artist($data, $primary = false) {
-		$this->request = new Request_Item('art_artist', $this, array('id' => $data));
+		$this->request = new RequestItem('art_artist', $this, array('id' => $data));
 		return 'Галерея ';
 	}
 

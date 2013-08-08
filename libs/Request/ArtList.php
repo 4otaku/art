@@ -2,7 +2,7 @@
 
 namespace Otaku\Art;
 
-class Request_Art_List extends Request_Read
+class RequestArtList extends RequestRead
 {
 	protected $stateful_api = true;
 	protected $default_approved_state = 'all';

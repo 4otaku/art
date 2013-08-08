@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-class Module_Html_Art_List extends Module_Html_Art_Abstract
+class ModuleHtmlArtList extends ModuleHtmlArtAbstract
 {
-	use Trait_Module_Art_List;
+	use TraitModuleArtList;
 
 	protected $css = ['list', 'sidebar'];
 	protected $js = ['list'];
@@ -13,17 +13,17 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 
 	protected function get_modules(Query $query) {
 		$return = array(
-			'title' => new Module_Html_Art_Title($query),
-			'search' => new Module_Html_Art_Search($query),
-			'error' => new Module_Html_Art_Error($query, true),
-			'list' => new Module_Container('html_thumbnail_' . $query->mode()),
-			'tags' => new Module_Html_Sidebar_Tag($query),
-			'tags_pool' => new Module_Html_Sidebar_Tag($query),
-			'editmenu' => new Module_Html_Sidebar_Editmenu($query),
-			'editfield' => new Module_Html_Art_Editfield($query),
-			'tools' => new Module_Html_Sidebar_Tool($query),
-			'recent_comments' => new Module_Html_Sidebar_Comment($query),
-			'paginator' => new Module_Html_Art_Paginator($query),
+			'title' => new ModuleHtmlArtTitle($query),
+			'search' => new ModuleHtmlArtSearch($query),
+			'error' => new ModuleHtmlArtError($query, true),
+			'list' => new ModuleContainer('html_thumbnail_' . $query->mode()),
+			'tags' => new ModuleHtmlSidebarTag($query),
+			'tags_pool' => new ModuleHtmlSidebarTag($query),
+			'editmenu' => new ModuleHtmlSidebarEditmenu($query),
+			'editfield' => new ModuleHtmlArtEditfield($query),
+			'tools' => new ModuleHtmlSidebarTool($query),
+			'recent_comments' => new ModuleHtmlSidebarComment($query),
+			'paginator' => new ModuleHtmlArtPaginator($query),
 		);
 
 		if ($query->is_pool_list()) {
@@ -44,7 +44,7 @@ class Module_Html_Art_List extends Module_Html_Art_Abstract
 	protected function make_request() {
 		$request = $this->get_common_request();
 		if ($this->pool_tag_request) {
-			$request->add(new Request_Item($this->pool_tag_request['api'], $this,
+			$request->add(new RequestItem($this->pool_tag_request['api'], $this,
 				['id' => $this->pool_tag_request['id'], 'add_tags' => 1],
 				'recieve_pool_tags'));
 		}

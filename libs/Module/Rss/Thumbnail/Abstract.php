@@ -2,9 +2,9 @@
 
 namespace Otaku\Art;
 
-abstract class Module_Rss_Thumbnail_Abstract extends Module_Abstract
+abstract class ModuleRssThumbnailAbstract extends ModuleAbstract
 {
-	use Trait_Output_Tpl;
+	use TraitOutputTpl;
 
 	public function recieve_data($data) {
 		$this->set_param('title', $this->get_title($data));
