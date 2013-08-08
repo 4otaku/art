@@ -1,10 +1,10 @@
 <?php
 
-namespace otaku\art;
 use Otaku\Framework\Config;
 use Otaku\Framework\Http;
 use Otaku\Framework\Session;
 use Otaku\Framework\Query;
+use Otaku\Art\ModuleMain;
 
 include_once 'framework/init.php';
 
@@ -40,7 +40,7 @@ unset ($_GET, $_POST);
 \RainTPL::configure('cache_dir', CACHE . SL . 'tpl' . SL);
 \RainTPL::configure('path_replace', false);
 
-$module = new Module_Main($query);
+$module = new ModuleMain($query);
 $request = $module->gather_request();
 
 $request->perform();

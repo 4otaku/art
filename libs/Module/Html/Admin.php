@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Session;
+use Otaku\Framework\Query;
+
 class ModuleHtmlAdmin extends ModuleHtmlAbstract
 {
 	protected $css = ['admin'];

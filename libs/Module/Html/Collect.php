@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+
 class ModuleHtmlCollect extends ModuleHtmlCollectAbstract
 {
 	protected $css = ['collect'];

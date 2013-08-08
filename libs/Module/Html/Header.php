@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\Database;
+use Otaku\Framework\Config;
+use Otaku\Framework\RequestRead;
+
 class ModuleHtmlHeader extends ModuleHtmlAbstract
 {
 	protected $css = array('base', 'header', 'overlay', 'setting');

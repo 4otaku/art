@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\RequestRead;
+use Otaku\Framework\Query;
+use Otaku\Framework\TraitOutputTpl;
+
 class ModuleAjaxArtList extends ModuleAbstract
 {
 	use TraitOutputTpl, TraitModuleArtList;

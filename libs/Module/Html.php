@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Database;
+use Otaku\Framework\Query;
+use Otaku\Framework\Config;
+
 class ModuleHtml extends ModuleHtmlAbstract
 {
 	protected $css = ['external/bootstrap', 'external/plugins'];

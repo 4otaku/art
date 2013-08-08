@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\TraitOutputTpl;
+use Otaku\Framework\RequestItem;
+use Otaku\Framework\Query;
+
 abstract class ModuleAjaxEditAbstract extends ModuleAbstract
 {
 	use TraitOutputTpl;

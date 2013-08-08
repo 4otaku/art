@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\RequestItem;
+use Otaku\Framework\Session;
+
 class ModuleHtmlSidebarEditmenu extends ModuleHtmlAbstract
 {
 	use TraitModuleArt;

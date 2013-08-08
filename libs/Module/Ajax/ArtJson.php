@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxApi;
+
 class ModuleAjaxArtJson extends ModuleAjaxApi
 {
 	use TraitModuleArtList;

@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\TraitOutputTpl;
+
 class ModuleRss extends ModuleAbstract
 {
 	use TraitOutputTpl, TraitModuleArtList;

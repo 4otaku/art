@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAbstract;
+use Otaku\Framework\ModuleAjax;
+use Otaku\Framework\ModuleDownload;
+use Otaku\Framework\Query;
+use Otaku\Framework\TraitOutputPlain;
+
 class ModuleMain extends ModuleAbstract
 {
 	use TraitOutputPlain;

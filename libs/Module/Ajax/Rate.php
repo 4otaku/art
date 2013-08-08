@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Query;
+use Otaku\Framework\RequestUpdate;
+
 class ModuleAjaxRate extends ModuleAjaxJson
 {
 	protected $id;

@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\RequestRead;
+use Otaku\Framework\Config;
+use Otaku\Framework\Text;
+
 class ModuleHtmlSidebarComment extends ModuleHtmlAbstract
 {
 	protected $css = ['sidebar'];

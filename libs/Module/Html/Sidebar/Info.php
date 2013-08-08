@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\TraitDate;
+use Otaku\Framework\TraitFile;
+use Otaku\Framework\Query;
+
 class ModuleHtmlSidebarInfo extends ModuleHtmlAbstract
 {
 	use TraitDate, TraitFile, TraitModuleArt;

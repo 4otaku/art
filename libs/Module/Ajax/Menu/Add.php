@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\TraitOutputTpl;
+use Otaku\Framework\Query;
+use Otaku\Framework\Session;
+use Otaku\Framework\Database;
+
 class ModuleAjaxMenuAdd extends ModuleAjaxJson
 {
 	protected function get_params(Query $query)

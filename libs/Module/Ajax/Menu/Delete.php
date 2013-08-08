@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Query;
+use Otaku\Framework\Database;
+
 class ModuleAjaxMenuDelete extends ModuleAjaxJson
 {
 	protected function get_params(Query $query)
