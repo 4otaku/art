@@ -3,6 +3,7 @@
 namespace Otaku\Art;
 
 use Otaku\Framework\Query;
+use Otaku\Framework\Config;
 
 class QueryArt extends Query
 {

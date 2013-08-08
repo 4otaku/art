@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+
 class ModuleHtmlSidebarTool extends ModuleHtmlAbstract
 {
 	use TraitModuleArtList;

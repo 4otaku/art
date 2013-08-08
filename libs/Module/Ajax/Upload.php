@@ -2,6 +2,13 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Config;
+use Otaku\Framework\Request;
+use Otaku\Api\ApiUploadArt;
+use Otaku\Api\ApiRequest;
+use Otaku\Api\ApiRequestInner;
+
 class ModuleAjaxUpload extends ModuleAjaxJson
 {
 	const

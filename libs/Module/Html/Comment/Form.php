@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\Config;
+
 class ModuleHtmlCommentForm extends ModuleHtmlAbstract
 {
 	protected $css = ['comment'];

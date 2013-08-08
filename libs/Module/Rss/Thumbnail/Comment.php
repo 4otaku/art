@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Text;
+
 class ModuleRssThumbnailComment extends ModuleRssThumbnailAbstract
 {
 	protected function get_title($data) {

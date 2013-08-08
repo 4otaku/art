@@ -6,6 +6,7 @@ use Otaku\Framework\ModuleHtmlAbstract;
 use Otaku\Framework\TraitDate;
 use Otaku\Framework\TraitFile;
 use Otaku\Framework\Query;
+use Otaku\Framework\Text;
 
 class ModuleHtmlSidebarInfo extends ModuleHtmlAbstract
 {

@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+
 class ModuleHtmlArtSearch extends ModuleHtmlArtAbstract
 {
 	protected $js = array('ajaxtip', 'search');

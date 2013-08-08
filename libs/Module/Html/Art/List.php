@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\Config;
+use Otaku\Framework\RequestItem;
+
 class ModuleHtmlArtList extends ModuleHtmlArtAbstract
 {
 	use TraitModuleArtList;

@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Config;
+use Otaku\Framework\Text;
+
 class ModuleHtmlArtImage extends ModuleHtmlArtAbstract
 {
 	use TraitTag;

@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\TraitNumber;
+
 class ModuleHtmlThumbnailTranslation extends ModuleHtmlThumbnailAbstract
 {
 	use TraitNumber;

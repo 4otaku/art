@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleDownloadAbstract;
+use Otaku\Framework\RequestItem;
+
 class ModuleDownloadPack extends ModuleDownloadAbstract
 {
 	protected $header = ['Content-type' => 'application/zip'];

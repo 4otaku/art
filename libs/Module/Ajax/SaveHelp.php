@@ -2,6 +2,11 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Query;
+use Otaku\Framework\Session;
+use Otaku\Framework\Database;
+
 class ModuleAjaxSaveHelp extends ModuleAjaxJson
 {
 	protected function get_params(Query $query) {

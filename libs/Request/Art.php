@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\RequestItem;
+
 class RequestArt extends RequestItem
 {
 	public function __construct($id, $object, $method = 'recieve_data') {

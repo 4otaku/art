@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\TraitNumber;
+use Otaku\Framework\Config;
+
 trait TraitTag
 {
 	use TraitNumber;

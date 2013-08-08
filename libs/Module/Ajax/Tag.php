@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Query;
+use Otaku\Framework\RequestRead;
+
 class ModuleAjaxTag extends ModuleAjaxJson
 {
 	protected $params = array();

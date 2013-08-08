@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+
 class ModuleHtmlArtItem extends ModuleHtmlArtAbstract
 {
 	protected $css = array('item', 'sidebar');

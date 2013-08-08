@@ -2,6 +2,9 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\RequestRead;
+use Otaku\Framework\Config;
+
 class RequestArtList extends RequestRead
 {
 	protected $stateful_api = true;

@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\TraitFile;
+use Otaku\Framework\TraitDate;
+use Otaku\Framework\RequestRead;
+
 class ModuleHtmlAdminSimilar extends ModuleHtmlAbstract
 {
 	use TraitFile, TraitDate;

@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\RequestItem;
+
 class ModuleAjaxEditApprove extends ModuleAjaxEditAbstract
 {
 	protected function make_request() {

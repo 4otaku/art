@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\Config;
+use Otaku\Framework\ModuleContainer;
+use Otaku\Framework\RequestRead;
+
 class ModuleHtmlCommentList extends ModuleHtmlAbstract
 {
 	protected $is_tree = true;

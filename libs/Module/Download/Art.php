@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleDownloadAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\RequestItem;
+
 class ModuleDownloadArt extends ModuleDownloadAbstract
 {
 	protected $manga = false;

@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+
 abstract class ModuleHtmlCollectAbstract extends ModuleHtmlArtAbstract
 {
 	protected $valid_types = ['parent', 'group', 'pack', 'manga', 'artist'];

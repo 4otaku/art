@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\Query;
+
 class ModuleHtmlArtError extends ModuleHtmlArtAbstract
 {
 	protected function get_params(Query $query) {

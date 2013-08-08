@@ -4,6 +4,8 @@ namespace Otaku\Art;
 
 use Otaku\Framework\ModuleAbstract;
 use Otaku\Framework\TraitOutputTpl;
+use Otaku\Framework\Query;
+use Otaku\Framework\ModuleContainer;
 
 class ModuleRss extends ModuleAbstract
 {

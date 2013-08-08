@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\TraitDate;
+use Otaku\Framework\Text;
+
 class ModuleHtmlCommentItem extends ModuleHtmlAbstract
 {
 	use TraitDate;

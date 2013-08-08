@@ -2,6 +2,8 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+
 class ModuleHtmlCommentPaginator extends ModuleHtmlAbstract
 {
 	use TraitModulePaginator, TraitModuleArt;

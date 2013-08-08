@@ -2,6 +2,10 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleHtmlAbstract;
+use Otaku\Framework\Query;
+use Otaku\Framework\RequestRead;
+
 class ModuleHtmlAddTemplate extends ModuleHtmlAbstract
 {
 	use TraitModuleArt;

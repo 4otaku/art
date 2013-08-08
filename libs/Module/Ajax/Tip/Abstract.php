@@ -2,6 +2,12 @@
 
 namespace Otaku\Art;
 
+use Otaku\Framework\ModuleAjaxJson;
+use Otaku\Framework\Query;
+use Otaku\Framework\Text;
+use Otaku\Framework\RequestRead;
+use Otaku\Framework\Config;
+
 abstract class ModuleAjaxTipAbstract extends ModuleAjaxJson
 {
 	protected $raw_term = false;
