@@ -19,7 +19,7 @@
 		</div>
 	{/if}
 	{loop="translation"}
-		<div id="translation_{$value.id}" class="art_translation{if="!Config::get('show', 'translation')"} hidden{/if}">
+		<div id="translation_{$value.id}" class="art_translation{if="!$config->get('show', 'translation')"} hidden{/if}">
 			<div class="handle"></div>
 			<div class="box" id="bb_{$value.id}_tr"
 			     style="min-width: {$value.width}px"

@@ -26,7 +26,7 @@
 						init('settings_overlay', {$value['id']}, {
 							section: 'plugins',
 							key: {$value['id']},
-							value: {function="Config::get('plugins', $value['id'], 0)"}
+							value: {function="$config->get('plugins', $value['id'], 0)"}
 						});
 					</script>
 				</td>

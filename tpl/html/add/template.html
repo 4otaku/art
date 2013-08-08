@@ -232,7 +232,7 @@
 				        title="Добавить комментарий оставленный автором изображения.">
 					<i class="icon-plus"></i> Комментарий автора
 				</button>
-				{if="Session::is_moderator()"}
+				{if="$session->is_moderator()"}
 				<button type="button" class="btn btn-small show_data"
 				        title="Сразу дать этому арту ваше одобрение модератора.">
 					<i class="icon-plus"></i> Одобрить

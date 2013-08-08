@@ -10,7 +10,7 @@
 						Плагины
 					</a>
 				</li>
-				{if="Config::get('user', 'login')"}
+				{if="$config->get('user', 'login')"}
 					<li class="right">
 						<a id="clickable_change_pass" class="link">
 							Сменить пароль
@@ -36,7 +36,7 @@
 			</ul>
 		</li>
 		<li class="header_menu_item">
-			{if="Session::is_moderator()"}
+			{if="$session->is_moderator()"}
 				<a href="/admin/" class="link">
 					Админка
 				</a>

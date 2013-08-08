@@ -1,6 +1,6 @@
 <div class="comment_thumbnail">
 	<div class="left image_thumbnail
-		{if="Config::get('art', 'largethumbs')"}large{else}small{/if}_thumbnail">
+		{if="$config->get('art', 'largethumbs')"}large{else}small{/if}_thumbnail">
 		{if="!$hidden"}
 			<a href="/{$id}/{if condition="$query"}?{$query}{/if}">
 				<img src="{$src}" />
@@ -42,7 +42,7 @@
 		Всего комментариев: {$comment_count}
 	</div>
 	<div id="bb_comment_{$id}" class="comment-text
-		comment_thumbnail_text{if="Config::get('art', 'largethumbs')"}_large{/if}"
+		comment_thumbnail_text{if="$config->get('art', 'largethumbs')"}_large{/if}"
 		>{$tip}</div>
 	<script type="text/javascript">
 		add('bb', 'comment_{$id}');

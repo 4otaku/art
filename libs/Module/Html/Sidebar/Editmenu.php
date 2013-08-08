@@ -27,7 +27,10 @@ class HtmlSidebarEditmenu extends HtmlAbstract
 			$this->id_art = $query->url(0);
 		} else {
 			if (!$query->get_pool_mode()) {
-				if (!$query->is_variation_list() || !Session::is_moderator()) {
+				if (
+					!$query->is_variation_list() ||
+					!Session::getInstance()->is_moderator()
+				) {
 					$this->disable();
 				} else {
 					$this->set_param('is_variation_list', true);
@@ -49,7 +52,7 @@ class HtmlSidebarEditmenu extends HtmlAbstract
 			}
 		}
 
-		$this->set_param('moderator', Session::is_moderator());
+		$this->set_param('moderator', Session::getInstance()->is_moderator());
 	}
 
 	protected function make_request()
@@ -69,7 +72,7 @@ class HtmlSidebarEditmenu extends HtmlAbstract
 		$this->set_param('is_author', $data['data']['is_author']);
 		if ($this->id_artist &&
 			!$data['data']['is_author'] &&
-			!Session::is_moderator()) {
+			!Session::getInstance()->is_moderator()) {
 
 			$this->disable();
 		}

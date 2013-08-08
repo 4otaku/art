@@ -2,7 +2,7 @@
 	{loop="data"}
 		<div id="admin_similar_{$value.first.id}_{$value.second.id}">
 			<div class="left">
-				<img src="{function="Config::get('api', 'image_url')"}art/{$value.first.md5}_thumb.jpg">
+				<img src="{function="$config->get('api', 'image_url')"}art/{$value.first.md5}_thumb.jpg">
 				<br />
 				Просмотреть:
 				<a href="/{$value.first.id}" target="_blank">
@@ -27,7 +27,7 @@
 				{/if}
 			</div>
 			<div class="right">
-				<img src="{function="Config::get('api', 'image_url')"}art/{$value.second.md5}_thumb.jpg">
+				<img src="{function="$config->get('api', 'image_url')"}art/{$value.second.md5}_thumb.jpg">
 				<br />
 				Просмотреть:
 				<a href="/{$value.second.id}" target="_blank">

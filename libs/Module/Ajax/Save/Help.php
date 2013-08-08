@@ -10,7 +10,7 @@ use Otaku\Framework\Database;
 class AjaxSaveHelp extends AjaxJson
 {
 	protected function get_params(Query $query) {
-		if (Session::is_moderator()) {
+		if (Session::getInstance()->is_moderator()) {
 			Database::replace('help', array(
 				'key' => 'add',
 				'text' => (string) $query->get('text')

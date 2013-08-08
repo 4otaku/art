@@ -29,7 +29,7 @@
 	{if condition="!empty($resized)"}
 		<div class="sidebar_row">
 			Полный размер:
-				<a href="{function="Config::get('api', 'image_url')"}art/{$md5}.{$ext}"
+				<a href="{function="$config->get('api', 'image_url')"}art/{$md5}.{$ext}"
 					id="fullsize_sidebar" onclick="return false;"
 				>{$width}px * {$height}px</a>.
 		</div>

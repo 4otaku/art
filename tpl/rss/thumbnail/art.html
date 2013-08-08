@@ -2,7 +2,7 @@
 	<title>{$title}</title>
 	<description><![CDATA[
 		<a href="{$link}">
-			<img src="{function="Config::get('api', 'image_url')"}art/{$md5}_thumb.jpg">
+			<img src="{function="$config->get('api', 'image_url')"}art/{$md5}_thumb.jpg">
 		</a>
 		<br />{$description}
 		]]></description>

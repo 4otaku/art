@@ -23,7 +23,7 @@
 
 			{$module_image}
 		</div>
-		{if condition="Config::get('art', 'resized') and $resized"}
+		{if condition="$config->get('art', 'resized') and $resized"}
 			<a href="#" class="enlarge_icon" id="fullsize_main"
 			   title="Изображение уменьшено. Кликните для просмотра полной версии.">
 				<img src="/images/enlarge.jpg" />
@@ -40,7 +40,7 @@
 </div>
 
 <script type="text/javascript">
-	{if condition="Config::get('art', 'resized') and $resized"}
+	{if condition="$config->get('art', 'resized') and $resized"}
 		add('fullsize', 'main');
 		add('fullsize', 'reduce', {reverse: true});
 	{/if}

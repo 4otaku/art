@@ -4,10 +4,10 @@
 		<span class="comment-datetime">
 			{$date}
 		</span>
-		{if condition="Session::is_moderator() or $is_author"}
+		{if condition="$session->is_moderator() or $is_author"}
 			<span class="right">
 				<img src="/images/comment_edit.png" class="comment-edit" />
-				{if condition="Session::is_moderator()"}
+				{if condition="$session->is_moderator()"}
 					<img src="/images/comment_delete.png" class="comment-delete" />
 				{/if}
 			</span>

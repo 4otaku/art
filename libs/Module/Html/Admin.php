@@ -13,7 +13,7 @@ class HtmlAdmin extends HtmlAbstract
 
 	protected function get_modules(Query $query)
 	{
-		if (!Session::is_moderator()) {
+		if (!Session::getInstance()->is_moderator()) {
 			return [];
 		}
 

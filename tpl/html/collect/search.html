@@ -61,7 +61,7 @@
 		}
 	});
 	add('art_list', 'main', {
-		base: '{function="Config::get('api', 'image_url')"}art/'
+		base: '{function="$config->get('api', 'image_url')"}art/'
 	});
 	add('art_paginator', 'main');
 </script>
