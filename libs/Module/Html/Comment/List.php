@@ -28,7 +28,8 @@ class HtmlCommentList extends HtmlAbstract
 
 	protected function get_modules(Query $query) {
 		return array(
-			'list' => new Container('html_comment_item'),
+			'list' => new Container(__NAMESPACE__ .
+				'\HtmlCommentItem'),
 			'paginator' => new HtmlCommentPaginator($query)
 		);
 	}

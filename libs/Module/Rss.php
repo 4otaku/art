@@ -17,7 +17,8 @@ class Rss extends Base
 	protected function get_modules(Query $query) {
 		return [
 			'title' => new HtmlArtTitle($query),
-			'list' => new Container('rss_thumbnail_' . $query->mode())
+			'list' => new Container(__NAMESPACE__ .
+				'\RssThumbnail' . ucfirst($query->mode()))
 		];
 	}
 

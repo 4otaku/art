@@ -16,7 +16,7 @@ class AjaxArtList extends Base
 	protected $data = array();
 
 	protected function get_modules(Query $query) {
-		return new Container('html_art_image');
+		return new Container(__NAMESPACE__ . '\HtmlArtImage');
 	}
 
 	protected function make_request() {
