@@ -30,9 +30,10 @@ abstract class AjaxTipAbstract extends AjaxJson
 
 	protected function get_request_name()
 	{
-		$class = strtolower(get_called_class());
-		$class = str_replace('module_ajax_', '', $class);
-		return 'art_' . $class;
+		$class = get_called_class();
+		$class = preg_replace('/^.*\\\\Ajax/', '', $class);
+		$class = preg_replace('/([a-z])([A-Z])/', '\1_\2', $class);
+		return 'art_' . strtolower($class);
 	}
 
 	protected function make_request()
