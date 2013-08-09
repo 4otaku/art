@@ -18,7 +18,7 @@ class HtmlArtImage extends HtmlArtAbstract
 			$this->is_filtered($data['tag'], true);
 
 		$url = Config::getInstance()->get('api', 'image_url');
-		$resized = Config::getInstance()->get('api', 'resized');
+		$resized = Config::getInstance()->get('art', 'resized');
 		$data['src_resized'] = $url . 'art/' . $data['md5'] . '_resize.jpg';
 		$data['src_full'] = $url . 'art/' . $data['md5'] . '.' . $data['ext'];
 		$data['src'] = ($data['resized'] && $resized) ?
