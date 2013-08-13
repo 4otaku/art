@@ -21,8 +21,8 @@
 }
 
 .sidebar_part img {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 200px !important;
+    max-height: 200px !important;
 }
 
 .sidebar_row .vote {
