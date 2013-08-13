@@ -20,6 +20,11 @@
 	word-wrap: break-word;
 }
 
+.sidebar_part img {
+    max-width: 200px;
+    max-height: 200px;
+}
+
 .sidebar_row .vote {
 	position: relative;
 	bottom: 1px;
