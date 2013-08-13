@@ -68,7 +68,7 @@ class AjaxUpload extends AjaxJson
 				$this->recieve_data($response);
 			}
 
-			return false;
+			return array();
 		}
 
 		// Hacked because of file send
