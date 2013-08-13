@@ -20,7 +20,7 @@ extend(OBJECT.admin_tag_hover, OBJECT.base, {
 		this.child.field.css('visibility', 'hidden');
 		this.el.addClass('loader').css('margin', 0).show();
 
-		Ajax.perform('update_tag_art', data, this.on_save, function(){
+		Ajax.api('update_tag_art', data, this.on_save, function(){
 			this.message('admin_tag_error', this.error_message);
 			this.on_save();
 		}, this);
