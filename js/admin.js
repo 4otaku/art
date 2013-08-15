@@ -237,6 +237,8 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 	child_config: {
 		first_main: '.first_main',
 		second_main: '.second_main',
+        delete_first: '.delete_first',
+        delete_second: '.delete_second',
 		mistake: '.mistake'
 	},
 	start_loading: function() {
@@ -257,18 +259,34 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 			this.stop_loading();
 		}, this);
 	},
+    delete_options: function() {
+        this.child.first_main.remove();
+        this.child.second_main.remove();
+        this.child.delete_first.remove();
+        this.child.delete_second.remove();
+    },
 	make_similar: function(main, variation) {
 		this.start_loading();
 		Ajax.api('update_art_variation', {
 			id: main, add: [{id: variation}]
 		}, function(){
-			this.child.first_main.remove();
-			this.child.second_main.remove();
+            this.delete_options();
 			this.delete_pair();
 		}, function(){
 			this.stop_loading();
 		}, this);
 	},
+    delete_art: function(id) {
+        this.start_loading();
+        Ajax.api('update_art_approve', {
+            id: id, state: 'state_deleted'
+        }, function(){
+            this.delete_options();
+            this.delete_pair();
+        }, function(){
+            this.stop_loading();
+        }, this);
+    },
 	events: {
 		first_main: {
 			click: function() {
@@ -280,6 +298,16 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 				this.make_similar(this.id_second, this.id_first);
 			}
 		},
+        delete_first: {
+            click: function() {
+                this.delete_art(this.id_first);
+            }
+        },
+        delete_second: {
+            click: function() {
+                this.delete_art(this.id_second);
+            }
+        },
 		mistake: {
 			click: function() {
 				this.start_loading();
