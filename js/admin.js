@@ -248,7 +248,7 @@ extend(OBJECT.admin_similar, OBJECT.base, {
 		this.el.removeClass('loader');
 	},
 	delete_pair: function() {
-		Ajax.perform('delete_art_similar', {
+		Ajax.api('delete_art_similar', {
 			id_first: this.id_first,
 			id_second: this.id_second
 		}, function(){
