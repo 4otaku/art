@@ -68,6 +68,7 @@ class HtmlArtItem extends HtmlArtAbstract
 	}
 
 	protected function recieve_error($is_critical, $errors) {
+        $this->set_param('resized', 0);
 		$this->modules['editmenu']->disable();
 		$this->modules['editfield']->disable();
 		$this->modules['image']->disable();
