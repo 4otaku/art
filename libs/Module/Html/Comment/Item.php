@@ -21,7 +21,6 @@ class HtmlCommentItem extends HtmlAbstract
 
 		$data['uid'] = md5(rand());
 
-
 		$data['text'] = new Text($data['text']);
 		$data['text']->trim()->links2bb();
 
