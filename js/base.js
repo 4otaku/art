@@ -389,7 +389,7 @@ extend(OBJECT.bb, OBJECT.base, {
 	class_name: 'bb',
 	original: '',
 	translate: function(text) {
-		text = text.replace(/\[size=\d{4,}\]/ig, '[size=1000]');
+		text = text.replace(/\[size=(\d{4,}|[5-9]\d{2,})\]/ig, '[size=500]');
 		return this.get_worker().parseHTML(text);
 	},
 	get_original: function() {
