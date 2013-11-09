@@ -405,6 +405,7 @@ extend(OBJECT.edit_translation, OBJECT.base, {
 	},
 	listen: {
 		edit_cancel: function(){
+			this.display_state(0);
 			this.set_mode('view');
 		},
 		edit_save: function(){
