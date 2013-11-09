@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name       4otaku.org MassTag
-// @version    0.5
+// @version    0.51
 // @match      http://art.4otaku.org/*
 // @copyright  2013+, Nameless
 // ==/UserScript==
 
 $(function(){
-	var version = 0.5;
+	var version = 0.51;
 
 	if (!document.location.pathname.match(/^\/*$/)) {
 		return;
@@ -14,6 +14,15 @@ $(function(){
 	if (document.location.search.match(/(\?|&)mode=(?!art(?!ist))/)) {
 		return;
 	}
+
+	var replace_tags = {
+		translated: 'translation_request',
+		annotated: 'annotation_request',
+		commentary: 'commentary_request',
+		partially_translated: false
+	};
+
+	var delete_tags = ['partially_translated'];
 
 	var	sidebar = $('.sidebar').first(),
 		insert_to = sidebar.find('.sidebar_part').first(),
@@ -166,7 +175,16 @@ $(function(){
 		}
 
 		fetch_worker(function(result){
-			add = add.concat(result || []);
+			var res = [];
+			$.each(result, function(index, tag) {
+				if (delete_tags[tag]) {
+					return;
+				}
+
+				res.push(replace_tags[tag] ? replace_tags[tag] : tag);
+			});
+
+			add = add.concat(res || []);
 			add = $.grep(add, function(el, index) {
 				return index == $.inArray(el, add);
 			});
