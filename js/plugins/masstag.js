@@ -175,19 +175,9 @@ $(function(){
 		}
 
 		fetch_worker(function(result){
-			var res = [];
-			$.each(result, function(index, tag) {
-				if (delete_tags[tag]) {
-					return;
-				}
-
-				res.push(replace_tags[tag] ? replace_tags[tag] : tag);
-			});
-
-			add = add.concat(res || []);
-			add = $.grep(add, function(el, index) {
-				return index == $.inArray(el, add);
-			});
+			if (result) {
+				add = apply_fetch_result(add, result);
+			}
 			state_worker(function(){
 				tag_worker(function(){
 					read_image(function(title){
@@ -203,6 +193,22 @@ $(function(){
 	};
 	var dummy = function(callback) {
 		callback.call(this);
+	};
+	var apply_fetch_result = function(add, result) {
+		var res = [];
+		$.each(result, function(index, tag) {
+			if (delete_tags[tag]) {
+				return;
+			}
+
+			res.push(replace_tags[tag] ? replace_tags[tag] : tag);
+		});
+
+		add = add.concat(res || []);
+		add = $.grep(add, function(el, index) {
+			return index == $.inArray(el, add);
+		});
+		return add;
 	};
 	var process_tag = function(callback, id, add, del) {
 		Ajax.api('update_art_tag', {id: id, add: add, remove: del}, function(){
