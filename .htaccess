@@ -4,6 +4,8 @@ AddDefaultCharset UTF-8
 	RewriteBase /
 
 	RewriteRule .*\.ini$ /boot.php [NE,L]
+	RewriteCond %{REQUEST_URI} ^/hash.*
+	RewriteRule ^(.*)$ ./boot.php [L]
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !api/

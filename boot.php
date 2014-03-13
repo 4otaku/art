@@ -1,5 +1,7 @@
 <?php
 
+include_once 'static.php';
+
 use Otaku\Framework\Config;
 use Otaku\Framework\Http;
 use Otaku\Framework\Session;

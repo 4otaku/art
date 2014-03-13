@@ -6,7 +6,7 @@ class RssThumbnailArt extends RssThumbnailAbstract
 {
 	public function recieve_data($data) {
 		parent::recieve_data($data);
-		$this->set_param('md5', $data['md5']);
+		$this->set_param('date', date('D, d M Y H:i:s O', strtotime($data['sortdate'])));
 	}
 
 	protected function get_title($data) {
