@@ -54,26 +54,23 @@
 	</ul>
 
 	<ul class="main_menu">
+        <li class="header_menu_item">
+            <a href="http://4otaku.org" class="link">
+                Основной сайт
+            </a>
+        </li>
 		{loop="$menu"}
-			<li class="header_menu_item">
-				<a href="{$value['url']}" class="link">
-					{$value['name']}
-				</a>
-				{if="$value['items']"}
-					<ul>
-						{loop="$value['items']"}
-							<li>
-								<a href="{$value['url']}" class="link">
-									{$value['name']}
-								</a>
-							</li>
-							{if="$value['separator']"}
-								<li class="separator"></li>
-							{/if}
-						{/loop}
-					</ul>
-				{/if}
-			</li>
+            {if="$value['name']=='Арт'"}
+                {loop="$value['items']"}
+                    {if="!Config::getInstance()->get('safe', 'mode') || !strpos('approved', $value['url'])"}
+                        <li class="header_menu_item">
+                            <a href="{$value['url']}" class="link">
+                                {$value['name']}
+                            </a>
+                        </li>
+                    {/if}
+                {/loop}
+            {/if}
 		{/loop}
 		<li class="header_menu_item header_private_item">
 			<span>Личное</span>
