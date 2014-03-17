@@ -105,6 +105,14 @@
 		</li>
 	</ul>
 </div>
+{if="$config->get('safe', 'mode') && !$config->get('safe', 'removewarning')"}
+    <div id="warning" class="clearfix">
+        Вы не залогинились на <a href="http://4otaku.org">основном сайте</a>. Чтобы пользоваться полным функционалом раздела, пожалуйста залогиньтесь.
+        <a id="clickable_remove_warning">
+            Скрыть сообщение.
+        </a>
+    </div>
+{/if}
 <script type="text/javascript">
 	add('header', 'main');
 	add('clickable', 'settings', function() {
@@ -132,4 +140,12 @@
 	add('clickable', 'add_menu', function() {
 		Overlay.tpl('add_menu');
 	});
+    add('clickable', 'remove_warning', function() {
+        $('#warning').remove();
+        Ajax.get('/ajax/setting', {
+            section: 'safe',
+            key: 'removewarning',
+            value: 1
+        });
+    });
 </script>
