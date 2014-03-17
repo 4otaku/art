@@ -147,24 +147,42 @@ class RequestArtList extends RequestRead
 		}
 		unset($data['parsed']);
 
-		if (!$no_state && $this->stateful_api) {
-			$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
-				$this->default_approved_state : $data['approved'];
-			$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
-				$this->default_tagged_state : $data['tagged'];
-			foreach ($this->approved_filters[$approved] as $type => $value) {
+		if (!$no_state) {
+			if (Config::getInstance()->get('safe', 'mode')) {
 				$data['filter'][] = array(
 					'name' => 'state',
-					'type' => $type,
-					'value' => $value
+					'type' => 'is',
+					'value' => 'approved'
 				);
-			}
-			foreach ($this->tagged_filters[$tagged] as $type => $value) {
 				$data['filter'][] = array(
 					'name' => 'state',
-					'type' => $type,
-					'value' => $value
+					'type' => 'is',
+					'value' => 'tagged'
 				);
+				$data['filter'][] = array(
+					'name' => $this->filter_types['tag'],
+					'type' => 'not',
+					'value' => 'nsfw'
+				);
+			} elseif ($this->stateful_api) {
+				$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
+					$this->default_approved_state : $data['approved'];
+				$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
+					$this->default_tagged_state : $data['tagged'];
+				foreach ($this->approved_filters[$approved] as $type => $value) {
+					$data['filter'][] = array(
+						'name' => 'state',
+						'type' => $type,
+						'value' => $value
+					);
+				}
+				foreach ($this->tagged_filters[$tagged] as $type => $value) {
+					$data['filter'][] = array(
+						'name' => 'state',
+						'type' => $type,
+						'value' => $value
+					);
+				}
 			}
 		}
 

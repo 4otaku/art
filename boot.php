@@ -25,6 +25,7 @@ mb_internal_encoding('UTF-8');
 $config = Config::getInstance();
 $config->parse(CONFIG . SL . 'define.ini', true);
 $config->parse(CONFIG . SL . 'settings.ini');
+$config->add(['safe' => ['mode' => $safeMode]], true);
 
 $domain = $config->get('site', 'domain');
 if ($domain && $domain != $_SERVER['SERVER_NAME']) {
