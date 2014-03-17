@@ -62,7 +62,7 @@
 		{loop="$menu"}
             {if="$value['name']=='Арт'"}
                 {loop="$value['items']"}
-                    {if="!Config::getInstance()->get('safe', 'mode') || !strpos('approved', $value['url'])"}
+                    {if="!$config->get('safe', 'mode') || (!strpos($value['url'], 'approved') && !strpos($value['url'], 'pack'))"}
                         <li class="header_menu_item">
                             <a href="{$value['url']}" class="link">
                                 {$value['name']}
