@@ -147,7 +147,7 @@ class RequestArtList extends RequestRead
 		}
 		unset($data['parsed']);
 
-		if (!$no_state) {
+		if ($this->stateful_api) {
 			if (Config::getInstance()->get('safe', 'mode')) {
 				$data['filter'][] = array(
 					'name' => 'state',
@@ -164,7 +164,7 @@ class RequestArtList extends RequestRead
 					'type' => 'not',
 					'value' => 'nsfw'
 				);
-			} elseif ($this->stateful_api) {
+			} elseif (!$no_state) {
 				$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
 					$this->default_approved_state : $data['approved'];
 				$tagged = empty($data['tagged']) || !isset($this->tagged_filters[$data['tagged']]) ?
