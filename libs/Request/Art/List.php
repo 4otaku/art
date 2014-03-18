@@ -164,6 +164,11 @@ class RequestArtList extends RequestRead
 					'type' => 'not',
 					'value' => 'nsfw'
 				);
+				$data['filter'][] = array(
+					'name' => $this->filter_types['tag'],
+					'type' => 'not',
+					'value' => 'loli'
+				);
 			} elseif (!$no_state) {
 				$approved = empty($data['approved']) || !isset($this->approved_filters[$data['approved']]) ?
 					$this->default_approved_state : $data['approved'];
