@@ -9,6 +9,7 @@
 				<img src="/images/comment_edit.png" class="comment-edit" />
 				{if condition="$session->is_moderator()"}
 					<img src="/images/comment_delete.png" class="comment-delete" />
+					<span class="comment-delete-all">!<img src="/images/comment_delete.png" />!</span>
 				{/if}
 			</span>
 		{/if}

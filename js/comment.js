@@ -22,6 +22,7 @@ extend(OBJECT.comment, OBJECT.base, {
 	preload_order: 1,
 	child_config: {
 		del: '.comment-delete',
+		delall: '.comment-delete-all',
 		edit: '.comment-edit',
 		error: '.error',
 		bottom: '.comment-bottom',
@@ -83,6 +84,27 @@ extend(OBJECT.comment, OBJECT.base, {
 				}
 			}
 		},
+                delall: {
+                        click: function() {
+                                if (confirm('Вы уверены что хотите удалить все комментарии этого пользователя?')) {
+                                        this.el.children().hide();
+                                        this.el.addClass('loader').show();
+                                        Ajax.api('delete_comment_all', {
+                                                id: this.id_comment
+                                        }, function(data) {
+						alert('Удалено ' + data.deleted + ' комментариев из ' + data.total);
+                                                document.location.reload();
+                                        }, function(data) {
+                                                Overlay.html('<h2>' +
+                                                        Ajax.translate_error(data.errors[0]) +
+                                                '</h2>');
+                                                this.el.removeClass('loader');
+                                                this.el.children().show();
+                                        }, this);
+                                }
+                        }
+                },
+
 		edit: {
 			click: function() {
 				Overlay.ajax('/ajax/comment_edit?id=' + this.id_comment);

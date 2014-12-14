@@ -98,6 +98,7 @@ class HtmlCommentList extends HtmlAbstract
 		$comments = array();
 		foreach ($data['data'] as $item) {
 			$item['label'] = array($current);
+			$item['text'] = strip_tags($item['text']);
 			$current = $current + $step;
 
 			if (isset($item['tree'])) {

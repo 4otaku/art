@@ -50,8 +50,13 @@
 	padding-top: 7px;
 }
 
-.comment-edit {
+.comment-edit, .comment-delete {
 	margin-right: 15px;
+}
+
+.comment-delete-all {
+	font-weight: bold;
+	color: red;
 }
 
 .comment-content {

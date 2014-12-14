@@ -23,7 +23,7 @@ class HtmlSidebarComment extends HtmlAbstract
 		$data = $data['data'];
 		foreach ($data as &$comment){
 			$comment['username'] = $comment['comment'][0]['username'];
-			$comment['text'] = new Text($comment['comment'][0]['text']);
+			$comment['text'] = new Text(strip_tags($comment['comment'][0]['text']));
 			$comment['text']->format()->cut_long(100);
 		}
 		$this->set_param('data', $data);
