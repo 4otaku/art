@@ -241,10 +241,16 @@ $(function(){
 				if (!text.match(/(9\d%|100) similarity/)) {
 					return;
 				}
-				var title = $(this).find('td.image img').attr('title');
+                                var img = $(this).find('td.image img');
+				var title = img.attr('title');
 				if (!title) {
 					return;
 				}
+
+                                // sankaku currently looks broken
+                                if (img.attr('src').match(/^\/sankaku\//)) {
+					return;
+                                }
 
 				if (title.match(/Rating:\s+e/)) {
 					tags.push('nsfw');
@@ -273,16 +279,22 @@ $(function(){
 		var url = 'http://danbooru.donmai.us/posts.json?tags=md5:'+md5+'&limit=1';
 		$.get(url, function(data){
 			var tags = [],
-				source = null;
+			    source = null;
 
 			var html = $(data.responseText);
 			if (!html.length) {
 				Overlay.html('<h2>Danbooru не отвечает</h2>');
 			} else {
-				var info = JSON.parse(html.filter('p').html());
+				var info = JSON.parse(html[0].data);
 				if (info.length) {
 					tags = info[0].tag_string.split(' ');
+					if (info[0].rating != "s") {
+						tags.push('nsfw');
+                                        }
 					source = info[0].source;
+					if (info[0].pixiv_id) {
+						source = 'http://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + info[0].pixiv_id;
+                                        }
 				}
 			}
 
