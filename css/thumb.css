@@ -41,6 +41,11 @@
 
 .small_thumbnail img {
 	padding: 5px;
+	max-width: 160px !important;
+}
+
+.large_thumbnail img {
+	max-width: 260px !important;
 }
 
 .thumbnail_chosen_cover img {
