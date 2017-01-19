@@ -7,15 +7,8 @@
 .enlarge_icon, .reduce_icon {
 	position: absolute;
 	top: 0;
-	display: none;
-}
-
-.enlarge_icon {
-	right: 0;
-}
-
-.reduce_icon {
 	left: 0;
+	display: none;
 }
 
 .navigate {
@@ -23,7 +16,7 @@
 	top: 0;
 	bottom: 0;
 	background-repeat:  no-repeat;
-	width: 24px;
+	width: 40px;
 	opacity: 0.5;
 }
 
@@ -33,14 +26,12 @@
 
 .navigate_left {
 	left: 10px;
-	background-image: url(../images/arrow_left.gif);
-	background-position: right center;
+	background: url(../images/arrow_left.gif) center center;
 }
 
 .navigate_right {
 	right: 10px;
-	background-image: url(../images/arrow_right.gif);
-	background-position: left center;
+	background: url(../images/arrow_right.gif) center center;
 }
 
 .reloadable {
