@@ -26,12 +26,12 @@
 
 .navigate_left {
 	left: 10px;
-	background: url(../images/arrow_left.gif) center center;
+	background: url(../images/arrow_left.gif) no-repeat center center;
 }
 
 .navigate_right {
 	right: 10px;
-	background: url(../images/arrow_right.gif) center center;
+	background: url(../images/arrow_right.gif) no-repeat center center;
 }
 
 .reloadable {
