@@ -14,7 +14,8 @@ class HtmlThumbnailComment extends HtmlThumbnailAbstract
 		foreach ($data['comment'] as $comment) {
 			$username = $comment['username'];
 			$text = new Text($comment['text']);
-			$return[] = $comment['sortdate'] . ', ' .
+			$date = date_create_from_format('Y-m-d H:i:s', $comment['sortdate'])->format('d.m.Y H:i');
+			$return[] = $date . ', ' .
 				'[b]' . $username . "[/b]:\n " .
 				$text->trim()->links2bb();
 		}
