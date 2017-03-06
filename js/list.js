@@ -14,7 +14,7 @@ extend(OBJECT.list, OBJECT.base, {
 			data.push({key: $(this).index(),
 				id: $(this).attr('id').replace(/[^\d]/gi, '')});
 		});
-		data.sort(function(a, b){ return a.key > b.key; });
+		data.sort(function(a, b){ return a.key > b.key ? 1 : (a.key < b.key ? -1 : 0); });
 		for (var i in data) {
 			data[i] = data[i].id;
 		}
