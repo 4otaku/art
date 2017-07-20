@@ -32,15 +32,17 @@ class HtmlAdminTag extends HtmlAbstract
 		if ($query->get('strict')) {
 			$this->strict = true;
 		}
-		if ($query->get('namesort')) {
-			$this->sort = 'name';
+
+		$sort = $query->get('sort');
+		if ($sort && in_array($sort, ['id', 'name', 'count'])) {
+			$this->sort = $sort;
 		}
 		if ($query->get('reverse')) {
 			$this->order = 'asc';
 		}
 		$this->set_param('filter', $this->filter);
 		$this->set_param('strict', $this->strict);
-		$this->set_param('namesort', (bool) $query->get('namesort'));
+		$this->set_param('sort', $this->sort);
 		$this->set_param('reverse', (bool) $query->get('reverse'));
 		$this->set_param('colors', $this->color);
 	}

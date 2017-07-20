@@ -8,18 +8,28 @@
 	</button>
 	<span>
 		<div class="admin-tag-filter-options">
-			<span class="admin-tag-filter-option">
+			<label class="admin-tag-filter-option">
 				<input type="checkbox" {if="$strict"}checked="checked"{/if} name="strict" />
 				Строгий поиск
-			</span>
-			<span class="admin-tag-filter-option">
-				<input type="checkbox" {if="$namesort"}checked="checked"{/if} name="namesort" />
-				Сортировать по имени
-			</span>
-			<span class="admin-tag-filter-option">
+			</label>
+
+			<span class="admin-tag-filter-option">Сортировать:</span>
+			<label class="admin-tag-filter-option">
+				<input type="radio" {if="$sort == 'id'"}checked="checked"{/if} name="sort" value="id" />
+				в порядке добавления
+			</label>
+			<label class="admin-tag-filter-option">
+				<input type="radio" {if="$sort == 'name'"}checked="checked"{/if} name="sort" value="name" />
+				по имени
+			</label>
+			<label class="admin-tag-filter-option">
+				<input type="radio" {if="$sort == 'count'"}checked="checked"{/if} name="sort" value="count" />
+				по кол-ву артов
+			</label>
+			<label class="admin-tag-filter-option">
 				<input type="checkbox" {if="$reverse"}checked="checked"{/if} name="reverse" />
 				В обратном порядке
-			</span>
+			</label>
 		</div>
 	</span>
 </form>
