@@ -275,41 +275,45 @@ $(function(){
 			callback.call(this, tags);
 		});
 	};
-	var danbooru_fetch = function(callback, md5, id) {
-		var url = 'http://danbooru.donmai.us/posts.json?tags=md5:'+md5+'&limit=1';
-		$.get(url, function(data){
+	var danbooru_fetch = function (callback, md5, id) {
+		var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20tag_string_general,rating,source,pixiv_id%20from%20json%20where%20url%20%3D%20"http%3A%2F%2Fdanbooru.donmai.us%2Fposts.json%3Ftags%3Dmd5%3A' + md5 + '"&format=json&callback=';
+		$.getJSON(url, function (data) {
 			var tags = [],
-			    source = null;
+				source = null;
 
-			var html = $(data.responseText);
-			if (!html.length) {
-				Overlay.html('<h2>Danbooru не отвечает</h2>');
-			} else {
-				var info = JSON.parse(html[0].data);
-				if (info.length) {
-					tags = info[0].tag_string.split(' ');
-					if (info[0].rating != "s") {
+			if (data) {
+				if (data.query.count) {
+					var json = data.query.results.json;
+					tags = json.tag_string_general.split(' ');
+					if (json.rating !== "s") {
 						tags.push('nsfw');
-                                        }
-					source = info[0].source;
-					if (info[0].pixiv_id) {
-						source = 'http://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + info[0].pixiv_id;
-                                        }
+					}
+					source = json.source;
+					if (json.pixiv_id) {
+						source = 'http://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + json.pixiv_id;
+					}
+				}
+				else {
+					Overlay.html('<h2>Не найден такой арт: http://danbooru.donmai.us/posts/?tags=md5:'+md5+'</h2>');
 				}
 			}
+			else {
+				Overlay.html('<h2>Danbooru не отвечает</h2>');
+			}
 
-			if (source == null) {
+			if (source === null) {
 				callback.call(this, tags);
-			} else {
-				Ajax.api('read_art', {id: id}, function(data){
+			}
+			else {
+				Ajax.api('read_art', {id: id}, function (data) {
 					if (data.data[0].source) {
 						callback.call(this, tags);
 						return;
 					}
 
-					Ajax.api('update_art_source', {id: id, source: source}, function(){
+					Ajax.api('update_art_source', {id: id, source: source}, function () {
 						callback.call(this, tags);
-					}, function(){
+					}, function () {
 						callback.call(this, tags);
 					});
 				});
