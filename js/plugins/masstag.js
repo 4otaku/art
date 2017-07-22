@@ -226,31 +226,31 @@ $(function(){
 			callback.call(this);
 		});
 	};
-	var iqdb_fetch = function(callback, md5) {
-		var url = 'http://www.iqdb.org/?url=http://images.4otaku.org/art/' +
-			md5 + '_thumb.jpg';
-		$.get(url, function(data){
-			var tags = [];
-			var html = $(data.responseText);
+	var iqdb_fetch = function (callback, md5) {
+		var url = 'https://crossorigin.me/http://www.iqdb.org/?url=http://images.4otaku.org/art/' + md5 + '_thumb.jpg';
+		$.get(url, function (data, textStatus) {
+			var tags = [],
+				html = $(data)
+			;
 			if (!html.length) {
-				Overlay.html('<h2>IQDB не отвечает</h2>');
+				Overlay.html('<h2>IQDB не отвечает ('+ textStatus +')</h2>');
 			}
 
-			html.filter('#pages').find('table').each(function(){
-				var text = $(this).find('tr').last().html();
+			html.filter('#pages').find('table').each(function () {
+				var text = $(this).find('tr').last().text();
 				if (!text.match(/(9\d%|100) similarity/)) {
 					return;
 				}
-                                var img = $(this).find('td.image img');
+				var img = $(this).find('td.image img');
 				var title = img.attr('title');
 				if (!title) {
 					return;
 				}
 
-                                // sankaku currently looks broken
-                                if (img.attr('src').match(/^\/sankaku\//)) {
+				// sankaku currently looks broken
+				if (img.attr('src').match(/^\/sankaku\//)) {
 					return;
-                                }
+				}
 
 				if (title.match(/Rating:\s+e/)) {
 					tags.push('nsfw');
@@ -262,10 +262,11 @@ $(function(){
 				}
 				if (data[1].match(/,/)) {
 					data = data[1].split(',');
-				} else {
+				}
+				else {
 					data = data[1].split(' ');
 				}
-				$.each(data, function(key, item) {
+				$.each(data, function (key, item) {
 					item = item.replace(/^\s+/, '');
 					item = item.replace(/\s+$/, '');
 					item = item.replace(/\s/, '_');
