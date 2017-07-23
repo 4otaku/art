@@ -75,8 +75,7 @@ class HtmlArtList extends HtmlArtAbstract
 		$pos = ($this->get_query()->page() - 1) * $this->get_query()->per_page();
 		foreach ($data as &$item) {
 			$pos++;
-			$item['query'] = implode('&',
-				array_merge(array('pos=' . $pos), $query));
+			$item['query'] = http_build_query(array_merge($query, ['pos' => $pos]));
 		}
 		unset($item);
 

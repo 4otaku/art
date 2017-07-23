@@ -23,9 +23,7 @@ class HtmlAdminPaginator extends HtmlAbstract
 		$this->base_url = '/' . implode('/', $query->url()) . '?';
 		$get = $query->get();
 		unset($get['page']);
-		foreach ($get as $key => $value) {
-			$this->base_url .= $key . '=' . $value . '&';
-		}
+		$this->base_url .= http_build_query($get);
 	}
 
 	protected function get_page()

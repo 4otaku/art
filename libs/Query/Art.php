@@ -188,7 +188,7 @@ class QueryArt extends Query
 					default: break;
 				}
 				foreach ($items as $item) {
-					$parts[] = $negated . $key . '[]=' . $sign . $item;
+					$parts[$negated . $key][] = $sign . $item;
 				}
 			}
 		}
@@ -199,14 +199,14 @@ class QueryArt extends Query
 			unset($params['per_page']);
 		}
 		foreach ($params as $key => $param) {
-			$parts[] = $key . '=' . $param;
+			$parts[$key] = $param;
 		}
 
 		return $parts;
 	}
 
 	public function to_url_string() {
-		return implode('&', $this->to_url_array());
+		return http_build_query($this->to_url_array());
 	}
 
 	public function all() {
