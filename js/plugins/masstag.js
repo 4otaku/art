@@ -291,11 +291,11 @@ $(function(){
 					}
 					source = json.source;
 					if (json.pixiv_id) {
-						source = 'http://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + json.pixiv_id;
+						source = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + json.pixiv_id;
 					}
 				}
 				else {
-					Overlay.html('<h2>Не найден такой арт: http://danbooru.donmai.us/posts/?tags=md5:'+md5+'</h2>');
+					Overlay.html('<h2>Не найден такой арт: https://danbooru.donmai.us/posts/?tags=md5:'+md5+'</h2>');
 				}
 			}
 			else {
