@@ -196,6 +196,7 @@ $(function(){
 		images.off('click.masstag');
 		localStorage.removeItem('masstag');
 	};
+	var read_image_callback;
 	var process = function(e) {
 		e.preventDefault();
 
@@ -224,20 +225,20 @@ $(function(){
 		} else if (fetch === 'danbooru') {
 			fetch_worker = danbooru_fetch;
 		}
-
+		read_image_callback = function(title){
+			if (title) {
+				link.attr('title', title);
+			}
+			image.css('top', '0px');
+			image.attr('src', src);
+		};
 		fetch_worker(function(result){
 			if (result) {
 				add = apply_fetch_result(add, result);
 			}
 			state_worker(function(){
 				tag_worker(function(){
-					read_image(function(title){
-						if (title) {
-							link.attr('title', title);
-						}
-						image.css('top', '0px');
-						image.attr('src', src);
-					}, id);
+					read_image(read_image_callback, id);
 				}, id, add, del);
 			}, id, state);
 		}, md5, id);
@@ -332,13 +333,15 @@ $(function(){
 			'slack',
 			{user_id: 'MASSTAG', user_name: Config.get('user', 'login'), text: 'пачи теги данбору ' + id},
 			function (data) {
-				Overlay.html('<h2>'+data.text+'</h2>');
+				Overlay.html('<h2>'+ (data.text ? data.text : 'Успех!')+'</h2>');
 			},
 			function (data) {
 				Overlay.html('<h2>Danbooru не отвечает</h2>');
 			}
 		);
-
+		if (typeof read_image_callback === "function") {
+			read_image(read_image_callback, id);
+		}
 		callback.call(this, false);
 	};
 	var read_image = function(callback, id) {
