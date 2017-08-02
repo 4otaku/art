@@ -333,7 +333,9 @@ $(function(){
 			'slack',
 			{user_id: 'MASSTAG', user_name: Config.get('user', 'login'), text: 'пачи теги данбору ' + id},
 			function (data) {
-				Overlay.html('<h2>'+ (data.text ? data.text : 'Успех!')+'</h2>');
+				if (data.text) {
+					Overlay.html('<h2>'+ data.text +'</h2>');
+				}
 
 				if (typeof read_image_callback === "function") {
 					read_image(read_image_callback, id);
