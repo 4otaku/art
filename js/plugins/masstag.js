@@ -110,7 +110,7 @@ $(function(){
 		'Отправить в барахолку': 'disapproved'
 	}, function(key, value) {
 		var option = $('<option/>', {
-			value: value,
+			val: value,
 			text: key
 		});
 		state_select.append(option);
@@ -139,7 +139,7 @@ $(function(){
 	}, function(key, value) {
 		fetch_select.append($('<option/>', {
 			text: key,
-			value: value
+			val: value
 		}));
 	});
 	var fetch = $('<div/>')
