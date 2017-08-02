@@ -53,7 +53,7 @@ Overlay = {
 				loadSpeed: 200,
 				opacity: 0.5
 			},
-			closeOnClick: false,
+			closeOnClick: true,
 			load: true,
 			onBeforeClose: $.proxy(function() {
 				if (this.need_reload) {
@@ -164,7 +164,7 @@ Overlay = {
 		loading: '<img src="/images/loading_overlay.gif" />' +
 			'<span class="overlay_content"></span>'
 	}
-}
+};
 
 Overlay.templates.register = '<h2>Форма регистрации</h2>' +
 '<div><table class="login_input_table" id="form_register">' +

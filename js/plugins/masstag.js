@@ -44,34 +44,64 @@ $(function(){
 	};
 
 	// Создаем объект масстега
-	var masstag = $('<div/>').addClass('masstag');
+	var masstag = $('<div/>', {
+		class: 'masstag'
+	});
 	masstag.hide().insertAfter(sidebar);
 
-	var cancel = $('<div/>').addClass('cancel').click(function(e){
-		e.preventDefault();
-		hide_masstag();
+	var cancel = $('<div/>', {
+		class: 'cancel',
+		click: function(e){
+			e.preventDefault();
+			hide_masstag();
+		}
 	});
 	masstag.append(cancel);
 
-	var add_field = $('<textarea/>').addClass('field').addClass('autogrow-short')
-		.change(save_state);
-	var add_tips = $('<div/>').addClass('tips_container')
-		.append($('<div/>').addClass('tips'));
-	var add_label = $('<span/>').html('Добавить теги: ').addClass('name');
-	var add = $('<div/>').append(add_label).append(add_field).append(add_tips)
-		.attr('id', 'masstag_tip_add');
+	var add_field = $('<textarea/>', {
+		class: 'field autogrow-short',
+		change: save_state
+	});
+	var add_tips = $('<div/>', {
+		class: 'tips_container',
+		html: '<div class="tips"></div>'
+	});
+	var add_label = $('<span/>', {
+		class: 'name',
+		text: 'Добавить теги: '
+	});
+	var add = $('<div/>')
+		.attr('id', 'masstag_tip_add')
+		.append(add_label)
+		.append(add_field)
+		.append(add_tips)
+	;
 	masstag.append(add);
 
-	var del_field = $('<textarea/>').addClass('field').addClass('autogrow-short')
-		.change(save_state);
-	var del_tips = $('<div/>').addClass('tips_container')
-		.append($('<div/>').addClass('tips'));
-	var del_label = $('<span/>').html('Удалить теги: ').addClass('name');
-	var del = $('<div/>').append(del_label).append(del_field).append(del_tips)
-		.attr('id', 'masstag_tip_del');
+	var del_field = $('<textarea/>', {
+		class: 'field autogrow-short',
+		change: save_state
+	});
+	var del_tips = $('<div/>', {
+		class: 'tips_container',
+		html: '<div class="tips"></div>'
+	});
+	var del_label = $('<span/>', {
+		class: 'name',
+		text: 'Удалить теги: '
+	});
+	var del = $('<div/>')
+		.attr('id', 'masstag_tip_del')
+		.append(del_label)
+		.append(del_field)
+		.append(del_tips)
+	;
 	masstag.append(del);
 
-	var state_select = $('<select/>').addClass('field').change(save_state);
+	var state_select = $('<select/>', {
+		class: 'field',
+		change: save_state
+	});
 	var state_label = $('<span/>').html('Одобрение: ').addClass('name');
 	$.each({
 		'Не изменять': null,
@@ -79,33 +109,54 @@ $(function(){
 		'Отправить на премодерацию': 'unapproved',
 		'Отправить в барахолку': 'disapproved'
 	}, function(key, value) {
-		var option = $('<option/>').val(value).html(key);
+		var option = $('<option/>', {
+			value: value,
+			text: key
+		});
 		state_select.append(option);
 	});
-	var state = $('<div/>').append(state_label).append(state_select);
+
 	if (is_moderator) {
+		var state = $('<div/>')
+			.append(state_label)
+			.append(state_select)
+		;
 		masstag.append(state);
 	}
 
-	var fetch_select = $('<select/>').addClass('field').change(save_state);
-	var fetch_label = $('<span/>').html('Взять теги с: ').addClass('name');
+	var fetch_select = $('<select/>', {
+		class: 'field',
+		change: save_state
+	});
+	var fetch_label = $('<span/>', {
+		class: 'name',
+		text: 'Взять теги с: '
+	});
 	$.each({
 		' ': null,
 		'Danbooru': 'danbooru',
-		'Iqdb': 'iqdb'
+		'Iqdb (нет цветных тегов: автор, произведение, персонаж)': 'iqdb'
 	}, function(key, value) {
-		var option = $('<option/>').val(value).html(key);
-		fetch_select.append(option);
+		fetch_select.append($('<option/>', {
+			text: key,
+			value: value
+		}));
 	});
-	var fetch = $('<div/>').append(fetch_label).append(fetch_select);
+	var fetch = $('<div/>')
+		.append(fetch_label)
+		.append(fetch_select)
+	;
 	masstag.append(fetch);
 
 	// добавляем линк в сайдбар
-	var link = $('<a/>').html('MassTag 9001').attr('href', '#')
-		.click(function(e){
+	var link = $('<a/>', {
+		text: 'MassTag 9001',
+		href: '#',
+		click: function(e){
 			e.preventDefault();
 			show_masstag();
-		});
+		}
+	});
 	var wrapper = $('<div/>').addClass('sidebar_row').append(link);
 	insert_to.append(wrapper);
 
@@ -168,9 +219,9 @@ $(function(){
 			process_tag : dummy;
 		var state_worker = state ? process_state : dummy;
 		var fetch_worker = dummy;
-		if (fetch == 'iqdb') {
+		if (fetch === 'iqdb') {
 			fetch_worker = iqdb_fetch;
-		} else if (fetch == 'danbooru') {
+		} else if (fetch === 'danbooru') {
 			fetch_worker = danbooru_fetch;
 		}
 
@@ -206,7 +257,7 @@ $(function(){
 
 		add = add.concat(res || []);
 		add = $.grep(add, function(el, index) {
-			return index == $.inArray(el, add);
+			return index === $.inArray(el, add);
 		});
 		return add;
 	};
@@ -277,49 +328,18 @@ $(function(){
 		});
 	};
 	var danbooru_fetch = function (callback, md5, id) {
-		var url = 'https://query.yahooapis.com/v1/public/yql?q=select%20tag_string_general,rating,source,pixiv_id%20from%20json%20where%20url%20%3D%20"http%3A%2F%2Fdanbooru.donmai.us%2Fposts.json%3Ftags%3Dmd5%3A' + md5 + '"&format=json&callback=';
-		$.getJSON(url, function (data) {
-			var tags = [],
-				source = null;
-
-			if (data) {
-				if (data.query.count) {
-					var json = data.query.results.json;
-					tags = json.tag_string_general.split(' ');
-					if (json.rating !== "s") {
-						tags.push('nsfw');
-					}
-					source = json.source;
-					if (json.pixiv_id) {
-						source = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=' + json.pixiv_id;
-					}
-				}
-				else {
-					Overlay.html('<h2>Не найден такой арт: https://danbooru.donmai.us/posts/?tags=md5:'+md5+'</h2>');
-				}
-			}
-			else {
+		Ajax.api(
+			'slack',
+			{user_id: 'MASSTAG', user_name: Config.get('user', 'login'), text: 'пачи теги данбору ' + id},
+			function (data) {
+				Overlay.html('<h2>'+data.text+'</h2>');
+			},
+			function (data) {
 				Overlay.html('<h2>Danbooru не отвечает</h2>');
 			}
+		);
 
-			if (source === null) {
-				callback.call(this, tags);
-			}
-			else {
-				Ajax.api('read_art', {id: id}, function (data) {
-					if (data.data[0].source) {
-						callback.call(this, tags);
-						return;
-					}
-
-					Ajax.api('update_art_source', {id: id, source: source}, function () {
-						callback.call(this, tags);
-					}, function () {
-						callback.call(this, tags);
-					});
-				});
-			}
-		});
+		callback.call(this, false);
 	};
 	var read_image = function(callback, id) {
 		Ajax.api('read_art', {id: id, add_tags: 1}, function(data){
@@ -342,7 +362,7 @@ $(function(){
 	try {
 		var saved = JSON.parse(localStorage.getItem('masstag'));
 		var prev_key = localStorage.getItem('masstag_key');
-		if (saved && prev_key && prev_key == save_key) {
+		if (saved && prev_key && prev_key === save_key) {
 			show_masstag(saved);
 		}
 	} catch (e) {}
