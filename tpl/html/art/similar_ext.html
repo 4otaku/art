@@ -1,0 +1,13 @@
+{if="$similar_ext"}
+<div class="images similar-ext">
+    {loop="similar_ext"}
+    <div class="image_thumbnail small_thumbnail">
+        {if="$value.id == $id"}
+        <img src="{$value.src_thumb}" />
+        {else}
+        <a href="/{$value.id}?{$query}"><img src="{$value.src_thumb}" /></a>
+        {/if}
+    </div>
+    {/loop}
+</div>
+{/if}
