@@ -22,7 +22,7 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 		var current = this.get_terms(),
 			prepend = '';
 		$.each(tags, $.proxy(function(key, tag){
-			if (current.indexOf(tag) == -1) {
+			if (current.indexOf(tag) === -1) {
 				prepend += tag + ' ';
 			}
 		}, this));
@@ -30,7 +30,7 @@ extend(OBJECT.add_tags, OBJECT.ajax_tip, {
 		if (prepend) {
 			var val = this.child.field.val();
 			var pos = this.child.field.caret().start || 0;
-			this.child.field.val(val.substr(0, 1) + prepend + val.substr(1));
+			this.child.field.val(prepend + val);
 			if (this.child.field.is(':focus')) {
 				this.child.field.caretTo(pos + prepend.length);
 			}
