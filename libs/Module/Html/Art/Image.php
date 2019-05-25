@@ -3,6 +3,7 @@
 namespace Otaku\Art\Module;
 
 use Otaku\Framework\Config;
+use Otaku\Framework\Query;
 use Otaku\Framework\Text;
 use Otaku\Art\TraitTag;
 
@@ -12,7 +13,11 @@ class HtmlArtImage extends HtmlArtAbstract
 
 	protected $js = ['external/wysibb', 'wysibb', 'image', 'translation',
 		'list'];
-	protected $css = ['thumb'];
+	protected $css = ['thumb', 'similar_ext'];
+
+	protected function get_params(Query $query) {
+		$this->set_param('query', $query->to_url_string());
+	}
 
 	public function recieve_data($data) {
 		$data['hidden'] = empty($data['tag']) ? false :
@@ -33,7 +38,7 @@ class HtmlArtImage extends HtmlArtAbstract
 			}
 		}
 		else {
-			unset($data['similar_ext']);
+			$data['similar_ext'] = [];
 		}
 
 		foreach ($data['translation'] as &$translation) {
