@@ -111,7 +111,7 @@ extend(OBJECT.image_warning, OBJECT.base, {
 	class_name: 'image_warning',
 	child_config: {
 		container: '.hidden',
-		image: '.hidden img',
+		image: '.hidden > :not(.similar-ext) > img, .hidden > img',
 		display: '.display',
 		edit: '.edit'
 	},
