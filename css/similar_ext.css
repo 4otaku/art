@@ -1,0 +1,13 @@
+.similar-ext img.current {
+	background: #DDDDDD;
+}
+
+.similar-ext img:hover {
+	background: #DDDDDD;
+}
+
+.similar-ext .small_thumbnail {
+	max-width: 160px;
+	max-height: 160px;
+	width: auto;
+}

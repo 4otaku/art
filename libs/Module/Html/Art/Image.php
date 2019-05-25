@@ -3,6 +3,7 @@
 namespace Otaku\Art\Module;
 
 use Otaku\Framework\Config;
+use Otaku\Framework\Query;
 use Otaku\Framework\Text;
 use Otaku\Art\TraitTag;
 
@@ -12,6 +13,11 @@ class HtmlArtImage extends HtmlArtAbstract
 
 	protected $js = ['external/wysibb', 'wysibb', 'image', 'translation',
 		'list'];
+	protected $css = ['thumb', 'similar_ext'];
+
+	protected function get_params(Query $query) {
+		$this->set_param('query', $query->to_url_string());
+	}
 
 	public function recieve_data($data) {
 		$data['hidden'] = empty($data['tag']) ? false :
@@ -25,6 +31,15 @@ class HtmlArtImage extends HtmlArtAbstract
 		$data['src'] = ($data['resized'] && $resized) ?
 			$data['src_resized'] : $data['src_full'];
 		$data['resized'] = (int) ($data['resized'] && $resized);
+
+		if (!empty($data['similar_ext']) && count($data['similar_ext']) > 1) {
+			foreach ($data['similar_ext'] as $k => $item) {
+				$data['similar_ext'][$k]['src_thumb'] = $url . 'art/' . $item['md5'] . '_thumb.jpg';
+			}
+		}
+		else {
+			$data['similar_ext'] = [];
+		}
 
 		foreach ($data['translation'] as &$translation) {
 			$translation['id'] = $translation['id_translation'];
